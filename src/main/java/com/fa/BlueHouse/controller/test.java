@@ -9,9 +9,4 @@ public class test {
 	public String testHome() {
 		return "test";
 	}
-
-	@GetMapping("/bluehouse")
-    public String bluehouse() {
-        return "update1";
-    }
 }
