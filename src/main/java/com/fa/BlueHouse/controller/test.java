@@ -12,6 +12,6 @@ public class test {
 
 	@GetMapping("/bluehouse")
     public String bluehouse() {
-        return "update";
+        return "update1";
     }
 }
