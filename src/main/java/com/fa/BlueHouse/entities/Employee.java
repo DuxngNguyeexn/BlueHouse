@@ -187,8 +187,4 @@ public class Employee {
 		this.under = under;
 	}
 
-	public Employee() {
-		super();
-	}
-
 }

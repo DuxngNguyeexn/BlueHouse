@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+
 @Entity
 public class Resident {
 	@Id
@@ -121,10 +122,6 @@ public class Resident {
 		this.phonenumber = phonenumber;
 		this.workplace = workplace;
 		IdentificationCard = identificationCard;
-	}
-
-	public Resident() {
-		super();
 	}
 
 	@Override
