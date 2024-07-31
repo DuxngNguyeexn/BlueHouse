@@ -1,56 +1,79 @@
 package com.fa.BlueHouse.entities;
 
-import jakarta.persistence.Column;
+import java.util.List;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
-@Table(name = "TAI_SAN")
 public class Assets {
 	@EmbeddedId
 	IdAssets id;
-	@Column(name = "TEN_TAI_SAN")
-	String nameAsset;
+	String name;
 	
-	@Column(name = "SO_LUONG")
 	int quantityOfAssets;
-	@Column(name = "GIA_TIEN")
 	long priceOfAssets;
 	
+	@ManyToOne
+	Employee employ;
 	
+	@OneToMany(mappedBy = "asset")	
+	List<Schedules> schedules ;
 	public Assets() {
 		super();
 	}
-
-	public Assets( String nameAsset, int quantityOfAssets, long priceOfAssets) {
+	
+	
+	public Assets(IdAssets id, String name, int quantityOfAssets, long priceOfAssets, Employee employ,
+			List<Schedules> schedules) {
 		super();
-		this.nameAsset = nameAsset;
+		this.id = id;
+		this.name = name;
 		this.quantityOfAssets = quantityOfAssets;
 		this.priceOfAssets = priceOfAssets;
-	}
-	public String getNameAsset() {
-		return nameAsset;
-	}
-
-	public void setNameAsset(String nameAsset) {
-		this.nameAsset = nameAsset;
+		this.employ = employ;
+		this.schedules = schedules;
 	}
 
+
+	public IdAssets getId() {
+		return id;
+	}
+	public void setId(IdAssets id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getQuantityOfAssets() {
 		return quantityOfAssets;
 	}
-
 	public void setQuantityOfAssets(int quantityOfAssets) {
 		this.quantityOfAssets = quantityOfAssets;
 	}
-
 	public long getPriceOfAssets() {
 		return priceOfAssets;
 	}
-
 	public void setPriceOfAssets(long priceOfAssets) {
 		this.priceOfAssets = priceOfAssets;
 	}
+	public Employee getEmploy() {
+		return employ;
+	}
+	public void setEmploy(Employee employ) {
+		this.employ = employ;
+	}
+	public List<Schedules> getSchedules() {
+		return schedules;
+	}
+	public void setSchedules(List<Schedules> schedules) {
+		this.schedules = schedules;
+	}
+
 	
 }

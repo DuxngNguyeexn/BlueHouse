@@ -3,7 +3,6 @@ package com.fa.BlueHouse.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
@@ -13,9 +12,7 @@ public class IdAssets implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Column(name = "ID_TAI_SAN")
 	String idAsset;
-	@Column(name = "VI_TRI")
 	String location;
 	
 	
