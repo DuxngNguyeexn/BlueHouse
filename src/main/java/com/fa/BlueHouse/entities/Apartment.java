@@ -38,7 +38,7 @@ public class Apartment {
 	@Column(name = "TYPE_APARTMENT")
 	private String Type_apartment;
 
-	@OneToMany(mappedBy = "apartment")
+	@OneToMany(mappedBy = "idApartment")
 	List<Resident> listCuDan;
 
 	@OneToMany(mappedBy = "apartment_VE")

@@ -1,8 +1,11 @@
 package com.fa.BlueHouse.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class FeeType {
@@ -14,6 +17,8 @@ public class FeeType {
 	@Column(name = "Price")
 	private float price;
 
+	@OneToMany(mappedBy = "Fee_type_code")
+	List<Vehicle_Registration> vehicle_RegistrationsFEE;
 	public String getIdFeetype() {
 		return idFeetype;
 	}
