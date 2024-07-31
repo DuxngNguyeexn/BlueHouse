@@ -1,13 +1,17 @@
 package com.fa.BlueHouse.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
 public class FeeType {
 	@Id
+	@Column(name = "ID_FeeType")
 	private String idFeetype;
+	@Column(name = "Name_FeeType")
 	private String nameFeetype;
+	@Column(name = "Price")
 	private float price;
 
 	public String getIdFeetype() {

@@ -1,16 +1,21 @@
 package com.fa.BlueHouse.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Administrators {
 	@Id
+	@Column(name = "ID_BQT")
 	private String idBQT;
 	@ManyToOne
+	@JoinColumn(name = "ID_Resident")
 	private Resident idResident;
 	@ManyToOne
+	@JoinColumn(name = "ID_Position")
 	private Position idPosition;
 
 	public String getIdBQT() {

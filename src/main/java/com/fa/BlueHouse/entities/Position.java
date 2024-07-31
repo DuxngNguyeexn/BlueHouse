@@ -1,13 +1,17 @@
 package com.fa.BlueHouse.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
 public class Position {
 	@Id
+	@Column(name = "ID_Position")
 	private String idPosition;
+	@Column(name = "Name_Position")
 	private String namePosition;
+	@Column(name = "Prorogue")
 	private String prorogue;
 
 	public String getIdPosition() {

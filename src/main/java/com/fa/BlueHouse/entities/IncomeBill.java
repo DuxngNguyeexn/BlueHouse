@@ -5,21 +5,30 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class IncomeBill {
 	@Id
+	@Column(name = "ID_IncomeBill")
 	private String idIncomeBill;
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "ID_Apartment")
 	private Apartment idApartment;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "Bill_Date")
 	private LocalDate billDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "Paymen_Date")
 	private LocalDate paymentDate;
+	@Column(name = "Status")
 	private String status;
+	@Column(name = "Total")
 	private float total;
 	@OneToMany(mappedBy = "idIncomeBill")
 	private List<IncomeBillDetail> listdetail;

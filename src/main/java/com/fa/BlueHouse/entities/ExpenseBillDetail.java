@@ -1,17 +1,24 @@
 package com.fa.BlueHouse.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ExpenseBillDetail {
 	@Id
+	@Column(name = "ID_ExpenseDetail")
 	private String idexpenDetail;
 	@ManyToOne
+	@JoinColumn(name = "ID_ExpenseBill")
 	private ExpenseBill idExpenseBill;
+	@Column(name = "Name_Expense")
 	private String nameExpense;
+	@Column(name = "Quantity")
 	private float quantity;
+	@Column(name = "Price")
 	private float price;
 	public ExpenseBillDetail() {
 		super();
