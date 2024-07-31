@@ -18,7 +18,7 @@ public class Vehicle_Registration {
 
 	@ManyToOne
 	@JoinColumn(name = "Fee_type_code")
-	private Fee_Type Fee_type_code;
+	private FeeType Fee_type_code;
 
 	private LocalDate Registration_date;
 
@@ -34,7 +34,7 @@ public class Vehicle_Registration {
 		super();
 	}
 
-	public Vehicle_Registration(String iD_Vehicle, Fee_Type fee_type_code, LocalDate registration_date,
+	public Vehicle_Registration(String iD_Vehicle, FeeType fee_type_code, LocalDate registration_date,
 			LocalDate expiration_date, String vehicle_number, Apartment apartment_VE) {
 		super();
 		ID_Vehicle = iD_Vehicle;
@@ -53,11 +53,11 @@ public class Vehicle_Registration {
 		ID_Vehicle = iD_Vehicle;
 	}
 
-	public Fee_Type getFee_type_code() {
+	public FeeType getFee_type_code() {
 		return Fee_type_code;
 	}
 
-	public void setFee_type_code(Fee_Type fee_type_code) {
+	public void setFee_type_code(FeeType fee_type_code) {
 		Fee_type_code = fee_type_code;
 	}
 
