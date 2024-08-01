@@ -5,6 +5,8 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -21,6 +23,26 @@ public class FeeType {
 	List<Vehicle_Registration> vehicle_RegistrationsFEE;
 	public String getIdFeetype() {
 		return idFeetype;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "ID_Apartment_Fee")
+	private Apartment ID_Apartment_Fee;
+	
+	public List<Vehicle_Registration> getVehicle_RegistrationsFEE() {
+		return vehicle_RegistrationsFEE;
+	}
+
+	public void setVehicle_RegistrationsFEE(List<Vehicle_Registration> vehicle_RegistrationsFEE) {
+		this.vehicle_RegistrationsFEE = vehicle_RegistrationsFEE;
+	}
+
+	public Apartment getID_Apartment_Fee() {
+		return ID_Apartment_Fee;
+	}
+
+	public void setID_Apartment_Fee(Apartment iD_Apartment_Fee) {
+		ID_Apartment_Fee = iD_Apartment_Fee;
 	}
 
 	public void setIdFeetype(String idFeetype) {

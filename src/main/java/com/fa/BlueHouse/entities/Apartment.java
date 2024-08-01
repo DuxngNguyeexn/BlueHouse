@@ -39,6 +39,7 @@ public class Apartment {
 	private String Type_apartment;
 
 	@OneToMany(mappedBy = "idApartment")
+
 	List<Resident> listCuDan;
 
 	@OneToMany(mappedBy = "apartment_VE")
@@ -50,8 +51,20 @@ public class Apartment {
 	@OneToMany(mappedBy = "apartment_HIS")
 	List<History_Customer_Vehicle> listHistory_Customer;
 
+	@OneToMany(mappedBy = "ID_Apartment_Fee")
+	List<FeeType> list_Fee;
+	
 	@OneToMany(mappedBy = "apartment_transfer")
 	List<Apartment_Transfer_History> listapartment_Histories;
+
+	
+	public List<FeeType> getList_Fee() {
+		return list_Fee;
+	}
+
+	public void setList_Fee(List<FeeType> list_Fee) {
+		this.list_Fee = list_Fee;
+	}
 
 	public List<History_Customer_Vehicle> getListHistory_Customer() {
 		return listHistory_Customer;

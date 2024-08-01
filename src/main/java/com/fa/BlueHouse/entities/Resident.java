@@ -16,6 +16,7 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Resident {
 	@Id
+
 	@Column(name = "ID_Resident")
 	private String idResident;
 	@Column(name = "Name_Resident")
