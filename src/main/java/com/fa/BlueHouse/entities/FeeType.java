@@ -19,30 +19,31 @@ public class FeeType {
 	@Column(name = "Price")
 	private float price;
 
-	@OneToMany(mappedBy = "Fee_type_code")
-	List<Vehicle_Registration> vehicle_RegistrationsFEE;
+	@OneToMany(mappedBy = "feeTypeCode")
+	List<VehicleRegistration> vehicleRegistrationsFEE;
+
 	public String getIdFeetype() {
 		return idFeetype;
 	}
 
 	@ManyToOne
 	@JoinColumn(name = "ID_Apartment_Fee")
-	private Apartment ID_Apartment_Fee;
-	
-	public List<Vehicle_Registration> getVehicle_RegistrationsFEE() {
-		return vehicle_RegistrationsFEE;
+	private Apartment idApartmentFee;
+
+	public List<VehicleRegistration> getVehicleRegistrationsFEE() {
+		return vehicleRegistrationsFEE;
 	}
 
-	public void setVehicle_RegistrationsFEE(List<Vehicle_Registration> vehicle_RegistrationsFEE) {
-		this.vehicle_RegistrationsFEE = vehicle_RegistrationsFEE;
+	public void setVehicleRegistrationsFEE(List<VehicleRegistration> vehicleRegistrationsFEE) {
+		this.vehicleRegistrationsFEE = vehicleRegistrationsFEE;
 	}
 
-	public Apartment getID_Apartment_Fee() {
-		return ID_Apartment_Fee;
+	public Apartment getIdApartmentFee() {
+		return idApartmentFee;
 	}
 
-	public void setID_Apartment_Fee(Apartment iD_Apartment_Fee) {
-		ID_Apartment_Fee = iD_Apartment_Fee;
+	public void setIdApartmentFee(Apartment idApartmentFee) {
+		this.idApartmentFee = idApartmentFee;
 	}
 
 	public void setIdFeetype(String idFeetype) {
