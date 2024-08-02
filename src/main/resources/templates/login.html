@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -34,7 +34,7 @@
             margin-left: 10px;
         }
     </style>
-    <script src="../static/js/jquery-3.7.1.min.js"></script>
+    <script src="../js/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
@@ -54,13 +54,14 @@
                 <div class="form-group mt-3">
                     <label for="username" class="h5 font-weight-bold">Tên tài khoản</label>
                     <input type="text" class="form-control" id="username" placeholder="Nhập tên tài khoản của bạn">
+                     <div class="h6 mess-error ml-1 mt-1 text-danger d-none" id="errorName">Vui lòng nhập tên tài khoản</div>
                 </div>
                 <div class="form-group mt-3">
                     <label for="password" class="h5 d-flex justify-content-between"> <span class="font-weight-bold">Mật
                             khẩu</span> <span><a href="#">Quên mật khẩu</a></span></label>
                     <div class="input-group "> <input type="password" class="form-control border-right-0" id="password"
                             placeholder="Nhập mật khẩu của bạn">
-                        <span class="input-group-text border-left-0 bg-white" id="basic-addon1"
+                        <span class="input-group-text border-left-0 bg-white" id="eyePass"
                             style="border-radius: 0 .25rem .25rem 0 ;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-eye" viewBox="0 0 16 16" id="eye" onclick="showPass()">
@@ -81,13 +82,14 @@
                             </svg>
                         </span>
                     </div>
+                     <div class="h6 mess-error ml-1 mt-1 text-danger d-none " id="errorPass">Vui lòng nhập mật khẩu</div>
                     <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-primary w-100"> <span class="h5">Đăng nhập</span></button>
+                        <button type="button" class="btn btn-primary w-100" onclick="check()"> <span class="h5">Đăng nhập</span></button>
                     </div>
                     <div class="line-container justify-content-center">Hoặc đăng ký</div>
                     <div class="form-group">
 
-                        <div class="text-center"> Bạn chưa có tài khoản? <a href="#"> Đăng ký tại đây !</a> </div>
+                        <div class="text-center"> Bạn chưa có tài khoản? <a href="/signUp"> Đăng ký tại đây !</a> </div>
                     </div>
 
 
@@ -95,7 +97,7 @@
             </form>
         </div>
     </div>
-    <script src="../static/js/login.js"></script>
+    <script src="../js/login.js"></script>
 </body>
 
 </html>
