@@ -1,0 +1,45 @@
+body {
+  padding: 0 !important;
+}
+header,
+footer {
+  background: rgb(207, 226, 255);
+}
+
+.Icon {
+  display: flex !important;
+  justify-content: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: default;
+}
+
+.bell {
+  font-size: larger;
+  cursor: pointer;
+}
+
+.bell:hover {
+  transition: 0.5s;
+  color: royalblue;
+}
+
+header ul li a {
+  color: black;
+}
+
+footer ul li {
+  list-style: none;
+}
+
+footer ul li p {
+  cursor: default;
+}
+
+footer a {
+  text-decoration: unset;
+  color: inherit;
+}
+footer a:hover {
+  text-decoration: unset;
+}

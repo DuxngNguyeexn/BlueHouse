@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <link rel="stylesheet" href="/lib/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/common/css/common.css">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/lib/css/bootstrap.min.css">
 </head>
 
 <body>
-    <div class="container-fluid bg-primary">
-        <div class="h5 text-red">Blue house EXE</div>
-    </div>
+	<div layout:fragment="content">
+		<div class="container-fluid bg-primary">
+			<div class="h5 text-red">Blue house EXE</div>
+		</div>
+	</div>
 </body>
 
 </html>
