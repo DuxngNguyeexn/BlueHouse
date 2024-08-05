@@ -1,6 +1,5 @@
 package com.fa.BlueHouse.entities;
 
-import java.time.LocalDate;
 import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,9 +22,6 @@ public class Apartment {
 	@Column(name = "FLOOR")
 	private String floor;
 
-	@Column(name = "PRICE_MONTH")
-	private LocalDate priceMonth;
-
 	@Column(name = "NUMBER_OF_ROOMS")
 	private String numberOfRooms;
 
@@ -39,7 +35,6 @@ public class Apartment {
 	private String typeApartment;
 
 	@OneToMany(mappedBy = "idApartment")
-
 	List<Resident> listCuDan;
 
 	@OneToMany(mappedBy = "apartmentVE")
@@ -61,14 +56,13 @@ public class Apartment {
 		super();
 	}
 
-	public Apartment(String idApartment, String idHomeowner, String floor, LocalDate priceMonth, String numberOfRooms,
-			double area, String apartmentNumber, String typeApartment, List<VehicleRegistration> vehicleRegistrations,
+	public Apartment(String idApartment, String idHomeowner, String floor, String numberOfRooms, double area,
+			String apartmentNumber, String typeApartment, List<VehicleRegistration> vehicleRegistrations,
 			RentalSpaceContract ren) {
 		super();
 		this.idApartment = idApartment;
 		this.idHomeowner = idHomeowner;
 		this.floor = floor;
-		this.priceMonth = priceMonth;
 		this.numberOfRooms = numberOfRooms;
 		this.area = area;
 		this.apartmentNumber = apartmentNumber;
@@ -139,14 +133,6 @@ public class Apartment {
 
 	public void setFloor(String floor) {
 		this.floor = floor;
-	}
-
-	public LocalDate getPriceMonth() {
-		return priceMonth;
-	}
-
-	public void setPriceMonth(LocalDate priceMonth) {
-		this.priceMonth = priceMonth;
 	}
 
 	public String getNumberOfRooms() {

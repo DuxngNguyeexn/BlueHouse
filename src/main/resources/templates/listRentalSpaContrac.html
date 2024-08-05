@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../lib/css/bootstrap.min.css">
+<link rel="stylesheet" href="../fontawesome-free-6.5.2-web/css/all.min.css">
+</head>
+<body>
+<h1>List Rental Space Contract</h1>
+	<nav class="navbar navbar-light bg-light">
+		<div class="container-fluid">
+			<form class="d-flex"
+				action=""
+				method="GET">
+				<input class="form-control me-2" type="search" name="search"
+					placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+		</div>
+		</nav>
+<table class="table ">
+		<thead class="table-dark">
+			<tr>
+				<th scope="col">contractCode</th>
+				<th scope="col">tenantCode</th>
+				<th scope="col">duration</th>
+				<th scope="col">moveInDate</th>
+				<th scope="col">moveOutdate</th>
+				<th scope="col">idApa</th>
+				<th scope="col">managerCodeContract</th>
+				<th scope="col">Active</th>
+			</tr>
+		</thead>
+		<tbody th:each="rentalSpa : ${listRentalSpa}">
+
+			<tr>
+				<td th:text="${rentalSpa.contractCode}"></td>
+				<td th:text="${rentalSpa.tenantCode}"></td>
+				<td th:text="${rentalSpa.duration}"></td>
+				<td th:text="${rentalSpa.moveInDate}"></td>
+				<td th:text="${rentalSpa.moveOutdate}"></td>
+				<td th:text="${rentalSpa.idApa.idApartment}"></td>
+				<td th:text="${rentalSpa.managerCodeContract.employeeID}"></td>
+				<!-- <td><a th:href="/" target="blank"><i class="fa-solid fa-pen-to-square"></i></a></td> -->
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

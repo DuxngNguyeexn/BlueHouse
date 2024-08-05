@@ -35,8 +35,8 @@ public class Resident {
 	private String workplace;
 	@Column(name = "Identifi_Card")
 	private String IdentificationCard;
-	@OneToMany(mappedBy = "idResident")
 	
+	@OneToMany(mappedBy = "idResident")
 	private List<Administrators> listAdmin;
 
 	public List<Administrators> getListAdmin() {
