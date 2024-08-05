@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.RentalSpaceContract;
-import com.fa.BlueHouse.repositorys.ApartmentDao;
-import com.fa.BlueHouse.repositorys.EmployeeDao;
-import com.fa.BlueHouse.repositorys.RentalSpaceContractDao;
+import com.fa.BlueHouse.repositories.*;
 
 import jakarta.transaction.Transactional;
 
