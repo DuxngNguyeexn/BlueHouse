@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fa.BlueHouse.entities.RentalSpaceContract;
 import com.fa.BlueHouse.services.RentalSpaceContractService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -41,25 +40,7 @@ public class RentalSpaceContractCotroller {
 		return "/listRentalSpaContrac";
 	}
 	
-<<<<<<< HEAD
-	@GetMapping("/deleteRentalcon")
-	public String deleteRentalSpaCon(@RequestParam("id") String id) {
-		rentalSpaContrac.deleteRentalSpacon(id);
-		return "redirect:/showrentalSpaContracs";
-	}
-	
-	@GetMapping("/editrentalSpaContracs")
-	public String editRentalSpaContrac(Model model, @RequestParam("id") String id) {
-		RentalSpaceContract renSpaCon = rentalSpaContrac.findById(id);
-		model.addAttribute("renspacon", renSpaCon);
-		model.addAttribute("apartments", rentalSpaContrac.findalApa());
-		model.addAttribute("employees", rentalSpaContrac.findalEmploy());
-		return "/AddRentalSpaceContract";
-	}
-	@PostMapping("/updaterentalSpaContracs")
-	public String updateRentalSpaContrac(@ModelAttribute("RentalSpa") RentalSpaceContract rentalSpaCon) {
-		rentalSpaContrac.updateRenSpaCon(rentalSpaCon);
-=======
+
 	@GetMapping("/deleterenspacon")
 	public String deleteRenSpaCon(@RequestParam("idrenspacon") String id) {
 		rentalSpaContrac.deleteRenSapCon(id);
@@ -76,7 +57,6 @@ public class RentalSpaceContractCotroller {
 	@PostMapping("/saveupdaterenspacon")
 	public String saveupdateRenSpaCon(@ModelAttribute("idrenspacon") RentalSpaceContract renspa) {
 		rentalSpaContrac.updateRenSpaCon(renspa);
->>>>>>> tienmanh
 		return "redirect:/showrentalSpaContracs";
 	}
 }

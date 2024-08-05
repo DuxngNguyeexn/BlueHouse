@@ -42,16 +42,6 @@ public class RentalSpaceContractService {
 		return apartment.findAll();
 	}
 	
-<<<<<<< HEAD
-	public void deleteRentalSpacon( String id) {
-		renSpaCon.deleteById(id);
-	}
-	 public RentalSpaceContract findById(String id) {
-		 return renSpaCon.findById(id).orElse(null);
-	 }
-	public void updateRenSpaCon(RentalSpaceContract renspa) {
-		renSpaCon.save(renspa);
-=======
 	public RentalSpaceContract findByID(String id) {
 		return renSpaCon.findById(id).orElse(null);
 	}
@@ -62,6 +52,6 @@ public class RentalSpaceContractService {
 	
 	public void updateRenSpaCon(RentalSpaceContract rentalSpaCon) {
 		renSpaCon.save(rentalSpaCon);
->>>>>>> tienmanh
+
 	}
 }
