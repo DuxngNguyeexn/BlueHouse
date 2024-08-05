@@ -1,4 +1,4 @@
-package com.fa.BlueHouse.sevices;
+package com.fa.BlueHouse.services;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ public class PositionService {
 		position.save(posi);
 	}
 	
-	public void deletePosition(Position posi) {
-		position.delete(posi);
+	public void deletePosition(String posi) {
+		position.deleteById(posi);
 	}
 	
 	public Position findById(String id) {
@@ -31,6 +31,10 @@ public class PositionService {
 	
 	public List<Position> findall(){
 		return position.findAll();
+	}
+	
+	public List<Position> searchPosition(String search){
+		return position.searchPosition(search);
 	}
 	
 }
