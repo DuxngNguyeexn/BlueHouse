@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 
 <head>
-	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
 </head>
 
 <body layout:fragment="content">
@@ -11,7 +13,8 @@
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
 			<form class="d-flex" action="/searchrisedent" method="GET">
-				<input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
+				<input class="form-control me-2" type="search" name="search"
+					placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 		</div>
@@ -40,11 +43,13 @@
 				<td th:text="${resident.birthday}"></td>
 				<td th:text="${resident.workplace}"></td>
 				<td th:text="${resident.relationshipHousehold}"></td>
-				<td th:text="${resident.idApartment.ID_Apartment}"></td>
+				<td th:text="${resident.idApartment.idApartment}"></td>
 				<td th:text="${resident.phonenumber}"></td>
-				<td><a th:href="@{/editresident(idresident=${resident.idResident})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
-					<a th:href="@{/deleterisedent(idresident=${resident.idResident})}" target="blank"><i class="fa-solid fa-trash"></i></a>
-				</td>
+				<td><a
+					th:href="@{/editresident(idresident=${resident.idResident})}"
+					target="blank"><i class="fa-solid fa-pen-to-square"></i></a> <a
+					th:href="@{/deleterisedent(idresident=${resident.idResident})}"
+					target="blank"><i class="fa-solid fa-trash"></i></a></td>
 			</tr>
 		</tbody>
 	</table>
