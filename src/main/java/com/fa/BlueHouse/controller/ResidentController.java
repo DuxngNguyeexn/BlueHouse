@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fa.BlueHouse.entities.Resident;
-import com.fa.BlueHouse.sevices.ResidentService;
+import com.fa.BlueHouse.services.ResidentService;
 
 @Controller
 public class ResidentController {

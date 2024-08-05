@@ -1,4 +1,4 @@
-package com.fa.BlueHouse.sevices;
+package com.fa.BlueHouse.services;
 
 import java.util.List;
 

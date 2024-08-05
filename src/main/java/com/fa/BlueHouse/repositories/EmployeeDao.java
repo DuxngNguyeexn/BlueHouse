@@ -1,4 +1,4 @@
-package com.fa.BlueHouse.repositorys;
+package com.fa.BlueHouse.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

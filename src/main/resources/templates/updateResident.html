@@ -82,8 +82,8 @@
 					<label for="idApartment" class="form-lable ">ID Apartment</label>
 					<p id="erroidapart"></p>
 					<select id="idApartment" name="idApartment"  th:field="*{idApartment}">
-						<option th:each="apartment : ${listapartment}" th:value="${apartment.idApartment.ID_Apartment}"
-							th:text="${apartment.idApartment.ID_Apartment}"></option>
+						<option th:each="apartment : ${listapartment}" th:value="${apartment.idApartment}"
+							th:text="${apartment.idApartment}"></option>
 					</select>
 				
 				</div>
