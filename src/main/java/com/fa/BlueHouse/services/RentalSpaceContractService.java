@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.RentalSpaceContract;
-import com.fa.BlueHouse.repositorys.ApartmentDao;
-import com.fa.BlueHouse.repositorys.EmployeeDao;
-import com.fa.BlueHouse.repositorys.RentalSpaceContractDao;
+import com.fa.BlueHouse.repositories.ApartmentDao;
+import com.fa.BlueHouse.repositories.EmployeeDao;
+import com.fa.BlueHouse.repositories.RentalSpaceContractDao;
 
 import jakarta.transaction.Transactional;
 
@@ -42,6 +42,7 @@ public class RentalSpaceContractService {
 		return apartment.findAll();
 	}
 	
+<<<<<<< HEAD
 	public void deleteRentalSpacon( String id) {
 		renSpaCon.deleteById(id);
 	}
@@ -50,5 +51,17 @@ public class RentalSpaceContractService {
 	 }
 	public void updateRenSpaCon(RentalSpaceContract renspa) {
 		renSpaCon.save(renspa);
+=======
+	public RentalSpaceContract findByID(String id) {
+		return renSpaCon.findById(id).orElse(null);
+	}
+	
+	public void deleteRenSapCon(String id) {
+		renSpaCon.deleteById(id);
+	}
+	
+	public void updateRenSpaCon(RentalSpaceContract rentalSpaCon) {
+		renSpaCon.save(rentalSpaCon);
+>>>>>>> tienmanh
 	}
 }
