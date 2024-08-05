@@ -12,7 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
-
 @Entity
 public class Resident {
 	@Id
@@ -21,6 +20,7 @@ public class Resident {
 	private String idResident;
 	@Column(name = "Name_Resident")
 	private String nameResident;
+	private String gender;
 	@ManyToOne
 	@JoinColumn(name = "ID_Apartment")
 	private Apartment idApartment;
@@ -34,10 +34,17 @@ public class Resident {
 	@Column(name = "WorkPlace")
 	private String workplace;
 	@Column(name = "Identifi_Card")
-	private String IdentificationCard;
-	
+	private String identificationCard;
 	@OneToMany(mappedBy = "idResident")
 	private List<Administrators> listAdmin;
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
 	public List<Administrators> getListAdmin() {
 		return listAdmin;
@@ -104,15 +111,15 @@ public class Resident {
 	}
 
 	public String getIdentificationCard() {
-		return IdentificationCard;
+		return identificationCard;
 	}
 
-	public void setIdentificationCard(String identificationCard) {
-		IdentificationCard = identificationCard;
+	public void setIdentificationCard(String IdentificationCard) {
+		identificationCard = IdentificationCard;
 	}
 
 	public Resident(String idResident, String nameResident, Apartment idApartment, String relationshipHousehold,
-			LocalDate birthday, String phonenumber, String workplace, String identificationCard) {
+			LocalDate birthday, String phonenumber, String workplace, String IdentificationCard) {
 		super();
 		this.idResident = idResident;
 		this.nameResident = nameResident;
@@ -121,7 +128,7 @@ public class Resident {
 		this.birthday = birthday;
 		this.phonenumber = phonenumber;
 		this.workplace = workplace;
-		IdentificationCard = identificationCard;
+		this.identificationCard = IdentificationCard;
 	}
 
 	@Override
