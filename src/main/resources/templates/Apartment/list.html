@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
-<body>
+<body layout:fragment="content">
 	<div class="container mt-4">
 		<div class="h1 text-center mb-4"><a href="list" class="text-decoration-none">List apartment</a> </div>
 		<div class="text-center w-50 m-auto">
@@ -53,21 +52,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<!-- Phân trang -->
-		<div class="text-right">
-			<span th:if="${currentPage > 1}"> <a
-				th:href="@{${path}(page=${currentPage - 1}, searchKeyword=${searchKeyword})}"  class="text-decoration-none">Previous</a>
-			</span> <span th:if="${currentPage <= 1}"> Previous </span> <span
-				th:each="i : ${#numbers.sequence(1, totalPages)}"> <span
-				th:if="${currentPage == i}"> <span th:text="${i}"></span>
-			</span> <span th:if="${currentPage != i}"> <a
-					th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword})}"
-					th:text="${i}"  class="text-decoration-none"></a>
-			</span>
-			</span> <span th:if="${currentPage < totalPages}"> <a
-				th:href="@{${path}(page=${currentPage + 1}, searchKeyword=${searchKeyword})}"  class="text-decoration-none">Next</a>
-			</span> <span th:if="${currentPage >= totalPages}" > Next </span>
-		</div>
+		<div th:replace="@{layout/page} :: pageAble"></div>
 	</div>
 
 </body>

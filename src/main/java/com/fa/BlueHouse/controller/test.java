@@ -14,5 +14,8 @@ public class test {
 	public String showSignUp() {
 		return "SignUp";
 	}
+	public String testHome() {
+		return "listResident";
+	}
 
 }
