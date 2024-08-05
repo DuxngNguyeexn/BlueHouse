@@ -130,6 +130,11 @@ public class Resident {
 		this.workplace = workplace;
 		this.identificationCard = IdentificationCard;
 	}
+	
+
+	public Resident() {
+		super();
+	}
 
 	@Override
 	public String toString() {
