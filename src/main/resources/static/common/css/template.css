@@ -1,45 +1,59 @@
 body {
-  padding: 0 !important;
+	padding: 0 !important;
+	position: relative;
+	min-height: 100vh;
+	margin: 0;
 }
-header,
+
 footer {
-  background: rgb(207, 226, 255);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+header, footer {
+	background: rgb(207, 226, 255);
 }
 
 .Icon {
-  display: flex !important;
-  justify-content: center;
-  font-weight: 700;
-  text-transform: uppercase;
-  cursor: default;
+	display: flex !important;
+	justify-content: center;
+	font-weight: 700;
+	text-transform: uppercase;
+	cursor: default;
 }
 
 .bell {
-  font-size: larger;
-  cursor: pointer;
+	font-size: larger;
+	cursor: pointer;
 }
 
 .bell:hover {
-  transition: 0.5s;
-  color: royalblue;
+	transition: 0.5s;
+	color: royalblue;
 }
 
 header ul li a {
-  color: black;
+	color: black;
 }
 
 footer ul li {
-  list-style: none;
+	list-style: none;
 }
 
 footer ul li p {
-  cursor: default;
+	cursor: default;
 }
 
 footer a {
-  text-decoration: unset;
-  color: inherit;
+	text-decoration: unset;
+	color: inherit;
 }
+
 footer a:hover {
-  text-decoration: unset;
+	text-decoration: unset;
+}
+
+footer p {
+	margin: 0;
 }
