@@ -14,6 +14,11 @@ import jakarta.persistence.Table;
 @Table(name = "HISTORY_CUSTOMER_VEHICLE")
 public class HistoryCustomerVehicle implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@EmbeddedId
 	private HistoryCustomerVehicleID id;
 
