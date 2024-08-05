@@ -42,7 +42,8 @@
 				<td th:text="${rentalSpa.moveOutdate}"></td>
 				<td th:text="${rentalSpa.idApa.idApartment}"></td>
 				<td th:text="${rentalSpa.managerCodeContract.employeeID}"></td>
-				<!-- <td><a th:href="/" target="blank"><i class="fa-solid fa-pen-to-square"></i></a></td> -->
+				<td><a th:href="@{/deleteRentalcon(id=${rentalSpa.contractCode})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a></td>
+				<td><a th:href="@{/editrentalSpaContracs(id=${rentalSpa.contractCode})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a></td>
 			</tr>
 		</tbody>
 	</table>

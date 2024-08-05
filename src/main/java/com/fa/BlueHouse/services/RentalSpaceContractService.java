@@ -41,4 +41,14 @@ public class RentalSpaceContractService {
 	public List<Apartment> findalApa(){
 		return apartment.findAll();
 	}
+	
+	public void deleteRentalSpacon( String id) {
+		renSpaCon.deleteById(id);
+	}
+	 public RentalSpaceContract findById(String id) {
+		 return renSpaCon.findById(id).orElse(null);
+	 }
+	public void updateRenSpaCon(RentalSpaceContract renspa) {
+		renSpaCon.save(renspa);
+	}
 }

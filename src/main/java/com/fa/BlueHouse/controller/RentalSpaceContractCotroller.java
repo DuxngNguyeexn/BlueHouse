@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.fa.BlueHouse.entities.RentalSpaceContract;
 import com.fa.BlueHouse.services.RentalSpaceContractService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class RentalSpaceContractCotroller {
@@ -35,4 +37,23 @@ public class RentalSpaceContractCotroller {
 		return "/listRentalSpaContrac";
 	}
 	
+	@GetMapping("/deleteRentalcon")
+	public String deleteRentalSpaCon(@RequestParam("id") String id) {
+		rentalSpaContrac.deleteRentalSpacon(id);
+		return "redirect:/showrentalSpaContracs";
+	}
+	
+	@GetMapping("/editrentalSpaContracs")
+	public String editRentalSpaContrac(Model model, @RequestParam("id") String id) {
+		RentalSpaceContract renSpaCon = rentalSpaContrac.findById(id);
+		model.addAttribute("renspacon", renSpaCon);
+		model.addAttribute("apartments", rentalSpaContrac.findalApa());
+		model.addAttribute("employees", rentalSpaContrac.findalEmploy());
+		return "/AddRentalSpaceContract";
+	}
+	@PostMapping("/updaterentalSpaContracs")
+	public String updateRentalSpaContrac(@ModelAttribute("RentalSpa") RentalSpaceContract rentalSpaCon) {
+		rentalSpaContrac.updateRenSpaCon(rentalSpaCon);
+		return "redirect:/showrentalSpaContracs";
+	}
 }
