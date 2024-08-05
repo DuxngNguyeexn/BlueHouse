@@ -169,6 +169,10 @@ public class Employee {
 		this.employeeWork = employeeWork;
 	}
 
+	public Employee() {
+		super();
+	}
+
 	public Employee(String employeeID, String name, String gender, String phoneNumber, LocalDate dateOfBirth,
 			String cCCD, String areaBorn, String department, String duty, List<HistoryOff> historyOffID,
 			Employee manager, List<Employee> under) {

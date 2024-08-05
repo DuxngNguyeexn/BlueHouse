@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 import com.fa.BlueHouse.entities.Apartment;
 public interface ApartmentRepository extends JpaRepository<Apartment, String> {
 
-	@Query("SELECT a FROM Apartment a WHERE a.ID_Apartment LIKE %:keyword% ")
+	@Query("SELECT a FROM Apartment a WHERE a.idApartment LIKE %:keyword% ")
 	Page<Apartment> findApartmentByKeyword(@Param("keyword") String keyword , Pageable pageable);
 }

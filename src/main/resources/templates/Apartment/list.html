@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="container mt-4">
-		<div class="h1 text-center mb-4">List apartment</div>
+		<div class="h1 text-center mb-4"><a href="list" class="text-decoration-none">List apartment</a> </div>
 		<div class="text-center w-50 m-auto">
 			<form th:action="search" >
 				<div class="input-group ">
@@ -33,41 +33,40 @@
 			<thead class="table-light text-center">
 				<tr>
 					<th scope="col">ID Apartment</th>
-					<th scope="col">Floor</th>
-					<th scope="col">Number of rooms</th>
 					<th scope="col">ID Homeowner</th>
+					<th scope="col">Floor </th>
+					<th scope="col">Number of rooms</th>
 					<th scope="col">Area</th>
 					<th scope="col">Apartment number</th>
+					<th scope="col">Apartment type </th>
 				</tr>
 			</thead>
 			<tbody th:each="a : ${listApartment}">
 				<tr>
-				<td th:text="${a.ID_Apartment}"></td>
-					<!-- <td th:text="${a.ID_Apartment}"></td>
-					<td th:text="${a.Floor}"></td>
-					<td th:text="${a.Number_of_rooms}"></td>
-					
-					<td th:text="${a.}"></td>
-					<td th:text="${a.}"></td>
-					<td th:text="${a.Area}"></td>
-					<td th:text="${a.Apartment_number}"></td> -->
+				<td th:text="${a.idApartment}"></td>
+					<td th:text="${a.idHomeowner}"></td>
+					<td th:text="${a.floor}"></td>
+					<td th:text="${a.numberOfRooms}"></td>
+					<td th:text="${a.area}"></td>
+					<td th:text="${a.apartmentNumber}"></td>
+					<td th:text="${a.typeApartment}"></td>
 				</tr>
 			</tbody>
 		</table>
 		<!-- Phân trang -->
 		<div class="text-right">
 			<span th:if="${currentPage > 1}"> <a
-				th:href="@{${path}(page=${currentPage - 1}, searchKeyword=${searchKeyword})}">Previous</a>
+				th:href="@{${path}(page=${currentPage - 1}, searchKeyword=${searchKeyword})}"  class="text-decoration-none">Previous</a>
 			</span> <span th:if="${currentPage <= 1}"> Previous </span> <span
 				th:each="i : ${#numbers.sequence(1, totalPages)}"> <span
 				th:if="${currentPage == i}"> <span th:text="${i}"></span>
 			</span> <span th:if="${currentPage != i}"> <a
 					th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword})}"
-					th:text="${i}"></a>
+					th:text="${i}"  class="text-decoration-none"></a>
 			</span>
 			</span> <span th:if="${currentPage < totalPages}"> <a
-				th:href="@{${path}(page=${currentPage + 1}, searchKeyword=${searchKeyword})}" >Next</a>
-			</span> <span th:if="${currentPage >= totalPages}"> Next </span>
+				th:href="@{${path}(page=${currentPage + 1}, searchKeyword=${searchKeyword})}"  class="text-decoration-none">Next</a>
+			</span> <span th:if="${currentPage >= totalPages}" > Next </span>
 		</div>
 	</div>
 
