@@ -3,6 +3,8 @@ package com.fa.BlueHouse.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fa.BlueHouse.entities.Apartment;
@@ -16,5 +18,11 @@ public class ApartmentService {
 	
 	public List<Apartment> allApartments(){
 		return apartmentRepository.findAll();
+	}
+	public Page<Apartment> allApartments(Pageable pageable){
+		return apartmentRepository.findAll(pageable);
+	}
+	public Page<Apartment> findApartmentsByKeyword(Pageable pageable , String keyword){
+		return apartmentRepository.findApartmentByKeyword( keyword ,pageable );
 	}
 }

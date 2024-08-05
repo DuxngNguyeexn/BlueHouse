@@ -4,17 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link rel="stylesheet"
-	href="/src/main/resources/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
 	<div class="container mt-4">
 		<div class="h1 text-center mb-4">List apartment</div>
 		<div class="text-center w-50 m-auto">
-			<form action="">
+			<form th:action="search" >
 				<div class="input-group ">
 					<input type="text" class="form-control border-right-0" id="search"
-						placeholder="Search">
+						placeholder="Search" name="searchKeyword">
 					<button class="input-group-text border-left-0 bg-white" id="search"
 						type="submit" style="border-radius: 0 .25rem .25rem 0;">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -30,8 +29,8 @@
 
 	</div>
 	<div class="container mt-4">
-		<table class="table ">
-			<thead class="table-dark text-center">
+		<table class="table table-bordered ">
+			<thead class="table-light text-center">
 				<tr>
 					<th scope="col">ID Apartment</th>
 					<th scope="col">Floor</th>
@@ -41,12 +40,13 @@
 					<th scope="col">Apartment number</th>
 				</tr>
 			</thead>
-			<tbody th:each="a : ${listApartmnet}">
+			<tbody th:each="a : ${listApartment}">
 				<tr>
+				<td th:text="${a.ID_Apartment}"></td>
 					<!-- <td th:text="${a.ID_Apartment}"></td>
 					<td th:text="${a.Floor}"></td>
 					<td th:text="${a.Number_of_rooms}"></td>
-					<td th:text="${a.}"></td>
+					
 					<td th:text="${a.}"></td>
 					<td th:text="${a.}"></td>
 					<td th:text="${a.Area}"></td>
@@ -54,6 +54,22 @@
 				</tr>
 			</tbody>
 		</table>
+		<!-- Phân trang -->
+		<div class="text-right">
+			<span th:if="${currentPage > 1}"> <a
+				th:href="@{${path}(page=${currentPage - 1}, searchKeyword=${searchKeyword})}">Previous</a>
+			</span> <span th:if="${currentPage <= 1}"> Previous </span> <span
+				th:each="i : ${#numbers.sequence(1, totalPages)}"> <span
+				th:if="${currentPage == i}"> <span th:text="${i}"></span>
+			</span> <span th:if="${currentPage != i}"> <a
+					th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword})}"
+					th:text="${i}"></a>
+			</span>
+			</span> <span th:if="${currentPage < totalPages}"> <a
+				th:href="@{${path}(page=${currentPage + 1}, searchKeyword=${searchKeyword})}" >Next</a>
+			</span> <span th:if="${currentPage >= totalPages}"> Next </span>
+		</div>
 	</div>
+
 </body>
 </html>
