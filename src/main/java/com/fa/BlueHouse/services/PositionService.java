@@ -3,6 +3,8 @@ package com.fa.BlueHouse.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fa.BlueHouse.entities.Position;
@@ -33,8 +35,12 @@ public class PositionService {
 		return position.findAll();
 	}
 	
-	public List<Position> searchPosition(String search){
-		return position.searchPosition(search);
+	public Page<Position> searchPosition(String search, Pageable pageable){
+		return position.searchPosition(search, pageable);
+	}
+	
+	public Page<Position> findpagePosition(Pageable page){
+		return position.findAll(page);
 	}
 	
 }

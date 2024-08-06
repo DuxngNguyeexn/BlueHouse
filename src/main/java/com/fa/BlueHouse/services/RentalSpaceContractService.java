@@ -13,7 +13,6 @@ import com.fa.BlueHouse.entities.RentalSpaceContract;
 import com.fa.BlueHouse.repositories.ApartmentRepository;
 import com.fa.BlueHouse.repositories.EmployeeRepository;
 import com.fa.BlueHouse.repositories.RentalSpaceContractRepository;
-
 import jakarta.transaction.Transactional;
 
 @Service
