@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -7,7 +7,7 @@
 <link rel="stylesheet"
 	href="../fontawesome-free-6.5.2-web/css/all.min.css">
 </head>
-<body>
+<body layout:fragment="content">
 	<form th:action="@{/saverentalSpaContracs}" class="mt-5" method="post"
 		th:object="${RentalSpa}">
 		<div class="container p-3 border">
@@ -17,41 +17,46 @@
 					<label for="contractCode" class="form-lable">ID Contract
 						code</label>
 					<p id="erroid"></p>
-					<input type="text" name="contractCode" id="contractCode"
+					<input type="text" th:field="*{contractCode}" id="contractCode"
 						class="form-control" placeholder="ID Contract"
 						aria-label="Username" aria-describedby="addon-wrapping">
+					<div th:if="${#fields.hasErrors('contractCode')}" th:errors="*{contractCode}" class="text-danger"></div>
 				</div>
 
 				<div class=" col-6">
 					<label for="tenantCode" class="form-lable">Tenant_code</label>
 					<p id="erroname"></p>
-					<input type="text" name="tenantCode" id="tenantCode"
+					<input type="text" th:field="*{tenantCode}" id="tenantCode"
 						class="form-control" placeholder="Tenant Code"
 						aria-label="Username" aria-describedby="addon-wrapping">
+					<div th:if="${#fields.hasErrors('tenantCode')}" th:errors="*{tenantCode}" class="text-danger"></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-6">
 					<label for="moveInDate" class="form-lable ">Move_in_date</label>
 					<p id="errobirthday"></p>
-					<input type="date" name="moveInDate" id="moveInDate"
+					<input type="date" th:field="*{moveInDate}" id="moveInDate"
 						class="form-control" placeholder="Move in date"
 						aria-label="Username" aria-describedby="addon-wrapping">
+					<div th:if="${#fields.hasErrors('moveInDate')}" th:errors="*{moveInDate}" class="text-danger"></div>
 				</div>
 
 				<div class="col-6">
 					<label for="moveOutdate" class="form-lable ">Move_out_date</label>
 					<p id="errobirthday"></p>
-					<input type="date" name="moveOutdate" id="moveOutdate"
+					<input type="date" th:field="*{moveOutdate}"  id="moveOutdate"
 						class="form-control" placeholder="Move out date"
 						aria-label="Username" aria-describedby="addon-wrapping">
+					<div th:if="${#fields.hasErrors('moveOutdate')}" th:errors="*{moveOutdate}" class="text-danger"></div>
 				</div>
 				<div class=" col-6">
 					<label for="duration" class="form-lable">Duration</label>
 					<p id="erroidentificard"></p>
-					<input type="time" name="duration" id="duration"
+					<input type="time" th:field="*{duration}" id="duration"
 						class="form-control" placeholder="Duration" aria-label="Username"
 						aria-describedby="addon-wrapping">
+					<div th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="text-danger"></div>
 				</div>
 				<div class="col-6">
 					<label for="apartmentNumber" class="form-lable">Apartment Number</label> <select

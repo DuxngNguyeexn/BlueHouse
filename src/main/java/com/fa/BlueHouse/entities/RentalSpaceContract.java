@@ -3,30 +3,42 @@ package com.fa.BlueHouse.entities;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "RENTALSPACECONTRACT")
 public class RentalSpaceContract {
 
 	@Id
+	@NotBlank(message =  "*ContractCode Không được để trống ")
 	private String contractCode;
 
+	@NotBlank(message =  "*TenantCode Không được để trống ")
 	private String tenantCode;
 
 	@ManyToOne
 	@JoinColumn(name = "ManagercodeContract")
 	private Employee managerCodeContract;
 
+	@NotNull(message = "*Duration Không được để trống")
+	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime duration;
 
+	@NotNull(message = "*MoveInDate Không được để trống")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate moveInDate;
 
+	@NotNull(message = "*MoveOutDate Không được để trống")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate moveOutdate;
 
 	@OneToOne

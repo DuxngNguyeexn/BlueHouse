@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.Resident;
-import com.fa.BlueHouse.repositories.ApartmentRepositories;
+import com.fa.BlueHouse.repositories.ApartmentRepository;
 import com.fa.BlueHouse.repositories.ResidentRepositories;
 
 import jakarta.transaction.Transactional;
@@ -17,7 +17,7 @@ public class ResidentService {
 	@Autowired
 	private ResidentRepositories repositori;
 	@Autowired
-	private ApartmentRepositories apart;
+	private ApartmentRepository apart;
 	
 	public void saveResident(Resident resi) {
 		repositori.save(resi);
