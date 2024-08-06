@@ -1,13 +1,18 @@
 package com.fa.BlueHouse.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.fa.BlueHouse.entities.RentalSpaceContract;
 import com.fa.BlueHouse.services.RentalSpaceContractService;
+
 
 @Controller
 public class RentalSpaceContractCotroller {
@@ -35,4 +40,23 @@ public class RentalSpaceContractCotroller {
 		return "/listRentalSpaContrac";
 	}
 	
+
+	@GetMapping("/deleterenspacon")
+	public String deleteRenSpaCon(@RequestParam("idrenspacon") String id) {
+		rentalSpaContrac.deleteRenSapCon(id);
+		return "redirect:/showrentalSpaContracs";
+	}
+
+	@GetMapping("/editrenspacon")
+	public String editRenSpaCon(Model model, @RequestParam("idrenspacon") String id) {
+		List<RentalSpaceContract> listresi = rentalSpaContrac.findalRenSpaCon();
+		model.addAttribute("listapartment", listresi);
+		model.addAttribute("renspacont", rentalSpaContrac.findByID(id));
+		return "updateRenSpaCon";
+	}
+	@PostMapping("/saveupdaterenspacon")
+	public String saveupdateRenSpaCon(@ModelAttribute("idrenspacon") RentalSpaceContract renspa) {
+		rentalSpaContrac.updateRenSpaCon(renspa);
+		return "redirect:/showrentalSpaContracs";
+	}
 }
