@@ -9,7 +9,7 @@ import com.fa.BlueHouse.entities.Resident;
 
 public interface ResidentRepositories extends JpaRepository<Resident, String> {
 	
-	@Query("FROM Resident where nameResident=?1 or gender=?1 or relationshipHousehold=?1 or phonenumber=?1 or workplace=?1 or identificationCard=?1")
+	@Query("FROM Resident where nameResident LIKE %:seacrch% or gender LIKE %:seacrch% or relationshipHousehold LIKE %:seacrch% or phonenumber LIKE %:seacrch% or workplace LIKE %:seacrch% or identificationCard LIKE %:seacrch%")
 	public List<Resident> searchResident(String seacrch);
 
 }

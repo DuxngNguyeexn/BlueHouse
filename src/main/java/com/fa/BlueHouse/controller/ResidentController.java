@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.Resident;
-import com.fa.BlueHouse.services.*;
+import com.fa.BlueHouse.services.ResidentService;
 
 @Controller
 public class ResidentController {
@@ -21,7 +22,7 @@ public class ResidentController {
 	@GetMapping("/createresident")
 	public String createResident(Model model) {
 		model.addAttribute("listapartment", resident.findallapart());
-		return "/createResident";
+		return "/Resident/createResident";
 	}
 
 	@PostMapping("/saveresident")
@@ -35,13 +36,13 @@ public class ResidentController {
 	public String showlistResident(Model model) {
 		List<Resident> listresi = resident.findallResident();
 		model.addAttribute("listResident", listresi);
-		return "/listResident";
+		return "/Resident/listResident";
 	}
 
 	@GetMapping("/searchrisedent")
 	public String searchResident(Model model, @RequestParam("search") String search) {
 		model.addAttribute("listResident", resident.searchResident(search));
-		return "/listResident";
+		return "/Resident/listResident";
 	}
 
 	@GetMapping("/deleterisedent")
@@ -52,10 +53,10 @@ public class ResidentController {
 
 	@GetMapping("/editresident")
 	public String editResident(Model model, @RequestParam("idresident") String id) {
-		List<Resident> listresi = resident.findallResident();
+		List<Apartment> listresi = resident.findallapart();
 		model.addAttribute("listapartment", listresi);
 		model.addAttribute("resident", resident.findById(id));
-		return "/updateResident";
+		return "/Resident/updateResident";
 	}
 	@PostMapping("/saveupdateresident")
 	public String saveupdateresident(@ModelAttribute("resident") Resident resi) {
