@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.RentalSpaceContract;
-import com.fa.BlueHouse.repositories.ApartmentDao;
+import com.fa.BlueHouse.repositories.ApartmentRepository;
 import com.fa.BlueHouse.repositories.EmployeeDao;
 import com.fa.BlueHouse.repositories.RentalSpaceContractDao;
 
@@ -22,7 +22,7 @@ public class RentalSpaceContractService {
 	private RentalSpaceContractDao renSpaCon;
 	
 	@Autowired
-	private ApartmentDao apartment;
+	private ApartmentRepository apartment;
 	
 	@Autowired 
 	private EmployeeDao employee;

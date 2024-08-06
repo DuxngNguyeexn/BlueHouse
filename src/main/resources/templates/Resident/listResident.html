@@ -8,12 +8,13 @@
 <title>Insert title here</title>
 </head>
 
-<body layout:fragment="content">
+<body layout:fragment="content" > 
+<div class="p-3">
 	<h1>List Resident</h1>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
 			<form class="d-flex" action="/searchrisedent" method="GET">
-				<input class="form-control me-2" type="search" name="search"
+				<input class="form-control me-2" type="text" name="searchKeyword"
 					placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
@@ -53,6 +54,8 @@
 			</tr>
 		</tbody>
 	</table>
+	<div th:replace="@{layout/page} :: pageAble" ></div>
+	</div>
 </body>
 
 </html>

@@ -3,11 +3,13 @@ package com.fa.BlueHouse.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.Resident;
-import com.fa.BlueHouse.repositories.ApartmentRepositories;
+import com.fa.BlueHouse.repositories.ApartmentRepository;
 import com.fa.BlueHouse.repositories.ResidentRepositories;
 
 import jakarta.transaction.Transactional;
@@ -17,7 +19,7 @@ public class ResidentService {
 	@Autowired
 	private ResidentRepositories repositori;
 	@Autowired
-	private ApartmentRepositories apart;
+	private ApartmentRepository apart;
 	
 	public void saveResident(Resident resi) {
 		repositori.save(resi);
@@ -27,8 +29,8 @@ public class ResidentService {
 		return repositori.findAll();
 	}
 
-    public List<Resident> searchResident(String search){
-    	return repositori.searchResident(search);
+    public Page<Resident> searchResident(String search, Pageable pageable){
+    	return repositori.searchResident(search, pageable);
     }
     
     public List<Apartment> findallapart(){
@@ -45,4 +47,9 @@ public class ResidentService {
     public Resident findById(String id) {
     	return repositori.findById(id).orElse(null);
     }
+    
+    public Page<Resident> findpageResident(Pageable page){
+    	return repositori.findAll(page);
+    }
+    
 }
