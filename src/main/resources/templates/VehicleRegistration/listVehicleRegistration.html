@@ -7,15 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body layout:fragment="content">
-	<h1 class="text-primary">List Rental Space Contract</h1>
+	<h1 class="text-primary">List Vehicle Registration</h1>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
-			<form th:action="searchrentalspacon">
+			<form th:action="searchVehicleRegistration">
 				<div class="input-group ">
 					<input type="text" class="form-control border-right-0"
-						id="searchrentalspacon" placeholder="Search" name="searchKeyword">
+						id="searchVehicleRegistration" placeholder="Search"
+						name="searchKeyword">
 					<button class="input-group-text border-left-0 bg-white"
-						id="searchrentalspacon" type="submit"
+						id="searchVehicleRegistration" type="submit"
 						style="border-radius: 0 .25rem .25rem 0;">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 							fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -31,30 +32,28 @@
 		<table class="table ">
 			<thead>
 				<tr>
-					<th scope="col">contractCode</th>
-					<th scope="col">tenantCode</th>
-					<th scope="col">duration</th>
-					<th scope="col">moveInDate</th>
-					<th scope="col">moveOutdate</th>
-					<th scope="col">idApa</th>
-					<th scope="col">managerCodeContract</th>
+					<th scope="col">idVehicle</th>
+					<th scope="col">vehicleNumber</th>
+					<th scope="col">registrationDate</th>
+					<th scope="col">expirationDate</th>
+					<th scope="col">feeTypeCode</th>
+					<th scope="col">apartmentVE</th>
 					<th scope="col">Active</th>
 				</tr>
 			</thead>
-			<tbody th:each="rentalSpa : ${listRentalSpa}">
+			<tbody th:each="vehicleregi : ${listVehicleRegistration}">
 
 				<tr>
-					<td th:text="${rentalSpa.contractCode}"></td>
-					<td th:text="${rentalSpa.tenantCode}"></td>
-					<td th:text="${rentalSpa.duration}"></td>
-					<td th:text="${rentalSpa.moveInDate}"></td>
-					<td th:text="${rentalSpa.moveOutdate}"></td>
-					<td th:text="${rentalSpa.idApa.apartmentNumber}"></td>
-					<td th:text="${rentalSpa.managerCodeContract.name}"></td>
+					<td th:text="${vehicleregi.idVehicle}"></td>
+					<td th:text="${vehicleregi.vehicleNumber}"></td>
+					<td th:text="${vehicleregi.registrationDate}"></td>
+					<td th:text="${vehicleregi.expirationDate}"></td>
+					<td th:text="${vehicleregi.feeTypeCode.nameFeetype}"></td>
+					<td th:text="${vehicleregi.apartmentVE.apartmentNumber}"></td>
 					<td><a
-						th:href="@{/editrenspacon(idrenspacon=${rentalSpa.contractCode})}"
+						th:href="@{/editVehicleRegistration(idvehicle=${vehicleregi.idVehicle})}"
 						target="blank"><i class="fa-solid fa-pen-to-square"></i></a> <a
-						th:href="@{/deleterenspacon(idrenspacon=${rentalSpa.contractCode})}"
+						th:href="@{/deleteVehicleRegistration(idvehicle=${vehicleregi.idVehicle})}"
 						target="blank"><i class="fa-solid fa-trash"></i></a></td>
 				</tr>
 			</tbody>

@@ -63,6 +63,8 @@ public class RegisterForResidenceController {
 	public String editRegisterForResidence(Model model, @RequestParam("idregiresi") String id) {
 		List<RegisterForResidence> listregiresi = residenceServices.findaRegiResi();
 		model.addAttribute("listregiresi", listregiresi);
+		model.addAttribute("listapa", residenceServices.findaApa());
+		model.addAttribute("listresi", residenceServices.findaResident());
 		model.addAttribute("regiresi", residenceServices.findaById(id));
 		return "/RegisterForResidence/updateRegisterForResidence";
 	}

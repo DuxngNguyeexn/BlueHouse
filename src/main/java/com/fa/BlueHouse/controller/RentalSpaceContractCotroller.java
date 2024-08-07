@@ -65,6 +65,8 @@ public class RentalSpaceContractCotroller {
 	public String editRenSpaCon(Model model, @RequestParam("idrenspacon") String id) {
 		List<RentalSpaceContract> listresi = rentalSpaContrac.findalRenSpaCon();
 		model.addAttribute("listapartment", listresi);
+		model.addAttribute("apartments", rentalSpaContrac.findalApa());
+		model.addAttribute("employees", rentalSpaContrac.findalEmploy());
 		model.addAttribute("renspacont", rentalSpaContrac.findByID(id));
 		return "/RentalSpaceContract/updateRenSpaCon";
 	}
