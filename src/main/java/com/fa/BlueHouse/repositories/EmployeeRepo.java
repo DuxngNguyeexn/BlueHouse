@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fa.BlueHouse.entities.Employee;
 
-public interface EmployeeDao extends JpaRepository<Employee, String>{
+public interface EmployeeRepo extends JpaRepository<Employee, String>{
 
 }
