@@ -6,7 +6,7 @@
 <title>Document</title>
 </head>
 <body layout:fragment="content">
-	<div class="container mt-4">
+	<div class="container mt-4 ">
 		<div class="h1 text-center mb-4"><a href="list" class="text-decoration-none">List apartment</a> </div>
 		<div class="text-center w-50 m-auto">
 			<form th:action="search" >
@@ -40,7 +40,7 @@
 					<th scope="col">Apartment type </th>
 				</tr>
 			</thead>
-			<tbody th:each="a : ${listApartment}">
+			<tbody th:each="a : ${listApartment}" class="text-center">
 				<tr>
 				<td th:text="${a.idApartment}"></td>
 					<td th:text="${a.idHomeowner}"></td>

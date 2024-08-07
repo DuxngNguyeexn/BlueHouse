@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
+
 <body th:fragment="pageAble">
-<!-- Phân trang -->
-		<div class="text-right">
-			<span th:if="${currentPage > 1}"> <a
-				th:href="@{${path}(page=${currentPage - 1}, searchKeyword=${searchKeyword})}"  class="text-decoration-none">Previous</a>
-			</span> <span th:if="${currentPage <= 1}"> Previous </span> <span
-				th:each="i : ${#numbers.sequence(1, totalPages)}"> <span
-				th:if="${currentPage == i}"> <span th:text="${i}"></span>
-			</span> <span th:if="${currentPage != i}"> <a
-					th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword})}"
-					th:text="${i}"  class="text-decoration-none"></a>
-			</span>
-			</span> <span th:if="${currentPage < totalPages}"> <a
-				th:href="@{${path}(page=${currentPage + 1}, searchKeyword=${searchKeyword})}"  class="text-decoration-none">Next</a>
-			</span> <span th:if="${currentPage >= totalPages}" > Next </span>
-		</div>
+	<!-- Phân trang -->
+	<div class="float-right mr-3">
+		
+			<ul class="pagination">
+				
+				<li class="page-item " th:if="${currentPage > 1}">
+					<a class="page-link"
+						th:href="@{${path}(page=${currentPage - 1}, searchKeyword=${searchKeyword})}">Previous</a>
+				</li>
+				<span th:each="i : ${#numbers.sequence(1, totalPages)}">
+					<li class=" " th:if="${currentPage == i-1}"><a class="page-link" th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword})}" th:text="${i}"></a></li>
+					<li class="  " th:if="${currentPage == i}" style="border-radius: 0;"><a class="page-link bg-primary text-white" th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword})}" th:text="${i}"></a></li>
+					<li class=" " th:if="${currentPage == i+1}"><a class="page-link" th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword})}" th:text="${i}"></a></li>		
+				</span>
+				<li class="page-item" th:if="${currentPage < totalPages}">
+					<a class="page-link"
+						th:href="@{${path}(page=${currentPage + 1}, searchKeyword=${searchKeyword})}">Next</a>
+				</li>
+				
+			</ul>
+		
+	</div>
+	
 </body>
+
 </html>

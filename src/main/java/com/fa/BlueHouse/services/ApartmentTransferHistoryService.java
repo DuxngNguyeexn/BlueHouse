@@ -16,4 +16,7 @@ public class ApartmentTransferHistoryService {
 	public Page<ApartmentTransferHistory> showAll(Pageable pageable){
 		return apartmentTransferHistoryRepository.findAll(pageable);
 	}
+	public void save(ApartmentTransferHistory apartmentTransferHistory) {
+		apartmentTransferHistoryRepository.save(apartmentTransferHistory);
+	}
 }
