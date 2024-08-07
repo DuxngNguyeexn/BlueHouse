@@ -12,6 +12,7 @@ import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.RentalSpaceContract;
 import com.fa.BlueHouse.repositories.ApartmentRepository;
 import com.fa.BlueHouse.repositories.EmployeeRepo;
+
 import com.fa.BlueHouse.repositories.RentalSpaceContractRepository;
 import jakarta.transaction.Transactional;
 

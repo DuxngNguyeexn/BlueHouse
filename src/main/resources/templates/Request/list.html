@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
-<body>
-	<div class="container mt-4">
-		<div class="h1 text-center mb-4">Danh sách căn hộ</div>
+<body layout:fragment="content">
+    <div class="container mt-4 ">
+		<div class="h1 text-center mb-4"><a href="list" class="text-decoration-none">List Request, Report</a> </div>
 		<div class="text-center w-50 m-auto">
-			<form action="">
+			<form th:action="search" >
 				<div class="input-group ">
-					<input type="password" class="form-control border-right-0"
-						id="password" placeholder="Nhập mật khẩu">
+					<input type="text" class="form-control border-right-0" id="search"
+						placeholder="Search" name="searchKeyword">
 					<button class="input-group-text border-left-0 bg-white" id="search"
 						type="submit" style="border-radius: 0 .25rem .25rem 0;">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -30,23 +28,26 @@
 
 	</div>
 	<div class="container mt-4">
-		<table class="table ">
+		<table class="table table-bordered ">
 			<thead class="table-light text-center">
 				<tr>
 					<th scope="col">ID Apartment</th>
-					<th scope="col">Floor</th>
-					<th scope="col">Number of rooms</th>
 					<th scope="col">ID Homeowner</th>
+					<th scope="col">Floor </th>
+					<th scope="col">Number of rooms</th>
 					<th scope="col">Area</th>
 					<th scope="col">Apartment number</th>
+					<th scope="col">Apartment type </th>
 				</tr>
 			</thead>
-			<tbody th:each="a : ${listresident}">
+			<tbody th:each="a : ${listApartment}" class="text-center">
 				<tr>
-
+				
 				</tr>
 			</tbody>
 		</table>
+		<!-- <div th:replace="@{layout/page} :: pageAble"></div> -->
 	</div>
+
 </body>
 </html>

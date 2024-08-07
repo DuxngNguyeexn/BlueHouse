@@ -12,6 +12,12 @@ import com.fa.BlueHouse.repositories.EmployeeRepo;
 
 @Service
 public class EmployeeService {
+	  @Autowired
+	  EmployeeRepo employeeRepo;
+	  
+	  public List<Employee> listAdministrator(){
+		  return employeeRepo.findAdministrator();
+	  }
 	@Autowired
 	private EmployeeRepo eRepo;
 
