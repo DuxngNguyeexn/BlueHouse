@@ -26,11 +26,7 @@ public class RentalSpaceContractService {
 	private ApartmentRepository apartment;
 	
 	@Autowired 
-<<<<<<< HEAD
 	private EmployeeRepo employee;
-=======
-	private EmployeeRepository employee;
->>>>>>> d68d8f784ee9e85c11c3d86fece876f442694060
 	
 	public void saveRentalSpaceContractDao(RentalSpaceContract renspa) {
 		renSpaCon.save(renspa);
