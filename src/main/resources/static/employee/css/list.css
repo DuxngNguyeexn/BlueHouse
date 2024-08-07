@@ -1,59 +1,6 @@
-.search-icon {
-  border-radius: 0 0.25rem 0.25rem 0;
-  border-left: 0;
-  background: white;
-}
-
-.search {
-  border-right: 0;
-}
-
-.tableFixHead {
-  overflow-y: auto;
-  width: 100%;
-}
-
-.tableFixHead thead th {
-  position: sticky;
-  /* make the table heads sticky */
-  top: 0px;
-  /* table head will be placed from the top of the table and sticks to it */
-}
-
-th {
-  background: white;
-  border: none !important;
-}
-
-tbody#table-content td {
-  text-align: center;
-}
-
-tr th,
-td {
-  text-align: center;
-  white-space: nowrap;
-}
-
-table tbody tr:last-child,
-table tbody tr:last-child td {
-  border-bottom: unset !important;
-}
-
-table tbody {
-  border-top: none !important;
-}
-
-.trash {
-  color: #ffc720;
-  cursor: pointer;
-}
-
-.pencil {
-  color: #f5564a;
-  cursor: pointer;
-}
-
-ul li a {
-  cursor: pointer;
+.bg-dark {
+  background-color: rgb(52, 58, 64) !important;
+  margin-left: 0.8px;
+  color: white;
+  border-radius: 5px 5px 0px 0px;
 }

@@ -14,13 +14,34 @@ import com.fa.BlueHouse.repositories.EmployeeRepo;
 public class EmployeeService {
 	@Autowired
 	private EmployeeRepo eRepo;
-	
-	public List<Employee> allEmployee(){
+
+	public List<Employee> allEmployee() {
 		return eRepo.findAll();
 	}
-	
-	public Page<Employee> allEmployee(Pageable pageable){
+
+	public Page<Employee> allEmployee(Pageable pageable) {
 		return eRepo.findAll(pageable);
 	}
+
+	public Page<Employee> findByKeyword(Pageable pageable, String keyword) {
+		return eRepo.findByKeyword(keyword, pageable);
+	}
+	
+	public List<Employee> findByKeyword(String keyword) {
+		return eRepo.findByKeyword(keyword);
+	}
+	
+	
+	public void saveEmployee(Employee emp) {
+		eRepo.save(emp);
+	}
+	
+	public void deleteByID(String id) {
+		eRepo.deleteById(id);
+	}
+	
+	public Employee findById(String id) {
+    	return eRepo.findById(id).orElse(null);
+    }
 
 }
