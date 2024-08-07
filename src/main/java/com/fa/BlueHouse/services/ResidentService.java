@@ -3,6 +3,8 @@ package com.fa.BlueHouse.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fa.BlueHouse.entities.Apartment;
@@ -27,8 +29,8 @@ public class ResidentService {
 		return repositori.findAll();
 	}
 
-    public List<Resident> searchResident(String search){
-    	return repositori.searchResident(search);
+    public Page<Resident> searchResident(String search, Pageable pageable){
+    	return repositori.searchResident(search, pageable);
     }
     
     public List<Apartment> findallapart(){
@@ -48,4 +50,9 @@ public class ResidentService {
     public List<Resident> findByIdApartment(String id){
     	return repositori.findByIdApartment_idApartment(id);
     }
+    
+    public Page<Resident> findpageResident(Pageable page){
+    	return repositori.findAll(page);
+    }
+    
 }

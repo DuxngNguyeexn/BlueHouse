@@ -12,21 +12,30 @@
 			<div class="row">
 				<div class=" col-6">
 					<label for="idPosition" class="form-lable">ID Position</label>
-					<p id="erroname"></p>
+					<div>
+						<span th:if="${#fields.hasErrors('idPosition')}"
+							th:errors="*{idPosition}" class="text-danger"></span>
+					</div>
 					<input type="text" th:field="*{idPosition}" name="idPosition" id="idPosition"
 						class="form-control" placeholder="ID Position"
 						aria-label="Username" aria-describedby="addon-wrapping">
 				</div>
 				<div class=" col-6">
 					<label for="namePosition" class="form-lable">Name Position</label>
-					<p id="erroname"></p>
+					<div>
+						<span th:if="${#fields.hasErrors('namePosition')}"
+							th:errors="*{namePosition}" class="text-danger"></span>
+					</div>
 					<input type="text" th:field="*{namePosition}" name="namePosition" id="namePosition"
 						class="form-control" placeholder="Name Positiont"
 						aria-label="Username" aria-describedby="addon-wrapping">
 				</div>
 				<div class=" col-6">
 					<label for="prorogue" class="form-lable">Prorogue</label>
-					<p id="erroname"></p>
+					<div>
+						<span th:if="${#fields.hasErrors('prorogue')}"
+							th:errors="*{prorogue}" class="text-danger"></span>
+					</div>
 					<input type="text" th:field="*{prorogue}" name="prorogue" id="prorogue"
 						class="form-control" placeholder="Prorogue"
 						aria-label="Username" aria-describedby="addon-wrapping">

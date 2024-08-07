@@ -47,7 +47,8 @@
 		 <tbody th:each="a : ${listAll}" class="text-center">
 				<tr>
 				<td th:text="${a.idContract}"></td>
-					<td th:text="${a.idResident.nameResident}"></td>
+					<td th:if="${a.idResident != null}" th:text="${a.idResident.idResident + ' - ' + a.idResident.nameResident}"></td>
+					<td th:if="${a.idResident == null}" th:text="${a.managerCodeTransfer.employeeID}"></td>
 					<td th:text="${a.newHomeowner}"></td>
 					<td th:text="${a.apartmentTransfer.idApartment}"></td>
 					<td th:text="${a.transferDate}"></td>

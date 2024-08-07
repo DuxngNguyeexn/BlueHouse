@@ -1,6 +1,5 @@
 package com.fa.BlueHouse.entities;
 
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -40,8 +39,8 @@ public class Employee {
 	@Column(name = "AreaBorn")
 	private String areaBorn;
 
-	@Column(name = "Department")
-	private String department;
+	@Column(name = "Office")
+	private String office;
 
 	@Column(name = "Duty")
 	private String duty;
@@ -121,12 +120,12 @@ public class Employee {
 		this.areaBorn = areaBorn;
 	}
 
-	public String getDepartment() {
-		return department;
+	public String getOffice() {
+		return office;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setOffice(String office) {
+		this.office = office;
 	}
 
 	public String getDuty() {
@@ -174,8 +173,8 @@ public class Employee {
 	}
 
 	public Employee(String employeeID, String name, String gender, String phoneNumber, LocalDate dateOfBirth,
-			String cCCD, String areaBorn, String department, String duty, List<HistoryOff> historyOffID,
-			Employee manager, List<Employee> under) {
+			String cCCD, String areaBorn, String office, String duty, List<HistoryOff> historyOffID, Employee manager,
+			List<Employee> under) {
 		super();
 		this.employeeID = employeeID;
 		this.name = name;
@@ -184,7 +183,7 @@ public class Employee {
 		this.dateOfBirth = dateOfBirth;
 		CCCD = cCCD;
 		this.areaBorn = areaBorn;
-		this.department = department;
+		this.office = office;
 		this.duty = duty;
 		HistoryOffID = historyOffID;
 		this.manager = manager;

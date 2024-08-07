@@ -80,4 +80,23 @@ public class ApartmentTransferHistoryController {
 		apartmentTransferHistoryService.save(apartmentTransferHistory);
 		return "redirect:list";
 	}
+	@GetMapping("search")
+	public String search(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,
+			@RequestParam(name = "page", defaultValue = "1") int page) {
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<ApartmentTransferHistory> all = apartmentTransferHistoryService.findByKeyword(pageRequest, keyword);
+		model.addAttribute("currentPage", page);
+		int totalPages ;
+		if(all.getTotalPages() < 1) {
+			totalPages = 1 ;
+		}else {
+			totalPages = all.getTotalPages();
+		}
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("searchKeyword", keyword);
+		model.addAttribute("listAll", all.getContent());
+		return "ApartmentTransferHistory/list";
+
+	}
 }

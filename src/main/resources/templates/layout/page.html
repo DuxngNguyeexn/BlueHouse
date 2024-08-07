@@ -18,7 +18,7 @@
 				</li>
 				<span th:each="i : ${#numbers.sequence(1, totalPages)}">
 					<li class=" " th:if="${currentPage == i-1}"><a class="page-link" th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword})}" th:text="${i}"></a></li>
-					<li class="  " th:if="${currentPage == i}" style="border-radius: 0;"><a class="page-link bg-primary text-white" th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword})}" th:text="${i}"></a></li>
+					<li class="  " th:if="${currentPage == i}" style="border-radius: 0;"><a class="page-link bg-primary text-white" href="#" th:text="${i}"></a></li>
 					<li class=" " th:if="${currentPage == i+1}"><a class="page-link" th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword})}" th:text="${i}"></a></li>		
 				</span>
 				<li class="page-item" th:if="${currentPage < totalPages}">
