@@ -5,17 +5,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Administrators {
 	@Id
 	@Column(name = "ID_BQT")
+	@NotBlank(message = "* ID Admin không được để trống")
 	private String idBQT;
 	@ManyToOne
 	@JoinColumn(name = "ID_Resident")
+	@NotNull(message ="* ID Position không được để trống" )
 	private Resident idResident;
 	@ManyToOne
 	@JoinColumn(name = "ID_Position")
+	@NotNull(message ="* ID Position không được để trống" )
 	private Position idPosition;
 
 	public String getIdBQT() {

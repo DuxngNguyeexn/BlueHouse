@@ -3,8 +3,11 @@ package com.fa.BlueHouse.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +17,8 @@ import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.services.ResidentService;
 
+import jakarta.validation.Valid;
+
 @Controller
 public class ResidentController {
 	@Autowired
@@ -21,27 +26,48 @@ public class ResidentController {
 
 	@GetMapping("/createresident")
 	public String createResident(Model model) {
+		model.addAttribute("resident", new Resident());
 		model.addAttribute("listapartment", resident.findallapart());
 		return "/Resident/createResident";
 	}
 
 	@PostMapping("/saveresident")
-	public String saveResident(Model model, @ModelAttribute Resident resi) {
-		System.out.println(resi.toString());
+	public String saveResident(Model model,@Valid @ModelAttribute Resident resi, BindingResult result) {
+		if(result.hasErrors()) {
+			model.addAttribute("listapartment", resident.findallapart());
+			return "/Resident/createResident";
+		}
 		resident.saveResident(resi);
 		return "redirect:/showlistresident";
 	}
 
 	@GetMapping("/showlistresident")
-	public String showlistResident(Model model) {
-		List<Resident> listresi = resident.findallResident();
-		model.addAttribute("listResident", listresi);
+	public String showlistResident(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<Resident> listresi = resident.findpageResident(pageRequest);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", listresi.getTotalPages());
+		model.addAttribute("listResident", listresi.getContent());
 		return "/Resident/listResident";
 	}
 
 	@GetMapping("/searchrisedent")
-	public String searchResident(Model model, @RequestParam("search") String search) {
-		model.addAttribute("listResident", resident.searchResident(search));
+	public String searchResident(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,
+			@RequestParam(name = "page", defaultValue = "1") int page) {
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<Resident> listresi = resident.searchResident( keyword, pageRequest);
+		model.addAttribute("currentPage", page);
+		int totalPages ;
+		if(listresi.getTotalPages() < 1) {
+			totalPages = 1 ;
+		}else {
+			totalPages = listresi.getTotalPages();
+		}
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("searchKeyword", keyword);
+		model.addAttribute("listResident", listresi.getContent());
 		return "/Resident/listResident";
 	}
 

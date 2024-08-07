@@ -11,7 +11,7 @@
 	<h1>List Resident</h1>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
-			<form class="d-flex" action="/searchposition" method="GET">
+			<form class="d-flex" action="/searchadminis" method="GET">
 				<input class="form-control me-2" type="text" name="searchKeyword" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
@@ -20,19 +20,19 @@
 	<table class="table ">
 		<thead class="table-dark">
 			<tr>
-				<th scope="col">ID Position</th>
+				<th scope="col">ID Adminis</th>
 				<th scope="col">Name Position</th>
-				<th scope="col">Proroguer</th>
+				<th scope="col">Name Resident</th>
 				<th scope="col">Active</th>
 			</tr>
 		</thead>
-		<tbody th:each="position : ${listPosition}">
+		<tbody th:each="admin : ${listAdminis}">
 			<tr>
-				<td th:text="${position.idPosition}"></td>
-				<td th:text="${position.namePosition}"></td>
-				<td th:text="${position.prorogue}"></td>
-				<td><a th:href="@{/editposition(idPosition=${position.idPosition})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
-					<a th:href="@{/deleteposition(idPosition=${position.idPosition})}" target="blank"><i class="fa-solid fa-trash"></i></a>
+				<td th:text="${admin.idBQT}"></td>
+				<td th:text="${admin.idPosition.namePosition}"></td>
+				<td th:text="${admin.idResident.nameResident}"></td>
+				<td><a th:href="@{/editAdminis(idBQT=${admin.idBQT})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
+					<a th:href="@{/deleteAdminis(idBQT=${admin.idBQT})}" target="blank"><i class="fa-solid fa-trash"></i></a>
 				</td>
 			</tr>
 		</tbody>

@@ -3,15 +3,16 @@ package com.fa.BlueHouse.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.RentalSpaceContract;
-import com.fa.BlueHouse.repositories.ApartmentDao;
+import com.fa.BlueHouse.repositories.ApartmentRepository;
 import com.fa.BlueHouse.repositories.EmployeeRepo;
-import com.fa.BlueHouse.repositories.RentalSpaceContractDao;
-
+import com.fa.BlueHouse.repositories.RentalSpaceContractRepository;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -19,13 +20,17 @@ import jakarta.transaction.Transactional;
 public class RentalSpaceContractService {
 
 	@Autowired
-	private RentalSpaceContractDao renSpaCon;
+	private RentalSpaceContractRepository renSpaCon;
 	
 	@Autowired
-	private ApartmentDao apartment;
+	private ApartmentRepository apartment;
 	
 	@Autowired 
+<<<<<<< HEAD
 	private EmployeeRepo employee;
+=======
+	private EmployeeRepository employee;
+>>>>>>> d68d8f784ee9e85c11c3d86fece876f442694060
 	
 	public void saveRentalSpaceContractDao(RentalSpaceContract renspa) {
 		renSpaCon.save(renspa);
@@ -52,6 +57,12 @@ public class RentalSpaceContractService {
 	
 	public void updateRenSpaCon(RentalSpaceContract rentalSpaCon) {
 		renSpaCon.save(rentalSpaCon);
-
+	}
+	
+	public Page<RentalSpaceContract> allRentalSpaceContract(Pageable pageable){
+		return renSpaCon.findAll(pageable);
+	}
+	public Page<RentalSpaceContract> seachRentalSpaceContract(Pageable pageable, String search){
+		return renSpaCon.searchRentalSpaceContract(search, pageable);
 	}
 }

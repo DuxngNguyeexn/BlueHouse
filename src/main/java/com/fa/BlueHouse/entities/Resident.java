@@ -11,29 +11,38 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Resident {
 	@Id
-
 	@Column(name = "ID_Resident")
+	@NotBlank(message = "* ID Resident không được để trống")
 	private String idResident;
 	@Column(name = "Name_Resident")
+	@NotBlank(message = "* Name Resident không được để trống")
 	private String nameResident;
+	@NotNull(message = "* Gender không được để trống")
 	private String gender;
 	@ManyToOne
 	@JoinColumn(name = "ID_Apartment")
+	@NotNull(message = "* ID Apartment không được để trống")
 	private Apartment idApartment;
 	@Column(name = "Relation")
+	@NotBlank(message = "* Relationship không được để trống")
 	private String relationshipHousehold;
+	@NotNull(message = "* BirthDay không được để trống")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "BirthDay")
 	private LocalDate birthday;
 	@Column(name = "Phone_Number")
+	@NotBlank(message = "* Phonenumber không được để trống")
 	private String phonenumber;
 	@Column(name = "WorkPlace")
 	private String workplace;
 	@Column(name = "Identifi_Card")
+	@NotBlank(message = "* IdentificationCard không được để trống")
 	private String identificationCard;
 	@OneToMany(mappedBy = "idResident")
 	private List<Administrators> listAdmin;
