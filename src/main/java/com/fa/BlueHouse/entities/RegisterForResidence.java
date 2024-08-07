@@ -2,17 +2,23 @@ package com.fa.BlueHouse.entities;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "REGISTER_FOR_RESIDENCE")
 public class RegisterForResidence {
 
 	@Id
+	@NotBlank(message =  "*IdResidence Không được để trống ")
+//	@Pattern(regexp = "^(DV)\\d{5}$", message = "Ma dich vu không hợp lệ")
 	private String idResidence;
 
 	@ManyToOne
@@ -23,12 +29,28 @@ public class RegisterForResidence {
 	@JoinColumn(name = "ID_ApartmentResi")
 	private Apartment idApartmentResi;
 
+	@NotBlank(message =  "*RelationshipWithHomeowner Không được để trống ")
 	private String relationshipWithHomeowner;
+	
+	@NotBlank(message =  "*Type Không được để trống ")
 	private String type;
+	
+	@NotNull(message = "*DateOfBirth Không được để trống")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
+	
+	@NotBlank(message =  "*Phone Không được để trống ")
 	private String phone;
+	
+	@NotNull(message = "*MoveInDate Không được để trống")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate moveInDate;
+	
+	@NotNull(message = "*MoveOutDate Không được để trống")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate moveOutDate;
+	
+	@NotBlank(message =  "*IdNational Không được để trống ")
 	private String idNational;
 
 	@ManyToOne

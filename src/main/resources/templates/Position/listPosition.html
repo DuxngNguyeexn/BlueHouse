@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>List Position</title>
+</head>
+
+<body layout:fragment="content">
+<div class="container">
+	<h1>List Resident</h1>
+	<nav class="navbar navbar-light bg-light">
+		<div class="container-fluid">
+			<form class="d-flex" action="/searchposition" method="GET">
+				<input class="form-control me-2" type="text" name="searchKeyword" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+	<table class="table ">
+		<thead class="table-dark">
+			<tr>
+				<th scope="col">ID Position</th>
+				<th scope="col">Name Position</th>
+				<th scope="col">Proroguer</th>
+				<th scope="col">Active</th>
+			</tr>
+		</thead>
+		<tbody th:each="position : ${listPosition}">
+			<tr>
+				<td th:text="${position.idPosition}"></td>
+				<td th:text="${position.namePosition}"></td>
+				<td th:text="${position.prorogue}"></td>
+				<td><a th:href="@{/editposition(idPosition=${position.idPosition})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
+					<a th:href="@{/deleteposition(idPosition=${position.idPosition})}" target="blank"><i class="fa-solid fa-trash"></i></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:replace="@{layout/page} :: pageAble" ></div>
+	</div> 
+	
+</body>
+</html>

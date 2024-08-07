@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body layout:fragment="content">
+<h1>List Rental Space Contract</h1>
+	<nav class="navbar navbar-light bg-light">
+		<div class="container-fluid">
+			<form th:action="searchrentalspacon" >
+				<div class="input-group ">
+					<input type="text" class="form-control border-right-0" id="searchrentalspacon"
+						placeholder="Search" name="searchKeyword">
+					<button class="input-group-text border-left-0 bg-white" id="searchrentalspacon"
+						type="submit" style="border-radius: 0 .25rem .25rem 0;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                          </svg>
+					</button>
+				</div>
+			</form>
+		</div>
+		</nav>
+<table class="table ">
+		<thead class="table-dark">
+			<tr>
+				<th scope="col">contractCode</th>
+				<th scope="col">tenantCode</th>
+				<th scope="col">duration</th>
+				<th scope="col">moveInDate</th>
+				<th scope="col">moveOutdate</th>
+				<th scope="col">idApa</th>
+				<th scope="col">managerCodeContract</th>
+				<th scope="col">Active</th>
+			</tr>
+		</thead>
+		<tbody th:each="rentalSpa : ${listRentalSpa}">
+
+			<tr>
+				<td th:text="${rentalSpa.contractCode}"></td>
+				<td th:text="${rentalSpa.tenantCode}"></td>
+				<td th:text="${rentalSpa.duration}"></td>
+				<td th:text="${rentalSpa.moveInDate}"></td>
+				<td th:text="${rentalSpa.moveOutdate}"></td>
+				<td th:text="${rentalSpa.idApa.idApartment}"></td>
+				<td th:text="${rentalSpa.managerCodeContract.employeeID}"></td>
+				<td><a th:href="@{/editrenspacon(idrenspacon=${rentalSpa.contractCode})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
+					<a th:href="@{/deleterenspacon(idrenspacon=${rentalSpa.contractCode})}" target="blank"><i class="fa-solid fa-trash"></i></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:replace="@{layout/page} :: pageAble"></div>
+</body>
+</html>

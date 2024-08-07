@@ -13,7 +13,7 @@ import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.services.ApartmentService;
 
 @Controller
-@RequestMapping(path = "/apartment/")
+@RequestMapping(path = "/Apartment/")
 public class ApartmentController {
 	@Autowired
 	ApartmentService apartmentService;
@@ -24,7 +24,13 @@ public class ApartmentController {
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 		Page<Apartment> allApartments = apartmentService.allApartments(pageRequest);
 		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", allApartments.getTotalPages());
+		int totalPages ;
+		if(allApartments.getTotalPages() < 1) {
+			totalPages = 1 ;
+		}else {
+			totalPages = allApartments.getTotalPages();
+		}
+		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("listApartment", allApartments.getContent());
 		return "Apartment/list";
 	}
