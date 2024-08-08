@@ -10,7 +10,7 @@
 <body layout:fragment="content">
 	<div class="container mt-4">
 		<div class="h1 text-center mb-4">
-			<a href="list" class="text-decoration-none">Ban Quản Lý</a>
+			<a href="list" class="text-decoration-none">Employee List</a>
 		</div>
 
 		<div class="text-center d-flex justify-content-between">
@@ -23,8 +23,8 @@
 				</div>
 			</form>
 
-			<a href="/employee/add">
-			  <button type="button" class="btn btn-info">+ Thêm Mới</button>
+			<a href="add">
+			  <button type="button" class="btn btn-info">+ ADD New</button>
 			</a>
 			
 		</div>
@@ -49,15 +49,15 @@
 				<table class="table ">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">ID Nhân Viên</th>
-							<th scope="col">Tên Nhân Viên</th>
-							<th scope="col">Số Căn Cước</th>
-							<th scope="col">Ngày Sinh</th>
-							<th scope="col">Giới Tính</th>
-							<th scope="col">Quê Quán</th>
-							<th scope="col">Chức Vụ</th>
-							<th scope="col">Phòng Ban</th>
-							<th scope="col">SĐT</th>
+							<th scope="col">Employee ID</th>
+							<th scope="col">Employee Name</th>
+							<th scope="col">Identification Number</th>
+							<th scope="col">Date Of Birth</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Place Of Birth</th>
+							<th scope="col">Duty</th>
+							<th scope="col">Office</th>
+							<th scope="col">Phone Number</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -73,10 +73,10 @@
 							<td th:text="${emp.office}"></td>
 							<td th:text="${emp.phoneNumber}"></td>
 							<td>
-								<a th:href="@{/employee/edit(employeeID=${emp.employeeID})}" target="blank">
+								<a th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
-								<a th:href="@{/employee/delete(employeeID=${emp.employeeID})}" target="blank">
+								<a th:href="@{delete(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-trash trash"></i>
 								</a>
 							</td>
@@ -92,14 +92,14 @@
 				<table class="table ">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">ID Nhân Viên</th>
-							<th scope="col">Tên Nhân Viên</th>
-							<th scope="col">Số Căn Cước</th>
-							<th scope="col">Ngày Sinh</th>
-							<th scope="col">Giới Tính</th>
-							<th scope="col">Quê Quán</th>
-							<th scope="col">Chức Vụ</th>
-							<th scope="col">SĐT</th>
+							<th scope="col">Employee ID</th>
+							<th scope="col">Employee Name</th>
+							<th scope="col">Identification Number</th>
+							<th scope="col">Date Of Birth</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Place Of Birth</th>
+							<th scope="col">Duty</th>
+							<th scope="col">Phone Number</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -114,10 +114,10 @@
 							<td th:text="${emp.duty}"></td>
 							<td th:text="${emp.phoneNumber}"></td>
 							<td>
-								<a target="blank">
+								<a th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
-								<a th:href="@{/employee/delete(employeeID=${emp.employeeID})}" target="blank">
+								<a th:href="@{delete(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-trash trash"></i>
 								</a>
 							</td>
@@ -132,14 +132,14 @@
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">ID Nhân Viên</th>
-							<th scope="col">Tên Nhân Viên</th>
-							<th scope="col">Số Căn Cước</th>
-							<th scope="col">Ngày Sinh</th>
-							<th scope="col">Giới Tính</th>
-							<th scope="col">Quê Quán</th>
-							<th scope="col">Chức Vụ</th>
-							<th scope="col">SĐT</th>
+							<th scope="col">Employee ID</th>
+							<th scope="col">Employee Name</th>
+							<th scope="col">Identification Number</th>
+							<th scope="col">Date Of Birth</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Place Of Birth</th>
+							<th scope="col">Duty</th>
+							<th scope="col">Phone Number</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -154,10 +154,10 @@
 							<td th:text="${emp.duty}"></td>
 							<td th:text="${emp.phoneNumber}"></td>
 							<td>
-								<a target="blank">
+								<a th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
-								<a th:href="@{/employee/delete(employeeID=${emp.employeeID})}" target="blank">
+								<a th:href="@{delete(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-trash trash"></i>
 								</a>
 							</td>
@@ -172,14 +172,14 @@
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">ID Nhân Viên</th>
-							<th scope="col">Tên Nhân Viên</th>
-							<th scope="col">Số Căn Cước</th>
-							<th scope="col">Ngày Sinh</th>
-							<th scope="col">Giới Tính</th>
-							<th scope="col">Quê Quán</th>
-							<th scope="col">Chức Vụ</th>
-							<th scope="col">SĐT</th>
+							<th scope="col">Employee ID</th>
+							<th scope="col">Employee Name</th>
+							<th scope="col">Identification Number</th>
+							<th scope="col">Date Of Birth</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Place Of Birth</th>
+							<th scope="col">Duty</th>
+							<th scope="col">Phone Number</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -194,10 +194,10 @@
 							<td th:text="${emp.duty}"></td>
 							<td th:text="${emp.phoneNumber}"></td>
 							<td>
-								<a target="blank">
+								<a th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
-								<a th:href="@{/employee/delete(employeeID=${emp.employeeID})}" target="blank">
+								<a th:href="@{delete(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-trash trash"></i>
 								</a>
 							</td>

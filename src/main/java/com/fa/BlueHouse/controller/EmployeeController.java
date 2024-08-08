@@ -20,17 +20,23 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService eService;
 
-	@GetMapping({"/" , "/list"})
+	@GetMapping({ "/", "/list" })
 	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
 
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 		Page<Employee> listEmployee = eService.allEmployee(pageRequest);
 
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", listEmployee.getTotalPages());
-		model.addAttribute("listEmpPaggin", listEmployee.getContent());
+		int totalPages;
+		if (listEmployee.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
+			totalPages = listEmployee.getTotalPages();
+		}
 
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("listEmpPaggin", listEmployee.getContent());
 		model.addAttribute("listEmp", eService.allEmployee());
 		return "Employee/list";
 	}
@@ -40,18 +46,19 @@ public class EmployeeController {
 			@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		Page<Employee> allApartments = eService.findByKeyword(pageRequest, keyword);
+		Page<Employee> listEmployee = eService.findByKeyword(pageRequest, keyword);
 
-		model.addAttribute("currentPage", page);
 		int totalPages;
-		if (allApartments.getTotalPages() < 1) {
+		if (listEmployee.getTotalPages() < 1) {
 			totalPages = 1;
 		} else {
-			totalPages = allApartments.getTotalPages();
+			totalPages = listEmployee.getTotalPages();
 		}
+
+		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("searchKeyword", keyword);
-		model.addAttribute("listEmpPaggin", allApartments.getContent());
+		model.addAttribute("listEmpPaggin", listEmployee.getContent());
 
 		if (keyword.equalsIgnoreCase("")) {
 			model.addAttribute("listEmp", eService.allEmployee());
@@ -66,7 +73,7 @@ public class EmployeeController {
 	@GetMapping("/add")
 	public String addEmp(Model model) {
 		model.addAttribute("employee", new Employee());
-		return "Employee/addEmployee";
+		return "Employee/addEditEmployee";
 	}
 
 	@PostMapping("/save")
@@ -74,19 +81,19 @@ public class EmployeeController {
 		eService.saveEmployee(employee);
 		return "redirect:/employee/list";
 	}
-	
+
 	@GetMapping("/delete")
 	public String deleteEmp(@RequestParam("employeeID") String id) {
 		eService.deleteByID(id);
 		return "redirect:/employee/list";
 	}
-	
+
 	@GetMapping("/edit")
 	public String editEmp(Model model, @RequestParam("employeeID") String id) {
 		model.addAttribute("employee", eService.findById(id));
-		return "Employee/updateEmployee";
+		return "Employee/addEditEmployee";
 	}
-	
+
 	@PostMapping("/update")
 	public String updateEmp(@ModelAttribute("employee") Employee employee) {
 		eService.saveEmployee(employee);
