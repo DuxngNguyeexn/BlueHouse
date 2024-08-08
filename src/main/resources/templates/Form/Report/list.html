@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
 </head>
 <body layout:fragment="content">
-<<<<<<< HEAD
-    
-=======
-    <div class="container mt-4 ">
-		<div class="h1 text-center mb-4"><a href="list" class="text-decoration-none">List Request, Report</a> </div>
+
+<div class="container mt-4 ">
+		<div class="h1 text-center mb-4">
+			<a href="list" class="text-decoration-none">List Request, Report</a>
+		</div>
 		<div class="text-center w-50 m-auto">
-			<form th:action="search" >
+			<form th:action="search">
 				<div class="input-group ">
 					<input type="text" class="form-control border-right-0" id="search"
 						placeholder="Search" name="searchKeyword">
@@ -34,24 +36,25 @@
 		<table class="table table-bordered ">
 			<thead class="table-light text-center">
 				<tr>
-					<th scope="col">ID Apartment</th>
-					<th scope="col">ID Homeowner</th>
-					<th scope="col">Floor </th>
-					<th scope="col">Number of rooms</th>
-					<th scope="col">Area</th>
-					<th scope="col">Apartment number</th>
-					<th scope="col">Apartment type </th>
+					<th scope="col">ID Form</th>
+					<th scope="col">Type</th>
+					<th scope="col">ID Manager</th>
+					<th scope="col">ID Resident</th>
+					<th scope="col">Date sent</th>
+					<th scope="col">Status</th>
+					<th scope="col">Details</th>
 				</tr>
 			</thead>
-			<tbody th:each="a : ${listApartment}" class="text-center">
+			<tbody th:each="l : ${listAll}" class="text-center">
 				<tr>
-				
+					<td th:text="${l.idForm}"></td>
 				</tr>
-			</tbody>
+			</tbody> 
 		</table>
-		<!-- <div th:replace="@{layout/page} :: pageAble"></div> -->
-	</div>
+		 <!-- <div th:replace="@{layout/page} :: pageAble"></div>
+ -->	</div>
+	
 
->>>>>>> c3c184741158a2e280561fa7857fa36684dec8cf
+
 </body>
 </html>
