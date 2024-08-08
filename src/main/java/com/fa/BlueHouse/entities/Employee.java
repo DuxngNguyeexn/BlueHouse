@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -30,11 +31,12 @@ public class Employee {
 	@Column(name = "PhoneNumber")
 	private String phoneNumber;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "DateOfBirth", columnDefinition = "DATE")
 	private LocalDate dateOfBirth;
 
 	@Column(name = "CCCD")
-	private String CCCD;
+	private String cccd;
 
 	@Column(name = "AreaBorn")
 	private String areaBorn;
@@ -46,20 +48,20 @@ public class Employee {
 	private String duty;
 //	======================One To Many=========================
 
-	@OneToMany(mappedBy = "employeeID", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "employeeID")
 	private List<HistoryOff> HistoryOffID;
 
 //	=========================One To One==========================
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "MANAGER_ID")
 	private Employee manager;
 
-	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "manager")
 	private List<Employee> under;
 //	======================Many To Many==============================
 
-	@OneToMany(mappedBy = "employeeID", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "employeeID")
 	private Set<EmployeeWork> employeeWork;
 
 //	============================================================
@@ -104,12 +106,12 @@ public class Employee {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getCCCD() {
-		return CCCD;
+	public String getCccd() {
+		return cccd;
 	}
 
-	public void setCCCD(String cCCD) {
-		CCCD = cCCD;
+	public void setCccd(String cccd) {
+		this.cccd = cccd;
 	}
 
 	public String getAreaBorn() {
@@ -173,7 +175,7 @@ public class Employee {
 	}
 
 	public Employee(String employeeID, String name, String gender, String phoneNumber, LocalDate dateOfBirth,
-			String cCCD, String areaBorn, String office, String duty, List<HistoryOff> historyOffID, Employee manager,
+			String cccd, String areaBorn, String office, String duty, List<HistoryOff> historyOffID, Employee manager,
 			List<Employee> under) {
 		super();
 		this.employeeID = employeeID;
@@ -181,7 +183,7 @@ public class Employee {
 		this.gender = gender;
 		this.phoneNumber = phoneNumber;
 		this.dateOfBirth = dateOfBirth;
-		CCCD = cCCD;
+		this.cccd = cccd;
 		this.areaBorn = areaBorn;
 		this.office = office;
 		this.duty = duty;

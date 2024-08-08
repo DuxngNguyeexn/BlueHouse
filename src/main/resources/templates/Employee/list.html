@@ -10,11 +10,11 @@
 <body layout:fragment="content">
 	<div class="container mt-4">
 		<div class="h1 text-center mb-4">
-			<a href="list" class="text-decoration-none">Ban Quản Lý</a>
+			<a href="list" class="text-decoration-none">Employee List</a>
 		</div>
 
 		<div class="text-center d-flex justify-content-between">
-			<form class="col-3">
+			<form th:action="search" class="col-3">
 				<div class="input-group">
 					<input class="form-control search" placeholder="Search" name="searchKeyword" />
 					<button class="input-group-text search-icon" type="submit">
@@ -23,34 +23,83 @@
 				</div>
 			</form>
 
-			<button type="button" class="btn btn-info">+ Thêm Mới</button>
+			<a href="add">
+			  <button type="button" class="btn btn-info">+ ADD New</button>
+			</a>
+			
 		</div>
 		<!-- tabs -->
-		<ul class="nav nav-tabs mt-4">
+		<ul class="nav mt-4">
 			<li class="nav-item">
-				<a onclick="openCity(event, 'Services')" class="nav-link tablinks active">Services</a>
+				<a onclick="moveTabs(event, 'All')" class="nav-link tablinks active bg-dark">All</a>
 			</li>
 			<li class="nav-item">
-				<a onclick="openCity(event, 'Engineering')" class="nav-link tablinks">Engineering</a>
+				<a onclick="moveTabs(event, 'Services')" class="nav-link tablinks">Services</a>
 			</li>
 			<li class="nav-item">
-				<a onclick="openCity(event, 'Environment')" class="nav-link tablinks">Environment</a>
+				<a onclick="moveTabs(event, 'Engineering')" class="nav-link tablinks">Engineering</a>
+			</li>
+			<li class="nav-item">
+				<a onclick="moveTabs(event, 'Environment')" class="nav-link tablinks">Environment</a>
 			</li>
 		</ul>
 
-		<div id="Services" class="tabcontent">
-			<div class="table-responsive tableFixHead border-right border-left">
-				<table class="table">
-					<thead>
+		<div id="All" class="tabcontent">
+			<div class="table-responsive tableFixHead border-right border-left border-bottom">
+				<table class="table ">
+					<thead class="thead-dark">
 						<tr>
-							<th scope="col">ID Nhân Viên</th>
-							<th scope="col">Tên Nhân Viên</th>
-							<th scope="col">CCCD</th>
-							<th scope="col">Ngày Sinh</th>
-							<th scope="col">Giới Tính</th>
-							<th scope="col">Quê Quán</th>
-							<th scope="col">Chức Vụ</th>
-							<th scope="col">SĐT</th>
+							<th scope="col">Employee ID</th>
+							<th scope="col">Employee Name</th>
+							<th scope="col">Identification Number</th>
+							<th scope="col">Date Of Birth</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Place Of Birth</th>
+							<th scope="col">Duty</th>
+							<th scope="col">Office</th>
+							<th scope="col">Phone Number</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody th:each="emp : ${listEmpPaggin}">
+						<tr>
+							<td th:text="${emp.employeeID}"></td>
+							<td th:text="${emp.name}"></td>
+							<td th:text="${emp.cccd}"></td>
+							<td th:text="${emp.dateOfBirth}"></td>
+							<td th:text="${emp.gender}"></td>
+							<td th:text="${emp.areaBorn}"></td>
+							<td th:text="${emp.duty}"></td>
+							<td th:text="${emp.office}"></td>
+							<td th:text="${emp.phoneNumber}"></td>
+							<td>
+								<a th:href="@{edit(employeeID=${emp.employeeID})}">
+									<i class="fa-solid fa-pen-to-square pencil"></i>
+								</a>
+								<a th:href="@{delete(employeeID=${emp.employeeID})}">
+									<i class="fa-solid fa-trash trash"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div th:replace="@{layout/page} :: pageAble"></div>
+		</div>
+
+		<div id="Services" class="tabcontent" style="display: none;">
+			<div class="table-responsive tableFixHead border-right border-left border-bottom">
+				<table class="table ">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Employee ID</th>
+							<th scope="col">Employee Name</th>
+							<th scope="col">Identification Number</th>
+							<th scope="col">Date Of Birth</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Place Of Birth</th>
+							<th scope="col">Duty</th>
+							<th scope="col">Phone Number</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -58,17 +107,17 @@
 						<tr th:if="${emp.office == 'Services'}">
 							<td th:text="${emp.employeeID}"></td>
 							<td th:text="${emp.name}"></td>
-							<td th:text="${emp.CCCD}"></td>
+							<td th:text="${emp.cccd}"></td>
 							<td th:text="${emp.dateOfBirth}"></td>
 							<td th:text="${emp.gender}"></td>
 							<td th:text="${emp.areaBorn}"></td>
 							<td th:text="${emp.duty}"></td>
 							<td th:text="${emp.phoneNumber}"></td>
 							<td>
-								<a target="blank">
+								<a th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
-								<a target="blank">
+								<a th:href="@{delete(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-trash trash"></i>
 								</a>
 							</td>
@@ -79,18 +128,18 @@
 		</div>
 
 		<div id="Engineering" class="tabcontent" style="display: none;">
-			<div class="table-responsive tableFixHead border-right border-left">
+			<div class="table-responsive tableFixHead  border-right border-left border-bottom">
 				<table class="table">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<th scope="col">ID Nhân Viên</th>
-							<th scope="col">Tên Nhân Viên</th>
-							<th scope="col">CCCD</th>
-							<th scope="col">Ngày Sinh</th>
-							<th scope="col">Giới Tính</th>
-							<th scope="col">Quê Quán</th>
-							<th scope="col">Chức Vụ</th>
-							<th scope="col">SĐT</th>
+							<th scope="col">Employee ID</th>
+							<th scope="col">Employee Name</th>
+							<th scope="col">Identification Number</th>
+							<th scope="col">Date Of Birth</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Place Of Birth</th>
+							<th scope="col">Duty</th>
+							<th scope="col">Phone Number</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -98,17 +147,17 @@
 						<tr th:if="${emp.office == 'Engineering'}">
 							<td th:text="${emp.employeeID}"></td>
 							<td th:text="${emp.name}"></td>
-							<td th:text="${emp.CCCD}"></td>
+							<td th:text="${emp.cccd}"></td>
 							<td th:text="${emp.dateOfBirth}"></td>
 							<td th:text="${emp.gender}"></td>
 							<td th:text="${emp.areaBorn}"></td>
 							<td th:text="${emp.duty}"></td>
 							<td th:text="${emp.phoneNumber}"></td>
 							<td>
-								<a target="blank">
+								<a th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
-								<a target="blank">
+								<a th:href="@{delete(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-trash trash"></i>
 								</a>
 							</td>
@@ -119,18 +168,18 @@
 		</div>
 
 		<div id="Environment" class="tabcontent" style="display: none;">
-			<div class="table-responsive tableFixHead border-right border-left">
+			<div class="table-responsive tableFixHead border-right border-left border-bottom">
 				<table class="table">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<th scope="col">ID Nhân Viên</th>
-							<th scope="col">Tên Nhân Viên</th>
-							<th scope="col">CCCD</th>
-							<th scope="col">Ngày Sinh</th>
-							<th scope="col">Giới Tính</th>
-							<th scope="col">Quê Quán</th>
-							<th scope="col">Chức Vụ</th>
-							<th scope="col">SĐT</th>
+							<th scope="col">Employee ID</th>
+							<th scope="col">Employee Name</th>
+							<th scope="col">Identification Number</th>
+							<th scope="col">Date Of Birth</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Place Of Birth</th>
+							<th scope="col">Duty</th>
+							<th scope="col">Phone Number</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -138,17 +187,17 @@
 						<tr th:if="${emp.office == 'Environment'}">
 							<td th:text="${emp.employeeID}"></td>
 							<td th:text="${emp.name}"></td>
-							<td th:text="${emp.CCCD}"></td>
+							<td th:text="${emp.cccd}"></td>
 							<td th:text="${emp.dateOfBirth}"></td>
 							<td th:text="${emp.gender}"></td>
 							<td th:text="${emp.areaBorn}"></td>
 							<td th:text="${emp.duty}"></td>
 							<td th:text="${emp.phoneNumber}"></td>
 							<td>
-								<a target="blank">
+								<a th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
-								<a target="blank">
+								<a th:href="@{delete(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-trash trash"></i>
 								</a>
 							</td>
