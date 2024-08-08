@@ -24,7 +24,10 @@ footer {
   justify-content: center;
   font-weight: 700;
   text-transform: uppercase;
-  cursor: default;
+}
+
+.Icon span {
+  cursor: pointer;
 }
 
 .bell {
@@ -49,13 +52,16 @@ footer ul li p {
   cursor: default;
 }
 
-footer a {
+footer a,
+header a {
   text-decoration: unset;
   color: inherit;
 }
 
-footer a:hover {
+footer a:hover,
+header a:hover {
   text-decoration: unset;
+  color: cornflowerblue;
 }
 
 footer p {
@@ -76,7 +82,8 @@ footer p {
 .tableFixHead {
   overflow-y: auto;
   width: 100%;
-  /*height: 400px;*/
+  height: 375px;
+  margin-bottom: 5px;
 }
 
 .tableFixHead thead th {
@@ -118,6 +125,14 @@ table tbody {
 .pencil {
   color: #f5564a;
   cursor: pointer;
+}
+
+.trash:hover {
+  color: #5e4600;
+}
+
+.pencil:hover {
+  color: #931309;
 }
 
 ul li a {

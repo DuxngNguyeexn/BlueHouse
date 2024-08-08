@@ -1,7 +1,7 @@
 $(function() {
 	if (window.location.pathname === '/employee/add') {
-		console.log('Đường path đúng: /employee/add');
-		$('#title-Text').text('ADD New Employee');
+		
+		$('#title-Text').text('Add New Employee');
 
 		$('#form-data').attr('action', 'save');
 
@@ -9,7 +9,7 @@ $(function() {
 		$('#create').show();
 
 	} else {
-		console.log('Đường path đúng: /employee/update');
+		
 		$('#title-Text').text('Update Employee');
 
 		$('#form-data').attr('action', 'update');
@@ -17,8 +17,15 @@ $(function() {
 
 		$('#create').hide();
 		$('#update').show();
+		$('#cancel').hide();
 	}
+
+	$('#back-list').click(function() {
+		window.location.href = 'list';
+	});
 });
+
+
 
 const REGEX_ID = /^E\d{3}$/;
 const REGEX_NAME = /^[a-zA-Z\s]{5,50}$/;
