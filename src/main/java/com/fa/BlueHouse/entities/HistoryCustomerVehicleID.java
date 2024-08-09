@@ -2,6 +2,7 @@ package com.fa.BlueHouse.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class HistoryCustomerVehicleID implements Serializable {
@@ -13,13 +14,13 @@ public class HistoryCustomerVehicleID implements Serializable {
 
 	private String vehicleNumber;
 
-	private LocalDate moveInDate;
+	private LocalDateTime moveInDate;
 
 	public HistoryCustomerVehicleID() {
 		super();
 	}
 
-	public HistoryCustomerVehicleID(String vehicleNumber, LocalDate moveInDate) {
+	public HistoryCustomerVehicleID(String vehicleNumber, LocalDateTime moveInDate) {
 		super();
 		this.vehicleNumber = vehicleNumber;
 		this.moveInDate = moveInDate;
@@ -33,11 +34,11 @@ public class HistoryCustomerVehicleID implements Serializable {
 		this.vehicleNumber = vehicleNumber;
 	}
 
-	public LocalDate getMoveInDate() {
+	public LocalDateTime getMoveInDate() {
 		return moveInDate;
 	}
 
-	public void setMoveInDate(LocalDate moveInDate) {
+	public void setMoveInDate(LocalDateTime moveInDate) {
 		this.moveInDate = moveInDate;
 	}
 

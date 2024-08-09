@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body layout:fragment="content">
-	<h1 class="text-primary">List Rental Space Contract</h1>
+	<div class="container mt-3"><h1 class="text-primary text-center">List Rental Space Contract</h1></div>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
 			<form th:action="searchRegisterForResidence">
@@ -26,11 +26,12 @@
 					</button>
 				</div>
 			</form>
+			<a href="/createRegisterForResidence"><button type="button" class="btn btn-success mr-5 ">ADD</button></a>
 		</div>
 	</nav>
 	<div class="ml-5 mr-5">
 		<table class="table">
-			<thead>
+			<thead class="thead-dark">
 				<tr>
 					<th scope="col">ID Residence</th>
 					<th scope="col">Relation Homeowner</th>
