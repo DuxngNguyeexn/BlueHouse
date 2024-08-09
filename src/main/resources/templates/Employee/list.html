@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Employee</title>
-	<link rel="stylesheet" th:href="@{/employee/css/list.css}">
+	<link rel="stylesheet" th:href="@{/employee/css/list.css}" />
 </head>
 
 <body layout:fragment="content">
@@ -24,9 +24,8 @@
 			</form>
 
 			<a href="add">
-			  <button type="button" class="btn btn-info">+ ADD New</button>
+				<button type="button" class="btn btn-info">+ ADD New</button>
 			</a>
-			
 		</div>
 		<!-- tabs -->
 		<ul class="nav mt-4">
@@ -76,7 +75,8 @@
 								<a class="text-decoration-none mr-2" th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
-								<a th:href="@{delete(employeeID=${emp.employeeID})}">
+
+								<a th:data-value="${emp.employeeID}" onclick="deleteEmp(this.dataset.value)" data-toggle="modal" data-target="#deleteModal">
 									<i class="fa-solid fa-trash trash"></i>
 								</a>
 							</td>
@@ -84,13 +84,13 @@
 					</tbody>
 				</table>
 			</div>
-			
+
 			<div th:replace="@{layout/page} :: pageAble"></div>
 		</div>
 
 		<div id="Services" class="tabcontent" style="display: none;">
 			<div class="table-responsive tableFixHead border-right border-left border-bottom">
-				<table class="table ">
+				<table class="table">
 					<thead class="thead-dark">
 						<tr>
 							<th scope="col">Employee ID</th>
@@ -118,7 +118,7 @@
 								<a class="text-decoration-none mr-2" th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
-								<a th:href="@{delete(employeeID=${emp.employeeID})}">
+								<a th:data-value="${emp.employeeID}" onclick="deleteEmp(this.dataset.value)" data-toggle="modal" data-target="#deleteModal">
 									<i class="fa-solid fa-trash trash"></i>
 								</a>
 							</td>
@@ -129,7 +129,7 @@
 		</div>
 
 		<div id="Engineering" class="tabcontent" style="display: none;">
-			<div class="table-responsive tableFixHead  border-right border-left border-bottom">
+			<div class="table-responsive tableFixHead border-right border-left border-bottom">
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
@@ -158,7 +158,7 @@
 								<a class="text-decoration-none mr-2" th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
-								<a th:href="@{delete(employeeID=${emp.employeeID})}">
+								<a th:data-value="${emp.employeeID}" onclick="deleteEmp(this.dataset.value)" data-toggle="modal" data-target="#deleteModal">
 									<i class="fa-solid fa-trash trash"></i>
 								</a>
 							</td>
@@ -198,7 +198,7 @@
 								<a class="text-decoration-none mr-2" th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
-								<a th:href="@{delete(employeeID=${emp.employeeID})}">
+								<a th:data-value="${emp.employeeID}" onclick="deleteEmp(this.dataset.value)" data-toggle="modal" data-target="#deleteModal">
 									<i class="fa-solid fa-trash trash"></i>
 								</a>
 							</td>
@@ -208,6 +208,27 @@
 			</div>
 		</div>
 		<!-- tabs end -->
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title text-danger" id="exampleModalLabel">Confirm Delete</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Are you sure delete Data!!!
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button id="confirmDel" type="button" class="btn btn-danger">Delete</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<script th:src="@{/employee/js/list.js}"></script>
