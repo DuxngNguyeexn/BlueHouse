@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.ApartmentTransferHistory;
 import com.fa.BlueHouse.repositories.ApartmentTransferHistoryRepository;
 
@@ -15,5 +16,11 @@ public class ApartmentTransferHistoryService {
 	
 	public Page<ApartmentTransferHistory> showAll(Pageable pageable){
 		return apartmentTransferHistoryRepository.findAll(pageable);
+	}
+	public void save(ApartmentTransferHistory apartmentTransferHistory) {
+		apartmentTransferHistoryRepository.save(apartmentTransferHistory);
+	}
+	public Page<ApartmentTransferHistory> findByKeyword(Pageable pageable , String keyword){
+		return apartmentTransferHistoryRepository.findApartmentTransferHistoryByKeyword( keyword ,pageable );
 	}
 }

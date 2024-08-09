@@ -27,7 +27,7 @@ public class Resident {
 	private String gender;
 	@ManyToOne
 	@JoinColumn(name = "ID_Apartment")
-	@NotNull(message = "* ID Apartment không được để trống")
+
 	private Apartment idApartment;
 	@Column(name = "Relation")
 	@NotBlank(message = "* Relationship không được để trống")

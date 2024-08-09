@@ -11,7 +11,8 @@ import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.RentalSpaceContract;
 import com.fa.BlueHouse.repositories.ApartmentRepository;
-import com.fa.BlueHouse.repositories.EmployeeRepository;
+import com.fa.BlueHouse.repositories.EmployeeRepo;
+
 import com.fa.BlueHouse.repositories.RentalSpaceContractRepository;
 import jakarta.transaction.Transactional;
 
@@ -26,7 +27,7 @@ public class RentalSpaceContractService {
 	private ApartmentRepository apartment;
 	
 	@Autowired 
-	private EmployeeRepository employee;
+	private EmployeeRepo employee;
 	
 	public void saveRentalSpaceContractDao(RentalSpaceContract renspa) {
 		renSpaCon.save(renspa);

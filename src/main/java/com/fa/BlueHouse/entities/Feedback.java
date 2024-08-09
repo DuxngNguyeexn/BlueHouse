@@ -8,44 +8,45 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Requests {
+public class Feedback {
 	@Id
-	String idRequest;
-
+	String idFeedback;
+	
 	@ManyToOne
+	@JoinColumn(name = "resident_id")
 	Resident resident;
-	String typeRequest;
+	
+	String typeFeedback;
 	Date sentDate;
 	String reason;
 	String note;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "employ_id")
-	Employee employ;
+	Employee employee;
 
-	
-	public Requests() {
+	public Feedback() {
 		super();
 	}
 
-	public Requests(String idRequest, Resident resident, String typeRequest, Date sentDate, String reason, String note,
-			Employee employ) {
+	public Feedback(String idFeedback, Resident resident, String typeFeedback, Date sentDate, String reason,
+			String note, Employee employee) {
 		super();
-		this.idRequest = idRequest;
+		this.idFeedback = idFeedback;
 		this.resident = resident;
-		this.typeRequest = typeRequest;
+		this.typeFeedback = typeFeedback;
 		this.sentDate = sentDate;
 		this.reason = reason;
 		this.note = note;
-		this.employ = employ;
+		this.employee = employee;
 	}
 
-	public String getIdRequest() {
-		return idRequest;
+	public String getIdFeedback() {
+		return idFeedback;
 	}
 
-	public void setIdRequest(String idRequest) {
-		this.idRequest = idRequest;
+	public void setIdFeedback(String idFeedback) {
+		this.idFeedback = idFeedback;
 	}
 
 	public Resident getResident() {
@@ -56,12 +57,12 @@ public class Requests {
 		this.resident = resident;
 	}
 
-	public String getTypeRequest() {
-		return typeRequest;
+	public String getTypeFeedback() {
+		return typeFeedback;
 	}
 
-	public void setTypeRequest(String typeRequest) {
-		this.typeRequest = typeRequest;
+	public void setTypeFeedback(String typeFeedback) {
+		this.typeFeedback = typeFeedback;
 	}
 
 	public Date getSentDate() {
@@ -88,14 +89,12 @@ public class Requests {
 		this.note = note;
 	}
 
-	public Employee getEmploy() {
-		return employ;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setEmploy(Employee employ) {
-		this.employ = employ;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
-
-	
 	
 }

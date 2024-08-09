@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
 </head>
 <body layout:fragment="content">
-	<div class="container mt-4">
-		<div class="h1 text-center mb-4"><a href="list" class="text-decoration-none">List apartment</a> </div>
+	<div class="container mt-4 ">
+		<div class="h1 text-center mb-4">
+			<a href="list" class="text-decoration-none">List apartment</a>
+		</div>
 		<div class="text-center w-50 m-auto">
-			<form th:action="search" >
+			<form th:action="search">
 				<div class="input-group ">
 					<input type="text" class="form-control border-right-0" id="search"
 						placeholder="Search" name="searchKeyword">
@@ -33,16 +37,16 @@
 				<tr>
 					<th scope="col">ID Apartment</th>
 					<th scope="col">ID Homeowner</th>
-					<th scope="col">Floor </th>
+					<th scope="col">Floor</th>
 					<th scope="col">Number of rooms</th>
 					<th scope="col">Area</th>
 					<th scope="col">Apartment number</th>
-					<th scope="col">Apartment type </th>
+					<th scope="col">Apartment type</th>
 				</tr>
 			</thead>
-			<tbody th:each="a : ${listApartment}">
+			<tbody th:each="a : ${listApartment}" class="text-center">
 				<tr>
-				<td th:text="${a.idApartment}"></td>
+					<td th:text="${a.idApartment}"></td>
 					<td th:text="${a.idHomeowner}"></td>
 					<td th:text="${a.floor}"></td>
 					<td th:text="${a.numberOfRooms}"></td>

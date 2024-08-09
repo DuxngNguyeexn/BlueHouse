@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-<meta charset="UTF-8">
-<title>My Website</title>
-<link rel="stylesheet" th:href="@{/common/css/template.css}">
-<link rel="stylesheet" th:href="@{/lib/css/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{/fontawesome-free-6.5.2-web/css/all.min.css}">
-<script th:src="@{/lib/js/jquery-3.7.1.min.js}"></script>
+	<meta charset="UTF-8">
+
+	<link rel="icon" th:href="@{/common/img/logoBlueHouse.png}" type="image/x-icon">
+
+	<title>My Website</title>
+	<link rel="stylesheet" th:href="@{/common/css/template.css}">
+	<link rel="stylesheet" th:href="@{/lib/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/fontawesome-free-6.5.2-web/css/all.min.css}">
+	<script th:src="@{/lib/js/jquery-3.7.1.min.js}"></script>
 </head>
+
 <body class="container-fluid">
 	<header th:replace="layout/header :: header"></header>
 
@@ -18,7 +21,8 @@
 	</main>
 
 	<footer th:replace="layout/footer :: footer"></footer>
-	
+
 	<script th:src="@{/lib/js/bootstrap.bundle.min.js}"></script>
 </body>
+
 </html>
