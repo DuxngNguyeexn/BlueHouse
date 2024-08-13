@@ -19,20 +19,20 @@ public class EmployeeWork implements Serializable {
 
 	@Id
 	@ManyToOne
-	@JoinColumn(name = "ID_CALENDAR")
-	private CalendarWoking calendarID;
+	@JoinColumn(name = "ID_shiftChedule")
+	private ShiftChedule shiftCheduleID;
 
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "ID_EMPLOYEE")
 	private Employee employeeID;
 
-	public CalendarWoking getCalendarID() {
-		return calendarID;
+	public ShiftChedule getShiftCheduleID() {
+		return shiftCheduleID;
 	}
 
-	public void setCalendarID(CalendarWoking calendarID) {
-		this.calendarID = calendarID;
+	public void setShiftCheduleID(ShiftChedule shiftCheduleID) {
+		this.shiftCheduleID = shiftCheduleID;
 	}
 
 	public Employee getEmployeeID() {
@@ -43,9 +43,9 @@ public class EmployeeWork implements Serializable {
 		this.employeeID = employeeID;
 	}
 
-	public EmployeeWork(CalendarWoking calendarID, Employee employeeID) {
+	public EmployeeWork(ShiftChedule shiftCheduleID, Employee employeeID) {
 		super();
-		this.calendarID = calendarID;
+		this.shiftCheduleID = shiftCheduleID;
 		this.employeeID = employeeID;
 	}
 

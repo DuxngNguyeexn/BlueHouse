@@ -23,7 +23,7 @@ public class Employee {
 	private String employeeID;
 
 	@Column(name = "Name")
-	private String name;
+	private String fullName;
 
 	@Column(name = "Gender")
 	private String gender;
@@ -35,11 +35,11 @@ public class Employee {
 	@Column(name = "DateOfBirth", columnDefinition = "DATE")
 	private LocalDate dateOfBirth;
 
-	@Column(name = "CCCD")
-	private String cccd;
+	@Column(name = "National_ID")
+	private String nationalID;
 
-	@Column(name = "AreaBorn")
-	private String areaBorn;
+	@Column(name = "Country")
+	private String country;
 
 	@Column(name = "Office")
 	private String office;
@@ -64,8 +64,7 @@ public class Employee {
 	@OneToMany(mappedBy = "employeeID")
 	private Set<EmployeeWork> employeeWork;
 
-//	============================================================
-
+//	====================================================
 	public String getEmployeeID() {
 		return employeeID;
 	}
@@ -74,12 +73,12 @@ public class Employee {
 		this.employeeID = employeeID;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getGender() {
@@ -106,20 +105,20 @@ public class Employee {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getCccd() {
-		return cccd;
+	public String getNationalID() {
+		return nationalID;
 	}
 
-	public void setCccd(String cccd) {
-		this.cccd = cccd;
+	public void setNationalID(String nationalID) {
+		this.nationalID = nationalID;
 	}
 
-	public String getAreaBorn() {
-		return areaBorn;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setAreaBorn(String areaBorn) {
-		this.areaBorn = areaBorn;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public String getOffice() {
@@ -170,26 +169,28 @@ public class Employee {
 		this.employeeWork = employeeWork;
 	}
 
+//	============================================================
 	public Employee() {
 		super();
 	}
 
-	public Employee(String employeeID, String name, String gender, String phoneNumber, LocalDate dateOfBirth,
-			String cccd, String areaBorn, String office, String duty, List<HistoryOff> historyOffID, Employee manager,
-			List<Employee> under) {
+	public Employee(String employeeID, String fullName, String gender, String phoneNumber, LocalDate dateOfBirth,
+			String nationalID, String country, String office, String duty, List<HistoryOff> historyOffID,
+			Employee manager, List<Employee> under, Set<EmployeeWork> employeeWork) {
 		super();
 		this.employeeID = employeeID;
-		this.name = name;
+		this.fullName = fullName;
 		this.gender = gender;
 		this.phoneNumber = phoneNumber;
 		this.dateOfBirth = dateOfBirth;
-		this.cccd = cccd;
-		this.areaBorn = areaBorn;
+		this.nationalID = nationalID;
+		this.country = country;
 		this.office = office;
 		this.duty = duty;
 		HistoryOffID = historyOffID;
 		this.manager = manager;
 		this.under = under;
+		this.employeeWork = employeeWork;
 	}
 
 }
