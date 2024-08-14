@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>List Apartment Bill</title>
+</head>
+
+<body layout:fragment="content" > 
+
+<div class="p-3">
+	<div class="container">
+	<div class="d-flex justify-content-between">
+	<nav class="navbar navbar-light bg-light">
+		<div class="container-fluid">
+			<form class="d-flex" action="/searchIncobill" method="GET">
+				<input class="form-control me-2" type="text" name="searchKeyword" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+	<div class="d-flex justify-content-end">
+	<a th:href="@{/listvehicle(idinbill=${IncomeBill.idIncomeBill}, idapart=${apartment.idApartment})}"
+					target="blank">
+   <button class="btn btn-primary m-2" type="submit">Payment Vehicle Fees</button></a>
+	</div>
+	<div class="d-flex justify-content-end">
+	<a th:href="@{/createBillDetail(idinbill=${IncomeBill.idIncomeBill})}"
+					target="blank">
+   <button class="btn btn-primary m-2" type="submit">Create BillDetail</button></a>
+	</div>
+	</div>
+	<h1>List Bill Detail</h1>
+	<h5>ID IncomeBill: <span th:text="${IncomeBill.idIncomeBill}"></span> </h5>
+	<h5>ID IncomeBill: <span th:text="${apartment.idApartment}"></span> </h5>
+	<table class="table">
+		<thead class="table-dark">
+			<tr>
+				<th scope="col">ID BillDetail</th>
+				<th scope="col">ID IncomeBill</th>
+				<th scope="col">FeeType</th>
+				<th scope="col">Quantity</th>
+				<th scope="col">Price</th>
+				<th scope="col">Total</th>
+				<th scope="col">Act</th>
+			</tr>
+		</thead>
+		<tbody th:each="detail : ${listDetail}">
+			<tr>
+				<td th:text="${detail.idbilldetail}"></td>
+				<td th:text="${detail.idIncomeBill.idIncomeBill}"></td>
+				<td th:text="${detail.idfeetype.nameFeetype}"></td>
+				<td th:text="${detail.quantity}"></td>
+				<td th:text="${detail.price}"></td>
+				<td th:text="${detail.price} * ${detail.quantity}"></td>
+<!-- 				<td> <a th:href="@{/editresident(idbill=${bill.idIncomeBill})}" -->
+<!-- 					target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td> -->
+			</tr>
+		</tbody>
+	</table>
+	<div th:replace="~{@{layout/page} :: pageAble}" ></div>
+	</div>
+	</div>
+</body>
+
+</html>

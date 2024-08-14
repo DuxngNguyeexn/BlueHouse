@@ -3,12 +3,13 @@
 
 <head>
 	<meta charset="ISO-8859-1">
-	<title>List Position</title>
+	<title>List Feetype</title>
 </head>
 
 <body layout:fragment="content">
 <div class="container">
 	<h1>List Resident</h1>
+	<div class="d-flex justify-content-between">
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
 			<form class="d-flex" action="/searchposition" method="GET">
@@ -17,22 +18,26 @@
 			</form>
 		</div>
 	</nav>
+	<div class="d-flex justify-content-end">
+	<a href="/createFeetype"><button class="btn btn-primary m-2" type="submit">Create FeeType</button></a>
+	</div>
+	</div>
 	<table class="table ">
 		<thead class="table-dark">
 			<tr>
-				<th scope="col">ID Position</th>
-				<th scope="col">Name Position</th>
-				<th scope="col">Proroguer</th>
+				<th scope="col">ID FeeType</th>
+				<th scope="col">Name FeeType</th>
+				<th scope="col">Price</th>
 				<th scope="col">Active</th>
 			</tr>
 		</thead>
-		<tbody th:each="position : ${listPosition}">
+		<tbody th:each="fee : ${listfeetype}">
 			<tr>
-				<td th:text="${position.idPosition}"></td>
-				<td th:text="${position.namePosition}"></td>
-				<td th:text="${position.prorogue}"></td>
-				<td><a th:href="@{/editposition(idPosition=${position.idPosition})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
-					<a th:href="@{/deleteposition(idPosition=${position.idPosition})}" target="blank"><i class="fa-solid fa-trash"></i></a>
+				<td th:text="${fee.idFeetype}"></td>
+				<td th:text="${fee.nameFeetype}"></td>
+				<td th:text="${fee.price}"></td>
+				<td><a th:href="@{/editfeetype(idFeetype=${fee.idFeetype})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
+					<a th:href="@{/deletefeetype(idFeetype=${fee.idFeetype})}" target="blank"><i class="fa-solid fa-trash"></i></a>
 				</td>
 			</tr>
 		</tbody>

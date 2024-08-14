@@ -25,4 +25,7 @@ public class ApartmentService {
 	public Page<Apartment> findApartmentsByKeyword(Pageable pageable , String keyword){
 		return apartmentRepository.findApartmentByKeyword( keyword ,pageable );
 	}
+	public Apartment findById(String id) {
+		return apartmentRepository.findById(id).orElse(null);
+	}
 }
