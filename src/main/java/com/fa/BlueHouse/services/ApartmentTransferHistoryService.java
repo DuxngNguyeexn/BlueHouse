@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.ApartmentTransferHistory;
 import com.fa.BlueHouse.repositories.ApartmentTransferHistoryRepository;
 

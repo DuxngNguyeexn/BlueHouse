@@ -1,6 +1,5 @@
 package com.fa.BlueHouse.entities.form;
 
-import com.fa.BlueHouse.entities.Assets;
 import com.fa.BlueHouse.entities.Employee;
 
 import jakarta.persistence.Entity;
@@ -12,8 +11,6 @@ import jakarta.persistence.ManyToOne;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Request extends form{
 	
-	@ManyToOne
-	private Assets assets;
 	
 	@ManyToOne
 	Employee employee;
@@ -23,18 +20,9 @@ public class Request extends form{
 		super();
 	}
 
-	public Request(Assets assets, Employee employee) {
+	public Request( Employee employee) {
 		super();
-		this.assets = assets;
 		this.employee = employee;
-	}
-
-	public Assets getAssets() {
-		return assets;
-	}
-
-	public void setAssets(Assets assets) {
-		this.assets = assets;
 	}
 
 	public Employee getEmployee() {

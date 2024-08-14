@@ -15,22 +15,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fa.BlueHouse.entities.Resident;
-import com.fa.BlueHouse.entities.form.Report;
-import com.fa.BlueHouse.services.ReportService;
+import com.fa.BlueHouse.entities.form.Request;
+import com.fa.BlueHouse.services.RequestService;
 import com.fa.BlueHouse.services.ResidentService;
 
 @Controller
-@RequestMapping(path = "/Form/Report/")
-public class ReportController {
+@RequestMapping(path = "/Form/Request/")
+public class RequestController {
 	@Autowired
-	ReportService reportService;
+	RequestService requestService;
 	@Autowired
 	ResidentService residentService;
 	@GetMapping("list")
 	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		Page<Report> listAll = reportService.showAll(pageRequest);
+		Page<Request> listAll = requestService.showAll(pageRequest);
 		model.addAttribute("currentPage", page);
 		int totalPages ;
 		if(listAll.getTotalPages() < 1) {
@@ -40,26 +40,32 @@ public class ReportController {
 		}
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("listAll", listAll.getContent());
-		return "Form/Report/list";
+		return "Form/Request/list";
 	}
 	@GetMapping("showAdd")
 	public String showAdd(Model model) {
 		Resident resident = residentService.findById("R001");
-		Report form = new Report();	
+		Request form = new Request();	
 		form.setResident(resident);
 		model.addAttribute("form", form);
-		return "Form/Report/add";
+		return "Form/Request/add";
 	}
 	
 	@PostMapping("add")
 	public String save(
-			@ModelAttribute(name = "form") Report form,
+			@ModelAttribute(name = "form") Request form,
 			BindingResult bindingResult) {
-		form.setIdForm(reportService.generateNewId());
+		form.setIdForm(requestService.generateNewId());
 		form.setStatus("Send");
 		form.setDateSent(new Date());
-		reportService.save(form);
+		requestService.save(form);
 		return "redirect:list";
 		
+	}
+	@GetMapping("showDetail")
+	public String showDetail(@RequestParam(name = "id")String id,Model model) {
+		Request form = requestService.findById(id);
+		model.addAttribute("form", form);
+		return "Form/detail";
 	}
 }

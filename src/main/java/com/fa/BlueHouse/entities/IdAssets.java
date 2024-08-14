@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotEmpty;
 
 @Embeddable
 public class IdAssets implements Serializable {
@@ -13,6 +14,8 @@ public class IdAssets implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	String idAsset;
+	
+	@NotEmpty(message = "Please enter location.")
 	String location;
 	
 	

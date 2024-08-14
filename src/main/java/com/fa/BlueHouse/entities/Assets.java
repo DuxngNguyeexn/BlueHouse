@@ -6,14 +6,20 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class Assets {
+	@Valid
 	@EmbeddedId
 	IdAssets id;
+	@NotEmpty(message = "Please enter name assets")
 	String name;
-	
+	@Min(value = 1, message = "Invalid number of assets. Minimum should be 1.")
 	int quantityOfAssets;
+	@Min(value = 1000, message = "Invalid price of assets. Minimum should be 1000.")
 	long priceOfAssets;
 	
 	@ManyToOne

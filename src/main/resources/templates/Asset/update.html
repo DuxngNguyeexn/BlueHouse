@@ -38,7 +38,7 @@
                         <div class="form-group col-4">
                             <label class="font-weight-bold ml-2" for="assetLocation">Location</label>
                             <input type="text" class="form-control mb-2" id="location" placeholder="A1"
-                            th:field="*{id.location}" required>
+                            th:field="*{id.location}" readonly>
                             <span class="text-danger h6 ml-2" id="viTri-error" th:errors="*{id.location}"></span>
                         </div>
 
