@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.RegisterForResidence;
 import com.fa.BlueHouse.entities.Resident;
@@ -45,6 +44,9 @@ public class RegisterForResidenceServices {
 		return residentRepositories.findAll();
 	}
 	
+	public List<RegisterForResidence> findByKeyword(String keyword) {
+		return regiresirepository.searchRegisterForResidence(keyword);
+	}
 	
 	public RegisterForResidence findaById(String id) {
 		return regiresirepository.findById(id).orElse(null);

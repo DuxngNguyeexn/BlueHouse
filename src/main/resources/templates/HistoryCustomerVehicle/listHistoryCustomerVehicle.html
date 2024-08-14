@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body layout:fragment="content">
-	<div class="container mt-3"><h1 class="text-primary text-center">List History Customer Vehicle</h1></div>
+	<div class="container">
+		<div class="container mt-3"><h1 class="text-primary text-center">List History Customer Vehicle</h1></div>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
 			<form th:action="searchhiscusvehi">
@@ -29,15 +30,15 @@
 			<a href="/createhiscusvehi"><button type="button" class="btn btn-success mr-5 ">ADD</button></a>
 		</div>
 	</nav>
-	<div class="ml-5 mr-5">
+	<div class="mt-2">
 		<table class="table">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col">vehicleNumber</th>
-					<th scope="col">type</th>
-					<th scope="col">idApartmentResi</th>
-					<th scope="col">moveInDate</th>
-					<th scope="col">moveOutDate</th>
+					<th scope="col">Vehicle Number</th>
+					<th scope="col">Type</th>
+					<th scope="col">Apartment Number</th>
+					<th scope="col">Move In Date</th>
+					<th scope="col">Move Out Date</th>
 					<th scope="col">Active</th>
 				</tr>
 			</thead>
@@ -55,6 +56,7 @@
 			</tbody>
 		</table>
 		<div th:replace="@{layout/page} :: pageAble"></div>
+	</div>
 	</div>
 </body>
 </html>
