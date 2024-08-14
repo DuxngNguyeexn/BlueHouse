@@ -46,9 +46,6 @@ public class Apartment {
 	@OneToMany(mappedBy = "apartmentHIS")
 	List<HistoryCustomerVehicle> listHistoryCustomer;
 
-	@OneToMany(mappedBy = "idApartmentFee")
-	List<FeeType> listFee;
-
 	@OneToMany(mappedBy = "apartmentTransfer")
 	List<ApartmentTransferHistory> listapartmentHistories;
 
@@ -85,14 +82,6 @@ public class Apartment {
 
 	public void setListHistoryCustomer(List<HistoryCustomerVehicle> listHistoryCustomer) {
 		this.listHistoryCustomer = listHistoryCustomer;
-	}
-
-	public List<FeeType> getListFee() {
-		return listFee;
-	}
-
-	public void setListFee(List<FeeType> listFee) {
-		this.listFee = listFee;
 	}
 
 	public List<ApartmentTransferHistory> getListapartmentHistories() {

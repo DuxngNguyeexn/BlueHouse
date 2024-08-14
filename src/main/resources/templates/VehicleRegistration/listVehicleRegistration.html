@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body layout:fragment="content">
+	<div class="container mt-3"><h1 class="text-primary text-center">List Vehicle Registration</h1></div>
+	<nav class="navbar navbar-light bg-light">
+		<div class="container-fluid">
+			<form th:action="searchVehicleRegistration">
+				<div class="input-group ">
+					<input type="text" class="form-control border-right-0"
+						id="searchVehicleRegistration" placeholder="Search"
+						name="searchKeyword">
+					<button class="input-group-text border-left-0 bg-white"
+						id="searchVehicleRegistration" type="submit"
+						style="border-radius: 0 .25rem .25rem 0;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                          </svg>
+					</button>
+				</div>
+			</form>
+			<a href="/createVehicleRegistration"><button type="button" class="btn btn-success mr-5 ">ADD</button></a>
+		</div>
+	</nav>
+	<div class="ml-5 mr-5 mt-3">
+		<table class="table ">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">idVehicle</th>
+					<th scope="col">vehicleNumber</th>
+					<th scope="col">registrationDate</th>
+					<th scope="col">expirationDate</th>
+					<th scope="col">feeTypeCode</th>
+					<th scope="col">apartmentVE</th>
+					<th scope="col">Active</th>
+				</tr>
+			</thead>
+			<tbody th:each="vehicleregi : ${listVehicleRegistration}">
+
+				<tr>
+					<td th:text="${vehicleregi.idVehicle}"></td>
+					<td th:text="${vehicleregi.vehicleNumber}"></td>
+					<td th:text="${vehicleregi.registrationDate}"></td>
+					<td th:text="${vehicleregi.expirationDate}"></td>
+					<td th:text="${vehicleregi.feeTypeCode.nameFeetype}"></td>
+					<td th:text="${vehicleregi.apartmentVE.apartmentNumber}"></td>
+					<td><a
+						th:href="@{/editVehicleRegistration(idvehicle=${vehicleregi.idVehicle})}"
+						target="blank"><i class="fa-solid fa-pen-to-square"></i></a> <a
+						th:href="@{/deleteVehicleRegistration(idvehicle=${vehicleregi.idVehicle})}"
+						target="blank"><i class="fa-solid fa-trash"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div th:replace="@{layout/page} :: pageAble"></div>
+	</div>
+</body>
+</html>

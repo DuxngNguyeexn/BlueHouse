@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body layout:fragment="content">
-<h1>List Rental Space Contract</h1>
+	<div class="container">
+		<div class="container mt-3"><h1 class="text-primary text-center">List Rental Space Contract</h1></div>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
-			<form th:action="searchrentalspacon" >
+			<form th:action="searchrentalspacon">
 				<div class="input-group ">
-					<input type="text" class="form-control border-right-0" id="searchrentalspacon"
-						placeholder="Search" name="searchKeyword">
-					<button class="input-group-text border-left-0 bg-white" id="searchrentalspacon"
-						type="submit" style="border-radius: 0 .25rem .25rem 0;">
+					<input type="text" class="form-control border-right-0"
+						id="searchrentalspacon" placeholder="Search" name="searchKeyword">
+					<button class="input-group-text border-left-0 bg-white"
+						id="searchrentalspacon" type="submit"
+						style="border-radius: 0 .25rem .25rem 0;">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 							fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                             <path
@@ -22,37 +26,43 @@
 					</button>
 				</div>
 			</form>
+			<a href="/createrentalSpaContracs"><button type="button" class="btn btn-success mr-5 ">ADD</button></a>
 		</div>
-		</nav>
-<table class="table ">
-		<thead class="table-dark">
-			<tr>
-				<th scope="col">contractCode</th>
-				<th scope="col">tenantCode</th>
-				<th scope="col">duration</th>
-				<th scope="col">moveInDate</th>
-				<th scope="col">moveOutdate</th>
-				<th scope="col">idApa</th>
-				<th scope="col">managerCodeContract</th>
-				<th scope="col">Active</th>
-			</tr>
-		</thead>
-		<tbody th:each="rentalSpa : ${listRentalSpa}">
+	</nav>
+	<div class="mt-3 ">
+		<table class="table ">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Contract Code</th>
+					<th scope="col">Tenant Code</th>
+					<th scope="col">Duration</th>
+					<th scope="col">Move In Date</th>
+					<th scope="col">Move Out Date</th>
+					<th scope="col">Apartment Number</th>
+					<th scope="col">Name Manager</th>
+					<th scope="col">Active</th>
+				</tr>
+			</thead>
+			<tbody th:each="rentalSpa : ${listRentalSpa}">
 
-			<tr>
-				<td th:text="${rentalSpa.contractCode}"></td>
-				<td th:text="${rentalSpa.tenantCode}"></td>
-				<td th:text="${rentalSpa.duration}"></td>
-				<td th:text="${rentalSpa.moveInDate}"></td>
-				<td th:text="${rentalSpa.moveOutdate}"></td>
-				<td th:text="${rentalSpa.idApa.idApartment}"></td>
-				<td th:text="${rentalSpa.managerCodeContract.employeeID}"></td>
-				<td><a th:href="@{/editrenspacon(idrenspacon=${rentalSpa.contractCode})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
-					<a th:href="@{/deleterenspacon(idrenspacon=${rentalSpa.contractCode})}" target="blank"><i class="fa-solid fa-trash"></i></a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<div th:replace="@{layout/page} :: pageAble"></div>
+				<tr>
+					<td th:text="${rentalSpa.contractCode}"></td>
+					<td th:text="${rentalSpa.tenantCode}"></td>
+					<td th:text="${rentalSpa.duration}"></td>
+					<td th:text="${rentalSpa.moveInDate}"></td>
+					<td th:text="${rentalSpa.moveOutdate}"></td>
+					<td th:text="${rentalSpa.idApa.apartmentNumber}"></td>
+					<td th:text="${rentalSpa.managerCodeContract.name}"></td>
+					<td><a
+						th:href="@{/editrenspacon(idrenspacon=${rentalSpa.contractCode})}"
+						target="blank"><i class="fa-solid fa-pen-to-square"></i></a> <a
+						th:href="@{/deleterenspacon(idrenspacon=${rentalSpa.contractCode})}"
+						target="blank"><i class="fa-solid fa-trash"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div th:replace="@{layout/page} :: pageAble"></div>
+	</div>	
+	</div>
 </body>
 </html>

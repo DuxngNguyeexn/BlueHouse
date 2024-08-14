@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body layout:fragment="content">
-<h1>List Rental Space Contract</h1>
+	<div class="container">
+		<div class="container mt-3"><h1 class="text-primary text-center">List Register For Residence</h1></div>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
-			<form th:action="searchRegisterForResidence" >
+			<form th:action="search">
 				<div class="input-group ">
-					<input type="text" class="form-control border-right-0" id="searchRegisterForResidence"
-						placeholder="Search" name="searchKeyword">
-					<button class="input-group-text border-left-0 bg-white" id="searchRegisterForResidence"
-						type="submit" style="border-radius: 0 .25rem .25rem 0;">
+					<input type="text" class="form-control border-right-0"
+						id="search" placeholder="Search"
+						name="searchKeyword">
+					<button class="input-group-text border-left-0 bg-white"
+						id="searchRegisterForResidence" type="submit"
+						style="border-radius: 0 .25rem .25rem 0;">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 							fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                             <path
@@ -22,43 +27,51 @@
 					</button>
 				</div>
 			</form>
+			<a href="add"><button type="button" class="btn btn-success mr-5 ">ADD</button></a>
 		</div>
-		</nav>
-<table class="table ">
-		<thead class="table-dark">
-			<tr>
-				<th scope="col">ID Residence</th>
-				<th scope="col">RelationshipWithHomeowner</th>
-				<th scope="col">phone</th>
-				<th scope="col">dateOfBirth</th>
-				<th scope="col">moveInDate</th>
-				<th scope="col">moveOutDate</th>
-				<th scope="col">type</th>
-				<th scope="col">idNational</th>
-				<th scope="col">idApartmentResi</th>
-				<th scope="col">idResidentResi</th>
-				<th scope="col">Active</th>
-			</tr>
-		</thead>
-		<tbody th:each="RegisterForResi : ${listRegisterForResi}">
-
-			<tr>
-				<td th:text="${RegisterForResi.idResidence}"></td>
-				<td th:text="${RegisterForResi.relationshipWithHomeowner}"></td>
-				<td th:text="${RegisterForResi.phone}"></td>
-				<td th:text="${RegisterForResi.dateOfBirth}"></td>
-				<td th:text="${RegisterForResi.moveInDate}"></td>
-				<td th:text="${RegisterForResi.moveOutDate}"></td>
-				<td th:text="${RegisterForResi.type}"></td>
-				<td th:text="${RegisterForResi.idNational}"></td>
-				<td th:text="${RegisterForResi.idApartmentResi.idApartment}"></td>
-				<td th:text="${RegisterForResi.idResidentResi.idResident}"></td>
-				<td><a th:href="@{/editRegisterForResidence(idregiresi=${RegisterForResi.idResidence})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
-					<a th:href="@{/deleteRegisterForResidence(idregiresi=${RegisterForResi.idResidence})}" target="blank"><i class="fa-solid fa-trash"></i></a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	</nav>
+	<div class="table-responsive tableFixHead border-right border-left border-bottom">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID Residence</th>
+					<th scope="col">Relation Homeowner</th>
+					<th scope="col">Phone</th>
+					<th scope="col">Date Of Birth</th>
+					<th scope="col">Move In Date</th>
+					<th scope="col">Move Out Date</th>
+					<th scope="col">Type</th>
+					<th scope="col">National</th>
+					<th scope="col">Apartment Number</th>
+					<th scope="col">Name Resident </th>
+					<th scope="col">Active</th>
+				</tr>
+			</thead>
+			<tbody th:each="RegisterForResi : ${listRegisterForResi}">
+				<tr>
+					<td th:text="${RegisterForResi.idResidence}"></td>
+					<td th:text="${RegisterForResi.relationshipWithHomeowner}"></td>
+					<td th:text="${RegisterForResi.phone}"></td>
+					<td th:text="${RegisterForResi.dateOfBirth}"></td>
+					<td th:text="${RegisterForResi.moveInDate}"></td>
+					<td th:text="${RegisterForResi.moveOutDate}"></td>
+					<td th:text="${RegisterForResi.type}"></td>
+					<td th:text="${RegisterForResi.idNational}"></td>
+					<td th:text="${RegisterForResi.idApartmentResi.apartmentNumber}"></td>
+					<td th:text="${RegisterForResi.idResidentResi.nameResident}"></td>
+					<td>
+						<a class="text-decoration-none mr-2" th:href="@{edit(idregiresi=${RegisterForResi.idResidence})}" target="blank">
+							<i class="fa-solid fa-pen-to-square"></i>
+						</a>
+						<a th:href="@{delete(idregiresi=${RegisterForResi.idResidence})}" target="blank">
+							<i class="fa-solid fa-trash"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	<div th:replace="@{layout/page} :: pageAble"></div>
+	</div>
 </body>
 </html>

@@ -54,10 +54,6 @@ public class IncomeBillDetail {
 		this.price = price;
 	}
 
-	public IncomeBillDetail() {
-		super();
-	}
-
 	public FeeType getIdfeetype() {
 		return idfeetype;
 	}
@@ -65,6 +61,7 @@ public class IncomeBillDetail {
 	public void setIdfeetype(FeeType idfeetype) {
 		this.idfeetype = idfeetype;
 	}
+	
 
 	public IncomeBillDetail(String idbilldetail, IncomeBill idIncomeBill, FeeType idfeetype, float quantity,
 			float price) {
@@ -74,6 +71,16 @@ public class IncomeBillDetail {
 		this.idfeetype = idfeetype;
 		this.quantity = quantity;
 		this.price = price;
+	}
+	
+
+	public IncomeBillDetail(IncomeBill idIncomeBill) {
+		super();
+		this.idIncomeBill = idIncomeBill;
+	}
+
+	public IncomeBillDetail() {
+		super();
 	}
 
 	@Override
