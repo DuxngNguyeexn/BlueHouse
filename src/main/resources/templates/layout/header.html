@@ -1,28 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-<meta charset="UTF-8">
-<title>Document</title>
+	<meta charset="UTF-8" />
+	<title>Document</title>
 </head>
 
 <body th:fragment="header">
 	<header class="d-flex py-2">
 		<div class="Icon col-2 nav-link">
-			<span class="text-danger">/</span> <span>B l u e H o u s e</span>
+			<a href="/">
+				<span class="text-danger">/</span>
+				<span class="text-dark">B l u e H o u s e</span>
+			</a>
 		</div>
+
 		<div class="col-8 d-flex justify-content-center">
 			<ul class="nav">
-				<li class="nav-item"><a class="nav-link" href="#">Ban Quản
-						Lý</a></li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+						Resident
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="/showlistresident">Resident Management</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="/showlistadminis">Administrator Management</a>
+					</div>
+				</li>
 
-				<li class="nav-item"><a class="nav-link" href="#">Ban Quản
-						Trị</a></li>
+				<li class="nav-item">
+					<a class="nav-link" href="/employee/">
+						Employee
+					</a>
+				</li>
 
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-						Dropdown </a>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+						Dropdown
+					</a>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="/createresident">Create Resident</a>
 						 <a class="dropdown-item" href="/showlistresident">List Resident</a>
@@ -30,15 +45,35 @@
 						 <a class="dropdown-item" href="/showlistposition">List Position</a>
 						  <a class="dropdown-item" href="/createadminis">Create Adminis</a>
 						 <a class="dropdown-item" href="/showlistadminis">List Adminis</a>
+
 						  <a class="dropdown-item" href="/showfeetype">List Feetype</a>
 						  <a class="dropdown-item" href="/createapartmentbill">Create Incobill</a>
 						   <a class="dropdown-item" href="/showlistbill">List Incobill</a>
 						   <a class="dropdown-item" href="/apartment/list">List Apartment</a>
+
+						 <a class="dropdown-item" href="/showVehicleRegistration">List Vehicle Registration</a>
+						  <a class="dropdown-item" href="/showRegisterForResidence">List Register For Residence</a>
+						 <a class="dropdown-item" href="/showrentalSpaContracs">List Rental Spa Contracs</a>
+						 <a class="dropdown-item" href="/showhiscusvehi">List History Customer Vehicle</a>
+
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">Something else here</a>
-					</div></li>
+					</div>
+				</li>
 
-				<li class="nav-item"><a class="nav-link" href="#">Kế hoạch & Thông báo</a></li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+						multifaceted
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="/">123</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">123</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Kế hoạch & Thông báo</a>
+				</li>
 			</ul>
 		</div>
 		<div class="col-2 d-flex align-items-center justify-content-center">

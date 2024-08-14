@@ -1,11 +1,11 @@
 package com.fa.BlueHouse.entities;
 
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -23,7 +23,7 @@ public class Employee {
 	private String employeeID;
 
 	@Column(name = "Name")
-	private String name;
+	private String fullName;
 
 	@Column(name = "Gender")
 	private String gender;
@@ -31,40 +31,40 @@ public class Employee {
 	@Column(name = "PhoneNumber")
 	private String phoneNumber;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "DateOfBirth", columnDefinition = "DATE")
 	private LocalDate dateOfBirth;
 
-	@Column(name = "CCCD")
-	private String CCCD;
+	@Column(name = "National_ID")
+	private String nationalID;
 
-	@Column(name = "AreaBorn")
-	private String areaBorn;
+	@Column(name = "Country")
+	private String country;
 
-	@Column(name = "Department")
-	private String department;
+	@Column(name = "Office")
+	private String office;
 
 	@Column(name = "Duty")
 	private String duty;
 //	======================One To Many=========================
 
-	@OneToMany(mappedBy = "employeeID", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "employeeID")
 	private List<HistoryOff> HistoryOffID;
 
 //	=========================One To One==========================
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "MANAGER_ID")
 	private Employee manager;
 
-	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "manager")
 	private List<Employee> under;
 //	======================Many To Many==============================
 
-	@OneToMany(mappedBy = "employeeID", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "employeeID")
 	private Set<EmployeeWork> employeeWork;
 
-//	============================================================
-
+//	====================================================
 	public String getEmployeeID() {
 		return employeeID;
 	}
@@ -73,12 +73,12 @@ public class Employee {
 		this.employeeID = employeeID;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getGender() {
@@ -105,28 +105,28 @@ public class Employee {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getCCCD() {
-		return CCCD;
+	public String getNationalID() {
+		return nationalID;
 	}
 
-	public void setCCCD(String cCCD) {
-		CCCD = cCCD;
+	public void setNationalID(String nationalID) {
+		this.nationalID = nationalID;
 	}
 
-	public String getAreaBorn() {
-		return areaBorn;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setAreaBorn(String areaBorn) {
-		this.areaBorn = areaBorn;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
-	public String getDepartment() {
-		return department;
+	public String getOffice() {
+		return office;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setOffice(String office) {
+		this.office = office;
 	}
 
 	public String getDuty() {
@@ -169,26 +169,28 @@ public class Employee {
 		this.employeeWork = employeeWork;
 	}
 
+//	============================================================
 	public Employee() {
 		super();
 	}
 
-	public Employee(String employeeID, String name, String gender, String phoneNumber, LocalDate dateOfBirth,
-			String cCCD, String areaBorn, String department, String duty, List<HistoryOff> historyOffID,
-			Employee manager, List<Employee> under) {
+	public Employee(String employeeID, String fullName, String gender, String phoneNumber, LocalDate dateOfBirth,
+			String nationalID, String country, String office, String duty, List<HistoryOff> historyOffID,
+			Employee manager, List<Employee> under, Set<EmployeeWork> employeeWork) {
 		super();
 		this.employeeID = employeeID;
-		this.name = name;
+		this.fullName = fullName;
 		this.gender = gender;
 		this.phoneNumber = phoneNumber;
 		this.dateOfBirth = dateOfBirth;
-		CCCD = cCCD;
-		this.areaBorn = areaBorn;
-		this.department = department;
+		this.nationalID = nationalID;
+		this.country = country;
+		this.office = office;
 		this.duty = duty;
 		HistoryOffID = historyOffID;
 		this.manager = manager;
 		this.under = under;
+		this.employeeWork = employeeWork;
 	}
 
 }

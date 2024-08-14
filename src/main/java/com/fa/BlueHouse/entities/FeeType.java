@@ -9,8 +9,10 @@ public class FeeType {
 	@Id
 	@Column(name = "ID_FeeType")
 	private String idFeetype;
+	
 	@Column(name = "Name_FeeType")
 	private String nameFeetype;
+	
 	@Column(name = "Price")
 	private float price;
 	

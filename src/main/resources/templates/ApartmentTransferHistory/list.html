@@ -6,8 +6,9 @@
 <title>Apartment Transfer History</title>
 </head>
 <body  layout:fragment="content" >
-<div class="container mt-4">
+<div class="container mt-4 ">
 		<div class="h1 text-center mb-4"><a href="list" class="text-decoration-none">Apartment Transfer History</a> </div>
+		<div class="d-flex justify-content-between">
 		<div class="text-center w-50 m-auto">
 			<form th:action="search" >
 				<div class="input-group ">
@@ -23,8 +24,12 @@
 					</button>
 				</div>
 			</form>
+			
 		</div>
-
+		<div class="">
+			<a class="btn btn-success " href="showAdd"> + Thêm mới </a>
+		</div>
+	</div>
 
 	</div>
 	<div class="container mt-4">
@@ -39,18 +44,19 @@
 					<th scope="col">ID manager</th>
 				</tr>
 			</thead>
-			<tbody th:each="a : ${listAll}">
+		 <tbody th:each="a : ${listAll}" class="text-center">
 				<tr>
 				<td th:text="${a.idContract}"></td>
-					<td th:text="${a.idResident}"></td>
+					<td th:if="${a.idResident != null}" th:text="${a.idResident.idResident + ' - ' + a.idResident.nameResident}"></td>
+					<td th:if="${a.idResident == null}" th:text="${a.managerCodeTransfer.employeeID}"></td>
 					<td th:text="${a.newHomeowner}"></td>
-					<td th:text="${a.apartmentTransfer}"></td>
+					<td th:text="${a.apartmentTransfer.idApartment}"></td>
 					<td th:text="${a.transferDate}"></td>
-					<td th:text="${a.managerCodeTransfer}"></td>
+					<td th:text="${a.managerCodeTransfer.employeeID}"></td>
 				</tr>
-			</tbody>
+			</tbody> 
 		</table>
-		<div th:replace="@{layout/page} :: pageAble"></div>
+ 		<div th:replace="@{layout/page} :: pageAble"></div> 
 	</div>
 
 </body>

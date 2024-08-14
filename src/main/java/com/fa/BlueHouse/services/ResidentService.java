@@ -47,6 +47,9 @@ public class ResidentService {
     public Resident findById(String id) {
     	return repositori.findById(id).orElse(null);
     }
+    public List<Resident> findByIdApartment(String id){
+    	return repositori.findByIdApartment_idApartment(id);
+    }
     
     public Page<Resident> findpageResident(Pageable page){
     	return repositori.findAll(page);
