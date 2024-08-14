@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>List Apartment Bill</title>
+</head>
+
+<body layout:fragment="content" > 
+<div class="p-3">
+	<div class="container">
+	<div class="d-flex justify-content-between">
+	<nav class="navbar navbar-light bg-light">
+		<div class="container-fluid">
+			<form class="d-flex" action="/searchIncobill" method="GET">
+				<input class="form-control me-2" type="text" name="searchKeyword" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+	<div class="d-flex justify-content-end">
+	<a th:href="@{/createapartmentbill}"
+					target="blank">
+   <button class="btn btn-primary m-2" type="submit">Create IncomeBill</button></a>
+	</div>
+	</div>
+	<h1>List Income Bill</h1>
+	<table class="table">
+		<thead class="table-dark">
+			<tr>
+				<th scope="col">ID IncomeBill</th>
+				<th scope="col">ID Aparment</th>
+				<th scope="col">Bill Date</th>
+				<th scope="col">Paymen Date</th>
+				<th scope="col">Status</th>
+				<th scope="col">Total</th>
+				<th scope="col">Detail</th>
+			</tr>
+		</thead>
+		<tbody th:each="bill : ${listapartmentbill}">
+			<tr>
+				<td th:text="${bill.idIncomeBill}"></td>
+				<td th:text="${bill.idApartment.idApartment}"></td>
+				<td th:text="${bill.billDate}"></td>
+				<td th:text="${bill.paymentDate}"></td>
+				<td th:text="${bill.status}"></td>
+				<td th:text="${bill.getTotalbill}"></td>
+				<td> <a th:href="@{/showlishtdetail(idbill=${bill.idIncomeBill})}"
+					target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:replace="~{@{layout/page} :: pageAble}" ></div>
+	</div>
+	</div>
+</body>
+
+</html>

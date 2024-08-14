@@ -17,17 +17,18 @@ public class Report extends form {
 		super();
 	}
 
-	public Report(Resident resident) {
+	public Report(Resident admin) {
 		super();
-		this.resident = resident;
+		this.admin = admin;
 	}
 
-	public Resident getResident() {
-		return resident;
+	public Resident getAdmin() {
+		return admin;
 	}
 
-	public void setResident(Resident resident) {
-		this.resident = resident;
+	public void setAdmin(Resident admin) {
+		this.admin = admin;
 	}
+
 	
 }

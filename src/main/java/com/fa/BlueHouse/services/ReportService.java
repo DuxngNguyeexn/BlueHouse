@@ -15,4 +15,18 @@ public class ReportService {
 	public Page<Report> showAll(Pageable pageable){
 		return reportRepository.findAll(pageable);
 	}
+	public void save(Report form) {
+		reportRepository.save(form);
+	}
+	public String generateNewId() {
+		String maxId = reportRepository.findMaxId();
+		
+		if(maxId == null) return "FR001";
+		
+		int numberic = Integer.parseInt(maxId.substring(2));
+		
+		numberic++;
+		
+		return String.format("FR%03d", numberic);
+	}
 }

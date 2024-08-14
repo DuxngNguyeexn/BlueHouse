@@ -1,59 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/src/main/resources/static/css/bootstrap.min.css">
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        </style>
-
-<script src="../js/jquery-3.7.1.min.js"></script>
+    <title>Assets</title>
 </head>
-<body>
+
+<body layout:fragment="content">
     <div class="container bg-light shadow">
         <div class="h1 text-center mt-3 mb-2"><span>Thêm mới tài sản</span></div>
         <div class="d-flex justify-content-between">
             <div class="container">
-                <form>
+                <form th:action="add" th:object="${form}" method="post">
                     <div class="row">
-                   <div class="form-group col-6">
-                        <label for="assetId" class="font-weight-bold ml-2">ID</label>
-                        <input type="text" class="form-control" id="assetId" placeholder="AS001" maxlength="5">
+                        <div class="form-group col-4">
+                            <label for="assetId" class="font-weight-bold ml-2">ID</label>
+                            <input type="text" class="form-control" id="assetId" th:field="*{id.IdAsset}" readonly>
+                        </div>
+                        <div class="form-group col-4">
+                            <label class="font-weight-bold ml-2" for="assetQuantity">Number of assets</label>
+                            <input type="number" class="form-control" id="assetQuantity" placeholder="" value="1"
+                                min="1" th:field="*{quantityOfAssets}">
+                        </div>
+                        <div class="form-group col-4">
+                            <label class="font-weight-bold ml-2" for="assetPrice">Price</label>
+                            <input type="number" class="form-control" id="assetPrice" placeholder="Nhập giá tài sản"
+                                th:field="*{priceOfAssets}" value="1000" min="1000">
+                        </div>
+                        <div class="form-group col-4">
+                            <label class="font-weight-bold ml-2" for="assetName">Name asset</label>
+                            <input type="text" class="form-control mb-2" id="assetName" placeholder="Bóng đèn"
+                                th:field="*{name}" required>
+                            <span class=" text-danger h6 ml-2" id="name-error" th:errors="*{name}"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label class="font-weight-bold ml-2" for="assetLocation">Location</label>
+                            <input type="text" class="form-control mb-2" id="location" placeholder="A1"
+                            th:field="*{id.location}" required>
+                            <span class="text-danger h6 ml-2" id="viTri-error" th:errors="*{id.location}"></span>
+                        </div>
+
+                        <div class="form-group col-4">
+                            <label class="font-weight-bold ml-2" for="assetManager">Manager</label>
+                            <input type="text" class="form-control" id="assetManager" readonly th:field="*{employ}"
+                                hidden>
+                            <input type="text" class="form-control" id="assetManager" readonly
+                                th:value="${form.employ.employeeID} + ' - ' + ${form.employ.name}">
+                        </div>
+
                     </div>
-                    <div class="form-group col-6">
-                        <label class="font-weight-bold ml-2" for="assetQuantity">Số lượng</label>
-                        <input type="number" class="form-control" id="assetQuantity" placeholder="" value="1" min="1">
+                    <div class="form-group d-flex w-25 float-right">
+                        <button type="submit" class="btn btn-primary  w-100"><span class="h5">OK</span></button>
+                        <a href="list" class="btn btn-secondary ml-2  w-100"> <span class="h5">Cancel</span></a>
                     </div>
-                    <div class="form-group col-12">
-                        <label class="font-weight-bold ml-2" for="assetName">Tên tài sản</label>
-                        <input type="text" class="form-control" id="assetName" placeholder="Bóng đèn">
-                    </div>
-                    <div class="form-group col-12">
-                        <label class="font-weight-bold ml-2" for="assetLocation">Vị trí</label>
-                        <input type="text" class="form-control" id="assetLocation" placeholder="Khu A - Tầng 3">
-                    </div>
-                   
-                    <div class="form-group col-6">
-                        <label class="font-weight-bold ml-2" for="assetManager">Người quản lý</label>
-                        <input type="text" class="form-control" id="assetManager" placeholder="QL001 - Nguyễn Văn C" disabled>
-                    </div>
-                    <div class="form-group col-6">
-                        <label class="font-weight-bold ml-2" for="assetPrice">Giá</label>
-                        <input type="number" class="form-control" id="assetPrice" placeholder="Nhập giá tài sản">
-                    </div>
-                </div>
-                    <div class="form-group justify-content-end d-flex">
-                        <button type="submit" class="btn btn-primary">Đăng ký</button>
-                        <button type="button" class="btn btn-secondary ml-2">Hủy bỏ</button>
-                    </div>
-                    
+
                 </form>
             </div>
         </div>
     </div>
 </body>
+
 </html>
