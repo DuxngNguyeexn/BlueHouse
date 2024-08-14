@@ -83,13 +83,13 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/delete")
-	public String deleteEmp(@RequestParam("employeeID") String id) {
+	public String deleteEmp(@RequestParam(name = "employeeID") String id) {
 		eService.deleteByID(id);
 		return "redirect:/employee/list";
 	}
 
 	@GetMapping("/edit")
-	public String editEmp(Model model, @RequestParam("employeeID") String id) {
+	public String editEmp(Model model, @RequestParam(name = "employeeID") String id) {
 		model.addAttribute("employee", eService.findById(id));
 		return "Employee/addEditEmployee";
 	}
