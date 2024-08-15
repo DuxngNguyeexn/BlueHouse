@@ -1,6 +1,6 @@
 let userName;
 
-function deleteAcc(param) {
+function getAcc(param) {
 	userName = param;
 }
 

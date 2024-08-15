@@ -15,6 +15,8 @@ import com.fa.BlueHouse.authen.model.Account;
 import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.services.AccountService;
+import com.fa.BlueHouse.services.EmployeeService;
+import com.fa.BlueHouse.services.ResidentService;
 
 @Controller
 @RequestMapping(path = "/account")
@@ -22,6 +24,12 @@ public class AccountController {
 
 	@Autowired
 	private AccountService aService;
+	
+	@Autowired
+	private EmployeeService eService;
+	
+	@Autowired
+	private ResidentService rService;
 
 	@GetMapping({ "/", "/list" })
 	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
@@ -112,19 +120,28 @@ public class AccountController {
 	}
 
 	@GetMapping("/edit")
-	public String editEmp(Model model, @RequestParam(name = "username") String username) {
-		Account acc = aService.findByUserName(username);
-		model.addAttribute("listEmp", aService.getEmpNotInAccount());
-		model.addAttribute("listReci", aService.getReciNotInAccount());
+	public String editEmp(Model model, @RequestParam(name = "userName") String userName) {
+		Account acc = aService.findByUserName(userName);
+
 		model.addAttribute("account", acc);
 		model.addAttribute("resident", acc.getResident());
 		model.addAttribute("employee", acc.getEmployee());
-		return "Account/addEdit";
+
+		return "Account/update";
 	}
 
 	@PostMapping("/update")
 	public String updateEmp(@ModelAttribute("account") Account account, @ModelAttribute("employee") Employee emp,
 			@ModelAttribute("resident") Resident resi) {
+		
+		if (emp.getEmployeeID() != null) {
+			account.setEmployee(eService.findById(emp.getEmployeeID()));
+			account.setResident(null);
+		}else {
+			account.setEmployee(null);
+			account.setResident(rService.findById(resi.getIdResident()));
+		}
+		
 		aService.saveAccount(account);
 		return "redirect:/account/list";
 	}

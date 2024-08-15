@@ -57,11 +57,11 @@
 
 
 						<td>
-							<a class="text-decoration-none mr-2" data-toggle="modal" data-target="#UpdateModal">
+							<a th:data-value="${acc.username}" onclick="window.location.href='edit?userName='+this.dataset.value;" class="text-decoration-none mr-2">
 								<i class="fa-solid fa-pen-to-square pencil"></i>
 							</a>
 
-							<a th:data-value="${acc.username}" onclick="deleteAcc(this.dataset.value)" data-toggle="modal" data-target="#deleteModal">
+							<a th:data-value="${acc.username}" onclick="getAcc(this.dataset.value)" data-toggle="modal" data-target="#deleteModal">
 								<i class="fa-solid fa-trash trash"></i>
 							</a>
 						</td>
@@ -72,8 +72,6 @@
 
 		<div th:replace="@{layout/page} :: pageAble"></div>
 	</div>
-
-	<div th:replace="@{Account/updateModal} :: ModalUpdate"></div>
 
 	<div th:replace="@{layout/modalDel} :: modalDelete"></div>
 
