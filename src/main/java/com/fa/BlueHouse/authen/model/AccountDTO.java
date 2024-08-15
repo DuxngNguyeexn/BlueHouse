@@ -21,6 +21,7 @@ public class AccountDTO implements UserDetails {
 	private String password;
 	private List<GrantedAuthority> authorities;
 
+	private String id;
 	private String name;
 	private String phoneNumber;
 	private String gender;
@@ -87,6 +88,14 @@ public class AccountDTO implements UserDetails {
 		return name;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -133,9 +142,10 @@ public class AccountDTO implements UserDetails {
 
 //	=========================================================================
 
-	public AccountDTO(String name, String phoneNumber, String gender, LocalDate birthday, String nationalID,
+	public AccountDTO(String id, String name, String phoneNumber, String gender, LocalDate birthday, String nationalID,
 			String country) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.gender = gender;

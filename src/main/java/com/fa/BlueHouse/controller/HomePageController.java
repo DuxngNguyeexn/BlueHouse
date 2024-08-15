@@ -15,7 +15,6 @@ public class HomePageController {
 	public String showLogin(Principal principal, Model model) {
 
 //		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
-//		System.err.println(principal.toString());
 //		model.addAttribute("userDetails", userDetails);
 
 		return "HomePage";
