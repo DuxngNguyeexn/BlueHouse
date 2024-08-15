@@ -158,4 +158,11 @@ public class AccountDTO implements UserDetails {
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return "AccountDTO [username=" + username + ", password=" + password + ", authorities=" + authorities + ", id="
+				+ id + ", name=" + name + ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", birthday="
+				+ birthday + ", nationalID=" + nationalID + ", country=" + country + "]";
+	}
+
 }
