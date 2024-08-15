@@ -19,39 +19,34 @@ public class Resident {
 	@Id
 	@Column(name = "ID_Resident")
 	@NotBlank(message = "* ID Resident không được để trống")
-	private String idResident; 
-	
+	private String idResident;
 	@Column(name = "Name_Resident")
 	@NotBlank(message = "* Name Resident không được để trống")
 	private String nameResident;
-	
 	@NotNull(message = "* Gender không được để trống")
 	private String gender;
-	
 	@ManyToOne
-	@JoinColumn(name = "IDApartment")
+	@JoinColumn(name = "ID_Apartment")
 	private Apartment idApartment;
-	
 	@Column(name = "Relation")
 	@NotBlank(message = "* Relationship không được để trống")
 	private String relationshipHousehold;
-	
 	@NotNull(message = "* BirthDay không được để trống")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "BirthDay")
 	private LocalDate birthday;
-	
 	@Column(name = "Phone_Number")
 	@NotBlank(message = "* Phonenumber không được để trống")
 	private String phonenumber;
-	
 	@Column(name = "WorkPlace")
 	private String workplace;
-	
 	@Column(name = "Identifi_Card")
 	@NotBlank(message = "* IdentificationCard không được để trống")
 	private String identificationCard;
-	
+
+	@Column(name = "Country_Side")
+	private String countrySide;
+
 	@OneToMany(mappedBy = "idResident")
 	private List<Administrators> listAdmin;
 
@@ -123,6 +118,14 @@ public class Resident {
 		return workplace;
 	}
 
+	public String getCountrySide() {
+		return countrySide;
+	}
+
+	public void setCountrySide(String countrySide) {
+		this.countrySide = countrySide;
+	}
+
 	public void setWorkplace(String workplace) {
 		this.workplace = workplace;
 	}
@@ -136,7 +139,7 @@ public class Resident {
 	}
 
 	public Resident(String idResident, String nameResident, Apartment idApartment, String relationshipHousehold,
-			LocalDate birthday, String phonenumber, String workplace, String IdentificationCard) {
+			LocalDate birthday, String phonenumber, String workplace, String IdentificationCard, String countrySide) {
 		super();
 		this.idResident = idResident;
 		this.nameResident = nameResident;
@@ -146,8 +149,8 @@ public class Resident {
 		this.phonenumber = phonenumber;
 		this.workplace = workplace;
 		this.identificationCard = IdentificationCard;
+		this.countrySide = countrySide;
 	}
-	
 
 	public Resident() {
 		super();

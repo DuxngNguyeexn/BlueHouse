@@ -20,25 +20,25 @@ public abstract class form {
 	
 	Date dateSent;
 	String note;
-	
+	String status;
 	public form() {
 		super();
 	}
 
-	public form(String idForm, Resident resident, Date dateSent, String note) {
+	public form( Resident resident, Date dateSent, String note) {
 		super();
-		this.idForm = idForm;
 		this.resident = resident;
 		this.dateSent = dateSent;
 		this.note = note;
 	}
 
-	public String getIdForm() {
-		return idForm;
-	}
-
+	
 	public void setIdForm(String idForm) {
 		this.idForm = idForm;
+	}
+
+	public String getIdForm() {
+		return idForm;
 	}
 
 	public Resident getResident() {
@@ -63,6 +63,14 @@ public abstract class form {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	

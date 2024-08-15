@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fa.BlueHouse.entities.Apartment;
-import com.fa.BlueHouse.entities.form.Report;
 import com.fa.BlueHouse.services.ApartmentService;
-import com.fa.BlueHouse.services.ReportService;
 
 @Controller
 @RequestMapping(path = "/Apartment/")

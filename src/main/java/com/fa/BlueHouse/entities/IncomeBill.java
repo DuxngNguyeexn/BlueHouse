@@ -29,19 +29,24 @@ public class IncomeBill {
 	@Column(name = "Status")
 	private String status;
 	@Column(name = "Total")
-	private float total;
 	@OneToMany(mappedBy = "idIncomeBill")
 	private List<IncomeBillDetail> listdetail;
 	public IncomeBill(String idIncomeBill, Apartment idApartment, LocalDate billDate, LocalDate paymentDate,
-			String status, float total) {
+			String status) {
 		super();
 		this.idIncomeBill = idIncomeBill;
 		this.idApartment = idApartment;
 		this.billDate = billDate;
 		this.paymentDate = paymentDate;
 		this.status = status;
-		this.total = total;
+		
 	}
+	
+	public IncomeBill(Apartment idApartment) {
+		super();
+		this.idApartment = idApartment;
+	}
+
 	public IncomeBill() {
 		super();
 	}
@@ -79,20 +84,19 @@ public class IncomeBill {
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public float getTotal() {
-		return total;
-	}
-	public void setTotal(float total) {
-		this.total = total;
-	}
+	public double getTotalbill() {
+        return listdetail.stream()
+                      .mapToDouble(detail -> detail.getQuantity() * detail.getPrice())
+                      .sum();
+    }
 	@Override
 	public String toString() {
 		return "IncomeBill [getIdIncomeBill()=" + getIdIncomeBill() + ", getBillDate()=" + getBillDate()
-				+ ", getPaymentDate()=" + getPaymentDate() + ", getStatus()=" + getStatus() + ", getTotal()="
-				+ getTotal() + "]";
+				+ ", getPaymentDate()=" + getPaymentDate() + ", getStatus()=" + getStatus() + "]";
 	}
 	
 	

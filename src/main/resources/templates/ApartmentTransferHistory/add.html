@@ -10,19 +10,19 @@
         <form th:action="add" th:object="${formApartmentTransfer}" method="post">
             <div class="h2 text-center mt-2">Add new</div>
             <div class="form-group">
-                <label class="ml-2" for="apartmentId">ID Contract</label>
+                <label class="ml-2" >ID Contract</label>
                 <input type="text" class="form-control" id="contractId" name="contractId"  th:field="*{idContract}" required>
             </div>
             <div class="form-group">
-                <label class="ml-2" for="apartmentId">ID Old Homeowner</label>
-                <input type="text" class="form-control" id="homeownerId" name="homeownerId"  th:field="*{idResident}" >
+                <label class="ml-2" >ID Old Homeowner</label>
+                <input type="text" class="form-control" id="homeownerId" name="homeownerId"  th:field="*{idResident}" readonly >
             </div>
             <div class="form-group">
-                <label class="ml-2" for="apartmentId">ID New Homeowner</label>
+                <label class="ml-2" >ID New Homeowner</label>
                 <input type="text" class="form-control" id="newHomeowner" name="newHomeowner" th:field="*{newHomeowner}" required>
             </div>
             <div class="form-group">
-                <label class="ml-2" for="apartmentId">ID Apartment</label>
+                <label class="ml-2" >ID Apartment</label>
                 <select  type="text" class="form-control" id="apartmentId" name="apartmentId" th:field="*{apartmentTransfer}" required>
                     <option hidden th:value = "null" >--Select apartment--</option>
                     <!-- <option th:each="a : ${apartments}" th:value="${a.idApartment}" th:text="${a.apartmentNumber + ' - ' + a.idHomeowner}"> -->
@@ -45,7 +45,7 @@
                 <label class="ml-2" for="apartmentId">ID manager</label>
                 <select type="text" class="form-control" id="managerId" name="managerId" th:field="*{managerCodeTransfer}" required>
                     <option hidden disabled value="null">--Select manager--</option>
-                    <option th:each="e : ${listAdministrator}" th:value="${e.employeeID}" th:text="${e.name}">
+                    <option th:each="e : ${listAdministrator}" th:value="${e.employeeID}" th:text="${e.fullName}">
                 </select >
             </div>
             <div class="form-group mt-3 w-25 float-right d-flex">

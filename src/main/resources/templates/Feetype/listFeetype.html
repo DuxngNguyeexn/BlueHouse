@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>List Feetype</title>
+</head>
+
+<body layout:fragment="content">
+<div class="container">
+	<h1>List Resident</h1>
+	<div class="d-flex justify-content-between">
+	<nav class="navbar navbar-light bg-light">
+		<div class="container-fluid">
+			<form class="d-flex" action="/searchposition" method="GET">
+				<input class="form-control me-2" type="text" name="searchKeyword" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+	<div class="d-flex justify-content-end">
+	<a href="/createFeetype"><button class="btn btn-primary m-2" type="submit">Create FeeType</button></a>
+	</div>
+	</div>
+	<table class="table ">
+		<thead class="table-dark">
+			<tr>
+				<th scope="col">ID FeeType</th>
+				<th scope="col">Name FeeType</th>
+				<th scope="col">Price</th>
+				<th scope="col">Active</th>
+			</tr>
+		</thead>
+		<tbody th:each="fee : ${listfeetype}">
+			<tr>
+				<td th:text="${fee.idFeetype}"></td>
+				<td th:text="${fee.nameFeetype}"></td>
+				<td th:text="${fee.price}"></td>
+				<td><a th:href="@{/editfeetype(idFeetype=${fee.idFeetype})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
+					<a th:href="@{/deletefeetype(idFeetype=${fee.idFeetype})}" target="blank"><i class="fa-solid fa-trash"></i></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:replace="~{@{layout/page} :: pageAble}" ></div>
+	</div> 
+	
+</body>
+</html>
