@@ -74,9 +74,12 @@ function validate(event) {
 	let moveindate = $("#moveInDate").val();
 	let moveoutdate = $("#moveOutDate").val();
 	
-	if (!REGEX_ID.test(idresi)) {
-		$("#idResi-error").text("wrong format RFSxxx");
-		check = false;
+	if (!idresi) {
+        $("#idResi-error").text("Vui lòng nhập id");
+        check = false;
+    } else if (!REGEX_ID.test(idresi)) {
+        $("#idResi-error").text("Nhập sai định dạng");
+        check = false;
 	} else {
 		$("#idResi-error").text("");
 	}
@@ -109,27 +112,24 @@ function validate(event) {
 		$("#phone-error").text("");
 	}
 
-	/*if (!REGEX_DAYOFBIRTH.test(moveoutdate)) {
-		$("#moveOutDate-error").text("please choose date < 2006");
-		check = false;
-	} else {
-		$("#moveOutDate-error").text("");
-	}
-	
-	if (!REGEX_DAYOFBIRTH.test(moveindate)) {
-		$("#moveInDate-error").text("please choose date < 2006");
-		check = false;
-	} else {
-		$("#moveInDate-error").text("");
-	}
-	
-	if (!REGEX_DAYOFBIRTH.test(birthofdate)) {
-		$("#dateBirth-error").text("please choose date < 2006");
-		check = false;
-	} else {
-		$("#dateBirth-error").text("");
-	}
-*/
+	if (!birthofdate) {
+        $("#dateBirth-error").text("Bạn hãy nhập");
+        check = false;
+    }
+    
+	validateMoveInDate();
+    validateMoveOutDate();
+
+    if (!moveindate) {
+        $("#moveInDate-error").text("Bạn hãy nhập");
+        check = false;
+    }
+
+    if (!moveoutdate) {
+        $("#moveOutDate-error").text("Bạn hãy nhập");
+        check = false;
+    }
+    
 	if (check) {
 		document.getElementById("create").dispatchEvent(new MouseEvent("click"));
 	}
