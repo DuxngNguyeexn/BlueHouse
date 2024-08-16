@@ -1,4 +1,4 @@
-package com.fa.BlueHouse;
+package com.fa.BlueHouse.entities;
 
 import java.time.LocalDate;
 
