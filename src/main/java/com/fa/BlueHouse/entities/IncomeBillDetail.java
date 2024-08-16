@@ -5,11 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class IncomeBillDetail {
 	@Id
 	@Column(name = "ID_BillDetail")
+	@NotBlank(message = "* ID BillDetail không được bỏ trống")
 	private String idbilldetail;
 	@ManyToOne
 	@JoinColumn(name = "ID_IconmeBill")
@@ -18,6 +21,7 @@ public class IncomeBillDetail {
 	@JoinColumn(name = "ID_FeeType")
 	private FeeType idfeetype;
 	@Column(name = "Quantity")
+	@Min(value = 1, message = "Quantity Phải lớn hơn 0")
 	private float quantity;
 	@Column(name = "Price")
 	private float price;

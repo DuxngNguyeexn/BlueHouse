@@ -22,7 +22,7 @@
 		</div>
 	</nav>
 	<div class="d-flex justify-content-end">
-	<a th:href="@{/listvehicle(idinbill=${IncomeBill.idIncomeBill}, idapart=${apartment.idApartment})}"
+	<a th:href="@{/paymentvehicle(idinbill=${IncomeBill.idIncomeBill})}"
 					target="blank">
    <button class="btn btn-primary m-2" type="submit">Payment Vehicle Fees</button></a>
 	</div>
@@ -34,7 +34,7 @@
 	</div>
 	<h1>List Bill Detail</h1>
 	<h5>ID IncomeBill: <span th:text="${IncomeBill.idIncomeBill}"></span> </h5>
-	<h5>ID IncomeBill: <span th:text="${apartment.idApartment}"></span> </h5>
+	<h5>ID Apartment: <span th:text="${apartment.idApartment}"></span> </h5>
 	<table class="table">
 		<thead class="table-dark">
 			<tr>
@@ -55,8 +55,6 @@
 				<td th:text="${detail.quantity}"></td>
 				<td th:text="${detail.price}"></td>
 				<td th:text="${detail.price} * ${detail.quantity}"></td>
-<!-- 				<td> <a th:href="@{/editresident(idbill=${bill.idIncomeBill})}" -->
-<!-- 					target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td> -->
 			</tr>
 		</tbody>
 	</table>

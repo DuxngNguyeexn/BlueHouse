@@ -43,11 +43,21 @@ public class Resident {
 	@Column(name = "Identifi_Card")
 	@NotBlank(message = "* IdentificationCard không được để trống")
 	private String identificationCard;
+
+	private String countryside;
 	@OneToMany(mappedBy = "idResident")
 	private List<Administrators> listAdmin;
 
 	public String getGender() {
 		return gender;
+	}
+
+	public String getCountryside() {
+		return countryside;
+	}
+
+	public void setCountryside(String countryside) {
+		this.countryside = countryside;
 	}
 
 	public void setGender(String gender) {
@@ -126,19 +136,26 @@ public class Resident {
 		identificationCard = IdentificationCard;
 	}
 
-	public Resident(String idResident, String nameResident, Apartment idApartment, String relationshipHousehold,
-			LocalDate birthday, String phonenumber, String workplace, String IdentificationCard) {
+	public Resident(@NotBlank(message = "* ID Resident không được để trống") String idResident,
+			@NotBlank(message = "* Name Resident không được để trống") String nameResident,
+			@NotNull(message = "* Gender không được để trống") String gender, Apartment idApartment,
+			@NotBlank(message = "* Relationship không được để trống") String relationshipHousehold,
+			@NotNull(message = "* BirthDay không được để trống") LocalDate birthday,
+			@NotBlank(message = "* Phonenumber không được để trống") String phonenumber, String workplace,
+			@NotBlank(message = "* IdentificationCard không được để trống") String identificationCard,
+			String countryside) {
 		super();
 		this.idResident = idResident;
 		this.nameResident = nameResident;
+		this.gender = gender;
 		this.idApartment = idApartment;
 		this.relationshipHousehold = relationshipHousehold;
 		this.birthday = birthday;
 		this.phonenumber = phonenumber;
 		this.workplace = workplace;
-		this.identificationCard = IdentificationCard;
+		this.identificationCard = identificationCard;
+		this.countryside = countryside;
 	}
-	
 
 	public Resident() {
 		super();

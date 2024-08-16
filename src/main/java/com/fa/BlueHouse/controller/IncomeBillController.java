@@ -91,8 +91,7 @@ public class IncomeBillController {
 	@PostMapping("/saveapartmentbill")
 	public String saveApartmentBill(Model model,@ModelAttribute("incomebill") IncomeBill incobill ) {
 		inbill.saveIncobill(incobill);
-		System.out.println(incobill.toString());
-		return "redirect:/showlistbill";
+		return "redirect:/showlistapratmentbill?idApartment=" + incobill.getIdApartment().getIdApartment();
 	} 
 	@GetMapping("/searchIncobill")
 	public String searchIncomeBill(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,

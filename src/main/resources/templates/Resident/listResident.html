@@ -32,6 +32,7 @@
 				<th scope="col">RelationShip House</th>
 				<th scope="col">ID Apartment</th>
 				<th scope="col">Phone Number</th>
+				<th scope="col">Countryside</th>
 				<th scope="col">Active</th>
 			</tr>
 		</thead>
@@ -46,6 +47,7 @@
 				<td th:text="${resident.relationshipHousehold}"></td>
 				<td th:text="${resident.idApartment.idApartment}"></td>
 				<td th:text="${resident.phonenumber}"></td>
+				<td th:text="${resident.countryside}"></td>
 				<td><a
 					th:href="@{/editresident(idresident=${resident.idResident})}"
 					target="blank"><i class="fa-solid fa-pen-to-square"></i></a> <a

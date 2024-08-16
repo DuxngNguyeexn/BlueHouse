@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fa.BlueHouse.entities.FeeType;
 import com.fa.BlueHouse.entities.IncomeBill;
 import com.fa.BlueHouse.entities.IncomeBillDetail;
+import com.fa.BlueHouse.entities.VehicleRegistration;
 import com.fa.BlueHouse.services.ApartmentService;
 import com.fa.BlueHouse.services.FeetypeService;
 import com.fa.BlueHouse.services.IncomeBillDetailService;
 import com.fa.BlueHouse.services.IncomeBillService;
+import com.fa.BlueHouse.services.VehicleRegistrationService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class IncomeBillDetailController {
@@ -28,41 +33,72 @@ public class IncomeBillDetailController {
 	@Autowired
 	private FeetypeService feetype;
 	@Autowired
-    private ApartmentService apart;
-	
+	private ApartmentService apart;
+	@Autowired
+	private VehicleRegistrationService vehicle;
+
 	@GetMapping("/showlishtdetail")
 	public String findallDetail(Model model, @RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam("idbill") String idbill, @RequestParam("idapart") String idapart) {
+			@RequestParam("idbill") String idbill) {
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 		IncomeBill bill = inbill.findById(idbill);
 		Page<IncomeBillDetail> listdetail = indetail.findAllbill(idbill, pageRequest);
 		model.addAttribute("IncomeBill", bill);
 		model.addAttribute("currentPage", page);
-		model.addAttribute("apartment", apart.findById(idapart));
+		model.addAttribute("apartment", apart.findById(bill.getIdApartment().getIdApartment()));
 		model.addAttribute("totalPages", listdetail.getTotalPages());
 		model.addAttribute("listDetail", listdetail.getContent());
 		return "/IncomeBillDetail/listInDetail";
 	}
+
 	@GetMapping("/createBillDetail")
-	public String createBillDetail(Model model,@RequestParam(name = "idinbill", defaultValue = "#{null}" )String id ) {
-		if(id != null) {
+	public String createBillDetail(Model model, @RequestParam(name = "idinbill", defaultValue = "#{null}") String id) {
+		if (id != null) {
 			model.addAttribute("billDetail", new IncomeBillDetail(inbill.findById(id)));
 			model.addAttribute("listfee", feetype.findallFeetype());
 			return "/IncomeBillDetail/createBillDetail";
-		}else {
+		} else {
 			model.addAttribute("billDetail", new IncomeBillDetail());
 			model.addAttribute("listincomebill", inbill.finall());
-			return  "/IncomeBillDetail/createDetaill";
+			model.addAttribute("listfee", feetype.findallFeetype());
+			return "/IncomeBillDetail/createDetail";
 		}
-		
+
 	}
+
 	@PostMapping("/saveDetail")
-	public String saveDeatail(Model model,@ModelAttribute("billDetail") IncomeBillDetail billdetail ) {
+	public String saveDeatail(Model model, @Valid @ModelAttribute("billDetail") IncomeBillDetail billdetail,
+			BindingResult result) {
+		if (result.hasErrors()) {
+			model.addAttribute("listfee", feetype.findallFeetype());
+			return "/IncomeBillDetail/createBillDetail";
+		}
 		FeeType fee = feetype.findById(billdetail.getIdfeetype().getIdFeetype());
-		billdetail.setPrice(fee.getPrice()*billdetail.getQuantity());
+		billdetail.setPrice(fee.getPrice() * billdetail.getQuantity());
 		indetail.saveIncobillDetail(billdetail);
 		model.addAttribute("idbill", billdetail.getIdIncomeBill().getIdIncomeBill());
 		return "redirect:/showlistbill";
+
+	}
+	
+	@GetMapping("/paymentvehicle")
+	public String createdetailVehicle(Model model,@RequestParam("idinbill")String idbill) {
+		IncomeBill incobill = inbill.findById(idbill);
+		model.addAttribute("IncomeBill", incobill);
+		model.addAttribute("listregis", vehicle.findRegisApartment(incobill.getIdApartment().getIdApartment()));
+		return "/IncomeBillDetail/listRegisVehicle";
+	}
+	@GetMapping("saveregisdetail")
+	public String saveRegisdetail(@RequestParam("idbill")String idbill, @RequestParam("idvehicle")String idVehicle) {
+		IncomeBill bill = inbill.findById(idbill);
+		VehicleRegistration regi = vehicle.findaById(idVehicle);
+		FeeType fee = feetype.findById(regi.getFeeTypeCode().getIdFeetype());
+		String id = indetail.generateNewId();
+		IncomeBillDetail billdetail = new IncomeBillDetail(id, bill, fee, 1, fee.getPrice());
+		indetail.saveIncobillDetail(billdetail);
+		regi.setStatus("DTT");
+		vehicle.saveVehicleRegistration(regi);
+		return "redirect:/showlishtdetail?idbill=" + idbill ;
 	}
 }
