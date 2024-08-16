@@ -193,4 +193,8 @@ public class Employee {
 		this.employeeWork = employeeWork;
 	}
 
+	@Override
+	public String toString() {
+		return "Employee [employeeID=" + employeeID + "]";
+	}
 }

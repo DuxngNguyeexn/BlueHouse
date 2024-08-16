@@ -45,6 +45,7 @@ public class Resident {
 	private String identificationCard;
 
 	private String countryside;
+
 	@OneToMany(mappedBy = "idResident")
 	private List<Administrators> listAdmin;
 
@@ -143,7 +144,7 @@ public class Resident {
 			@NotNull(message = "* BirthDay không được để trống") LocalDate birthday,
 			@NotBlank(message = "* Phonenumber không được để trống") String phonenumber, String workplace,
 			@NotBlank(message = "* IdentificationCard không được để trống") String identificationCard,
-			String countryside) {
+			String countryside, List<Administrators> listAdmin) {
 		super();
 		this.idResident = idResident;
 		this.nameResident = nameResident;
@@ -155,6 +156,7 @@ public class Resident {
 		this.workplace = workplace;
 		this.identificationCard = identificationCard;
 		this.countryside = countryside;
+		this.listAdmin = listAdmin;
 	}
 
 	public Resident() {

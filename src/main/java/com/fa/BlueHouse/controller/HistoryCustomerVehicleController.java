@@ -1,8 +1,6 @@
 package com.fa.BlueHouse.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.fa.BlueHouse.entities.HistoryCustomerVehicle;
 import com.fa.BlueHouse.entities.HistoryCustomerVehicleID;
 import com.fa.BlueHouse.services.HistoryCustomerVehicleServices;
