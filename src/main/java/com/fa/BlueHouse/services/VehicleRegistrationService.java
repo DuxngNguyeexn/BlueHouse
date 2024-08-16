@@ -63,4 +63,8 @@ public class VehicleRegistrationService {
 	public Page<VehicleRegistration> seachVehicleRegistration(Pageable pageable, String search){
 		return vehiRegiRepository.searchVehicleRegistration(search, pageable);
 	}
+	
+	public List<VehicleRegistration> findRegisApartment(String idApartment){
+		return vehiRegiRepository.findRegisApartment(idApartment);
+	}
 }

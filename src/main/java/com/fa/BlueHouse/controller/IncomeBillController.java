@@ -1,8 +1,12 @@
 package com.fa.BlueHouse.controller;
 
+import java.security.Principal;
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,9 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.FeeType;
 import com.fa.BlueHouse.entities.IncomeBill;
 import com.fa.BlueHouse.services.ApartmentService;
+import com.fa.BlueHouse.services.EmployeeService;
 import com.fa.BlueHouse.services.FeetypeService;
 import com.fa.BlueHouse.services.IncomeBillService;
 
@@ -29,7 +35,8 @@ public class IncomeBillController {
 	private IncomeBillService inbill;
 	@Autowired
 	private ApartmentService apart;
-	
+	@Autowired
+	private EmployeeService emp;
 	@RequestMapping("/showfeetype")
 	public String showlistFeetype(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
 		int pageSize = 6;
@@ -91,8 +98,7 @@ public class IncomeBillController {
 	@PostMapping("/saveapartmentbill")
 	public String saveApartmentBill(Model model,@ModelAttribute("incomebill") IncomeBill incobill ) {
 		inbill.saveIncobill(incobill);
-		System.out.println(incobill.toString());
-		return "redirect:/showlistbill";
+		return "redirect:/showlistapratmentbill?idApartment=" + incobill.getIdApartment().getIdApartment();
 	} 
 	@GetMapping("/searchIncobill")
 	public String searchIncomeBill(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,
@@ -111,5 +117,17 @@ public class IncomeBillController {
 		model.addAttribute("searchKeyword", keyword);
 		model.addAttribute("listapartmentbill", listApartmentBill.getContent());
 		return "/IncomeBill/listAllBill";
+	}
+	
+	@GetMapping("/paybill")
+	public String payBill(Principal principal, Model model, @RequestParam("idbill")String idbill) {
+		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
+		IncomeBill incomebill = inbill.findById(idbill);
+		incomebill.setStatus("Bill Paid");
+		incomebill.setIdEmployee(emp.findById(thongTin.getId()));
+		incomebill.setPaymentDate(LocalDate.now());
+		inbill.saveIncobill(incomebill);
+		return "redirect:/showlistapratmentbill?idApartment=" + incomebill.getIdApartment().getIdApartment();
+
 	}
 }

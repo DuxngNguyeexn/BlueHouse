@@ -40,4 +40,15 @@ public class IncomeBillDetailService {
 	public Page<IncomeBillDetail> searchDetail(String search, Pageable page){
 		return incodetail.searchDetail(search, page);
 	}
+	public String generateNewId() {
+		String maxId = incodetail.findMaxId();
+		
+		if(maxId == null) return "DT001";
+		
+		int numberic = Integer.parseInt(maxId.substring(2));
+		
+		numberic++;
+		
+		return String.format("DT%03d", numberic);
+	}
 }
