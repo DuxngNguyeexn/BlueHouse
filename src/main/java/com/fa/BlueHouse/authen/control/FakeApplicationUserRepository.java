@@ -77,10 +77,15 @@ public class FakeApplicationUserRepository implements ApplicationUserDao {
 		List<UserDetails> applicationUsers = new ArrayList<>();
 
 		for (Account obj : listAccount) {
+			if (obj.getActive() != 1) {
+				continue;
+			}
 			if (obj.getEmployee() != null) {
 				Employee emp = obj.getEmployee();
+				
 				AccountDTO dto = new AccountDTO(emp.getEmployeeID(), emp.getFullName(), emp.getPhoneNumber(),
 						emp.getGender(), emp.getDateOfBirth(), emp.getNationalID(), emp.getCountry());
+				
 				dto.setUsername(obj.getUsername());
 				dto.setPassword(obj.getPassword());
 				dto.roles(setRole(obj.getRole()));

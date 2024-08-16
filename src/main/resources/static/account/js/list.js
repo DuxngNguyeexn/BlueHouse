@@ -1,9 +1,9 @@
 let userName;
 
 function getAcc(param) {
-	userName = param;
+  userName = param;
 }
 
-$('#confirmDel').click(function() {
-	window.location.href = 'delete?userName='+ userName;
+$("#confirmDel").click(function () {
+  window.location.href = "delete?userName=" + userName;
 });

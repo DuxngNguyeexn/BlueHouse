@@ -17,6 +17,7 @@ public class Account {
 	private String username;
 	private String password;
 	private int role;
+	private int active;
 
 	@OneToOne
 	@JoinColumn(name = "employee_ID")
@@ -36,6 +37,14 @@ public class Account {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
 	}
 
 	public void setPassword(String password) {
@@ -70,26 +79,30 @@ public class Account {
 		super();
 	}
 
-	public Account(String username, String password, int role, Employee employee) {
+	public Account(String username, String password, int role, int active, Employee employee) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.active = active;
 		this.employee = employee;
 	}
 
-	public Account(String username, String password, int role, Resident resident) {
+	public Account(String username, String password, int role, int active, Resident resident) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.active = active;
 		this.resident = resident;
 	}
 
 	@Override
 	public String toString() {
-		return "Account [username=" + username + ", password=" + password + ", role=" + role + ", employee=" + employee
-				+ ", resident=" + resident + "]";
+		return "Account [username=" + username + ", password=" + password + ", role=" + role + ", active=" + active
+				+ ", employee=" + employee + ", resident=" + resident + "]";
 	}
+
+	
 
 }
