@@ -39,9 +39,11 @@
 				<th scope="col">ID Aparment</th>
 				<th scope="col">Bill Date</th>
 				<th scope="col">Paymen Date</th>
+				<th scope="col">Employee</th>
 				<th scope="col">Status</th>
 				<th scope="col">Total</th>
 				<th scope="col">Detail</th>
+				<th scope="col">Pay Bill</th>
 			</tr>
 		</thead>
 		<tbody th:each="bill : ${listapartmentbill}">
@@ -50,9 +52,12 @@
 				<td th:text="${bill.idApartment.idApartment}"></td>
 				<td th:text="${bill.billDate}"></td>
 				<td th:text="${bill.paymentDate}"></td>
+				<td th:text="${bill.idEmployee != null ? bill.idEmployee.fullName : ' '}" ></td>
 				<td th:text="${bill.status}"></td>
 				<td th:text="${bill.getTotalbill}"></td>
 				<td> <a th:href="@{/showlishtdetail(idbill=${bill.idIncomeBill})}"
+					target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td>
+				<td> <a th:href="@{/paybill(idbill=${bill.idIncomeBill})}"
 					target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td>
 			</tr>
 		</tbody>
