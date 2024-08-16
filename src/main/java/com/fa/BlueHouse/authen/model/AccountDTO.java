@@ -52,6 +52,21 @@ public class AccountDTO implements UserDetails {
 		return this.authorities;
 	}
 
+	public List<String> getRoles() {
+		List<String> listRole = new ArrayList<>();
+		for (GrantedAuthority element : getAuthorities()) {
+			listRole.add(element.getAuthority());
+		}
+		return listRole;
+	}
+
+	public String getRole() {
+		for (GrantedAuthority element : getAuthorities()) {
+			return element.getAuthority();
+		}
+		return "";
+	}
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;

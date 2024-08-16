@@ -14,8 +14,9 @@ public class HomePageController {
 	@GetMapping("/")
 	public String showLogin(Principal principal, Model model) {
 
-//		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
+		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
 		
+		System.err.println(thongTin.getRole());
 
 		return "HomePage";
 	}
