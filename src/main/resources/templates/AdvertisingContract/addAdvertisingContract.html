@@ -71,7 +71,7 @@
 					<label for="empadv" class="form-lable">empadv</label> 
 					<select th:field="*{empadv}" class="form-control" required>
 						<th:block th:each="emp : ${listemp}">
-							<option th:value="${emp.employeeID}" th:text="${emp.name}"></option>
+							<option th:value="${emp.employeeID}" th:text="${emp.fullName}"></option>
 						</th:block>
 					</select>
 					
