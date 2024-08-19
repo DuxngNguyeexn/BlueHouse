@@ -7,16 +7,17 @@
 </head>
 
 <body layout:fragment="content">
-<div class="container">
+<div class="m-5">
 	<h1>List Resident</h1>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
-			<form class="d-flex" action="/searchadminis" method="GET">
+			<form class="d-flex" action="/Administrators/searchadminis" method="GET">
 				<input class="form-control me-2" type="text" name="searchKeyword" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 		</div>
 	</nav>
+	<div class="table-responsive tableFixHead border-right border-left border-bottom">
 	<table class="table ">
 		<thead class="table-dark">
 			<tr>
@@ -31,12 +32,13 @@
 				<td th:text="${admin.idBQT}"></td>
 				<td th:text="${admin.idPosition.namePosition}"></td>
 				<td th:text="${admin.idResident.nameResident}"></td>
-				<td><a th:href="@{/editAdminis(idBQT=${admin.idBQT})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
-					<a th:href="@{/deleteAdminis(idBQT=${admin.idBQT})}" target="blank"><i class="fa-solid fa-trash"></i></a>
+				<td><a th:href="@{/Administrators/editAdminis(idBQT=${admin.idBQT})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
+					<a th:href="@{/Administrators/deleteAdminis(idBQT=${admin.idBQT})}" target="blank"><i class="fa-solid fa-trash"></i></a>
 				</td>
 			</tr>
 		</tbody>
 	</table>
+	</div>
 	<div th:replace="@{layout/page} :: pageAble" ></div>
 	</div> 
 	

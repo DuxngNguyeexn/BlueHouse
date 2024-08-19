@@ -16,19 +16,19 @@
 				<div class=" col-6 mb-3">
 					<label for="idIncomeBill" class="form-lable">ID IncomeBill</label>
 					<div>
-						<span th:if="${#fields.hasErrors('idIncomeBill')}"
-							th:errors="*{idIncomeBill}" class="text-danger"></span>
+						<span th:if="${#fields.hasErrors('idExpenseBill')}"
+							th:errors="*{idExpenseBill}" class="text-danger"></span>
 					</div>
 
-					<input type="text" th:field="*{idIncomeBill}" id="idIncomeBill"
-						class="form-control" placeholder="ID IncomeBill"
+					<input type="text" th:field="*{idExpenseBill}" id="idExpenseBill"
+						class="form-control" placeholder="ID ExpenseBill"
 						aria-label="Username" aria-describedby="addon-wrapping">
 				</div>
 				<div class="col-6 mb-3">
 					<label for="idApartment" class="form-lable ">ID Apartment</label>
 					<div>
-						<span th:if="${#fields.hasErrors('idApartment')}"
-							th:errors="*{idApartment}" class="text-danger"></span>
+						<span th:if="${#fields.hasErrors('idEmployee')}"
+							th:errors="*{idEmployee}" class="text-danger"></span>
 					</div>
 					<select id="idApartment" th:field="*{idApartment}" class="form-control">
 						<option th:each="apart : ${listapart}" th:value="${apart.idApartment}"

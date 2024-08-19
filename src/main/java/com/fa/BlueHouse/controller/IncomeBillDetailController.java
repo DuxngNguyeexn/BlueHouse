@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fa.BlueHouse.entities.FeeType;
@@ -24,6 +25,7 @@ import com.fa.BlueHouse.services.VehicleRegistrationService;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/IncomeBillDetail")
 public class IncomeBillDetailController {
 
 	@Autowired
@@ -39,17 +41,25 @@ public class IncomeBillDetailController {
 
 	@GetMapping("/showlishtdetail")
 	public String findallDetail(Model model, @RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam("idbill") String idbill) {
+			@RequestParam(name = "idbill", defaultValue = "#{null}") String idbill) {
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		IncomeBill bill = inbill.findById(idbill);
-		Page<IncomeBillDetail> listdetail = indetail.findAllbill(idbill, pageRequest);
-		model.addAttribute("IncomeBill", bill);
-		model.addAttribute("currentPage", page);
-		model.addAttribute("apartment", apart.findById(bill.getIdApartment().getIdApartment()));
-		model.addAttribute("totalPages", listdetail.getTotalPages());
-		model.addAttribute("listDetail", listdetail.getContent());
-		return "/IncomeBillDetail/listInDetail";
+		if (idbill != null) {
+			IncomeBill bill = inbill.findById(idbill);
+			Page<IncomeBillDetail> listdetail = indetail.findAllbill(idbill, pageRequest);
+			model.addAttribute("IncomeBill", bill);
+			model.addAttribute("currentPage", page);
+			model.addAttribute("apartment", apart.findById(bill.getIdApartment().getIdApartment()));
+			model.addAttribute("totalPages", listdetail.getTotalPages());
+			model.addAttribute("listDetail", listdetail.getContent());
+			return "/IncomeBillDetail/listInDetail";
+		} else {
+			Page<IncomeBillDetail> listdetail = indetail.findAll(pageRequest);
+			model.addAttribute("currentPage", page);
+			model.addAttribute("totalPages", listdetail.getTotalPages());
+			model.addAttribute("listDetail", listdetail.getContent());
+			return "/IncomeBillDetail/listInDetail";
+		}
 	}
 
 	@GetMapping("/createBillDetail")
@@ -78,19 +88,20 @@ public class IncomeBillDetailController {
 		billdetail.setPrice(fee.getPrice() * billdetail.getQuantity());
 		indetail.saveIncobillDetail(billdetail);
 		model.addAttribute("idbill", billdetail.getIdIncomeBill().getIdIncomeBill());
-		return "redirect:/showlistbill";
+		return "redirect:/IncomeBillDetail/showlistbill";
 
 	}
-	
+
 	@GetMapping("/paymentvehicle")
-	public String createdetailVehicle(Model model,@RequestParam("idinbill")String idbill) {
+	public String createdetailVehicle(Model model, @RequestParam("idinbill") String idbill) {
 		IncomeBill incobill = inbill.findById(idbill);
 		model.addAttribute("IncomeBill", incobill);
 		model.addAttribute("listregis", vehicle.findRegisApartment(incobill.getIdApartment().getIdApartment()));
 		return "/IncomeBillDetail/listRegisVehicle";
 	}
+
 	@GetMapping("saveregisdetail")
-	public String saveRegisdetail(@RequestParam("idbill")String idbill, @RequestParam("idvehicle")String idVehicle) {
+	public String saveRegisdetail(@RequestParam("idbill") String idbill, @RequestParam("idvehicle") String idVehicle) {
 		IncomeBill bill = inbill.findById(idbill);
 		VehicleRegistration regi = vehicle.findaById(idVehicle);
 		FeeType fee = feetype.findById(regi.getFeeTypeCode().getIdFeetype());
@@ -99,6 +110,38 @@ public class IncomeBillDetailController {
 		indetail.saveIncobillDetail(billdetail);
 		regi.setStatus("DTT");
 		vehicle.saveVehicleRegistration(regi);
-		return "redirect:/showlishtdetail?idbill=" + idbill ;
+		return "redirect:/IncomeBillDetail/showlishtdetail?idbill=" + idbill;
+	}
+
+	@GetMapping("/deletedetail")
+	public String deleteDetail(@RequestParam("iddetail") String id) {
+		String idbill = indetail.findById(id).getIdIncomeBill().getIdIncomeBill();
+		indetail.deleteDetail(id);
+		return "redirect:/IncomeBillDetail/showlishtdetail?idbill=" + idbill;
+	}
+
+	@GetMapping("/editdetail")
+	public String editDetail(Model model, @RequestParam("iddetail") String id) {
+		model.addAttribute("billDetail", indetail.findById(id));
+		model.addAttribute("listfee", feetype.findallFeetype());
+		return "/IncomeBillDetail/updateDetail";
+	}
+	@GetMapping("/searchIncobilldetail")
+	public String searchIncomeBill(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,
+			@RequestParam(name = "page", defaultValue = "1") int page) {
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<IncomeBillDetail> listApartmentBill = indetail.searchDetail(keyword, pageRequest);
+		model.addAttribute("currentPage", page);
+		int totalPages ;
+		if(listApartmentBill.getTotalPages() < 1) {
+			totalPages = 1 ;
+		}else {
+			totalPages = listApartmentBill.getTotalPages();
+		}
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("searchKeyword", keyword);
+		model.addAttribute("listDetail", listApartmentBill.getContent());
+		return "/IncomeBillDetail/listInDetail";
 	}
 }

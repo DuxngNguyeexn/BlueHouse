@@ -27,6 +27,7 @@ import com.fa.BlueHouse.services.IncomeBillService;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/IncomeBill")
 public class IncomeBillController {
 
 	@Autowired
@@ -59,7 +60,7 @@ public class IncomeBillController {
 			return "Feetype/listFeetype";
 		}else {
         feetype.saveFeetype(fee);
-			return "redirect:/showfeetype";
+			return "redirect:/IncomeBill/showfeetype";
 		}
 	}
 	@GetMapping("/showlistapratmentbill")
@@ -98,7 +99,7 @@ public class IncomeBillController {
 	@PostMapping("/saveapartmentbill")
 	public String saveApartmentBill(Model model,@ModelAttribute("incomebill") IncomeBill incobill ) {
 		inbill.saveIncobill(incobill);
-		return "redirect:/showlistapratmentbill?idApartment=" + incobill.getIdApartment().getIdApartment();
+		return "redirect:/IncomeBill/showlistapratmentbill?idApartment=" + incobill.getIdApartment().getIdApartment();
 	} 
 	@GetMapping("/searchIncobill")
 	public String searchIncomeBill(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,
@@ -127,7 +128,7 @@ public class IncomeBillController {
 		incomebill.setIdEmployee(emp.findById(thongTin.getId()));
 		incomebill.setPaymentDate(LocalDate.now());
 		inbill.saveIncobill(incomebill);
-		return "redirect:/showlistapratmentbill?idApartment=" + incomebill.getIdApartment().getIdApartment();
+		return "redirect:/IncomeBill/showlistapratmentbill?idApartment=" + incomebill.getIdApartment().getIdApartment();
 
 	}
 }
