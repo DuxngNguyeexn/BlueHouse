@@ -14,12 +14,17 @@
 			<div class="row pb-2 d-flex justify-content-around">
 				<div class="col-5">
 					<label for="username" class="form-lable">User Name</label>
-					<input type="text" th:field="*{username}" id="username" class="form-control" placeholder="User Name" readonly="readonly" />
+					<input type="text" th:field="*{username}" id="username" class="form-control" placeholder="User Name" disabled="disabled" />
 				</div>
 
 				<div class="col-5">
 					<label for="password" class="form-lable">Pass World</label>
-					<input type="text" th:field="*{password}" id="password" class="form-control" placeholder="Pass World" />
+					<div th:if="${account.active == 0}">
+						<input type="password" th:field="*{password}" id="password" class="form-control" placeholder="Pass World" />
+					</div>
+					<div th:if="${account.active == 1}">
+						<input disabled="disabled" type="password" value="xxxxxxxx" id="password" class="form-control" placeholder="Pass World" />
+					</div>
 					<div class="error-message text-danger pt-3">
 						<span id="name-error"></span>
 					</div>
@@ -50,10 +55,17 @@
 
 				<div class="col-5">
 					<label for="active" class="form-lable">Active</label>
-					<select id="active" th:field="*{active}" class="form-control" required>
-						<option value="0">Non-Active</option>
-						<option value="1">Active</option>
-					</select>
+					<div th:if="${account.active == 0}">
+						<select id="active" th:field="*{active}" class="form-control" required>
+							<option value="0">Non-Active</option>
+							<option value="1">Active</option>
+						</select>
+					</div>
+					<div th:if="${account.active == 1}">
+						<select id="active" class="form-control" disabled="disabled">
+							<option value="1">Active</option>
+						</select>
+					</div>
 
 					<div class="error-message text-danger pt-3">
 						<span id="office-error"></span>

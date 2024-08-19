@@ -24,10 +24,10 @@ public class AccountController {
 
 	@Autowired
 	private AccountService aService;
-	
+
 	@Autowired
 	private EmployeeService eService;
-	
+
 	@Autowired
 	private ResidentService rService;
 
@@ -119,6 +119,8 @@ public class AccountController {
 		return "redirect:/account/list";
 	}
 
+	private Account accountEdit;
+
 	@GetMapping("/edit")
 	public String editEmp(Model model, @RequestParam(name = "userName") String userName) {
 		Account acc = aService.findByUserName(userName);
@@ -126,6 +128,7 @@ public class AccountController {
 		model.addAttribute("account", acc);
 		model.addAttribute("resident", acc.getResident());
 		model.addAttribute("employee", acc.getEmployee());
+		accountEdit = acc;
 
 		return "Account/update";
 	}
@@ -133,15 +136,23 @@ public class AccountController {
 	@PostMapping("/update")
 	public String updateEmp(@ModelAttribute("account") Account account, @ModelAttribute("employee") Employee emp,
 			@ModelAttribute("resident") Resident resi) {
-		
+
+		account.setUsername(accountEdit.getUsername());
+		if (account.getPassword() == null) {
+			account.setPassword(accountEdit.getPassword());
+			account.setActive(accountEdit.getActive());
+		}
+
 		if (emp.getEmployeeID() != null) {
 			account.setEmployee(eService.findById(emp.getEmployeeID()));
 			account.setResident(null);
-		}else {
+		} else {
 			account.setEmployee(null);
 			account.setResident(rService.findById(resi.getIdResident()));
 		}
-		
+
+		System.err.println(account.toString());
+
 		aService.saveAccount(account);
 		return "redirect:/account/list";
 	}
