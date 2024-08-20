@@ -13,7 +13,7 @@
 	<div class="d-flex justify-content-between">
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
-			<form class="d-flex" action="/ExpenseBill/searchexpensebill" method="GET">
+			<form class="d-flex" action="/ExpenseBill/searchexpensedetail" method="GET">
 				<input class="form-control me-2" type="text" name="searchKeyword" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
@@ -22,12 +22,7 @@
 	<div class="d-flex justify-content-end">
 	<a th:href="@{/ExpenseBill/createdetail}"
 					target="blank">
-   <button class="btn btn-primary m-2" type="submit">Create ExpenseDetail</button></a>
-	</div>
-	<div class="d-flex justify-content-end">
-	<a th:href="@{/ExpenseBill/create}"
-					target="blank">
-   <button class="btn btn-primary m-2" type="submit">Create ExpenseBill</button></a>
+   <button class="btn btn-primary m-2" type="submit">Create BillDetail</button></a>
 	</div>
 	</div>
 	<h1>List ExpenseBill</h1>
@@ -35,21 +30,26 @@
 	<table class="table">
 		<thead class="table-dark">
 			<tr>
+				<th scope="col">ID ExpenseDetail</th>
 				<th scope="col">ID ExpenseBill</th>
-				<th scope="col">Expensebill Date</th>
-				<th scope="col">Employee</th>
-				<th scope="col">Total</th>
-				<th scope="col">Detail</th>
+				<th scope="col">Name Expense</th>
+				<th scope="col">Quantity</th>
+				<th scope="col">Price</th>
+				<th scope="col">Active</th>
 			</tr>
 		</thead>
-		<tbody th:each="bill : ${listexpen}">
+		<tbody th:each="bill : ${listexpendetail}">
 			<tr>
-				<td th:text="${bill.idExpenseBill}"></td>
-				<td th:text="${bill.expenseDate}"></td>
-				<td th:text="${bill.idEmployee.fullName}"></td>
-				<td th:text="${bill.getTotalbill}"></td>
-				<td> <a th:href="@{/ExpenseBill/listdetail(idbill=${bill.idExpenseBill})}"
-					target="blank"><i class="fa-solid fa-calendar-week"></i></a></td>
+				<td th:text="${bill.idexpenDetail}"></td>
+				<td th:text="${bill.idExpenseBill.idExpenseBill}"></td>
+				<td th:text="${bill.nameExpense}"></td>
+				<td th:text="${bill.quantity}"></td>
+				<td th:text="${bill.price}"></td>
+				<td> 
+				<a th:href="@{/ExpenseBill/editdetail(iddetail=${bill.idexpenDetail})}"
+					target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
+				<a th:href="@{/ExpenseBill/deletedetail(iddetail=${bill.idexpenDetail})}"
+					target="blank"><i class="fa-solid fa-trash"></i></a></td>
 			</tr>
 		</tbody>
 	</table>

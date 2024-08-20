@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -8,8 +9,8 @@
 <body th:fragment="navmenu">
 
 	<div class="Menu">
-		<div class="btn-group dropright bottom w-100">
-			<button type="button" class="btn  dropdown-toggle "
+		<div sec:authorize="hasRole('EMPLOYEE') or hasRole('MANAGE')" class="btn-group dropright bottom w-100">
+			<button type="button" class="btn  dropdown-toggle border border-light"
 				data-toggle="dropdown" aria-expanded="false">Manage
 				Resident</button>
 			<div class="dropdown-menu">
@@ -18,9 +19,8 @@
 				<a class="dropdown-item" href="/Resident/showlistresident">List Resident</a>
 			</div>
 		</div>
-		<div class="dropdown-divider"></div>
-		<div class="btn-group dropright w-100">
-			<button type="button" class="btn  dropdown-toggle "
+		<div sec:authorize="hasRole('EMPLOYEE') or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn  dropdown-toggle border border-light"
 				data-toggle="dropdown" aria-expanded="false">Manage
 				IncomeBill</button>
 			<div class="dropdown-menu">
@@ -37,27 +37,25 @@
 				<a class="dropdown-item" href="/IncomeBillDetail/showlishtdetail">List Incobill Detail</a>
 			</div>
 		</div>
-		<div class="dropdown-divider"></div>
-		<div class="btn-group dropright w-100">
-			<button type="button" class="btn  dropdown-toggle "
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn  dropdown-toggle border border-light"
 				data-toggle="dropdown" aria-expanded="false">Manage
 				ExpenseBill</button>
 			<div class="dropdown-menu">
 				
-				<a class="dropdown-item" href="/IncomeBill/createapartmentbill">Create
+				<a class="dropdown-item" href="/ExpenseBill/create">Create
 					ExpenseBill</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="/IncomeBill/showlistbill">List ExpenseBill</a>
+				<a class="dropdown-item" href="/ExpenseBill/show">List ExpenseBill</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="/IncomeBill/showfeetype">Create
+				<a class="dropdown-item" href="/ExpenseBill/createdetail">Create
 					ExpenseBill Detail</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="/Apartment/list">List ExpenseBill Detail</a>
+				<a class="dropdown-item" href="/ExpenseBill/listdetail">List ExpenseBill Detail</a>
 			</div>
 		</div>
-		<div class="dropdown-divider"></div>
-		<div class="btn-group dropright w-100">
-			<button type="button" class="btn  dropdown-toggle"
+		<div sec:authorize="hasRole('ADMIN')" class="btn-group dropright w-100">
+			<button type="button" class="btn  dropdown-toggle border border-light"
 				data-toggle="dropdown" aria-expanded="false">Manage
 				Position</button>
 			<div class="dropdown-menu">
@@ -66,8 +64,7 @@
 				<a class="dropdown-item" href="/Position/showlistposition">List Position</a>
 			</div>
 		</div>
-		<div class="dropdown-divider"></div>
-		<div class="btn-group dropright w-100">
+		<div sec:authorize="hasRole('ADMIN')" class="btn-group dropright w-100" >
 			<button type="button" class="btn dropdown-toggle"
 				data-toggle="dropdown" aria-expanded="false">Manage Adminis
 			</button>
@@ -77,9 +74,8 @@
 				<a class="dropdown-item" href="/Administrators/showlistadminis">List Adminis</a>
 			</div>
 		</div>
-		<div class="dropdown-divider"></div>
 		<div class="btn-group dropright w-100">
-			<button type="button" class="btn  dropdown-toggle"
+			<button type="button" class="btn dropdown-toggle border border-light"
 				data-toggle="dropdown" aria-expanded="false">Manage Vehicle
 			</button>
 			<div class="dropdown-menu">
