@@ -58,6 +58,10 @@ public class VehicleRegistrationService {
 		vehiRegiRepository.save(vehicleRegistration);
 	}
 	
+	public List<VehicleRegistration> findByKeyword(String keyword) {
+		return vehiRegiRepository.searchVeRegistration(keyword);
+	}
+	
 	public Page<VehicleRegistration> allVehicleRegistration(Pageable pageable){
 		return vehiRegiRepository.findAll(pageable);
 	}

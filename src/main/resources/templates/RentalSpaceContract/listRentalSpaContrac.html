@@ -9,26 +9,18 @@
 <body layout:fragment="content">
 	<div class="m-5">
 		<div class="container mt-3"><h1 class="text-primary text-center">List Rental Space Contract</h1></div>
-	<nav class="navbar navbar-light bg-light">
-		<div class="container-fluid">
-			<form th:action="searchrentalspacon">
-				<div class="input-group ">
-					<input type="text" class="form-control border-right-0"
-						id="searchrentalspacon" placeholder="Search" name="searchKeyword">
-					<button class="input-group-text border-left-0 bg-white"
-						id="searchrentalspacon" type="submit"
-						style="border-radius: 0 .25rem .25rem 0;">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-							fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path
-								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                          </svg>
-					</button>
-				</div>
-			</form>
-			<a href="/createrentalSpaContracs"><button type="button" class="btn btn-success mr-5 ">ADD</button></a>
-		</div>
-	</nav>
+		<nav class="navbar navbar-light bg-light">
+			<div class="container-fluid">
+				<form class="d-flex" action="/rentalSpaceContract/search" method="GET">
+					<input class="form-control me-2" type="text" name="searchKeyword"
+						placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+				<a href="add"><button type="button"
+						class="btn btn-success mr-5 ">ADD</button></a>
+			</div>
+		</nav>
+	
 	<div class="mt-3 ">
 		<table class="table ">
 			<thead class="thead-dark">
@@ -54,9 +46,9 @@
 					<td th:text="${rentalSpa.idApa.apartmentNumber}"></td>
 					<td th:text="${rentalSpa.managerCodeContract.fullName}"></td>
 					<td><a
-						th:href="@{/editrenspacon(idrenspacon=${rentalSpa.contractCode})}"
+						th:href="@{edit(idrenspacon=${rentalSpa.contractCode})}"
 						target="blank"><i class="fa-solid fa-pen-to-square"></i></a> <a
-						th:href="@{/deleterenspacon(idrenspacon=${rentalSpa.contractCode})}"
+						th:href="@{delete(idrenspacon=${rentalSpa.contractCode})}"
 						target="blank"><i class="fa-solid fa-trash"></i></a></td>
 				</tr>
 			</tbody>

@@ -45,6 +45,10 @@ public class AdvertisingContractservices {
 		return advRepositories.findById(id).orElse(null);
 	}
 	
+	public Employee findaByIdemp(String id) {
+		return employeeRepo.findById(id).orElse(null);
+	}
+	
 	public void saveAdv(AdvertisingContract adv) {
 		advRepositories.save(adv);
 	}

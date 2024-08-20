@@ -71,6 +71,10 @@ public class HistoryCustomerVehicleServices {
 //        }
 //    }
 	
+	public List<HistoryCustomerVehicle> findByKeyword(String keyword){
+		return hisCusVehiRepository.searchHistoryCustomerVehicle(keyword);
+	}
+	
 	public Page<HistoryCustomerVehicle> allHistoryCustomerVehicle(Pageable pageable){
 		return hisCusVehiRepository.findAll(pageable);
 	}

@@ -14,6 +14,11 @@ public interface VehicleRegistrationRepository extends JpaRepository<VehicleRegi
 	@Query("SELECT ve FROM VehicleRegistration ve where ve.idVehicle LIKE %:seacrch% or ve.vehicleNumber LIKE %:seacrch% ")
 	Page<VehicleRegistration> searchVehicleRegistration(@Param("seacrch")String seacrch, Pageable pageable);
 	
+
+	@Query("SELECT ve FROM VehicleRegistration ve where ve.idVehicle LIKE %:seacrch% or ve.vehicleNumber LIKE %:seacrch% ")
+	List<VehicleRegistration> searchVeRegistration(@Param("seacrch")String seacrch);
+
 	@Query("FROM VehicleRegistration where apartmentVE.idApartment = :idApartment and status is null")
 	public List<VehicleRegistration> findRegisApartment(String idApartment);
+
 }
