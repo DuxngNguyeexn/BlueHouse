@@ -22,7 +22,7 @@ public class ExpenseBill {
 	private LocalDate expenseDate;
 	@ManyToOne
 	@JoinColumn(name = "ID_BQT")
-	private Administrators idAdministrators;
+	private Employee idEmployee;
 	@OneToMany(mappedBy = "idExpenseBill")
 	private List<ExpenseBillDetail> listExpenDetail;
 	private float totalprice;
@@ -43,12 +43,12 @@ public class ExpenseBill {
 		this.expenseDate = expenseDate;
 	}
 
-	public Administrators getIdAdministrators() {
-		return idAdministrators;
+	public Employee getIdEmployee() {
+		return idEmployee;
 	}
 
-	public void setIdAdministrators(Administrators idAdministrators) {
-		this.idAdministrators = idAdministrators;
+	public void setIdEmployee(Employee idEmployee) {
+		this.idEmployee = idEmployee;
 	}
 
 	public List<ExpenseBillDetail> getListExpenDetail() {
@@ -72,14 +72,24 @@ public class ExpenseBill {
 		super();
 		this.idExpenseBill = idExpenseBill;
 		this.expenseDate = expenseDate;
-		this.idAdministrators = idAdministrators;
 		this.listExpenDetail = listExpenDetail;
 		this.totalprice = totalprice;
+	}
+
+	public ExpenseBill(String idExpenseBill, Employee idEmployee) {
+		super();
+		this.idExpenseBill = idExpenseBill;
+		this.idEmployee = idEmployee;
 	}
 
 	public ExpenseBill() {
 		super();
 	}
+	public double getTotalbill() {
+        return listExpenDetail.stream()
+                      .mapToDouble(detail -> detail.getQuantity() * detail.getPrice())
+                      .sum();
+    }
 
 	@Override
 	public String toString() {

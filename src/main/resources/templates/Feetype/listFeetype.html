@@ -7,21 +7,22 @@
 </head>
 
 <body layout:fragment="content">
-<div class="container">
+<div class="m-5">
 	<h1>List Resident</h1>
 	<div class="d-flex justify-content-between">
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
-			<form class="d-flex" action="/searchposition" method="GET">
+			<form class="d-flex" action="/IncomeBill/searchposition" method="GET">
 				<input class="form-control me-2" type="text" name="searchKeyword" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 		</div>
 	</nav>
 	<div class="d-flex justify-content-end">
-	<a href="/createFeetype"><button class="btn btn-primary m-2" type="submit">Create FeeType</button></a>
+	<a href="/IncomeBill/createFeetype"><button class="btn btn-primary m-2" type="submit">Create FeeType</button></a>
 	</div>
 	</div>
+	<div class="table-responsive tableFixHead border-right border-left border-bottom">
 	<table class="table ">
 		<thead class="table-dark">
 			<tr>
@@ -36,12 +37,13 @@
 				<td th:text="${fee.idFeetype}"></td>
 				<td th:text="${fee.nameFeetype}"></td>
 				<td th:text="${fee.price}"></td>
-				<td><a th:href="@{/editfeetype(idFeetype=${fee.idFeetype})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
-					<a th:href="@{/deletefeetype(idFeetype=${fee.idFeetype})}" target="blank"><i class="fa-solid fa-trash"></i></a>
+				<td><a th:href="@{/IncomeBill/editfeetype(idFeetype=${fee.idFeetype})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
+					<a th:href="@{/IncomeBill/deletefeetype(idFeetype=${fee.idFeetype})}" target="blank"><i class="fa-solid fa-trash"></i></a>
 				</td>
 			</tr>
 		</tbody>
 	</table>
+	</div>
 	<div th:replace="~{@{layout/page} :: pageAble}" ></div>
 	</div> 
 	

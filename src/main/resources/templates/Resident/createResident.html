@@ -6,7 +6,7 @@
 
 </head>
 <body layout:fragment="content">
-	<form action="/saveresident" class="mt-5" method="post" th:object="${resident}">
+	<form action="/Resident/saveresident" class="mt-5" method="post" th:object="${resident}">
 		<div class="container p-3 border">
 			<h1 class="text-center pb-5">Create Resident</h1>
 			<div class="row">
@@ -96,7 +96,18 @@
 						aria-label="Username" aria-describedby="addon-wrapping">
 				</div>
 			</div>
+			
 			<div class="row pb-3">
+			<div class=" col-6 mb-3">
+					<label for="workplace" class="form-lable">Contryside</label>
+					<div>
+						<span th:if="${#fields.hasErrors('countryside')}"
+							th:errors="*{countryside}" class="text-danger"></span>
+					</div>
+					<input type="text" th:field="*{countryside}" id="countryside"
+						class="form-control" placeholder="Contryside"
+						aria-label="Username" aria-describedby="addon-wrapping">
+				</div>
 				<div class="col-6 mb-3">
 					<label for="idApartment" class="form-lable ">ID Apartment</label>
 					<div>

@@ -52,6 +52,11 @@ public class AccountDTO implements UserDetails {
 		return this.authorities;
 	}
 
+	/**
+	 * Get list Role
+	 * 
+	 * @return
+	 */
 	public List<String> getRoles() {
 		List<String> listRole = new ArrayList<>();
 		for (GrantedAuthority element : getAuthorities()) {
@@ -60,6 +65,12 @@ public class AccountDTO implements UserDetails {
 		return listRole;
 	}
 
+	/**
+	 * Get Role of account 
+	 * ADMIN || MANAGE || RESIDENT || EMPLOYEE.
+	 * 
+	 * @return
+	 */
 	public String getRole() {
 		for (GrantedAuthority element : getAuthorities()) {
 			return element.getAuthority();

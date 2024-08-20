@@ -40,6 +40,10 @@ public class AccountService {
 	public void deleteByUserName(String userName) {
 		aRepo.deleteById(userName);
 	}
+	
+	public Account findByUserName(String userName) {
+    	return aRepo.findById(userName).orElse(null);
+    }
 
 	public List<Employee> getEmpNotInAccount() {
 		return aRepo.getEmpNotInAccount();
@@ -48,9 +52,5 @@ public class AccountService {
 	public List<Resident> getReciNotInAccount() {
 		return aRepo.getReciNotInAccount();
 	}
-	
-	public Account findByUserName(String userName) {
-    	return aRepo.findById(userName).orElse(null);
-    }
 
 }

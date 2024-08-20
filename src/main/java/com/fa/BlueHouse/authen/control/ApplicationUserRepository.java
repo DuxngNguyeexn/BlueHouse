@@ -1,44 +1,3 @@
-//package thuan.com.fa.demomvc.auth;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Optional;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.userdetails.User;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.stereotype.Repository;
-//
-//import thuan.com.fa.demomvc.config.UserRole;
-//
-//@Repository("fakeApplicationUserRepository")
-//public class FakeApplicationUserRepository implements ApplicationUserDao {
-//
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
-//
-//	@Override
-//	public Optional<UserDetails> selectApplicationUserByUsername(String username) {
-//		return getApplicationUsers().stream().filter(appUser -> appUser.getUsername().equals(username)).findFirst();
-//	}
-//
-//	private List<UserDetails> getApplicationUsers() {
-//		UserDetails user = User.builder().username("user").password(passwordEncoder.encode("123456"))
-//				.roles(UserRole.MEMBER.name()).build();
-//
-//		UserDetails admin = User.builder().username("admin").password(passwordEncoder.encode("123456"))
-//				.roles(UserRole.ADMIN.name()).build();
-//
-//		//List<UserDetails> applicationUsers = List.of(user, admin);
-//		List<UserDetails> applicationUsers = new ArrayList<UserDetails>();
-//		applicationUsers.add(user);
-//		applicationUsers.add(admin);
-//
-//		return applicationUsers;
-//	}
-//}
-
 package com.fa.BlueHouse.authen.control;
 
 import java.util.ArrayList;
@@ -57,8 +16,8 @@ import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.services.AccountService;
 
-@Repository("fakeApplicationUserRepository")
-public class FakeApplicationUserRepository implements ApplicationUserDao {
+@Repository("applicationUserRepository")
+public class ApplicationUserRepository implements ApplicationUserDao {
 
 	@SuppressWarnings("unused")
 	@Autowired
@@ -94,7 +53,7 @@ public class FakeApplicationUserRepository implements ApplicationUserDao {
 			} else {
 				Resident res = obj.getResident();
 				AccountDTO dto = new AccountDTO(res.getIdResident(), res.getNameResident(), res.getPhonenumber(),
-						res.getGender(), res.getBirthday(), res.getIdentificationCard(), res.getCountrySide());
+						res.getGender(), res.getBirthday(), res.getIdentificationCard(), res.getCountryside());
 				dto.setUsername(obj.getUsername());
 				dto.setPassword(obj.getPassword());
 				dto.roles(setRole(obj.getRole()));

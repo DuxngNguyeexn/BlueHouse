@@ -25,6 +25,8 @@ public class VehicleRegistration {
 	private LocalDate expirationDate;
 
 	private String vehicleNumber;
+	
+	private String status;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_APARTMENT")
@@ -67,6 +69,14 @@ public class VehicleRegistration {
 
 	public void setRegistrationDate(LocalDate registrationDate) {
 		this.registrationDate = registrationDate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public LocalDate getExpirationDate() {

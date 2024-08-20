@@ -51,6 +51,12 @@ public class Employee {
 	@OneToMany(mappedBy = "employeeID")
 	private List<HistoryOff> HistoryOffID;
 
+	@OneToMany(mappedBy = "senderEmp")
+	private List<Receiver> senderEmp;
+
+	@OneToMany(mappedBy = "receiverEmp")
+	private List<Receiver> receiverEmp;
+
 //	=========================One To One==========================
 
 	@OneToOne
@@ -169,7 +175,23 @@ public class Employee {
 		this.employeeWork = employeeWork;
 	}
 
-//	============================================================
+	public List<Receiver> getSenderEmp() {
+		return senderEmp;
+	}
+
+	public void setSenderEmp(List<Receiver> senderEmp) {
+		this.senderEmp = senderEmp;
+	}
+
+	public List<Receiver> getReceiverEmp() {
+		return receiverEmp;
+	}
+
+	public void setReceiverEmp(List<Receiver> receiverEmp) {
+		this.receiverEmp = receiverEmp;
+	}
+
+	// ============================================================
 	public Employee() {
 		super();
 	}
@@ -195,6 +217,10 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [employeeID=" + employeeID + "]";
+		return "Employee [employeeID=" + employeeID + ", fullName=" + fullName + ", gender=" + gender + ", phoneNumber="
+				+ phoneNumber + ", dateOfBirth=" + dateOfBirth + ", nationalID=" + nationalID + ", country=" + country
+				+ ", office=" + office + ", duty=" + duty + ", HistoryOffID=" + HistoryOffID + ", manager=" + manager
+				+ ", under=" + under + ", employeeWork=" + employeeWork + "]";
 	}
+
 }
