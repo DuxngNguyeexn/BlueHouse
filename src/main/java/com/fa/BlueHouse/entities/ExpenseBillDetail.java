@@ -34,6 +34,12 @@ public class ExpenseBillDetail {
 		this.price = price;
 	}
 
+	public ExpenseBillDetail(String idexpenDetail, ExpenseBill idExpenseBill) {
+		super();
+		this.idexpenDetail = idexpenDetail;
+		this.idExpenseBill = idExpenseBill;
+	}
+
 	public String getIdexpenDetail() {
 		return idexpenDetail;
 	}

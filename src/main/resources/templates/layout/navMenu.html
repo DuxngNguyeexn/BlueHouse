@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body th:fragment="navmenu">
+
+	<div class="Menu">
+		<div sec:authorize="hasRole('EMPLOYEE') or hasRole('MANAGE')" class="btn-group dropright bottom w-100">
+			<button type="button" class="btn  dropdown-toggle border border-light"
+				data-toggle="dropdown" aria-expanded="false">Manage
+				Resident</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/Resident/createresident">Create Resident</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/Resident/showlistresident">List Resident</a>
+			</div>
+		</div>
+		<div sec:authorize="hasRole('EMPLOYEE') or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn  dropdown-toggle border border-light"
+				data-toggle="dropdown" aria-expanded="false">Manage
+				IncomeBill</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/IncomeBill/showfeetype">List Feetype</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/IncomeBill/createapartmentbill">Create
+					Incobill</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/IncomeBill/showlistbill">List Incobill</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/IncomeBillDetail/createBillDetail">Create
+					Incobill Detail</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/IncomeBillDetail/showlishtdetail">List Incobill Detail</a>
+			</div>
+		</div>
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn  dropdown-toggle border border-light"
+				data-toggle="dropdown" aria-expanded="false">Manage
+				ExpenseBill</button>
+			<div class="dropdown-menu">
+				
+				<a class="dropdown-item" href="/ExpenseBill/create">Create
+					ExpenseBill</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/ExpenseBill/show">List ExpenseBill</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/ExpenseBill/createdetail">Create
+					ExpenseBill Detail</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/ExpenseBill/listdetail">List ExpenseBill Detail</a>
+			</div>
+		</div>
+		<div sec:authorize="hasRole('ADMIN')" class="btn-group dropright w-100">
+			<button type="button" class="btn  dropdown-toggle border border-light"
+				data-toggle="dropdown" aria-expanded="false">Manage
+				Position</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/Position/createposition">Create Position</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/Position/showlistposition">List Position</a>
+			</div>
+		</div>
+		<div sec:authorize="hasRole('ADMIN')" class="btn-group dropright w-100" >
+			<button type="button" class="btn dropdown-toggle"
+				data-toggle="dropdown" aria-expanded="false">Manage Adminis
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/Administrators/createadminis">Create Adminis</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/Administrators/showlistadminis">List Adminis</a>
+			</div>
+		</div>
+		<div class="btn-group dropright w-100">
+			<button type="button" class="btn dropdown-toggle border border-light"
+				data-toggle="dropdown" aria-expanded="false">Manage Vehicle
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/showVehicleRegistration">List
+					Vehicle Registration</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/registerForResidence/list">List
+					Register For Residence</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/showrentalSpaContracs">List
+					Rental Spa Contracs</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/showhiscusvehi">List History
+					Customer Vehicle</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/advertisingContract/list">List
+					Advertising Contract</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

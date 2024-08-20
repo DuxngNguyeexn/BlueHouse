@@ -29,3 +29,12 @@ body {
 .line-container:not(:empty)::after {
   margin-left: 10px;
 }
+
+a {
+  text-decoration: unset !important;
+  color: inherit !important;
+}
+a:hover {
+  text-decoration: unset !important;
+  color: inherit !important;
+}

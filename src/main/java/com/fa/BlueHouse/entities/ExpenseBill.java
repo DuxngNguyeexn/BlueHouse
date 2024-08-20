@@ -21,11 +21,10 @@ public class ExpenseBill {
 	@Column(name = "Expense_Date")
 	private LocalDate expenseDate;
 	@ManyToOne
-	@JoinColumn(name = "ID_BQT")
-	private Administrators idAdministrators;
+	@JoinColumn(name = "employeeID")
+	private Employee idEmployee;
 	@OneToMany(mappedBy = "idExpenseBill")
 	private List<ExpenseBillDetail> listExpenDetail;
-	private float totalprice;
 
 	public String getIdExpenseBill() {
 		return idExpenseBill;
@@ -43,12 +42,12 @@ public class ExpenseBill {
 		this.expenseDate = expenseDate;
 	}
 
-	public Administrators getIdAdministrators() {
-		return idAdministrators;
+	public Employee getIdEmployee() {
+		return idEmployee;
 	}
 
-	public void setIdAdministrators(Administrators idAdministrators) {
-		this.idAdministrators = idAdministrators;
+	public void setIdEmployee(Employee idEmployee) {
+		this.idEmployee = idEmployee;
 	}
 
 	public List<ExpenseBillDetail> getListExpenDetail() {
@@ -59,32 +58,35 @@ public class ExpenseBill {
 		this.listExpenDetail = listExpenDetail;
 	}
 
-	public float getTotalprice() {
-		return totalprice;
-	}
+	
 
-	public void setTotalprice(float totalprice) {
-		this.totalprice = totalprice;
-	}
-
-	public ExpenseBill(String idExpenseBill, LocalDate expenseDate, Administrators idAdministrators,
-			List<ExpenseBillDetail> listExpenDetail, float totalprice) {
+	public ExpenseBill(String idExpenseBill, LocalDate expenseDate, Employee idEmployee) {
 		super();
 		this.idExpenseBill = idExpenseBill;
 		this.expenseDate = expenseDate;
-		this.idAdministrators = idAdministrators;
+		this.idEmployee = idEmployee;
+	}
+
+	public ExpenseBill(String idExpenseBill, LocalDate expenseDate, Administrators idAdministrators,
+			List<ExpenseBillDetail> listExpenDetail) {
+		super();
+		this.idExpenseBill = idExpenseBill;
+		this.expenseDate = expenseDate;
 		this.listExpenDetail = listExpenDetail;
-		this.totalprice = totalprice;
 	}
 
 	public ExpenseBill() {
 		super();
 	}
+	public double getTotalbill() {
+        return listExpenDetail.stream()
+                      .mapToDouble(detail -> detail.getQuantity() * detail.getPrice())
+                      .sum();
+    }
 
 	@Override
 	public String toString() {
-		return "ExpenseBill [getIdExpenseBill()=" + getIdExpenseBill() + ", getExpenseDate()=" + getExpenseDate()
-				+ ", getTotalprice()=" + getTotalprice() + "]";
+		return "ExpenseBill [getIdExpenseBill()=" + getIdExpenseBill() + ", getExpenseDate()=" + getExpenseDate() + "]";
 	}
 
 }

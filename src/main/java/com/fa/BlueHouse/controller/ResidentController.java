@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fa.BlueHouse.entities.Apartment;
@@ -20,6 +21,7 @@ import com.fa.BlueHouse.services.ResidentService;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/Resident")
 public class ResidentController {
 	@Autowired
 	private ResidentService resident;
@@ -38,7 +40,7 @@ public class ResidentController {
 			return "/Resident/createResident";
 		}
 		resident.saveResident(resi);
-		return "redirect:/showlistresident";
+		return "redirect:/Resident/showlistresident";
 	}
 
 	@GetMapping("/showlistresident")
@@ -74,7 +76,7 @@ public class ResidentController {
 	@GetMapping("/deleterisedent")
 	public String deleteResident(@RequestParam("idresident") String id) {
 		resident.deleteResident(id);
-		return "redirect:/showlistresident";
+		return "redirect:/Resident/showlistresident";
 	}
 
 	@GetMapping("/editresident")
@@ -87,7 +89,7 @@ public class ResidentController {
 	@PostMapping("/saveupdateresident")
 	public String saveupdateresident(@ModelAttribute("resident") Resident resi) {
 		resident.updateResident(resi);
-		return "redirect:/showlistresident";
+		return "redirect:/Resident/showlistresident";
 	}
 
 }

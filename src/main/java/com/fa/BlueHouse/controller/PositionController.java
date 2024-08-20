@@ -18,6 +18,7 @@ import com.fa.BlueHouse.services.PositionService;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/Position")
 public class PositionController {
 
 	@Autowired
@@ -34,7 +35,7 @@ public class PositionController {
 			return "/Position/createPosition";
 		}else {
 			position.savePosition(posi);
-			return "redirect:/showlistposition";
+			return "redirect:/Position/showlistposition";
 		}
 	}
 	@GetMapping("/showlistposition")
@@ -56,7 +57,7 @@ public class PositionController {
 	@GetMapping("/deleteposition")
 	public String deletePosition(Model model, @RequestParam("idPosition") String id) {
 		position.deletePosition(id);
-		return "redirect:/showlistposition";
+		return "redirect:/Position/showlistposition";
 	}
 	
 	@GetMapping("/searchposition")

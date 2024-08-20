@@ -9,17 +9,18 @@
 </head>
 
 <body layout:fragment="content" > 
-<div class="p-3">
+<div class="p-3 m-5">
 	<h1>List Resident</h1>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
-			<form class="d-flex" action="/searchrisedent" method="GET">
+			<form class="d-flex" action="/Resident/searchrisedent" method="GET">
 				<input class="form-control me-2" type="text" name="searchKeyword"
 					placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 		</div>
 	</nav>
+	<div class="table-responsive tableFixHead border-right border-left border-bottom">
 	<table class="table ">
 		<thead class="table-dark">
 			<tr>
@@ -32,6 +33,7 @@
 				<th scope="col">RelationShip House</th>
 				<th scope="col">ID Apartment</th>
 				<th scope="col">Phone Number</th>
+				<th scope="col">Countryside</th>
 				<th scope="col">Active</th>
 			</tr>
 		</thead>
@@ -46,14 +48,16 @@
 				<td th:text="${resident.relationshipHousehold}"></td>
 				<td th:text="${resident.idApartment.idApartment}"></td>
 				<td th:text="${resident.phonenumber}"></td>
+				<td th:text="${resident.countryside}"></td>
 				<td><a
-					th:href="@{/editresident(idresident=${resident.idResident})}"
+					th:href="@{/Resident/editresident(idresident=${resident.idResident})}"
 					target="blank"><i class="fa-solid fa-pen-to-square"></i></a> <a
-					th:href="@{/deleterisedent(idresident=${resident.idResident})}"
+					th:href="@{/Resident/deleterisedent(idresident=${resident.idResident})}"
 					target="blank"><i class="fa-solid fa-trash"></i></a></td>
 			</tr>
 		</tbody>
 	</table>
+	</div>
 	<div th:replace="~{@{layout/page} :: pageAble}" ></div>
 	</div>
 </body>

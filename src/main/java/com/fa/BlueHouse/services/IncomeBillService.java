@@ -38,4 +38,15 @@ public class IncomeBillService {
 	public List<IncomeBill> finall(){
 		return inbill.findAll();
 	}
+	public String generateNewId() {
+		String maxId = inbill.findMaxId();
+		
+		if(maxId == null) return "IB001";
+		
+		int numberic = Integer.parseInt(maxId.substring(2));
+		
+		numberic++;
+		
+		return String.format("IB%03d", numberic);
+	}
 }

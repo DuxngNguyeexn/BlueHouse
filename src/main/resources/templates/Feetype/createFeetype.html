@@ -8,7 +8,7 @@
 
 </head>
 <body layout:fragment="content">
-	<form action="/savefeetype" class="mt-5" method="post"
+	<form action="/IncomeBill/savefeetype" class="mt-5" method="post"
 		th:object="${feetype}">
 		<div class="container p-3 border">
 			<h1 class="text-center pb-5">Create Feetype</h1>
@@ -22,7 +22,7 @@
 
 					<input type="text" th:field="*{idFeetype}" id="idFeetype"
 						class="form-control" placeholder="ID FeeType"
-						aria-label="Username" aria-describedby="addon-wrapping">
+						aria-label="Username" aria-describedby="addon-wrapping" readonly="readonly">
 				</div>
 				<div class=" col-6 mb-3">
 					<label for="namePosition" class="form-lable">Name Feetype</label>

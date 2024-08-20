@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.FeeType;
 import com.fa.BlueHouse.entities.VehicleRegistration;
@@ -66,5 +67,9 @@ public class VehicleRegistrationService {
 	}
 	public Page<VehicleRegistration> seachVehicleRegistration(Pageable pageable, String search){
 		return vehiRegiRepository.searchVehicleRegistration(search, pageable);
+	}
+	
+	public List<VehicleRegistration> findRegisApartment(String idApartment){
+		return vehiRegiRepository.findRegisApartment(idApartment);
 	}
 }

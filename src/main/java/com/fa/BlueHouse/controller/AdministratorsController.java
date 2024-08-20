@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fa.BlueHouse.entities.Administrators;
@@ -19,6 +20,7 @@ import com.fa.BlueHouse.services.ResidentService;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/Administrators")
 public class AdministratorsController {
 
 	@Autowired
@@ -44,7 +46,7 @@ public class AdministratorsController {
 			return "/Administrators/createAdminis";
 		}else {
 			adminis.saveAdminis(admin);
-			return "redirect:/showlistadminis";
+			return "redirect:/Administrators/showlistadminis";
 		}
 		
 	}
@@ -87,6 +89,6 @@ public class AdministratorsController {
 	@GetMapping("/deleteAdminis")
 	public String deleteAdminis(@RequestParam("idBQT") String id) {
 		adminis.deleteAdminis(id);
-		return "redirect:/showlistadminis";
+		return "redirect:/Administrators/showlistadminis";
 	}
 }
