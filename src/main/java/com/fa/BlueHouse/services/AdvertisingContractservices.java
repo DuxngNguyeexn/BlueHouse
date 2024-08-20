@@ -1,16 +1,19 @@
 package com.fa.BlueHouse.services;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import com.fa.BlueHouse.entities.AdvertisingContract;
 import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.FeeType;
 import com.fa.BlueHouse.repositories.AdvertisingContractRepositories;
 import com.fa.BlueHouse.repositories.EmployeeRepo;
-import com.fa.BlueHouse.repositories.FeeTypeRepository;
+import com.fa.BlueHouse.repositories.FeetypeRepositories;
+
 import jakarta.transaction.Transactional;
 
 @Service
@@ -21,7 +24,7 @@ public class AdvertisingContractservices {
 	private AdvertisingContractRepositories advRepositories;
 	
 	@Autowired
-	private FeeTypeRepository feeTypeRepository;
+	private FeetypeRepositories feeTypeRepository;
 	
 	@Autowired 
 	private EmployeeRepo employeeRepo;

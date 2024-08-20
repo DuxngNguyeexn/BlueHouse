@@ -64,12 +64,13 @@ public class IncomeBillDetailController {
 
 	@GetMapping("/createBillDetail")
 	public String createBillDetail(Model model, @RequestParam(name = "idinbill", defaultValue = "#{null}") String id) {
+		String iddetail = indetail.generateNewId();
 		if (id != null) {
-			model.addAttribute("billDetail", new IncomeBillDetail(inbill.findById(id)));
+			model.addAttribute("billDetail", new IncomeBillDetail(iddetail,inbill.findById(id)));
 			model.addAttribute("listfee", feetype.findallFeetype());
 			return "/IncomeBillDetail/createBillDetail";
 		} else {
-			model.addAttribute("billDetail", new IncomeBillDetail());
+			model.addAttribute("billDetail", new IncomeBillDetail(iddetail));
 			model.addAttribute("listincomebill", inbill.finall());
 			model.addAttribute("listfee", feetype.findallFeetype());
 			return "/IncomeBillDetail/createDetail";
@@ -88,7 +89,7 @@ public class IncomeBillDetailController {
 		billdetail.setPrice(fee.getPrice() * billdetail.getQuantity());
 		indetail.saveIncobillDetail(billdetail);
 		model.addAttribute("idbill", billdetail.getIdIncomeBill().getIdIncomeBill());
-		return "redirect:/IncomeBillDetail/showlistbill";
+		return "redirect:/IncomeBillDetail/showlishtdetail?idbill=" + billdetail.getIdIncomeBill().getIdIncomeBill();
 
 	}
 
