@@ -36,6 +36,7 @@ public class RentalSpaceContractService {
 	public List<Employee> findalEmploy(){
 		return employee.findAll();
 	}
+	
 	public List<RentalSpaceContract> findalRenSpaCon(){
 		return renSpaCon.findAll();
 	}
@@ -48,6 +49,10 @@ public class RentalSpaceContractService {
 		return renSpaCon.findById(id).orElse(null);
 	}
 	
+	public Employee findByempID(String id) {
+		return employee.findById(id).orElse(null);
+	}
+	
 	public void deleteRenSapCon(String id) {
 		renSpaCon.deleteById(id);
 	}
@@ -56,6 +61,9 @@ public class RentalSpaceContractService {
 		renSpaCon.save(rentalSpaCon);
 	}
 	
+	public List<RentalSpaceContract> findByKeyword(String keyword){
+		return renSpaCon.searchRentalSpaceContract(keyword);
+	}
 	public Page<RentalSpaceContract> allRentalSpaceContract(Pageable pageable){
 		return renSpaCon.findAll(pageable);
 	}
