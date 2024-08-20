@@ -8,9 +8,10 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.Notification;
+import com.fa.BlueHouse.entities.Receiver;
 import com.fa.BlueHouse.services.EmployeeService;
 import com.fa.BlueHouse.services.NotiService;
 import com.fa.BlueHouse.services.ResidentService;
@@ -44,37 +46,63 @@ public class NotiController {
 	private ResidentService rService;
 
 	@GetMapping("viewDetail")
-	public String viewDetail(@RequestParam(name = "idNoti", defaultValue = "") String idNoti, Model model) {
+	public String viewDetail(@RequestParam(name = "idNoti", defaultValue = "") String idNoti, Model model,
+			@RequestParam(name = "lastPath") String lastPath,
+			@RequestParam(name = "idReceiver", defaultValue = "") Integer idReceiver) {
 
-		Notification listNoti = notiService.findNotiByID("R0132024-08-2013:08:14.975624300");
+		Notification listNoti = notiService.findNotiByID(idNoti);
+		Receiver recei = notiService.findReceiByID(idReceiver);
+		recei.setStatus(1);
+		notiService.saveRecei(recei);
 
+		model.addAttribute("lastPath", lastPath);
 		model.addAttribute("post", listNoti);
 
 		return "Notifications/viewNoti";
 	}
 
 	@GetMapping("listSeen")
-	public String listSeen(Principal principal, Model model) {
+	public String listSeen(Principal principal, Model model,
+			@RequestParam(name = "page", defaultValue = "1") int page) {
 		AccountDTO auth = (AccountDTO) ((Authentication) principal).getPrincipal();
 
-		List<Notification> listNoti = notiService.findByIDSeen(auth.getId());
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		
+		Page<Receiver> listNoti = notiService.findByIDSeen(pageRequest, auth.getId());
 
-		for (Notification e : listNoti) {
-			System.err.println(e.getNotificationCode());
+		int totalPages;
+		if (listNoti.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
+			totalPages = listNoti.getTotalPages();
 		}
 
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("listReceiver", listNoti);
 		return "Notifications/listSeenNoti";
 	}
 
 	@GetMapping("listSend")
-	public String listSend(Principal principal, Model model) {
+	public String listSend(Principal principal, Model model,
+			@RequestParam(name = "page", defaultValue = "1") int page) {
 		AccountDTO auth = (AccountDTO) ((Authentication) principal).getPrincipal();
 
-		List<Notification> listNoti = notiService.findByIDSend(auth.getId());
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<Notification> listNoti = notiService.findByIDSend(pageRequest, auth.getId());
 
-		for (Notification e : listNoti) {
-			System.err.println(e.getNotificationCode());
+		int totalPages;
+		if (listNoti.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
+			totalPages = listNoti.getTotalPages();
 		}
+
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("listNoti", listNoti);
 
 		return "Notifications/listSendNoti";
 	}
@@ -106,7 +134,7 @@ public class NotiController {
 				Files.write(path, file.getBytes());
 				noti.setAttachment(fileName);
 			} catch (IOException e) {
-				e.printStackTrace();
+				noti.setAttachment(null);
 			}
 		}
 
@@ -139,7 +167,7 @@ public class NotiController {
 	public String saveReceiver(Principal principal,
 			@RequestParam(name = "ListValue", defaultValue = "") String listRecei,
 			@RequestParam(name = "choose", defaultValue = "0") String choose) {
-		
+
 		String[] listReceiver = listRecei.split(",");
 
 		notiService.saveNotificationAndReceiver(choose, notificationSend, principal, listReceiver);

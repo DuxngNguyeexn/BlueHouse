@@ -1,52 +1,61 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-<meta charset="UTF-8" />
-<title>Document</title>
+	<meta charset="UTF-8" />
+	<title>Document</title>
 </head>
 
 <body th:fragment="header">
 	<header class="d-flex py-2">
 		<div class="Icon col-2 nav-link">
-			<a href="/"> <span class="text-danger">/</span> <span
-				class="text-dark">B l u e H o u s e</span>
+			<a href="/">
+				<span class="text-danger">/</span>
+				<span class="text-dark">B l u e H o u s e</span>
 			</a>
 		</div>
 
 		<div class="col-8 d-flex justify-content-center">
 			<ul class="nav">
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-						Resident </a>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+						Resident
+					</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="/showlistresident">Resident
-							Management</a>
+						<a class="dropdown-item" href="/showlistresident">Resident Management</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="/showlistadminis">Administrator
-							Management</a>
-					</div></li>
+						<a class="dropdown-item" href="/showlistadminis">Administrator Management</a>
+					</div>
+				</li>
 
-				<li class="nav-item"><a class="nav-link" href="/employee/">
-						Employee </a></li>
+				<li sec:authorize="hasAnyRole('RESIDENT', 'EMPLOYEE')" class="nav-item">
+					<a class="nav-link" href="/employee/"> Employee </a>
+				</li>
 
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-						multifaceted </a>
+				<li sec:authorize="hasRole('RESIDENT')" class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+						multifaceted
+					</a>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="/Form/Report/showAdd">Report</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="/Form/Request/showAdd">Request</a>
-					</div></li>
-				<li class="nav-item"><a class="nav-link" href="#">Kế hoạch
-						& Thông báo</a></li>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Kế hoạch & Thông báo</a>
+				</li>
 			</ul>
 		</div>
+
 		<div class="col-2 d-flex align-items-center justify-content-center">
-			<i class="fa-regular fa-bell bell mr-3"></i>
-			<button onclick="window.location.href='/logout';" type="button"
-				class="btn btn-secondary">Sign Out</button>
+			<a class="noti nav-link mr-3" href="/notification/listSeen">
+				<span th:if="${numberKey >= 1}" class="badge" th:text="${numberKey}"></span>
+				<i class="fa-regular fa-bell bell"></i>
+			</a>
+			<button onclick="window.location.href='/logout';" type="button" class="btn btn-secondary">
+				Sign Out
+			</button>
 		</div>
 	</header>
 </body>
