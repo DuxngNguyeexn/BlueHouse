@@ -10,7 +10,8 @@ import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.FeeType;
 import com.fa.BlueHouse.repositories.AdvertisingContractRepositories;
 import com.fa.BlueHouse.repositories.EmployeeRepo;
-import com.fa.BlueHouse.repositories.FeeTypeRepository;
+import com.fa.BlueHouse.repositories.FeetypeRepositories;
+
 import jakarta.transaction.Transactional;
 
 @Service
@@ -21,7 +22,7 @@ public class AdvertisingContractservices {
 	private AdvertisingContractRepositories advRepositories;
 	
 	@Autowired
-	private FeeTypeRepository feeTypeRepository;
+	private FeetypeRepositories feeTypeRepository;
 	
 	@Autowired 
 	private EmployeeRepo employeeRepo;

@@ -10,7 +10,7 @@ import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.FeeType;
 import com.fa.BlueHouse.entities.VehicleRegistration;
 import com.fa.BlueHouse.repositories.ApartmentRepository;
-import com.fa.BlueHouse.repositories.FeeTypeRepository;
+import com.fa.BlueHouse.repositories.FeetypeRepositories;
 import com.fa.BlueHouse.repositories.VehicleRegistrationRepository;
 
 import jakarta.transaction.Transactional;
@@ -26,7 +26,7 @@ public class VehicleRegistrationService {
 	private ApartmentRepository apartmentRepository;
 
 	@Autowired
-	private FeeTypeRepository feeTypeRepository;
+	private FeetypeRepositories feeTypeRepository;
 
 	public List<VehicleRegistration> findaVehicleRegi() {
 		return vehiRegiRepository.findAll();
