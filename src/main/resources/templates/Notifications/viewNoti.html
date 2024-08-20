@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
-<meta charset="UTF-8" />
-<title>Insert title here</title>
-<script
-	src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+	<meta charset="UTF-8" />
+	<title>Insert title here</title>
+	<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 </head>
 
 <body layout:fragment="content">
@@ -18,15 +15,24 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12 mt-5">
-				
+				<div th:utext="${post.title}">Title</div>
+
 				<div th:utext="${post.contentNoti}">Content</div>
+
+
+				<div th:if="${post.attachment != null}">
+					<img th:src="@{'/imgNotification/' + ${post.attachment}}"  />
+				</div>
+				<div th:if="${post.attachment == null}">No picture available.</div>
+
+				<div th:utext="${post.date}">date</div>
+
+				<div th:utext="${post.time}">time</div>
 
 				<a th:href="@{/}" class="btn btn-primary">Go back</a>
 			</div>
 		</div>
 	</div>
-
 </body>
 
 </html>
-
