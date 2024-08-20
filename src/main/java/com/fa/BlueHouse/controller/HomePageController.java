@@ -3,6 +3,7 @@ package com.fa.BlueHouse.controller;
 import java.security.Principal;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +15,9 @@ public class HomePageController {
 	@GetMapping("/")
 	public String showLogin(Principal principal, Model model) {
 
-//		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
-//		System.err.println(principal.toString());
-//		model.addAttribute("userDetails", userDetails);
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+
+		System.err.println(userDetails.getRole());
 
 		return "HomePage";
 	}

@@ -12,14 +12,16 @@ public class Report extends form {
 	@ManyToOne
 	@JoinColumn(name = "Id_Admin")
 	Resident admin;
-
+	
+	private String imagePath;
 	public Report() {
 		super();
 	}
 
-	public Report(Resident admin) {
+	public Report(Resident admin,String imagePath) {
 		super();
 		this.admin = admin;
+		this.imagePath = imagePath;
 	}
 
 	public Resident getAdmin() {
@@ -28,6 +30,14 @@ public class Report extends form {
 
 	public void setAdmin(Resident admin) {
 		this.admin = admin;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	

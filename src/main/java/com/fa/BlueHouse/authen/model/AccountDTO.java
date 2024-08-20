@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
@@ -21,6 +23,7 @@ public class AccountDTO implements UserDetails {
 	private String password;
 	private List<GrantedAuthority> authorities;
 
+	private String id;
 	private String name;
 	private String phoneNumber;
 	private String gender;
@@ -49,6 +52,23 @@ public class AccountDTO implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.authorities;
+	}
+
+	public List<String> getRoles() {
+		List<String> listRole = new ArrayList<>();
+		for (GrantedAuthority element : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+			listRole.add(element.getAuthority());
+		}
+		return listRole;
+	}
+
+	public String getRole() {
+
+		for (GrantedAuthority element : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+			return element.getAuthority();
+		}
+
+		return "";
 	}
 
 	@Override
@@ -85,6 +105,14 @@ public class AccountDTO implements UserDetails {
 
 	public String getName() {
 		return name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public void setName(String name) {
@@ -133,9 +161,10 @@ public class AccountDTO implements UserDetails {
 
 //	=========================================================================
 
-	public AccountDTO(String name, String phoneNumber, String gender, LocalDate birthday, String nationalID,
+	public AccountDTO(String id, String name, String phoneNumber, String gender, LocalDate birthday, String nationalID,
 			String country) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.gender = gender;

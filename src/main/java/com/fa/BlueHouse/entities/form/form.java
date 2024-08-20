@@ -21,6 +21,7 @@ public abstract class form {
 	Date dateSent;
 	String note;
 	String status;
+	String reason;
 	public form() {
 		super();
 	}
@@ -33,6 +34,14 @@ public abstract class form {
 	}
 
 	
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	public void setIdForm(String idForm) {
 		this.idForm = idForm;
 	}
