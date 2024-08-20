@@ -9,27 +9,19 @@
 <body layout:fragment="content">
 	<div class="container"> 
 		<div class="container mt-3"><h1 class="text-primary text-center">List Advertising Contract</h1></div>
+	
 	<nav class="navbar navbar-light bg-light">
-		<div class="container-fluid">
-			<form th:action="search">
-				<div class="input-group ">
-					<input type="text" class="form-control border-right-0"
-						id="search" placeholder="Search"
-						name="searchKeyword">
-					<button class="input-group-text border-left-0 bg-white"
-						id="searchRegisterForResidence" type="submit"
-						style="border-radius: 0 .25rem .25rem 0;">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-							fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path
-								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                          </svg>
-					</button>
-				</div>
-			</form>
-			<a href="add"><button type="button" class="btn btn-success mr-5 ">ADD</button></a>
-		</div>
-	</nav>
+			<div class="container-fluid">
+				<form class="d-flex" action="/advertisingContract/search" method="GET">
+					<input class="form-control me-2" type="text" name="searchKeyword"
+						placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+				<a href="add"><button type="button"
+						class="btn btn-success mr-5 ">ADD</button></a>
+			</div>
+		</nav>
+		
 	<div class="table-responsive tableFixHead border-right border-left border-bottom">
 		<table class="table">
 			<thead class="thead-dark">

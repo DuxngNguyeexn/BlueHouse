@@ -15,12 +15,12 @@
 
 		<nav class="navbar navbar-light bg-light">
 			<div class="container-fluid">
-				<form class="d-flex" action="/searchhiscusvehi" method="GET">
+				<form class="d-flex" action="/historyCustomerVehicle/search" method="GET">
 					<input class="form-control me-2" type="text" name="searchKeyword"
 						placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-success" type="submit">Search</button>
 				</form>
-				<a href="/createhiscusvehi"><button type="button"
+				<a href="add"><button type="button"
 						class="btn btn-success mr-5 ">ADD</button></a>
 			</div>
 		</nav>
@@ -44,8 +44,8 @@
 						<td th:text="${HisCusVehi.apartmentHIS.apartmentNumber}"></td>
 						<td th:text="${HisCusVehi.id.moveInDate}"></td>
 						<td th:text="${HisCusVehi.moveOutDate}"></td>
-						<td><a
-							th:href="@{/xera(idhiscusvehi=${HisCusVehi.id.vehicleNumber}, idmoveInDate=${HisCusVehi.id.moveInDate})}"
+						<td><a th:if="${HisCusVehi.moveOutDate} == null"
+							th:href="@{xera(idhiscusvehi=${HisCusVehi.id.vehicleNumber}, idmoveInDate=${HisCusVehi.id.moveInDate})}"
 							target="blank"><button type="button"
 									class="btn btn-outline-success">Xe Ra</button></a></td>
 					</tr>

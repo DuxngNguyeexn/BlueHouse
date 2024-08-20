@@ -7,9 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.fa.BlueHouse.entities.Apartment;
+import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.RegisterForResidence;
 import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.repositories.ApartmentRepository;
+import com.fa.BlueHouse.repositories.EmployeeRepo;
 import com.fa.BlueHouse.repositories.RegisterForResidenceRepository;
 import com.fa.BlueHouse.repositories.ResidentRepositories;
 
@@ -27,6 +29,9 @@ public class RegisterForResidenceServices {
 	
 	@Autowired
 	private ResidentRepositories residentRepositories;
+	
+	@Autowired
+	private EmployeeRepo employeeRepo;
 	
 	public void saveRegisterForResidence(RegisterForResidence registerForResidence) {
 		regiresirepository.save(registerForResidence);
@@ -50,6 +55,10 @@ public class RegisterForResidenceServices {
 	
 	public RegisterForResidence findaById(String id) {
 		return regiresirepository.findById(id).orElse(null);
+	}
+	
+	public Employee findaByIdemp(String id) {
+		return employeeRepo.findById(id).orElse(null);
 	}
 	
 	public void deleteRegisterResi(String id) {
