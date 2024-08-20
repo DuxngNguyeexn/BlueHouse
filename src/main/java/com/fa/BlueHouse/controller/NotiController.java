@@ -48,7 +48,7 @@ public class NotiController {
 		AccountDTO auth = (AccountDTO) ((Authentication) principal).getPrincipal();
 
 		List<Notification> listNoti = notiService.findByIDSend(auth.getId());
-		
+
 		for (Notification e : listNoti) {
 			System.err.println(e.getNotificationCode());
 		}
@@ -58,20 +58,37 @@ public class NotiController {
 
 	private Notification notificationSend;
 
+	/**
+	 * Điều hướng tới trang tạo noti
+	 * @return model.addAttribute("Notification", new Notification());
+	 */
 	@GetMapping("add")
 	public String add(Model model) {
 		model.addAttribute("Notification", new Notification());
 		return "Notifications/createNoti";
 	}
 
+	/**
+	 * Chuẩn bị một noti để lưu
+	 * @return notificationSend
+	 */
 	@PostMapping("save")
-	public String save(Model model, @ModelAttribute("noti") Notification noti) {
+	public String save(Model model, @ModelAttribute("noti") Notification noti, Principal principal) {
+		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = thongTin.getId() + notificationSend.getDate() + notificationSend.getTime();
+
 		noti.setDate(LocalDate.now());
 		noti.setTime(LocalTime.now());
+		notificationSend.setNotificationCode(id);
+
 		notificationSend = noti;
 		return "redirect:sending";
 	}
 
+	/**
+	 * Điều hướng tới trang thêm người nhận
+	 * @return 
+	 */
 	@GetMapping("sending")
 	public String sending(Model model) {
 		model.addAttribute("employee", eService.allEmployee());
@@ -79,31 +96,38 @@ public class NotiController {
 		return "Notifications/choosenSelect";
 	}
 
+	/**
+	 * Chuẩn bị đối tượng để lưu
+	 * Lưu vào database
+	 * 
+	 * @return 
+	 */
 	@GetMapping("saveReceiver")
 	public String saveReceiver(Principal principal,
 			@RequestParam(name = "ListValue", defaultValue = "") String listRecei,
 			@RequestParam(name = "choose", defaultValue = "0") String choose) {
+
 		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
-		String id = thongTin.getId() + notificationSend.getDate() + notificationSend.getTime();
 
 		String[] listReceiver = listRecei.split(",");
 
 		Employee senderEmp = eService.findById(thongTin.getId());
 		Resident senderResi = rService.findById(thongTin.getId());
 
-		notificationSend.setNotificationCode(id);
-		notiService.saveNoti(notificationSend);
-
 		if (choose.equalsIgnoreCase("All")) {
+			notiService.saveNoti(notificationSend);
 			saveAll(notificationSend, senderEmp, senderResi, eService.allEmployee(), rService.findallResident());
 		}
 		if (choose.equalsIgnoreCase("AllEmployee")) {
+			notiService.saveNoti(notificationSend);
 			saveAllEmp(notificationSend, senderEmp, senderResi, eService.allEmployee());
 		}
 		if (choose.equalsIgnoreCase("AllResident")) {
+			notiService.saveNoti(notificationSend);
 			saveAllResi(notificationSend, senderEmp, senderResi, rService.findallResident());
 		}
 		if (choose.equalsIgnoreCase("Choosen")) {
+			notiService.saveNoti(notificationSend);
 			saveChoosen(notificationSend, senderEmp, senderResi, listReceiver);
 		}
 
