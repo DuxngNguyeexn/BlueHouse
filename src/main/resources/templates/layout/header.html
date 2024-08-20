@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 <meta charset="UTF-8" />
@@ -27,6 +28,11 @@
 						<a class="dropdown-item" href="/showlistadminis">Administrator
 							Management</a>
 					</div></li>
+						<li sec:authorize="hasRole('RESIDENT') or hasRole('ADMIN')" class="nav-item"><a class="nav-link" href="/IncomeBill/showinvoiceapratmentbill">
+						Invoice Apartment </a></li>
+						<li class="nav-item"><a class="nav-link" href="/Administrators/showlistadminis">
+						Administrators </a></li>
+						
 
 				<li class="nav-item"><a class="nav-link" href="/employee/">
 						Employee </a></li>

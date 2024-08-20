@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 <meta charset="ISO-8859-1">
@@ -11,7 +12,6 @@
 <body layout:fragment="content" > 
 
 <div class="m-5">
-	<div class="">
 	<div class="d-flex justify-content-between">
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
@@ -21,19 +21,17 @@
 			</form>
 		</div>
 	</nav>
-	<div class="d-flex justify-content-end">
+	<div sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" class="d-flex justify-content-end">
 	<a th:if="${IncomeBill!=null && IncomeBill.paymentDate==null}" th:href="@{/IncomeBillDetail/paymentvehicle(idinbill=${IncomeBill.idIncomeBill})}"
 					target="blank">
    <button class="btn btn-primary m-2" type="submit">Payment Vehicle Fees</button></a>
-	</div>
-	<a th:if="${IncomeBill==null}" th:href="@{/IncomeBillDetail/createBillDetail}" target="blank">
+   <a th:if="${IncomeBill==null}" th:href="@{/IncomeBillDetail/createBillDetail}" target="blank">
    <button class="btn btn-primary m-2" type="submit">Create BillDetail</button></a>
-	<div class="d-flex justify-content-end">
-	<a th:if="${IncomeBill!=null && IncomeBill.paymentDate==null}" th:href="@{/IncomeBillDetail/createBillDetail(idinbill=${IncomeBill.idIncomeBill})}"
+   <a th:if="${IncomeBill!=null && IncomeBill.paymentDate==null}" th:href="@{/IncomeBillDetail/createBillDetail(idinbill=${IncomeBill.idIncomeBill})}"
 					target="blank">
    <button class="btn btn-primary m-2" type="submit">Create BillDetail</button></a>
 	</div>
-	</div>
+	
 	
 	</div>
 	<h1>List Bill Detail</h1>
@@ -49,7 +47,7 @@
 				<th scope="col">Quantity</th>
 				<th scope="col">Price</th>
 				<th scope="col">Total</th>
-				<th scope="col">Act</th>
+				<th sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" scope="col">Act</th>
 			</tr>
 		</thead>
 		<tbody th:each="detail : ${listDetail}">
@@ -60,10 +58,10 @@
 				<td th:text="${detail.quantity}"></td>
 				<td th:text="${detail.price}"></td>
 				<td th:text="${detail.price} * ${detail.quantity}"></td>
-				<td><a th:if="${IncomeBill.paymentDate==null}"
+				<td sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')"><a th:if="${IncomeBill!=null && IncomeBill.paymentDate==null}"
 					th:href="@{/IncomeBillDetail/editdetail(iddetail=${detail.idbilldetail})}"
 					target="blank"><i class="fa-solid fa-pen-to-square"></i></a> <a 
-					th:if="${IncomeBill.paymentDate==null}"
+					th:if="${IncomeBill!=null && IncomeBill.paymentDate==null}"
 					th:href="@{/IncomeBillDetail/deletedetail(iddetail=${detail.idbilldetail})}"
 					target="blank"><i class="fa-solid fa-trash"></i></a></td>
 			</tr>

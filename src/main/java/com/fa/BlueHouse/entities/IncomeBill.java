@@ -52,9 +52,15 @@ public class IncomeBill {
 		this.idEmployee = idEmployee;
 	}
 
-	public IncomeBill(Apartment idApartment) {
+	public IncomeBill(String id,Apartment idApartment) {
 		super();
+		this.idIncomeBill = id;
 		this.idApartment = idApartment;
+	}
+	public IncomeBill(String id) {
+		super();
+		this.idIncomeBill = id;
+		
 	}
 
 	public IncomeBill() {
