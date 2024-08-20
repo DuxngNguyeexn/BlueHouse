@@ -7,11 +7,11 @@
 </head>
 
 <body layout:fragment="content">
-<div class="container">
+<div class="m-5">
 	<h1>List Resident</h1>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
-			<form class="d-flex" action="/searchposition" method="GET">
+			<form class="d-flex" action="/Position/searchposition" method="GET">
 				<input class="form-control me-2" type="text" name="searchKeyword" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
@@ -31,8 +31,8 @@
 				<td th:text="${position.idPosition}"></td>
 				<td th:text="${position.namePosition}"></td>
 				<td th:text="${position.prorogue}"></td>
-				<td><a th:href="@{/editposition(idPosition=${position.idPosition})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
-					<a th:href="@{/deleteposition(idPosition=${position.idPosition})}" target="blank"><i class="fa-solid fa-trash"></i></a>
+				<td><a th:href="@{/Position/editposition(idPosition=${position.idPosition})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
+					<a th:href="@{/Position/deleteposition(idPosition=${position.idPosition})}" target="blank"><i class="fa-solid fa-trash"></i></a>
 				</td>
 			</tr>
 		</tbody>

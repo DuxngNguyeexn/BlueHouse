@@ -8,7 +8,7 @@
 <title>Document</title>
 </head>
 <body layout:fragment="content">
-	<div class="container mt-4 ">
+	<div class="m-5 ">
 		<div class="h1 text-center mb-4">
 			<a href="list" class="text-decoration-none">List apartment</a>
 		</div>
@@ -31,7 +31,7 @@
 
 
 	</div>
-	<div class="container mt-4">
+	<div class="m-5 mt-4">
 		<table class="table table-bordered ">
 			<thead class="table-dark text-center">
                   <tr>
@@ -57,7 +57,7 @@
 					<td th:text="${a.area}"></td>
 					<td th:text="${a.apartmentNumber}"></td>
 					<td th:text="${a.typeApartment}"></td>
-					<td><a th:href="@{/showlistapratmentbill(idApartment=${a.idApartment})}" target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td>
+					<td><a th:href="@{/IncomeBill/showlistapratmentbill(idApartment=${a.idApartment})}" target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td>
 				</tr>
 			</tbody>
 		</table>

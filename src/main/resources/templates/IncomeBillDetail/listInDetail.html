@@ -10,31 +10,36 @@
 
 <body layout:fragment="content" > 
 
-<div class="p-3">
-	<div class="container">
+<div class="m-5">
+	<div class="">
 	<div class="d-flex justify-content-between">
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
-			<form class="d-flex" action="/searchIncobill" method="GET">
+			<form class="d-flex" action="/IncomeBillDetail/searchIncobilldetail" method="GET">
 				<input class="form-control me-2" type="text" name="searchKeyword" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 		</div>
 	</nav>
 	<div class="d-flex justify-content-end">
-	<a th:href="@{/paymentvehicle(idinbill=${IncomeBill.idIncomeBill})}"
+	<a th:if="${IncomeBill!=null && IncomeBill.paymentDate==null}" th:href="@{/IncomeBillDetail/paymentvehicle(idinbill=${IncomeBill.idIncomeBill})}"
 					target="blank">
    <button class="btn btn-primary m-2" type="submit">Payment Vehicle Fees</button></a>
 	</div>
+	<a th:if="${IncomeBill==null}" th:href="@{/IncomeBillDetail/createBillDetail}" target="blank">
+   <button class="btn btn-primary m-2" type="submit">Create BillDetail</button></a>
 	<div class="d-flex justify-content-end">
-	<a th:href="@{/createBillDetail(idinbill=${IncomeBill.idIncomeBill})}"
+	<a th:if="${IncomeBill!=null && IncomeBill.paymentDate==null}" th:href="@{/IncomeBillDetail/createBillDetail(idinbill=${IncomeBill.idIncomeBill})}"
 					target="blank">
    <button class="btn btn-primary m-2" type="submit">Create BillDetail</button></a>
 	</div>
 	</div>
+	
+	</div>
 	<h1>List Bill Detail</h1>
-	<h5>ID IncomeBill: <span th:text="${IncomeBill.idIncomeBill}"></span> </h5>
-	<h5>ID Apartment: <span th:text="${apartment.idApartment}"></span> </h5>
+	<span>ID IncomeBill: <span th:if="${IncomeBill!=null}" th:text="${IncomeBill.idIncomeBill }"></span></span>
+	<span class="ml-5">ID Apartment: <span th:if="${apartment!=null}" th:text="${apartment.idApartment}"></span> </span>
+	<div class="table-responsive tableFixHead border-right border-left border-bottom">
 	<table class="table">
 		<thead class="table-dark">
 			<tr>
@@ -55,11 +60,17 @@
 				<td th:text="${detail.quantity}"></td>
 				<td th:text="${detail.price}"></td>
 				<td th:text="${detail.price} * ${detail.quantity}"></td>
+				<td><a th:if="${IncomeBill.paymentDate==null}"
+					th:href="@{/IncomeBillDetail/editdetail(iddetail=${detail.idbilldetail})}"
+					target="blank"><i class="fa-solid fa-pen-to-square"></i></a> <a 
+					th:if="${IncomeBill.paymentDate==null}"
+					th:href="@{/IncomeBillDetail/deletedetail(iddetail=${detail.idbilldetail})}"
+					target="blank"><i class="fa-solid fa-trash"></i></a></td>
 			</tr>
 		</tbody>
 	</table>
-	<div th:replace="~{@{layout/page} :: pageAble}" ></div>
 	</div>
+	<div th:replace="~{@{layout/page} :: pageAble}" ></div>
 	</div>
 </body>
 

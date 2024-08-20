@@ -27,12 +27,17 @@ public class IncomeBillDetailService {
 		return incodetail.findById(id).orElse(null);
 	}
 
-	
+	public void deleteDetail(String id) {
+		incodetail.deleteById(id);
+	}
 	public void saveIncobillDetail(IncomeBillDetail inco) {
 		incodetail.save(inco);
 	}
 	public Page<IncomeBillDetail> findAllbill(String idbill, Pageable page){
 		return incodetail.findByIdBill(idbill, page);
+	}
+	public Page<IncomeBillDetail> findAll( Pageable page){
+		return incodetail.findAll(page);
 	}
 //	public Page<IncomeBillDetail> findByIdbill(String id, Pageable page){
 //		return incodetail.findByIdBill(id, page);
