@@ -1,10 +1,13 @@
 package com.fa.BlueHouse.services;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.Notification;
 import com.fa.BlueHouse.entities.Receiver;
@@ -54,12 +57,25 @@ public class NotiService {
 	 * 
 	 * @param choose       "All" || "AllEmployee" || "AllResident" || "Choosen"
 	 * @param Notification notification
-	 * @param Employee     employee sender
-	 * @param Resident     resident sender
+	 * @param Principal    principal
 	 * @param String[]     list ID Receiver
+	 * 
+	 * @return tùy vào choose lưu dữ liệu xuống database nếu "Choosen" cần truyền
+	 *         vào list id của đối tượng nhận thông báo
+	 *
 	 */
-	public void saveNotificationAndReceiver(String choose, Notification noti, Employee senderEmp, Resident senderResi,
+	public void saveNotificationAndReceiver(String choose, Notification noti, Principal principal,
 			String[] listIDReceiver) {
+		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
+
+		Employee senderEmp = eService.findById(thongTin.getId());
+		Resident senderResi = rService.findById(thongTin.getId());
+
+		if (senderEmp != null) {
+			noti.setNotificationCode(senderEmp.getEmployeeID() + noti.getDate() + noti.getTime());
+		} else if (senderResi != null) {
+			noti.setNotificationCode(senderResi.getIdResident() + noti.getDate() + noti.getTime());
+		}
 
 		if (choose.equalsIgnoreCase("All")) {
 			saveNoti(noti);

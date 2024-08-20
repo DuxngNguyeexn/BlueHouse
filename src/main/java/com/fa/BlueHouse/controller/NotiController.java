@@ -23,9 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fa.BlueHouse.authen.model.AccountDTO;
-import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.Notification;
-import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.services.EmployeeService;
 import com.fa.BlueHouse.services.NotiService;
 import com.fa.BlueHouse.services.ResidentService;
@@ -98,7 +96,7 @@ public class NotiController {
 	 * @return notificationSend
 	 */
 	@PostMapping("save")
-	public String save(Model model, @ModelAttribute("noti") Notification noti, Principal principal,
+	public String save(Model model, @ModelAttribute("noti") Notification noti,
 			@RequestParam("imgNotification") MultipartFile file, RedirectAttributes redirectAttributes) {
 
 		if (file != null) {
@@ -112,14 +110,10 @@ public class NotiController {
 			}
 		}
 
-		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
 		noti.setDate(LocalDate.now());
 		noti.setTime(LocalTime.now());
 
 		notificationSend = noti;
-
-		String id = thongTin.getId() + notificationSend.getDate() + notificationSend.getTime();
-		notificationSend.setNotificationCode(id);
 
 		return "redirect:sending";
 	}
@@ -145,14 +139,10 @@ public class NotiController {
 	public String saveReceiver(Principal principal,
 			@RequestParam(name = "ListValue", defaultValue = "") String listRecei,
 			@RequestParam(name = "choose", defaultValue = "0") String choose) {
-		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
-
-		Employee senderEmp = eService.findById(thongTin.getId());
-		Resident senderResi = rService.findById(thongTin.getId());
-
+		
 		String[] listReceiver = listRecei.split(",");
 
-		notiService.saveNotificationAndReceiver(choose, notificationSend, senderEmp, senderResi, listReceiver);
+		notiService.saveNotificationAndReceiver(choose, notificationSend, principal, listReceiver);
 
 		return "redirect:add";
 	}
