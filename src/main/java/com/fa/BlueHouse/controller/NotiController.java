@@ -60,6 +60,7 @@ public class NotiController {
 
 	/**
 	 * Điều hướng tới trang tạo noti
+	 * 
 	 * @return model.addAttribute("Notification", new Notification());
 	 */
 	@GetMapping("add")
@@ -70,24 +71,26 @@ public class NotiController {
 
 	/**
 	 * Chuẩn bị một noti để lưu
+	 * 
 	 * @return notificationSend
 	 */
 	@PostMapping("save")
 	public String save(Model model, @ModelAttribute("noti") Notification noti, Principal principal) {
 		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
-		String id = thongTin.getId() + notificationSend.getDate() + notificationSend.getTime();
-
 		noti.setDate(LocalDate.now());
 		noti.setTime(LocalTime.now());
+		notificationSend = noti;
+
+		String id = thongTin.getId() + notificationSend.getDate() + notificationSend.getTime();
 		notificationSend.setNotificationCode(id);
 
-		notificationSend = noti;
 		return "redirect:sending";
 	}
 
 	/**
 	 * Điều hướng tới trang thêm người nhận
-	 * @return 
+	 * 
+	 * @return
 	 */
 	@GetMapping("sending")
 	public String sending(Model model) {
@@ -97,10 +100,9 @@ public class NotiController {
 	}
 
 	/**
-	 * Chuẩn bị đối tượng để lưu
-	 * Lưu vào database
+	 * Chuẩn bị đối tượng để lưu Lưu vào database
 	 * 
-	 * @return 
+	 * @return
 	 */
 	@GetMapping("saveReceiver")
 	public String saveReceiver(Principal principal,
