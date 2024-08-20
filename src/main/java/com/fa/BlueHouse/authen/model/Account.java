@@ -39,10 +39,20 @@ public class Account {
 		return password;
 	}
 
+	/**
+	 * value 1 : active || value 0 : non-active
+	 * 
+	 * @param value is number 0, 1
+	 */
 	public int getActive() {
 		return active;
 	}
 
+	/**
+	 * value 1 : active || value 0 : non-active
+	 * 
+	 * @param value is number 0, 1
+	 */
 	public void setActive(int active) {
 		this.active = active;
 	}
@@ -51,10 +61,22 @@ public class Account {
 		this.password = password;
 	}
 
+	/**
+	 * value 1 : ADMIN || value 2 : MANAGE || value 3 : RESIDENT || value 4 :
+	 * EMPLOYEE
+	 * 
+	 * @param value is number 1, 2, 3, 4
+	 */
 	public int getRole() {
 		return role;
 	}
 
+	/**
+	 * value 1 : ADMIN || value 2 : MANAGE || value 3 : RESIDENT || value 4 :
+	 * EMPLOYEE
+	 * 
+	 * @param value is number 1, 2, 3, 4
+	 */
 	public void setRole(int role) {
 		this.role = role;
 	}
@@ -102,7 +124,5 @@ public class Account {
 		return "Account [username=" + username + ", password=" + password + ", role=" + role + ", active=" + active
 				+ ", employee=" + employee + ", resident=" + resident + "]";
 	}
-
-	
 
 }

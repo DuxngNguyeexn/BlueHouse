@@ -49,6 +49,12 @@ public class Resident {
 	@OneToMany(mappedBy = "idResident")
 	private List<Administrators> listAdmin;
 
+	@OneToMany(mappedBy = "senderResi")
+	private List<Receiver> senderResi;
+
+	@OneToMany(mappedBy = "receiverResi")
+	private List<Receiver> receiverResi;
+
 	public String getGender() {
 		return gender;
 	}
@@ -135,6 +141,22 @@ public class Resident {
 
 	public void setIdentificationCard(String IdentificationCard) {
 		identificationCard = IdentificationCard;
+	}
+
+	public List<Receiver> getSenderResi() {
+		return senderResi;
+	}
+
+	public void setSenderResi(List<Receiver> senderResi) {
+		this.senderResi = senderResi;
+	}
+
+	public List<Receiver> getReceiverResi() {
+		return receiverResi;
+	}
+
+	public void setReceiverResi(List<Receiver> receiverResi) {
+		this.receiverResi = receiverResi;
 	}
 
 	public Resident(@NotBlank(message = "* ID Resident không được để trống") String idResident,
