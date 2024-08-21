@@ -51,7 +51,7 @@
 					<td th:text="${l.dateSent}"></td>
 					<td th:text="${l.status}"></td>
 					<td th:text="${l.admin != null ? l.admin.nameResident : '  '}"></td>
-					<td>Detail</td>
+					<td><a th:href="@{showDetail(id=${l.idForm})}">Detail</a></td>
 
 				</tr>
 			</tbody> 
