@@ -11,7 +11,7 @@
 
 <body layout:fragment="content" > 
 <div class="m-5">
-	
+	<h1>List Apartment Bill</h1>
 	<div class="d-flex justify-content-between">
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
@@ -22,13 +22,13 @@
 		</div>
 	</nav>
 	<div class="d-flex justify-content-end">
-	<a th:href="@{/IncomeBillDetail/createapartmentbill(idapartment=${apartment.idApartment})}"
+	<a th:href="@{/IncomeBill/createapartmentbill(idapartment=${apartment.idApartment})}"
 					target="blank">
    <button sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" class="btn btn-primary m-2" type="submit">Create IncomeBill</button></a>
 	</div>
 	</div>
 	<div class="ml-5 mr-5">
-	<h1>List Apartment Bill</h1>
+	
 	<span>ID Apartment: <span th:text="${apartment.idApartment}"></span> </span>
 	<span class="ml-5">ID Homeowner: <span th:text="${apartment.idHomeowner}"></span> </span>
 	<div class="table-responsive tableFixHead border-right border-left border-bottom">
@@ -55,7 +55,7 @@
 				<td th:text="${bill.getTotalbill}"></td>
 				<td> <a th:href="@{/IncomeBillDetail/showlishtdetail(idbill=${bill.idIncomeBill})}"
 					target="blank"><i class="fa-solid fa-calendar-week"></i></a></td>
-				<td sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" > <a th:href="@{/IncomeBill/paybill(idbill=${bill.idIncomeBill})}" th:if="${bill.paymentDate == null}"
+				<td sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" > <a th:href="@{/IncomeBill/paybill(idbill=${bill.idIncomeBill})}" th:if="${bill.paymentDate == null && bill.getTotalbill != 0}"
 					target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td>
 			</tr>
 		</tbody>

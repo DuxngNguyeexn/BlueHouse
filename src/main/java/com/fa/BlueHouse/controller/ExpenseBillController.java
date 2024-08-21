@@ -19,9 +19,11 @@ import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.ExpenseBill;
 import com.fa.BlueHouse.entities.ExpenseBillDetail;
+import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.services.EmployeeService;
 import com.fa.BlueHouse.services.ExpenseBillDetailService;
 import com.fa.BlueHouse.services.ExpenseBillService;
+import com.fa.BlueHouse.services.ResidentService;
 
 @Controller
 @RequestMapping("/ExpenseBill")
@@ -33,6 +35,8 @@ public class ExpenseBillController {
 	private EmployeeService emp;
 	@Autowired
 	private ExpenseBillDetailService expendetail;
+	@Autowired
+	private ResidentService resident;
 	
 	
 	@GetMapping("/create")
@@ -45,7 +49,16 @@ public class ExpenseBillController {
 		expenbill.saveExpenseBill(expen);
 		return "redirect:/ExpenseBill/show";
 	}
-	
+	@GetMapping("/createbillevent")
+	public String createExpenseBillEvent(Principal principal) {
+		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = expenbill.generateNewId();
+		Resident resi = new Resident();
+		resi = resident.findById(thongTin.getId());
+		ExpenseBill expen = new ExpenseBill(id, LocalDate.now(),resi);
+		expenbill.saveExpenseBill(expen);
+		return "redirect:/ExpenseBill/show";
+	}
 	@PostMapping("/save")
 	public String saveExpensebill(@ModelAttribute ExpenseBill expen) {
 		expenbill.saveExpenseBill(expen);
