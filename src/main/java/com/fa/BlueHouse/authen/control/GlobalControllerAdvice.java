@@ -20,8 +20,13 @@ public class GlobalControllerAdvice {
 	
     @ModelAttribute
     public void addAttributes(Principal principal, Model model) {
-    	AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
+    	try {
+    		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
 
-        model.addAttribute("numberKey", notiService.findNotiUnSeen(thongTin.getId()).size());
+            model.addAttribute("numberKey", notiService.findNotiUnSeen(thongTin.getId()).size());
+		} catch (Exception e) {
+			 model.addAttribute(0);
+		}
+    	
     }
 }
