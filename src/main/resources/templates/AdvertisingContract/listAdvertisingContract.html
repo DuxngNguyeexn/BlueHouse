@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body layout:fragment="content">
-	<div class="container"> 
+	<div class="m-5"> 
 		<div class="container mt-3"><h1 class="text-primary text-center">List Advertising Contract</h1></div>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
@@ -51,7 +51,7 @@
 					<td th:text="${adv.company}"></td>
 					<td th:text="${adv.daySign}"></td>
 					<td th:text="${adv.numberOfAdv}"></td>
-					<td th:text="${adv.empadv.name}"></td>
+					<td th:text="${adv.empadv.fullName}"></td>
 					<td th:text="${adv.typeadv.nameFeetype}"></td>
 					<td>
 						<a class="text-decoration-none mr-2" th:href="@{edit(idcontrac=${adv.contractCode})}" target="blank">

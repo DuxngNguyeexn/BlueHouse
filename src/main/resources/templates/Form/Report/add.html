@@ -20,8 +20,9 @@
                 <textarea type="text" class="form-control" id="note" name="note"  th:field="*{note}" required  style="height: 150px;">
                     </textarea>
             </div>
-            <label for="file">Chọn ảnh:</label>
-            <input type="file" id="file" name="file" /><br /><br />
+            <label for="file">Please add picture for more information:</label>
+            <br />
+            <input type="file" id="file" name="files"  multiple/><br />
             <div class="form-group mt-3 w-25 float-right d-flex">
                 <a href="/" class="btn btn-secondary w-100" > <span class="h5">Cancel</span></a>
                 <button type="submit" class="btn btn-primary w-100 ml-3" > <span class="h5">Send</span></button>

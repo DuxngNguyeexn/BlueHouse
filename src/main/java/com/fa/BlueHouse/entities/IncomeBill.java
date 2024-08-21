@@ -28,7 +28,9 @@ public class IncomeBill {
 	private LocalDate paymentDate;
 	@Column(name = "Status")
 	private String status;
-	@Column(name = "Total")
+	@ManyToOne
+	@JoinColumn(name = "employeeID")
+	private Employee idEmployee;
 	@OneToMany(mappedBy = "idIncomeBill")
 	private List<IncomeBillDetail> listdetail;
 	public IncomeBill(String idIncomeBill, Apartment idApartment, LocalDate billDate, LocalDate paymentDate,
@@ -42,6 +44,14 @@ public class IncomeBill {
 		
 	}
 	
+	public Employee getIdEmployee() {
+		return idEmployee;
+	}
+
+	public void setIdEmployee(Employee idEmployee) {
+		this.idEmployee = idEmployee;
+	}
+
 	public IncomeBill(Apartment idApartment) {
 		super();
 		this.idApartment = idApartment;

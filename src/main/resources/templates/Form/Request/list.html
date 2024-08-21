@@ -52,10 +52,13 @@
 					<td th:text="${l.dateSent}"></td>
 					<td th:text="${l.status}"></td>
 					<td th:text="${l.employee != null ? l.employee.fullName : '  '}"></td>
-					<td th:if="${l.imagePath != null}">
-						<img th:src="@{'/imagesRequest/' + ${l.imagePath}}" alt="Picture" width="100px" height="100px"/>
+					<td th:if="${l.imgRequests != null and l.imgRequests.size() > 0}" class="d-flex justify-content-center">
+						<div th:each="i : ${l.imgRequests}">
+							<img th:src="@{'/imagesRequest/' + ${i.imagePath}}" alt="Picture" width="50px" height="50px"/>
+						</div>
+						
 					</td>
-					<td th:if="${l.imagePath == null}">
+					<td th:if="${l.imgRequests == null or l.imgRequests.size() == 0}">
 						No picture available.
 					</td>
 					<td><a th:href="@{showDetail(id=${l.idForm})}">Detail</a></td>

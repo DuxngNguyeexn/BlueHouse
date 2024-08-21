@@ -6,7 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.entities.form.Report;
+import com.fa.BlueHouse.entities.img.ImgReport;
+import com.fa.BlueHouse.entities.img.ImgRequest;
 import com.fa.BlueHouse.services.ReportService;
 import com.fa.BlueHouse.services.ResidentService;
 
@@ -36,12 +40,18 @@ public class ReportController {
 	ReportService reportService;
 	@Autowired
 	ResidentService residentService;
-	 private final String uploadDir = "E:\\TaiLieu\\Mock project\\img";
+	private final String uploadDirReport = "E:\\TaiLieu\\Mock project\\report\\img";
 	@GetMapping("list")
-	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		Page<Report> listAll = reportService.showAll(pageRequest);
+		Page<Report> listAll = null;
+		if("ROLE_ADMIN".equalsIgnoreCase(userDetails.getRole())) {
+			listAll = reportService.showAll(pageRequest);
+		}else if("ROLE_RESIDENT".equalsIgnoreCase(userDetails.getRole())) {
+			listAll = reportService.findRPByResidentId(userDetails.getId(), pageRequest);
+		}
 		model.addAttribute("currentPage", page);
 		int totalPages ;
 		if(listAll.getTotalPages() < 1) {
@@ -68,18 +78,26 @@ public class ReportController {
 	public String save(
 			@ModelAttribute(name = "form") Report form,
 			BindingResult bindingResult,
-			 @RequestParam("file") MultipartFile file,
+			 @RequestParam("files") MultipartFile[] files,
 			 RedirectAttributes redirectAttributes) {
-		if(file != null) {
-			try {
-			 String fileName = file.getOriginalFilename();
-	            Path path = Paths.get(uploadDir + File.separator + fileName);
-	            Files.write(path, file.getBytes());
-	            form.setImagePath(fileName);
-			}catch(IOException e){
-				e.printStackTrace();
-			}
-		}
+		List<ImgReport> images = new ArrayList<>();
+		for (MultipartFile file : files) {
+	        if (file != null && !file.isEmpty()) {
+	            try {
+	            	String fileName = file.getOriginalFilename();
+	                Path path = Paths.get(uploadDirReport + File.separator + fileName);
+	                Files.write(path, file.getBytes());
+
+	                ImgReport image = new ImgReport();
+	                image.setImagePath(fileName);
+	                image.setReport(form);
+	                images.add(image);
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+		form.setImgReports(images);
 		form.setIdForm(reportService.generateNewId());
 		form.setStatus("Send");
 		form.setDateSent(new Date());
@@ -87,4 +105,29 @@ public class ReportController {
 		return "redirect:list";
 		
 	}
+	@GetMapping("showDetail")
+	public String detail(Model model, Principal principal,@RequestParam(name ="id") String id) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
+		Report form = reportService.findById(id);
+		model.addAttribute("form", form);
+		model.addAttribute("role", role);
+		return "Form/Report/detail";
+	}
+	@PostMapping("opinion")
+	public String opinion(Model model, Principal principal,@RequestParam(name ="idForm") String id,@RequestParam(name ="opinion") String opinion) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
+		Report form = reportService.findById(id);
+		Resident admin = residentService.findById(userDetails.getId());
+		form.setAdmin(admin);
+		form.setDateAccept(new Date());
+		form.setOpinion(opinion);
+		form.setStatus("Accept");
+		reportService.save(form);
+		model.addAttribute("form", form);
+		model.addAttribute("role", role);
+		return "Form/Report/detail";
+	}
+	
 }

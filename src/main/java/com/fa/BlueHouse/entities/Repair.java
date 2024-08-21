@@ -1,42 +1,48 @@
 package com.fa.BlueHouse.entities;
 
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
 public class Repair {
 	@Id
 	private String id;
-	
-	@OneToOne
-	private Assets asset;
-	
+
+	@OneToMany(mappedBy = "repair", cascade = CascadeType.ALL)
+	private List<Assets> assets;
+
 	@OneToOne
 	private ExpenseBillDetail expenseBillDetail;
-	
+
 	@ManyToOne
 	private Employee employee;
-	
+	Date dateAssign;
 	Date dateRepair;
 	Date dateCompleted;
 	private String imagePath;
-	
+
 	public Repair() {
 		super();
 	}
 
-	public Repair(String id, Assets asset, ExpenseBillDetail expenseBillDetail, Date dateRepair , Employee employee ,String imagePath) {
+	public Repair(String id, List<Assets> assets, ExpenseBillDetail expenseBillDetail, Employee employee,
+			Date dateAssign, Date dateRepair, Date dateCompleted, String imagePath) {
 		super();
 		this.id = id;
-		this.asset = asset;
+		this.assets = assets;
 		this.expenseBillDetail = expenseBillDetail;
-		this.dateRepair = dateRepair;
 		this.employee = employee;
-		this.imagePath= imagePath;
+		this.dateAssign = dateAssign;
+		this.dateRepair = dateRepair;
+		this.dateCompleted = dateCompleted;
+		this.imagePath = imagePath;
 	}
 
 	public String getId() {
@@ -47,12 +53,12 @@ public class Repair {
 		this.id = id;
 	}
 
-	public Assets getAsset() {
-		return asset;
+	public List<Assets> getAssets() {
+		return assets;
 	}
 
-	public void setAsset(Assets asset) {
-		this.asset = asset;
+	public void setAssets(List<Assets> assets) {
+		this.assets = assets;
 	}
 
 	public ExpenseBillDetail getExpenseBillDetail() {
@@ -86,6 +92,7 @@ public class Repair {
 	public void setDateCompleted(Date dateCompleted) {
 		this.dateCompleted = dateCompleted;
 	}
+
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -93,6 +100,13 @@ public class Repair {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-	
-	
+
+	public Date getDateAssign() {
+		return dateAssign;
+	}
+
+	public void setDateAssign(Date dateAssign) {
+		this.dateAssign = dateAssign;
+	}
+
 }

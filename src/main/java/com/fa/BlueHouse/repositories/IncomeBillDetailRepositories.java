@@ -14,4 +14,6 @@ public interface IncomeBillDetailRepositories extends JpaRepository<IncomeBillDe
 	public Page<IncomeBillDetail> findBill( Pageable page);
 	@Query("FROM IncomeBillDetail where idbilldetail LIKE %:seacrch% or idIncomeBill.idIncomeBill LIKE %:seacrch% or idfeetype.nameFeetype LIKE %:seacrch%")
 	public Page<IncomeBillDetail> searchDetail(String seacrch , Pageable pageable);
+	@Query("SELECT MAX(i.idbilldetail) FROM IncomeBillDetail i")
+    String findMaxId();
 }

@@ -53,21 +53,28 @@ public class AccountDTO implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.authorities;
 	}
-
+	/**
+	 * Get list Role
+	 * 
+	 * @return
+	 */
 	public List<String> getRoles() {
 		List<String> listRole = new ArrayList<>();
-		for (GrantedAuthority element : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+		for (GrantedAuthority element : getAuthorities()) {
 			listRole.add(element.getAuthority());
 		}
 		return listRole;
 	}
-
+	/**
+	 * Get Role of account 
+	 * ADMIN || MANAGE || RESIDENT || EMPLOYEE.
+	 * 
+	 * @return
+	 */
 	public String getRole() {
-
-		for (GrantedAuthority element : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+		for (GrantedAuthority element : getAuthorities()) {
 			return element.getAuthority();
 		}
-
 		return "";
 	}
 
@@ -175,6 +182,13 @@ public class AccountDTO implements UserDetails {
 
 	public AccountDTO() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "AccountDTO [username=" + username + ", password=" + password + ", authorities=" + authorities + ", id="
+				+ id + ", name=" + name + ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", birthday="
+				+ birthday + ", nationalID=" + nationalID + ", country=" + country + "]";
 	}
 
 }

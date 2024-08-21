@@ -64,12 +64,14 @@
                 <div class="ml-4 mb-4"><span class="h5">Date sent: </span> <span th:text="${form.dateSent}"></span>
                 </div>
                 <div class="ml-4 mb-4"><span class="h5">Note: </span> <span th:text="${form.note}"></span></div>
-                <div class="ml-4 mb-4"><span class="h5">Image: </span> <span th:if="${form.imagePath == null}">No
-                        image</span>
-                    <div class="mt-2 mb-2" th:if="${form.imagePath != null}">
-                        <img th:src="@{'/imagesRepair/' + ${form.imagePath}}" alt="Picture" width="100px"
-                            height="100px" />
-                    </div>
+                <div class="ml-4 mb-4"><span class="h5">Image: </span> <span th:if="${form.imgRequests == null or form.imgRequests.size() == 0}">
+                    No picture available.
+                </span>
+                    <div th:if="${form.imgRequests != null and form.imgRequests.size() > 0}" class="d-flex">
+						<div th:each="i : ${form.imgRequests}">
+							<img th:src="@{'/imagesRequest/' + ${i.imagePath}}" alt="Picture" width="150px" height="150px" class="m-2"/>
+						</div>					
+					</div>
                 </div>
                 
                 <div class="ml-4 mb-4 h5 ">
@@ -100,9 +102,9 @@
                     <a th:href="@{accept(idForm=${form.idForm})}" class="btn btn-success w-auto mr-2"
                         th:if="${form.employee == null && role == 'ROLE_MANAGE'}">Accept</a>
                     <a href="#" class="btn btn-success w-auto mr-2" data-toggle="modal" data-target="#employeeModal"
-                        th:if="${form.employee != null && role == 'ROLE_MANAGE' && form.repair == null}">Assign</a>
-                    <a href="#" data-toggle="modal" data-target="#repairModal" class="btn btn-success w-auto mr-2"
-                        th:if="${form.repair != null && role == 'ROLE_EMPLOYEE' && form.repair.asset == null}">Accept</a>
+                        th:if="${form.employee != null && role == 'ROLE_MANAGE' && form.repair == null && form.reason == null}">Assign</a>
+                    <a href="showListAsset" class="btn btn-success w-auto mr-2"
+                        th:if="${form.repair != null && role == 'ROLE_EMPLOYEE' }">Accept</a>
                     <a href="#" data-toggle="modal" data-target="#completedRepairModal"
                         class="btn btn-success w-auto mr-2"
                         th:if="${form.repair != null && role == 'ROLE_EMPLOYEE' && form.status == 'Active'}">Complete</a>
@@ -130,7 +132,7 @@
                 <div class="ml-4 mb-4"><span class="h5">Identification Card: </span> <span
                         th:text="${form.resident.identificationCard}"></span></div>
                 <div class="ml-4 mb-4"><span class="h5">Country Side: </span> <span
-                        th:text="${form.resident.countrySide}"></span></div>
+                        th:text="${form.resident.countryside}"></span></div>
                 <div class="w-50 d-flex float-right justify-content-end ">
                     <button onclick="cancel()" class="btn btn-secondary ">Cancel</button>
                 </div>
@@ -152,6 +154,8 @@
                         th:text="${form.employee.nationalID}"></span></div>
                 <div class="ml-4 mb-4"><span class="h5">Country Side: </span> <span
                         th:text="${form.employee.country}"></span></div>
+                        <div class="ml-4 mb-4"><span class="h5">Reception Date: </span> <span
+                            th:text="${form.dateAccept}"></span></div>
                 <div class="w-50 d-flex float-right justify-content-end ">
                     <button onclick="cancel()" class="btn btn-secondary ">Cancel</button>
                 </div>
@@ -175,17 +179,19 @@
                         th:text="${form.repair.employee.nationalID}"></span></div>
                 <div class="ml-4 mb-4"><span class="h5">Country Side: </span> <span
                         th:text="${form.repair.employee.country}"></span></div>
+                        <div class="ml-4 mb-4"><span class="h5">Date Assign: </span> <span
+                            th:text="${form.repair.dateAssign}"></span></div>
                 <div class="w-50 d-flex float-right justify-content-end ">
                     <button onclick="cancel()" class="btn btn-secondary ">Cancel</button>
                 </div>
             </div>
-            <div class="detail col-8 d-none " id="infoRepair"
+            <!-- <div class="detail col-8 d-none " id="infoRepair"
                 th:if="${form.repair != null && form.repair.dateRepair != null}">
                 <div class="text-center h3 mb-4">Repair information</div>
                 <div class="ml-4 mb-4"><span class="h5">asset: </span> <span
-                        th:text=" ${form.repair.asset.name}"></span></div>
+                        th:text=" ${form.repair.assets.name}"></span></div>
                 <div class="ml-4 mb-4"><span class="h5">Location: </span> <span
-                        th:text="${form.repair.asset.location}"></span>
+                        th:text="${form.repair.assets.location}"></span>
                 </div>
                 <div class="ml-4 mb-4"><span class="h5">Date start: </span> <span
                         th:text="${form.repair.dateRepair}"></span>
@@ -202,7 +208,7 @@
                 <div class="w-50 d-flex float-right justify-content-end ">
                     <button onclick="cancel()" class="btn btn-secondary ">Cancel</button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- Modal deny -->

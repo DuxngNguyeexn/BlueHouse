@@ -2,6 +2,7 @@ $(function() {
     $('#reason-error').hide();
     $('#select-error').hide();
     $('#id-error').hide();
+    $('#opinion-error').hide();
     $('#rate-error').hide();
     $('#location-error').hide();
     $('#submitDeny').click(function(event) {
@@ -27,6 +28,15 @@ function checkSelect(){
     }else{
         $('#select-error').hide();
         $('#selectedEmployeeForm').submit();
+    }
+}
+function checkOpinion(){
+    if( $("#opinion").val() === ""){
+       
+        $('#opinion-error').show();
+    }else{
+        $('#opinion-error').hide();
+        $('#opinionForm').submit();
     }
 }
 function checkIdAsset(){

@@ -44,14 +44,27 @@ public class Resident {
 	@NotBlank(message = "* IdentificationCard không được để trống")
 	private String identificationCard;
 
-	@Column(name = "Country_Side")
-	private String countrySide;
+	private String countryside;
 
 	@OneToMany(mappedBy = "idResident")
 	private List<Administrators> listAdmin;
 
+	@OneToMany(mappedBy = "senderResi")
+	private List<Receiver> senderResi;
+
+	@OneToMany(mappedBy = "receiverResi")
+	private List<Receiver> receiverResi;
+
 	public String getGender() {
 		return gender;
+	}
+
+	public String getCountryside() {
+		return countryside;
+	}
+
+	public void setCountryside(String countryside) {
+		this.countryside = countryside;
 	}
 
 	public void setGender(String gender) {
@@ -118,14 +131,6 @@ public class Resident {
 		return workplace;
 	}
 
-	public String getCountrySide() {
-		return countrySide;
-	}
-
-	public void setCountrySide(String countrySide) {
-		this.countrySide = countrySide;
-	}
-
 	public void setWorkplace(String workplace) {
 		this.workplace = workplace;
 	}
@@ -138,18 +143,42 @@ public class Resident {
 		identificationCard = IdentificationCard;
 	}
 
-	public Resident(String idResident, String nameResident, Apartment idApartment, String relationshipHousehold,
-			LocalDate birthday, String phonenumber, String workplace, String IdentificationCard, String countrySide) {
+	public List<Receiver> getSenderResi() {
+		return senderResi;
+	}
+
+	public void setSenderResi(List<Receiver> senderResi) {
+		this.senderResi = senderResi;
+	}
+
+	public List<Receiver> getReceiverResi() {
+		return receiverResi;
+	}
+
+	public void setReceiverResi(List<Receiver> receiverResi) {
+		this.receiverResi = receiverResi;
+	}
+
+	public Resident(@NotBlank(message = "* ID Resident không được để trống") String idResident,
+			@NotBlank(message = "* Name Resident không được để trống") String nameResident,
+			@NotNull(message = "* Gender không được để trống") String gender, Apartment idApartment,
+			@NotBlank(message = "* Relationship không được để trống") String relationshipHousehold,
+			@NotNull(message = "* BirthDay không được để trống") LocalDate birthday,
+			@NotBlank(message = "* Phonenumber không được để trống") String phonenumber, String workplace,
+			@NotBlank(message = "* IdentificationCard không được để trống") String identificationCard,
+			String countryside, List<Administrators> listAdmin) {
 		super();
 		this.idResident = idResident;
 		this.nameResident = nameResident;
+		this.gender = gender;
 		this.idApartment = idApartment;
 		this.relationshipHousehold = relationshipHousehold;
 		this.birthday = birthday;
 		this.phonenumber = phonenumber;
 		this.workplace = workplace;
-		this.identificationCard = IdentificationCard;
-		this.countrySide = countrySide;
+		this.identificationCard = identificationCard;
+		this.countryside = countryside;
+		this.listAdmin = listAdmin;
 	}
 
 	public Resident() {

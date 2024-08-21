@@ -19,6 +19,7 @@ public class HomePageController {
 
 		System.err.println(userDetails.getRole());
 
+
 		return "HomePage";
 	}
 

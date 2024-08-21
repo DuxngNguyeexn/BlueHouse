@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.Repair;
 import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.entities.form.Request;
+import com.fa.BlueHouse.entities.img.ImgRequest;
 import com.fa.BlueHouse.services.AssetService;
 import com.fa.BlueHouse.services.EmployeeService;
 import com.fa.BlueHouse.services.RepairService;
@@ -90,17 +92,25 @@ public class RequestController {
 
 	@PostMapping("add")
 	public String save(@ModelAttribute(name = "form") Request form, BindingResult bindingResult,
-			@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-		if (file != null) {
-			try {
-				String fileName = file.getOriginalFilename();
-				Path path = Paths.get(uploadDirRequest + File.separator + fileName);
-				Files.write(path, file.getBytes());
-				form.setImagePath(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+			@RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes) {
+		List<ImgRequest> images = new ArrayList<>();
+		  for (MultipartFile file : files) {
+		        if (file != null && !file.isEmpty()) {
+		            try {
+		            	String fileName = file.getOriginalFilename();
+		                Path path = Paths.get(uploadDirRequest + File.separator + fileName);
+		                Files.write(path, file.getBytes());
+
+		                ImgRequest image = new ImgRequest();
+		                image.setImagePath(fileName);
+		                image.setRequest(form);
+		                images.add(image);
+		            } catch (IOException e) {
+		                e.printStackTrace();
+		            }
+		        }
+		    }
+          form.setImgRequests(images);
 		form.setIdForm(requestService.generateNewId());
 		form.setStatus("Send");
 		form.setDateSent(new Date());
@@ -133,6 +143,7 @@ public class RequestController {
 		form.setReason(reason);
 		form.setStatus("Denied");
 		form.setEmployee(employee);
+		form.setDateAccept(new Date());
 		requestService.save(form);
 		model.addAttribute("form", form);
 		return "Form/detail";
@@ -146,10 +157,11 @@ public class RequestController {
 		Employee employee = employeeService.findById(id);
 		Request form = requestService.findById(idForm);
 		form.setStatus("Accept");
+		form.setDateAccept(new Date());
 		form.setEmployee(employee);
 		requestService.save(form);
 		List<Employee> employees = employeeService.allEmployee();
-
+		
 		model.addAttribute("employees", employees);
 		model.addAttribute("form", form);
 		model.addAttribute("role", role);
@@ -165,13 +177,19 @@ public class RequestController {
 		Repair repair = new Repair();
 		repair.setId(repairService.generateNewId());
 		repair.setEmployee(employee);
+		repair.setDateAssign(new Date());
 		repairService.save(repair);
 		form.setRepair(repair);
 		requestService.save(form);
 		model.addAttribute("form", form);
 		return "Form/detail";
 	}
-
+	@GetMapping("showListAsset")
+	public String showListAsset(Model model){
+		List<Assets> assets = assetService.findAll();
+		model.addAttribute("assets", assets);
+		return  "Form/Request/addAsset";
+	}
 	@PostMapping("accept")
 	public String employeeAccept(@RequestParam(name = "idAsset") String idAsset,
 			@RequestParam(name = "idForm") String idForm, Model model, Principal principal) {
@@ -184,7 +202,7 @@ public class RequestController {
 		} else {
 			form.setStatus("Active");
 			Repair repair = repairService.findById(form.getRepair().getId());
-			repair.setAsset(asset);
+//			repair.setAsset(asset);
 			repair.setDateRepair(new Date());
 			repairService.save(repair);
 			requestService.save(form);

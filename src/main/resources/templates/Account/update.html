@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Account Management</title>
+</head>
+
+<body layout:fragment="content">
+	<form id="form-data" class="mt-5" th:action="update" method="post" th:object="${account}">
+		<div class="container p-3 border">
+			<h1 class="text-center pb-3">Update Account</h1>
+
+			<div class="row pb-2 d-flex justify-content-around">
+				<div class="col-5">
+					<label for="username" class="form-lable">User Name</label>
+					<input type="text" th:field="*{username}" id="username" class="form-control" placeholder="User Name" disabled="disabled" />
+				</div>
+
+				<div class="col-5">
+					<label for="password" class="form-lable">Pass World</label>
+					<div th:if="${account.active == 0}">
+						<input type="password" th:field="*{password}" id="password" class="form-control" placeholder="Pass World" />
+					</div>
+					<div th:if="${account.active == 1}">
+						<input disabled="disabled" type="password" value="xxxxxxxx" id="password" class="form-control" placeholder="Pass World" />
+					</div>
+					<div class="error-message text-danger pt-3">
+						<span id="name-error"></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="row pb-2 d-flex justify-content-around">
+				<div class="col-5">
+					<label for="role" class="form-lable">Role</label>
+					<div th:if="${resident != null}">
+						<select id="role" th:field="*{role}" class="form-control" required>
+							<option value="1">ADMIN</option>
+							<option value="3">RESIDENT</option>
+						</select>
+					</div>
+
+					<div th:if="${employee != null}">
+						<select id="role" th:field="*{role}" class="form-control" required>
+							<option value="2">MANAGE</option>
+							<option value="4">EMPLOYEE</option>
+						</select>
+					</div>
+
+					<div class="error-message text-danger pt-3">
+						<span id="office-error"></span>
+					</div>
+				</div>
+
+				<div class="col-5">
+					<label for="active" class="form-lable">Active</label>
+					<div th:if="${account.active == 0}">
+						<select id="active" th:field="*{active}" class="form-control" required>
+							<option value="0">Non-Active</option>
+							<option value="1">Active</option>
+						</select>
+					</div>
+					<div th:if="${account.active == 1}">
+						<select id="active" class="form-control" disabled="disabled">
+							<option value="1">Active</option>
+						</select>
+					</div>
+
+					<div class="error-message text-danger pt-3">
+						<span id="office-error"></span>
+					</div>
+				</div>
+			</div>
+
+			<div hidden="hidden" th:if="${resident != null}">
+				<div th:object="${resident}">
+					<input th:field="*{idResident}" />
+				</div>
+			</div>
+
+			<div hidden="hidden" th:if="${employee != null}">
+				<div th:object="${employee}">
+					<input th:field="*{employeeID}" />
+				</div>
+			</div>
+
+			<div class="d-flex justify-content-end">
+				<button onclick="validate(event)" class="btn btn-primary col-2" type="submit">
+					Update
+				</button>
+
+				<button onclick="window.location.href='list';" class="btn btn-secondary col-2 ml-2" type="reset">
+					Back
+				</button>
+			</div>
+		</div>
+	</form>
+
+	<script th:src="@{/Account/js/update.js}"></script>
+</body>
+
+</html>

@@ -32,9 +32,9 @@ public class ApplicationSecurityConfig {
 		http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests((auth) -> auth
 						.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-						.requestMatchers("/login", "/common/**", "/lib/**").permitAll()
+						.requestMatchers("/login", "/forgot/**", "/common/**", "/lib/**").permitAll()
 						.requestMatchers("/employee/**").hasAnyRole(UserRole.EMPLOYEE.name(), UserRole.MANAGE.name(), UserRole.ADMIN.name())
-				        .requestMatchers("/Apartment/**").hasAnyRole(UserRole.ADMIN.name(), UserRole.RESIDENT.name())
+				        .requestMatchers("/Apartment/**").hasAnyRole(UserRole.ADMIN.name(), UserRole.RESIDENT.name(), UserRole.EMPLOYEE.name())
 						.anyRequest().authenticated())
 
 				.formLogin(form -> form
