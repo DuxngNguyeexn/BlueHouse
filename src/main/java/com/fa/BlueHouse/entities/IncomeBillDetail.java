@@ -78,9 +78,15 @@ public class IncomeBillDetail {
 	}
 	
 
-	public IncomeBillDetail(IncomeBill idIncomeBill) {
+	public IncomeBillDetail(String id,IncomeBill idIncomeBill) {
 		super();
+		this.idbilldetail = id;
 		this.idIncomeBill = idIncomeBill;
+	}
+	public IncomeBillDetail(String id) {
+		super();
+		this.idbilldetail = id;
+		
 	}
 
 	public IncomeBillDetail() {

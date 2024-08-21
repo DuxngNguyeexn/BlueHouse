@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 <meta charset="ISO-8859-1">
@@ -23,7 +24,7 @@
 	<div class="d-flex justify-content-end">
 	<a th:href="@{/IncomeBillDetail/createapartmentbill(idapartment=${apartment.idApartment})}"
 					target="blank">
-   <button class="btn btn-primary m-2" type="submit">Create IncomeBill</button></a>
+   <button sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" class="btn btn-primary m-2" type="submit">Create IncomeBill</button></a>
 	</div>
 	</div>
 	<div class="ml-5 mr-5">
@@ -41,7 +42,7 @@
 				<th scope="col">Status</th>
 				<th scope="col">Total</th>
 				<th scope="col">Detail</th>
-				<th scope="col">Pay Bill</th>
+				<th sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" scope="col">Pay Bill</th>
 			</tr>
 		</thead>
 		<tbody th:each="bill : ${listapartmentbill}">
@@ -52,9 +53,9 @@
 				<td th:text="${bill.idEmployee != null ? bill.idEmployee.fullName : ' '}"></td>
 				<td th:text="${bill.status}"></td>
 				<td th:text="${bill.getTotalbill}"></td>
-				<td> <a th:href="@{/IncomeBill/showlishtdetail(idbill=${bill.idIncomeBill})}"
+				<td> <a th:href="@{/IncomeBillDetail/showlishtdetail(idbill=${bill.idIncomeBill})}"
 					target="blank"><i class="fa-solid fa-calendar-week"></i></a></td>
-				<td> <a th:href="@{/IncomeBill/paybill(idbill=${bill.idIncomeBill})}" th:if="${bill.paymentDate == null}"
+				<td sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" > <a th:href="@{/IncomeBill/paybill(idbill=${bill.idIncomeBill})}" th:if="${bill.paymentDate == null}"
 					target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td>
 			</tr>
 		</tbody>

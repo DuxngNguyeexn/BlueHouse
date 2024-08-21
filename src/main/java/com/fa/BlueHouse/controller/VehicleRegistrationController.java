@@ -1,7 +1,5 @@
 package com.fa.BlueHouse.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,19 +9,70 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.fa.BlueHouse.entities.VehicleRegistration;
 import com.fa.BlueHouse.services.VehicleRegistrationService;
 
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping(path = "vehicleRegistration")
 public class VehicleRegistrationController {
 
 	@Autowired
 	private VehicleRegistrationService vehicleRegistrationService;
 	
-	@GetMapping("/createVehicleRegistration")
+	@GetMapping({"/", "/list"})
+	public String showVehicleRegistration(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+		
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<VehicleRegistration> listVehicleRegistration = vehicleRegistrationService.allVehicleRegistration(pageRequest);
+		
+		int totalPages;
+		if (listVehicleRegistration.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
+			totalPages = listVehicleRegistration.getTotalPages();
+		}
+		
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("listVehicleRegistration", listVehicleRegistration.getContent());
+		return "/VehicleRegistration/listVehicleRegistration";
+	}
+	
+	@GetMapping("/search")
+	public String searchVehicleRegistration(Model model, @RequestParam(name = "searchKeyword", defaultValue = "") String search, @RequestParam(name = "page", defaultValue = "1") int page) {
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<VehicleRegistration> allVehicleRegistration = vehicleRegistrationService.seachVehicleRegistration(pageRequest, search);
+		
+		int totalPages;
+		if(allVehicleRegistration.getTotalPages() < 1) {
+			totalPages = 1;
+		}else {
+			totalPages = allVehicleRegistration.getTotalPages();
+		}
+		
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("searchKeyword", search);
+		model.addAttribute("listVehicleRegistrationPA", allVehicleRegistration.getContent());
+		
+		if (search.equalsIgnoreCase("")) {
+			model.addAttribute("listVehicleRegistration", vehicleRegistrationService.findaVehicleRegi());
+		} else {
+			model.addAttribute("listVehicleRegistration", vehicleRegistrationService.findByKeyword(search));
+		}
+		
+		return "/VehicleRegistration/listVehicleRegistration";
+	}
+	
+	
+	@GetMapping("/add")
 	public String createVehicleRegistration(Model model) {
 		model.addAttribute("vehicleregi", new VehicleRegistration());
 		model.addAttribute("listapa", vehicleRegistrationService.findaApartment());
@@ -31,7 +80,7 @@ public class VehicleRegistrationController {
 		return "/VehicleRegistration/CreateVehicleRegistration";
 	}
 	
-	@PostMapping("/saveVehicleRegistration")
+	@PostMapping("/save")
 	public String saveVehicleRegistration(Model model,@Valid @ModelAttribute("vehicleregi") VehicleRegistration vehicleRegistration, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("listapa", vehicleRegistrationService.findaApartment());
@@ -39,57 +88,27 @@ public class VehicleRegistrationController {
 			return "/VehicleRegistration/CreateVehicleRegistration";
 		}
 		vehicleRegistrationService.saveVehicleRegistration(vehicleRegistration);
-		return "redirect:/showVehicleRegistration";
+		return "redirect:/vehicleRegistration/list";
 	}
 	
-	@GetMapping("/showVehicleRegistration")
-	public String showVehicleRegistration(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
-		int pageSize = 6;
-		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		Page<VehicleRegistration> allVehicleRegistration = vehicleRegistrationService.allVehicleRegistration(pageRequest);
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", allVehicleRegistration.getTotalPages());
-		model.addAttribute("listVehicleRegistration", allVehicleRegistration.getContent());
-		return "/VehicleRegistration/listVehicleRegistration";
-	}
-	
-	@GetMapping("/deleteVehicleRegistration")
+	@GetMapping("/delete")
 	public String deleteVehicleRegistration(@RequestParam("idvehicle") String id) {
 		vehicleRegistrationService.deleteVehicleRegistration(id);
-		return "redirect:/showVehicleRegistration";
+		return "redirect:/vehicleRegistration/list";
 	}
 
-	@GetMapping("/editVehicleRegistration")
+	@GetMapping("/edit")
 	public String editVehicleRegistration(Model model, @RequestParam("idvehicle") String id) {
-		List<VehicleRegistration> listvehicle = vehicleRegistrationService.findaVehicleRegi();
-		model.addAttribute("listvehicle", listvehicle);
 		model.addAttribute("listapa", vehicleRegistrationService.findaApartment());
 		model.addAttribute("listfee", vehicleRegistrationService.findaFeeType());
 		model.addAttribute("vehicleregi", vehicleRegistrationService.findaById(id));
-		return "/VehicleRegistration/updateVehicleRegistration";
+		return "/VehicleRegistration/CreateVehicleRegistration";
 	}
 	
-	@PostMapping("/updateVehicleRegistration")
+	@PostMapping("/update")
 	public String updateVehicleRegistration(@ModelAttribute("idregiresi") VehicleRegistration vehicleRegistration) {
 		vehicleRegistrationService.updateVehicleRegistration(vehicleRegistration);
-		return "redirect:/showVehicleRegistration";
+		return "redirect:/vehicleRegistration/list";
 	}
 	
-	@GetMapping("/searchVehicleRegistration")
-	public String searchVehicleRegistration(Model model, @RequestParam(name = "searchKeyword", defaultValue = "") String search, @RequestParam(name = "page", defaultValue = "1") int page) {
-		int pageSize = 6;
-		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		Page<VehicleRegistration> allVehicleRegistration = vehicleRegistrationService.seachVehicleRegistration(pageRequest, search);
-		model.addAttribute("currentPage", page);
-		int totalPages;
-		if(allVehicleRegistration.getTotalPages() < 1) {
-			totalPages = 1;
-		}else {
-			totalPages = allVehicleRegistration.getTotalPages();
-		}
-		model.addAttribute("totalPages", totalPages);
-		model.addAttribute("searchKeyword", search);
-		model.addAttribute("listVehicleRegistration", allVehicleRegistration.getContent());
-		return "/VehicleRegistration/listVehicleRegistration";
-	}
 }

@@ -48,6 +48,10 @@ public class FeeType {
 		this.nameFeetype = nameFeetype;
 		this.price = price;
 	}
+	public FeeType(String idFeetype) {
+		super();
+		this.idFeetype = idFeetype;
+	}
 
 	public FeeType() {
 		super();

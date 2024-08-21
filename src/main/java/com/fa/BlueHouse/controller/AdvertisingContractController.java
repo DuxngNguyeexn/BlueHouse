@@ -1,8 +1,11 @@
 package com.fa.BlueHouse.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,7 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.AdvertisingContract;
+import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.services.AdvertisingContractservices;
 import jakarta.validation.Valid;
 
@@ -73,19 +79,22 @@ public class AdvertisingContractController {
 	@GetMapping("/add")
 	public String addAdConservices(Model model) {
 		model.addAttribute("advcontract", new AdvertisingContract());
-		model.addAttribute("listemp", adConservices.findaEmp());
+//		model.addAttribute("listemp", adConservices.findaEmp());
 		model.addAttribute("listfee", adConservices.findaFee());
 		return "/AdvertisingContract/addAdvertisingContract";
 	}
 	
 	@PostMapping("/save")
-	public String saveAdConservices(Model model,@Valid @ModelAttribute("advcontract") AdvertisingContract advertisingContract, BindingResult bindingResult) {
+	public String saveAdConservices(Model model,@Valid @ModelAttribute("advcontract") AdvertisingContract advertisingContract, BindingResult bindingResult, Principal principal) {
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("listemp", adConservices.findaEmp());
+//			model.addAttribute("listemp", adConservices.findaEmp());
 			model.addAttribute("listfee", adConservices.findaFee());
 			return "/AdvertisingContract/addAdvertisingContract";
 		}
-		
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = userDetails.getId();
+		Employee emp = adConservices.findaByIdemp(id);
+		advertisingContract.setEmpadv(emp);
 		adConservices.saveAdv(advertisingContract);
 		return "redirect:/advertisingContract/list";
 	} 
@@ -98,7 +107,7 @@ public class AdvertisingContractController {
 
 	@GetMapping("/edit")
 	public String editAdConservices(Model model, @RequestParam("idcontrac") String id) {
-		model.addAttribute("listemp", adConservices.findaEmp());
+//		model.addAttribute("listemp", adConservices.findaEmp());
 		model.addAttribute("listfee", adConservices.findaFee());
 		model.addAttribute("advcontract", adConservices.findaById(id));
 		return "/advertisingContract/addAdvertisingContract";

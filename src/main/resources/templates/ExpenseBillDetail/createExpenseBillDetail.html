@@ -8,21 +8,44 @@
 
 </head>
 <body layout:fragment="content">
-	<form action="/IncomeBillDetail/saveDetail" class="mt-5" method="post"
-		th:object="${billDetail}">
+	<form action="/ExpenseBill/saveDetail" class="mt-5" method="post"
+		th:object="${expensedetail}">
 		<div class="container p-3 border">
 			<h1 class="text-center pb-5">Create IncomeBill</h1>
 			<div class="row">
 				<div class=" col-6 mb-3">
-					<label for="idbilldetail" class="form-lable">ID IncomeBill</label>
+					<label for="idexpenDetail" class="form-lable">ID ExpenseDetail</label>
 					<div>
-						<span th:if="${#fields.hasErrors('idbilldetail')}"
-							th:errors="*{idbilldetail}" class="text-danger"></span>
+						<span th:if="${#fields.hasErrors('idexpenDetail')}"
+							th:errors="*{idexpenDetail}" class="text-danger"></span>
 					</div>
 
-					<input type="text" th:field="*{idbilldetail}" id="idbilldetail"
+					<input type="text" th:field="*{idexpenDetail}" id="idexpenDetail"
 						class="form-control" placeholder="ID BillDetail"
-						aria-label="Username" aria-describedby="addon-wrapping">
+						aria-label="Username" aria-describedby="addon-wrapping" readonly="readonly">
+				</div>
+				
+				<div class=" col-6 mb-3">
+					<label for="idExpenseBill" class="form-lable">ID ExpenseBill</label>
+					<div>
+						<span th:if="${#fields.hasErrors('idExpenseBill')}"
+							th:errors="*{idExpenseBill}" class="text-danger"></span>
+					</div>
+				    <input type="text" th:field="*{idExpenseBill}" id="idExpenseBill"
+						class="form-control" placeholder="ID BillDetail"
+						aria-label="Username" aria-describedby="addon-wrapping" readonly="readonly">
+				
+				</div>
+				<div class=" col-6 mb-3">
+					<label for="nameExpense" class="form-lable">Name ExpenseDetail</label>
+					<div>
+						<span th:if="${#fields.hasErrors('nameExpense')}"
+							th:errors="*{nameExpense}" class="text-danger"></span>
+					</div>
+				    <input type="text" th:field="*{nameExpense}" id="nameExpense"
+						class="form-control" placeholder="Name Detail"
+						aria-label="Username" aria-describedby="addon-wrapping" >
+				
 				</div>
 				<div class=" col-6 mb-3">
 					<label for="quantity" class="form-lable">Quantity</label>
@@ -35,28 +58,15 @@
 						class="form-control"  aria-label="Username" placeholder="Quantity"
 						aria-describedby="addon-wrapping">
 				</div>
-				<div class=" col-6 mb-3">
-					<label for="idIncomeBill" class="form-lable">ID IncomeBill</label>
-					<div>
-						<span th:if="${#fields.hasErrors('idIncomeBill')}"
-							th:errors="*{idIncomeBill}" class="text-danger"></span>
-					</div>
-					<select id="idIncomeBill" th:field="*{idIncomeBill}" class="form-control">
-						<option th:each="bill : ${listincomebill}" th:value="${bill.idIncomeBill}"
-							th:text="${bill.idIncomeBill}"></option>
-					</select>
-				</div>
-				
 					<div class="col-6 mb-3">
-					<label for="idfeetype" class="form-lable ">Fee Type</label>
+					<label for="price" class="form-lable ">Price</label>
 					<div>
-						<span th:if="${#fields.hasErrors('idfeetype')}"
-							th:errors="*{idfeetype}" class="text-danger"></span>
+						<span th:if="${#fields.hasErrors('price')}"
+							th:errors="*{price}" class="text-danger"></span>
 					</div>
-					<select id="idfeetype" th:field="*{idfeetype}" class="form-control">
-						<option th:each="fee : ${listfee}" th:value="${fee.idFeetype}"
-							th:text="${fee.nameFeetype}"></option>
-					</select>
+					<input type="number" th:field="*{price}" id="price"
+						class="form-control"  aria-label="Username" placeholder="Price"
+						aria-describedby="addon-wrapping">
 				</div>
 				
 			</div>

@@ -13,5 +13,10 @@ public class ImgConfig  implements WebMvcConfigurer {
           .addResourceLocations("file:///E:/TaiLieu/Mock%20project/repair/img/");
 		  registry.addResourceHandler("/imagesReport/**")
           .addResourceLocations("file:///E:/TaiLieu/Mock%20project/report/img/");
+		  registry.addResourceHandler("/imgNotification/**")
+			.addResourceLocations("file:///E:/imgNoti/");
 		  }
+	 
 }
+
+

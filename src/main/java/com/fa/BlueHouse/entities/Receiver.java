@@ -38,6 +38,8 @@ public class Receiver {
 	@JoinColumn(name = "receiver_Resi")
 	private Resident receiverResi;
 
+	private int status;
+
 	public int getIdReceiver() {
 		return idReceiver;
 	}
@@ -86,14 +88,23 @@ public class Receiver {
 		this.receiverResi = receiverResi;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	public Receiver(Notification notification, Employee senderEmp, Resident senderResi, Employee receiverEmp,
-			Resident receiverResi) {
+			Resident receiverResi, int status) {
 		super();
 		this.notification = notification;
 		this.senderEmp = senderEmp;
 		this.receiverEmp = receiverEmp;
 		this.senderResi = senderResi;
 		this.receiverResi = receiverResi;
+		this.status = status;
 	}
 
 	public Receiver() {

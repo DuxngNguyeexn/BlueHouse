@@ -1,8 +1,11 @@
 package com.fa.BlueHouse.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.fa.BlueHouse.authen.model.AccountDTO;
+import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.RegisterForResidence;
 import com.fa.BlueHouse.services.RegisterForResidenceServices;
 
@@ -79,13 +85,16 @@ public class RegisterForResidenceController {
 	}
 	
 	@PostMapping("/save")
-	public String saveRegiForResi(Model model,@Valid @ModelAttribute("registesresi") RegisterForResidence registerForResidence, BindingResult bindingResult) {
+	public String saveRegiForResi(Model model,@Valid @ModelAttribute("registesresi") RegisterForResidence registerForResidence, BindingResult bindingResult, Principal principal) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("listapa", residenceServices.findaApa());
 			model.addAttribute("listresi", residenceServices.findaResident());
 			return "/RegisterForResidence/createRegisterForResidence";
 		}
-		
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = userDetails.getId();
+		Employee emp = residenceServices.findaByIdemp(id);
+		registerForResidence.setManagerCodeRegi(emp);
 		residenceServices.saveRegisterForResidence(registerForResidence);
 		return "redirect:/registerForResidence/list";
 	} 

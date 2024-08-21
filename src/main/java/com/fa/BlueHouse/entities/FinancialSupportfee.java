@@ -10,25 +10,26 @@ public class FinancialSupportfee {
 
 	@Id
 	private String billCode;
-	
+
 	private String nameFeeType;
-	
+
 	private String sponsorName;
-	
-	private LocalDate date;
-	
+
+	private LocalDate datefee;
+
 	private float price;
 
 	public FinancialSupportfee() {
 		super();
 	}
 
-	public FinancialSupportfee(String billCode, String nameFeeType, String sponsorName, LocalDate date, float price) {
+	public FinancialSupportfee(String billCode, String nameFeeType, String sponsorName, LocalDate datefee,
+			float price) {
 		super();
 		this.billCode = billCode;
 		this.nameFeeType = nameFeeType;
 		this.sponsorName = sponsorName;
-		this.date = date;
+		this.datefee = datefee;
 		this.price = price;
 	}
 
@@ -56,12 +57,12 @@ public class FinancialSupportfee {
 		this.sponsorName = sponsorName;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getDatefee() {
+		return datefee;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setDatefee(LocalDate datefee) {
+		this.datefee = datefee;
 	}
 
 	public float getPrice() {
@@ -71,6 +72,5 @@ public class FinancialSupportfee {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	
-	
+
 }

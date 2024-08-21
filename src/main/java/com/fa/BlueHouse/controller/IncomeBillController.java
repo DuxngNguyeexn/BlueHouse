@@ -19,17 +19,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.FeeType;
 import com.fa.BlueHouse.entities.IncomeBill;
+import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.services.ApartmentService;
 import com.fa.BlueHouse.services.EmployeeService;
 import com.fa.BlueHouse.services.FeetypeService;
 import com.fa.BlueHouse.services.IncomeBillService;
+import com.fa.BlueHouse.services.ResidentService;
 
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/IncomeBill")
 public class IncomeBillController {
-
+	@Autowired
+	private ResidentService residen;
 	@Autowired
 	private FeetypeService feetype;
 	@Autowired
@@ -50,7 +53,8 @@ public class IncomeBillController {
 	}
 	@GetMapping("/createFeetype")
 	public String createFeetype(Model model) {
-		model.addAttribute("feetype", new FeeType());
+		String id = feetype.generateNewId();
+		model.addAttribute("feetype", new FeeType(id));
 		return "Feetype/createFeetype";
 	}
 	
@@ -63,6 +67,21 @@ public class IncomeBillController {
 			return "redirect:/IncomeBill/showfeetype";
 		}
 	}
+
+	@GetMapping("/showinvoiceapratmentbill")
+	public String showInvoiceApartmentBill(Model model, @RequestParam(name = "page", defaultValue = "1") int page, Principal principal) {
+		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
+		Resident res = residen.findById(thongTin.getId());
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<IncomeBill> listApartmentBill = inbill.findApartmentBill(res.getIdApartment().getIdApartment(), pageRequest);
+		model.addAttribute("apartment", apart.findById(res.getIdApartment().getIdApartment()));
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", listApartmentBill.getTotalPages());
+		model.addAttribute("listapartmentbill", listApartmentBill.getContent());
+		return "/IncomeBill/listIncomebill";
+	}
+	
 	@GetMapping("/showlistapratmentbill")
 	public String showlistApartmentBill(Model model, @RequestParam(name = "page", defaultValue = "1") int page, @RequestParam("idApartment") String idApartment) {
 		int pageSize = 6;
@@ -86,16 +105,20 @@ public class IncomeBillController {
 	}
 	@GetMapping("/createapartmentbill")
 	public String createApartBill(Model model,@RequestParam(name = "idapartment", defaultValue = "#{null}" )String id ) {
+		String idbill = inbill.generateNewId();
 		if(id != null) {
-			model.addAttribute("incomebill", new IncomeBill(apart.findById(id)));
+			
+			model.addAttribute("incomebill", new IncomeBill(idbill,apart.findById(id)));
 			return "/IncomeBill/createApartmentBill";
 		}else {
-			model.addAttribute("incomebill", new IncomeBill());
+		
+			model.addAttribute("incomebill", new IncomeBill(idbill));
 			model.addAttribute("listapart", apart.allApartments());
 			return  "/IncomeBill/createBill";
 		}
 		
 	}
+	
 	@PostMapping("/saveapartmentbill")
 	public String saveApartmentBill(Model model,@ModelAttribute("incomebill") IncomeBill incobill ) {
 		inbill.saveIncobill(incobill);
