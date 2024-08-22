@@ -45,4 +45,7 @@ public class AssetService {
 		
 		return String.format("AS%03d", numberic);
 	}
+	public List<Assets> findByIds(List<String> id){
+		return assetRepository.findAllById(id);
+	}
 }

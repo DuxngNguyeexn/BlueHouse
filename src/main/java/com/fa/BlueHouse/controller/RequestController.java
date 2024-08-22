@@ -7,12 +7,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,7 @@ import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.Repair;
 import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.entities.form.Request;
+import com.fa.BlueHouse.entities.img.ImgRepair;
 import com.fa.BlueHouse.entities.img.ImgRequest;
 import com.fa.BlueHouse.services.AssetService;
 import com.fa.BlueHouse.services.EmployeeService;
@@ -58,7 +61,7 @@ public class RequestController {
 	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model, Principal principal) {
 		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
 		int pageSize = 6;
-		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.DESC, "dateSent"));
 		Page<Request> listAll = null;
 		if ("ROLE_MANAGE".equalsIgnoreCase(userDetails.getRole())) {
 			listAll = requestService.showAll(pageRequest);
@@ -94,23 +97,23 @@ public class RequestController {
 	public String save(@ModelAttribute(name = "form") Request form, BindingResult bindingResult,
 			@RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes) {
 		List<ImgRequest> images = new ArrayList<>();
-		  for (MultipartFile file : files) {
-		        if (file != null && !file.isEmpty()) {
-		            try {
-		            	String fileName = file.getOriginalFilename();
-		                Path path = Paths.get(uploadDirRequest + File.separator + fileName);
-		                Files.write(path, file.getBytes());
+		for (MultipartFile file : files) {
+			if (file != null && !file.isEmpty()) {
+				try {
+					String fileName = file.getOriginalFilename();
+					Path path = Paths.get(uploadDirRequest + File.separator + fileName);
+					Files.write(path, file.getBytes());
 
-		                ImgRequest image = new ImgRequest();
-		                image.setImagePath(fileName);
-		                image.setRequest(form);
-		                images.add(image);
-		            } catch (IOException e) {
-		                e.printStackTrace();
-		            }
-		        }
-		    }
-          form.setImgRequests(images);
+					ImgRequest image = new ImgRequest();
+					image.setImagePath(fileName);
+					image.setRequest(form);
+					images.add(image);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		form.setImgRequests(images);
 		form.setIdForm(requestService.generateNewId());
 		form.setStatus("Send");
 		form.setDateSent(new Date());
@@ -161,7 +164,7 @@ public class RequestController {
 		form.setEmployee(employee);
 		requestService.save(form);
 		List<Employee> employees = employeeService.allEmployee();
-		
+
 		model.addAttribute("employees", employees);
 		model.addAttribute("form", form);
 		model.addAttribute("role", role);
@@ -184,64 +187,78 @@ public class RequestController {
 		model.addAttribute("form", form);
 		return "Form/detail";
 	}
+
 	@GetMapping("showListAsset")
-	public String showListAsset(Model model){
+	public String showListAsset(Model model, @RequestParam(name = "id") String idForm) {
 		List<Assets> assets = assetService.findAll();
+		model.addAttribute("idForm", idForm);
 		model.addAttribute("assets", assets);
-		return  "Form/Request/addAsset";
+		return "Form/Request/addAsset";
 	}
-	@PostMapping("accept")
-	public String employeeAccept(@RequestParam(name = "idAsset") String idAsset,
+
+	@GetMapping("addListAssets")
+	public String employeeAccept(@RequestParam(name = "ListValue", defaultValue = "") String idAsset,
 			@RequestParam(name = "idForm") String idForm, Model model, Principal principal) {
+		String[] arrayAssets = idAsset.split(",");
+		System.out.println(arrayAssets[0] + "cccc");
+		if ("".equalsIgnoreCase(arrayAssets[0])) {
+			return "redirect:showListAsset?id=" + idForm;
+		}
+		List<String> listAssets = new ArrayList<>(Arrays.asList(arrayAssets));
 		Request form = requestService.findById(idForm);
-		Assets asset = assetService.findById(idAsset);
+		List<Assets> assets = assetService.findByIds(listAssets);
 		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
 		String role = userDetails.getRole();
-		if (asset == null) {
-			model.addAttribute("messF", "Asset not found");
-		} else {
-			form.setStatus("Active");
-			Repair repair = repairService.findById(form.getRepair().getId());
-//			repair.setAsset(asset);
-			repair.setDateRepair(new Date());
-			repairService.save(repair);
-			requestService.save(form);
-			model.addAttribute("repair", repair);
-			model.addAttribute("messT", "Add asset success");
-		}
+		form.setStatus("Active");
+		Repair repair = form.getRepair();
+		repair.setAssets(assets);
+		repair.setDateRepair(new Date());
+		repairService.save(repair);
+		requestService.save(form);
+		model.addAttribute("repair", repair);
+		model.addAttribute("messT", "Add asset success");
 		model.addAttribute("role", role);
 		model.addAttribute("form", form);
 		return "Form/detail";
 	}
 
 	@PostMapping("completed")
-	public String completed(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
+	public String completed(@RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes,
 			@RequestParam(name = "idForm") String idForm, Model model, Principal principal) {
 		Request form = requestService.findById(idForm);
 		Repair repair = form.getRepair();
 		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
 		String role = userDetails.getRole();
-		if (file != null) {
-			try {
-				String fileName = file.getOriginalFilename();
-				Path path = Paths.get(uploadDirRepair + File.separator + fileName);
-				Files.write(path, file.getBytes());
-				repair.setImagePath(fileName);
-				repair.setDateCompleted(new Date());
-				form.setStatus("Completed");
-				requestService.save(form);
-				repairService.save(repair);
-			} catch (IOException e) {
-				e.printStackTrace();
+		List<ImgRepair> images = new ArrayList<>();
+		for (MultipartFile file : files) {
+			if (file != null && !file.isEmpty()) {
+				try {
+					String fileName = file.getOriginalFilename();
+					Path path = Paths.get(uploadDirRepair + File.separator + fileName);
+					Files.write(path, file.getBytes());
+					ImgRepair image = new ImgRepair();
+					image.setImagePath(fileName);
+					image.setRepair(repair);
+					images.add(image);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
+		form.setStatus("Completed");
+		repair.setDateCompleted(new Date());
+		repair.setImgRepairs(images);
+		repairService.save(repair);
+		requestService.save(form);
 		model.addAttribute("role", role);
 		model.addAttribute("form", form);
 		return "Form/detail";
 
 	}
+
 	@PostMapping("rate")
-	public String rate(@RequestParam(name = "idForm") String idForm,@RequestParam(name = "rating") String rate, Model model, Principal principal) {
+	public String rate(@RequestParam(name = "idForm") String idForm, @RequestParam(name = "rating") String rate,
+			Model model, Principal principal) {
 		Request form = requestService.findById(idForm);
 		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
 		String role = userDetails.getRole();
@@ -249,19 +266,19 @@ public class RequestController {
 		switch (rate) {
 		case "1": {
 			form.setRate("Very bad");
-			break;			
+			break;
 		}
 		case "2": {
 			form.setRate("Bad");
-			break;			
+			break;
 		}
 		case "3": {
 			form.setRate("Normal");
-			break;			
+			break;
 		}
 		case "4": {
 			form.setRate("Good");
-			break;			
+			break;
 		}
 		default:
 			form.setRate("Very good");
