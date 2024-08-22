@@ -37,5 +37,5 @@ public class RequestService {
 	public Page<Request> showAllForResident(String id ,Pageable pageable){
 		return requestRepository.findRequestByResidentId(id, pageable);
 	}
-	
+
 }
