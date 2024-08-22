@@ -29,7 +29,6 @@ import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.entities.form.Report;
 import com.fa.BlueHouse.entities.img.ImgReport;
-import com.fa.BlueHouse.entities.img.ImgRequest;
 import com.fa.BlueHouse.services.ReportService;
 import com.fa.BlueHouse.services.ResidentService;
 
@@ -47,10 +46,12 @@ public class ReportController {
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 		Page<Report> listAll = null;
-		if("ROLE_ADMIN".equalsIgnoreCase(userDetails.getRole())) {
+		if("ROLE_ADMIN".equalsIgnoreCase(userDetails.getRole()) || "ROLE_MANAGE".equalsIgnoreCase(userDetails.getRole())) {
 			listAll = reportService.showAll(pageRequest);
 		}else if("ROLE_RESIDENT".equalsIgnoreCase(userDetails.getRole())) {
 			listAll = reportService.findRPByResidentId(userDetails.getId(), pageRequest);
+		}else {
+			return "redirect:/";
 		}
 		model.addAttribute("currentPage", page);
 		int totalPages ;
@@ -128,6 +129,30 @@ public class ReportController {
 		model.addAttribute("form", form);
 		model.addAttribute("role", role);
 		return "Form/Report/detail";
+	}
+	@GetMapping("search")
+	public String search( @RequestParam(name = "searchKeyword", defaultValue = "") String keyword ,@RequestParam(name = "page", defaultValue = "1") int page, Model model, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<Report> listAll = null;
+		if("ROLE_ADMIN".equalsIgnoreCase(userDetails.getRole()) || "ROLE_MANAGE".equalsIgnoreCase(userDetails.getRole())) {
+			listAll = reportService.findByKeyword(pageRequest,keyword);
+		}else if("ROLE_RESIDENT".equalsIgnoreCase(userDetails.getRole())) {
+			listAll = reportService.findRPByResidentIdAndKeyword(userDetails.getId(), pageRequest,keyword);
+		}else {
+			return "redirect:/";
+		}
+		model.addAttribute("currentPage", page);
+		int totalPages ;
+		if(listAll.getTotalPages() < 1) {
+			totalPages = 1 ;
+		}else {
+			totalPages = listAll.getTotalPages();
+		}
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("listAll", listAll.getContent());
+		return "Form/Report/list";
 	}
 	
 }

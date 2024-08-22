@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -27,16 +29,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fa.BlueHouse.authen.model.Account;
 import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.Assets;
 import com.fa.BlueHouse.entities.Employee;
+import com.fa.BlueHouse.entities.Notification;
 import com.fa.BlueHouse.entities.Repair;
 import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.entities.form.Request;
 import com.fa.BlueHouse.entities.img.ImgRepair;
 import com.fa.BlueHouse.entities.img.ImgRequest;
+import com.fa.BlueHouse.services.AccountService;
 import com.fa.BlueHouse.services.AssetService;
 import com.fa.BlueHouse.services.EmployeeService;
+import com.fa.BlueHouse.services.NotiService;
 import com.fa.BlueHouse.services.RepairService;
 import com.fa.BlueHouse.services.RequestService;
 import com.fa.BlueHouse.services.ResidentService;
@@ -56,6 +62,10 @@ public class RequestController {
 	RepairService repairService;
 	@Autowired
 	AssetService assetService;
+	@Autowired
+	NotiService notiService;
+	@Autowired
+	AccountService accountService;
 
 	@GetMapping("list")
 	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model, Principal principal) {
@@ -94,7 +104,7 @@ public class RequestController {
 	}
 
 	@PostMapping("add")
-	public String save(@ModelAttribute(name = "form") Request form, BindingResult bindingResult,
+	public String save(@ModelAttribute(name = "form") Request form, BindingResult bindingResult, Principal principal,
 			@RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes) {
 		List<ImgRequest> images = new ArrayList<>();
 		for (MultipartFile file : files) {
@@ -117,9 +127,25 @@ public class RequestController {
 		form.setIdForm(requestService.generateNewId());
 		form.setStatus("Send");
 		form.setDateSent(new Date());
-		requestService.save(form);
-		return "redirect:list";
 
+		requestService.save(form);
+
+		Notification noti = new Notification();
+		noti.setTitle("Request from resident");
+		noti.setContentNoti( "You have 1 request from resident: " 
+	               + form.getResident().getIdResident() 
+	               + " - " + form.getResident().getNameResident() 
+	               + " <a href=\"/Form/Request/showDetail?id=" + form.getIdForm() + "\">More</a>");
+		noti.setDate(LocalDate.now());
+		noti.setTime(LocalTime.now());
+		List<String> name = new ArrayList<>();
+		for(Account acc : accountService.findByRole2()) {
+			name.add(acc.getEmployee().getEmployeeID());
+		}
+		String[] nguoiNhan = name.toArray(new String[0]);
+		notiService.saveNotificationAndReceiver("Choosen", noti, principal, nguoiNhan);
+
+		return "redirect:list";
 	}
 
 	@GetMapping("showDetail")
@@ -149,6 +175,14 @@ public class RequestController {
 		form.setDateAccept(new Date());
 		requestService.save(form);
 		model.addAttribute("form", form);
+		Notification noti = new Notification();
+		noti.setTitle("Your request is denied");
+		noti.setContentNoti( "Your request is denied by" + form.getEmployee().getFullName() + " because: "  + form.getReason() 
+	               + " <a href=\"/Form/Request/showDetail?id=" + form.getIdForm() + "\">More</a>");
+		noti.setDate(LocalDate.now());
+		noti.setTime(LocalTime.now());
+		String[] nguoiNhan = {form.getResident().getIdResident()};
+		notiService.saveNotificationAndReceiver("Choosen", noti, principal, nguoiNhan);
 		return "Form/detail";
 	}
 
@@ -173,7 +207,7 @@ public class RequestController {
 
 	@PostMapping("addEmployee")
 	public String addEmployee(@RequestParam(name = "idForm") String idForm,
-			@RequestParam(name = "selectedEmployee") String idEmployee, Model model) {
+			@RequestParam(name = "selectedEmployee") String idEmployee, Model model , Principal principal) {
 		Employee employee = employeeService.findById(idEmployee);
 		System.out.println(idEmployee);
 		Request form = requestService.findById(idForm);
@@ -184,7 +218,16 @@ public class RequestController {
 		repairService.save(repair);
 		form.setRepair(repair);
 		requestService.save(form);
+		Notification noti = new Notification();
+		noti.setTitle("You have a new repair request");
+		noti.setContentNoti( "You have a new repair request from " + form.getEmployee().getFullName()
+	               + " <a href=\"/Form/Request/showDetail?id=" + form.getIdForm() + "\">See more</a>");
+		noti.setDate(LocalDate.now());
+		noti.setTime(LocalTime.now());
+		String[] nguoiNhan = {idEmployee};
+		notiService.saveNotificationAndReceiver("Choosen", noti, principal, nguoiNhan);
 		model.addAttribute("form", form);
+		
 		return "Form/detail";
 	}
 
@@ -252,6 +295,14 @@ public class RequestController {
 		requestService.save(form);
 		model.addAttribute("role", role);
 		model.addAttribute("form", form);
+		Notification noti = new Notification();
+		noti.setTitle("Your request is completed");
+		noti.setContentNoti( "Your request is completed" 
+	               + " <a href=\"/Form/Request/showDetail?id=" + form.getIdForm() + "\">See more</a>");
+		noti.setDate(LocalDate.now());
+		noti.setTime(LocalTime.now());
+		String[] nguoiNhan = {form.getResident().getIdResident()};
+		notiService.saveNotificationAndReceiver("Choosen", noti, principal, nguoiNhan);
 		return "Form/detail";
 
 	}
