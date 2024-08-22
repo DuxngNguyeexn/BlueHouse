@@ -67,6 +67,7 @@ footer p {
 /*==========================NAVBODY===========================*/
 section.navbody {
   border-bottom: 1px solid white;
+  height : 100%;
   display: flex;
 }
 .dropdown-menu.show {
@@ -76,6 +77,7 @@ section.navbody {
 .Menu {
   background: rgb(207, 226, 255);
   width: min-content !important;
+  min-height : 794px;
   padding-top: 30px;
 
 }

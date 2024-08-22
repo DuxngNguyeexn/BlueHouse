@@ -36,6 +36,9 @@ public class ExpenseBillDetailService {
 	public Page<ExpenseBillDetail> searchExpenseBillDetail(String search, Pageable page){
 		return expendetail.searchExpenseBillDetail(search, page);
 	}
+	public Page<ExpenseBillDetail> searchExpenseBillDetail(String search,String idbill, Pageable page){
+		return expendetail.searchExpenseBillDetail(search,idbill, page);
+	}
 	public String generateNewId() {
 		String maxId = expendetail.findMaxId();
 		

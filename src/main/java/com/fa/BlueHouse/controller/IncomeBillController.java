@@ -142,6 +142,25 @@ public class IncomeBillController {
 		model.addAttribute("listapartmentbill", listApartmentBill.getContent());
 		return "/IncomeBill/listAllBill";
 	}
+	@GetMapping("/searchapartmentbill")
+	public String searchApartmentBill(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,
+			@RequestParam("idapartment")String idapartment,@RequestParam(name = "page", defaultValue = "1") int page) {
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<IncomeBill> listApartmentBill = inbill.searchApartmentBill(keyword, idapartment, pageRequest);
+		model.addAttribute("currentPage", page);
+		int totalPages ;
+		if(listApartmentBill.getTotalPages() < 1) {
+			totalPages = 1 ;
+		}else {
+			totalPages = listApartmentBill.getTotalPages();
+		}
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("searchKeyword", keyword);
+		model.addAttribute("apartment", apart.findById(idapartment));
+		model.addAttribute("listapartmentbill", listApartmentBill.getContent());
+		return "/IncomeBill/listIncomebill";
+	}
 	
 	@GetMapping("/paybill")
 	public String payBill(Principal principal, Model model, @RequestParam("idbill")String idbill) {
