@@ -86,10 +86,9 @@ public class Participants {
 		super();
 	}
 
-	public Participants(int idParticipants, Event iDEvent, Employee participantEmp, Resident participantResi,
+	public Participants(Event iDEvent, Employee participantEmp, Resident participantResi,
 			String mission, String note) {
 		super();
-		this.idParticipants = idParticipants;
 		IDEvent = iDEvent;
 		this.participantEmp = participantEmp;
 		this.participantResi = participantResi;

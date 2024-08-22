@@ -64,7 +64,7 @@ public class EventController {
 	}
 
 	@GetMapping("/add")
-	public String eventAdd(Model model) {
+	public String confirm(Model model) {
 		model.addAttribute("employee", eService.allEmployee());
 		model.addAttribute("resident", rService.findallResident());
 		model.addAttribute("event", new Event());
@@ -99,6 +99,7 @@ public class EventController {
 				+ ".</strong><br>&nbsp;</p><p>Looking forward to your presence. Please confirm your participation soon and stay tuned for information.</p><p><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Thank you and Warmest Regards.</p><p>&nbsp;</p>");
 		noti.setDate(LocalDate.now());
 		noti.setTime(LocalTime.now());
+		noti.setTypeNote("KeyEvent~" + idEvent);
 
 		notiService.saveNotificationAndReceiver(Choose, noti, principal, listReceiver);
 

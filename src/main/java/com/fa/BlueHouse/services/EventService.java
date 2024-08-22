@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.Event;
 import com.fa.BlueHouse.repositories.EventRepositories;
 
@@ -20,5 +21,9 @@ public class EventService {
 	public Page<Event> getAllEvent(String idResi, Pageable pageable) {
 		return eventRepo.getAllEvent(idResi, pageable);
 	}
+	
+	public Event findById(String id) {
+    	return eventRepo.findById(id).orElse(null);
+    }
 
 }

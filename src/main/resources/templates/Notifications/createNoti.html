@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
-	<title>Insert title here</title>
+	<title>Create New Notification</title>
 	<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 </head>
 
 <body layout:fragment="content">
 
 	<div class="text-center pt-5">
-		<h1>Tạo Thông Báo</h1>
+		<h1>New Notification</h1>
 	</div>
 	<form method="post" action="save" class="container" th:object="${Notification}" enctype="multipart/form-data">
 		<div class="form-group mt-3 d-flex justify-content-center">
