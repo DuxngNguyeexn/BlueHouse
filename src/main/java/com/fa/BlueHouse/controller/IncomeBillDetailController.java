@@ -128,7 +128,7 @@ public class IncomeBillDetailController {
 		return "/IncomeBillDetail/updateDetail";
 	}
 	@GetMapping("/searchIncobilldetail")
-	public String searchIncomeBill(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,
+	public String searchAlldetail(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,
 			@RequestParam(name = "page", defaultValue = "1") int page) {
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
@@ -140,6 +140,26 @@ public class IncomeBillDetailController {
 		}else {
 			totalPages = listApartmentBill.getTotalPages();
 		}
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("searchKeyword", keyword);
+		model.addAttribute("listDetail", listApartmentBill.getContent());
+		return "/IncomeBillDetail/listInDetail";
+	}
+	@GetMapping("/searchbilldetail")
+	public String searchBilldetail(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,
+			@RequestParam("idbill")String idbill, @RequestParam(name = "page", defaultValue = "1") int page) {
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<IncomeBillDetail> listApartmentBill = indetail.searchDetail(keyword,idbill, pageRequest);
+		model.addAttribute("currentPage", page);
+		int totalPages ;
+		if(listApartmentBill.getTotalPages() < 1) {
+			totalPages = 1 ;
+		}else {
+			totalPages = listApartmentBill.getTotalPages();
+		}
+		model.addAttribute("apartment", apart.findById(inbill.findById(idbill).getIdApartment().getIdApartment()));
+		model.addAttribute("IncomeBill", inbill.findById(idbill));
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("searchKeyword", keyword);
 		model.addAttribute("listDetail", listApartmentBill.getContent());

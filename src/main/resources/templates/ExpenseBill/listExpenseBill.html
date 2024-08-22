@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 <meta charset="ISO-8859-1">
 <title>List ExpenseBill</title>
+<script>
+    function setDeleteUrl(element) {
+        const url = element.getAttribute('data-href');
+        document.getElementById('confirmDeleteBtn').setAttribute('onclick', `confirmDelete('${url}')`);
+    }
+
+    function confirmDelete(url) {
+        window.location.href = url;
+    }
+</script>
 </head>
 
 <body layout:fragment="content" > 
@@ -23,10 +34,10 @@
 	<div class="d-flex justify-content-end">
 	<a th:href="@{/ExpenseBill/createdetail}"
 					target="blank">
-   <button class="btn btn-primary m-2" type="submit">Create ExpenseDetail</button></a>
+   <button sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE') or hasRole('ADMIN')" class="btn btn-primary m-2" type="submit">Create ExpenseDetail</button></a>
 	<a th:href="@{/ExpenseBill/create}"
 					target="blank">
-   <button class="btn btn-primary m-2" type="submit">Create ExpenseBill</button></a>
+   <button sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE') or hasRole('ADMIN')" class="btn btn-primary m-2" type="submit">Create ExpenseBill</button></a>
 	</div>
 	</div>
 	
@@ -36,7 +47,7 @@
 			<tr>
 				<th scope="col">ID ExpenseBill</th>
 				<th scope="col">Expensebill Date</th>
-				<th scope="col">Employee</th>
+				<th scope="col">Issuer</th>
 				<th scope="col">Total</th>
 				<th scope="col">Detail</th>
 			</tr>

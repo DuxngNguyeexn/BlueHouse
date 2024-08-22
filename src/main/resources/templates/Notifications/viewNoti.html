@@ -36,10 +36,19 @@
 					<img th:src="@{'/imgNotification/' + ${post.attachment}}" height="300px" width="300px" />
 				</a>
 			</div>
-
-			<div class="text-right pt-2">
-				<a th:href="${lastPath}" class="btn btn-secondary">Back</a>
+			
+			<div class="d-flex justify-content-end text-right pt-2">
+				<div th:if="${eventID != null}" class="pr-3">
+					<a th:data-status="${idNoti}" 
+					th:data-value="${eventID}" onclick="window.location.href='/event/confirm?eventID='+this.dataset.value+'&idNoti='+this.dataset.status;" 
+					 class="btn btn-success">Confirm Yes</a>
+				</div>
+	
+				<div>
+					<a th:href="${lastPath}" class="btn btn-secondary">Back</a>
+				</div>
 			</div>
+			
 		</div>
 
 	</div>

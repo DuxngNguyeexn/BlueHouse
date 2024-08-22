@@ -17,17 +17,8 @@
 
 		<div class="col-8 d-flex justify-content-center">
 			<ul class="nav">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-						Resident
-					</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="/showlistresident">Resident Management</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="/showlistadminis">Administrator
-							Management</a>
-					</div>
-				</li>
+                <li sec:authorize="hasRole('RESIDENT') or hasRole('ADMIN')" class="nav-item"><a class="nav-link" href="/ExpenseBill/show">
+						ExpenseBill </a></li>
 				<li sec:authorize="hasRole('RESIDENT') or hasRole('ADMIN')" class="nav-item"><a class="nav-link" href="/IncomeBill/showinvoiceapratmentbill">
 						Invoice Apartment </a></li>
 				<li class="nav-item"><a class="nav-link" href="/Administrators/showlistadminis">

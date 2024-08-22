@@ -9,12 +9,14 @@ import com.fa.BlueHouse.entities.IncomeBill;
 
 public interface IncomeBillRepositories extends JpaRepository<IncomeBill, String> {
 
-	@Query("FROM IncomeBill Where idApartment.idApartment = :idApartment")
+	@Query("FROM IncomeBill Where idApartment.idApartment =:idApartment")
 	public Page<IncomeBill> findApartmentBill(String idApartment, Pageable page);
 	@Query("FROM IncomeBill ")
 	public Page<IncomeBill> findBill( Pageable page);
-	@Query("FROM IncomeBill where idIncomeBill LIKE %:seacrch% or status LIKE %:seacrch% or idApartment.idApartment LIKE %:seacrch% or idEmployee.fullName LIKE %:seacrch%")
+	@Query("FROM IncomeBill where idIncomeBill LIKE %:seacrch% or status LIKE %:seacrch% or idApartment.idApartment LIKE %:seacrch%")
 	public Page<IncomeBill> searchInBill(String seacrch , Pageable pageable);
+	@Query("FROM IncomeBill where (idIncomeBill LIKE %:seacrch% or status LIKE %:seacrch% or idApartment.idApartment LIKE %:seacrch%) and  idApartment.idApartment = :idapart")
+	public Page<IncomeBill> searchApartBill(String seacrch , String idapart, Pageable pageable);
 	@Query("SELECT MAX(i.idIncomeBill) FROM IncomeBill i")
     String findMaxId();
 }
