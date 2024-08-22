@@ -36,7 +36,7 @@
 
 	<div id="select-send" class="form-group mt-3 justify-content-center">
 		<div class="col-10">
-			<select data-placeholder="Choose a Country..." class="chosen-select" multiple tabindex="4">
+			<select data-placeholder="Choose ..." class="chosen-select" multiple tabindex="4">
 				<option value=""></option>
 				<option th:each="emp : ${employee}" th:value="${emp.employeeID}" th:text="${emp.fullName+' - '+emp.employeeID}">
 				<option th:each="resi : ${resident}" th:value="${resi.idResident}" th:text="${resi.nameResident+' - '+resi.idResident}">

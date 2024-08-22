@@ -17,6 +17,9 @@ public interface EmployeeRepo extends JpaRepository<Employee, String> {
 	
 	@Query("SELECT emp FROM Employee emp WHERE emp.employeeID LIKE %:keyword% ")
 	List<Employee> findByKeyword(@Param("keyword") String keyword);
+	
+	@Query("SELECT emp FROM Employee emp WHERE emp.office = :office AND emp.duty = 'Manager'")
+	List<Employee> getManagerByOffice(@Param("office") String office);
 
 	@Query("SELECT e FROM Employee e WHERE e.duty = 'Administrator'")
 	List<Employee> findAdministrator();

@@ -1,5 +1,7 @@
 package com.fa.BlueHouse.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -72,6 +74,15 @@ public class EmployeeController {
 
 	@GetMapping("/add")
 	public String addEmp(Model model) {
+
+		List<Employee> listMService = eService.getManagerByOffice("Services");
+		List<Employee> listMEngineering = eService.getManagerByOffice("Engineering ");
+		List<Employee> listMEnvironment = eService.getManagerByOffice("Environment");
+
+		model.addAttribute("listMService", listMService);
+		model.addAttribute("listMEngineering", listMEngineering);
+		model.addAttribute("listMEnvironment", listMEnvironment);
+
 		model.addAttribute("employee", new Employee());
 		return "Employee/addEditEmployee";
 	}
