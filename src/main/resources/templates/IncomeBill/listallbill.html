@@ -5,11 +5,12 @@
 
 <head>
 <meta charset="ISO-8859-1">
-<title>List Apartment Bill</title>
+<title>List Income Bill</title>
 </head>
 
 <body layout:fragment="content" > 
 <div class="m-5">
+<h1>List Income Bill</h1>
 	<div class="d-flex justify-content-between">
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
@@ -28,7 +29,7 @@
    <button class="btn btn-primary m-2" type="submit">Create IncomeBill</button></a>
 	</div>
 	</div>
-	<h1>List Income Bill</h1>
+	
 	<div class="table-responsive tableFixHead border-right border-left border-bottom">
 	<table class="table">
 		<thead class="table-dark">
@@ -55,7 +56,7 @@
 				<td th:text="${bill.getTotalbill}"></td>
 				<td> <a th:href="@{/IncomeBillDetail/showlishtdetail(idbill=${bill.idIncomeBill})}"
 					target="blank"><i class="fa-solid fa-calendar-week"></i></a></td>
-				<td > <a th:href="@{/IncomeBill/paybill(idbill=${bill.idIncomeBill})}" th:if="${bill.paymentDate == null}"
+				<td> <a th:href="@{/IncomeBill/paybill(idbill=${bill.idIncomeBill})}" th:if="${bill.paymentDate == null && bill.getTotalbill != 0}"
 					target="blank" ><i class="fa-solid fa-file-invoice-dollar" ></i></a></td>
 			</tr>
 		</tbody>

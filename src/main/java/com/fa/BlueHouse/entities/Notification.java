@@ -21,7 +21,7 @@ public class Notification {
 	@Column(name = "Title")
 	private String title;
 
-	@Column(name = "ContentNoti")
+	@Column(name = "ContentNoti", columnDefinition = "TEXT")
 	private String contentNoti;
 
 	@Column(name = "Attachment")
@@ -32,6 +32,9 @@ public class Notification {
 
 	@Column(name = "Time")
 	private LocalTime time;
+	
+	@Column(name = "Type_Note")
+	private String typeNote;
 
 	@OneToMany(mappedBy = "notification")
 	private Set<Receiver> receiver;
@@ -90,6 +93,14 @@ public class Notification {
 
 	public void setReceiver(Set<Receiver> receiver) {
 		this.receiver = receiver;
+	}
+
+	public String getTypeNote() {
+		return typeNote;
+	}
+
+	public void setTypeNote(String typeNote) {
+		this.typeNote = typeNote;
 	}
 
 	public Notification() {

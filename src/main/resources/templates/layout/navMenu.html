@@ -40,10 +40,27 @@
 		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')" class="btn-group dropright w-100">
 			<button type="button" class="btn  dropdown-toggle border border-light"
 				data-toggle="dropdown" aria-expanded="false">Manage
-				ExpenseBill</button>
+				RepairBill</button>
 			<div class="dropdown-menu">
 				
 				<a class="dropdown-item" href="/ExpenseBill/create">Create
+					ExpenseBill</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/ExpenseBill/show">List ExpenseBill</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/ExpenseBill/createdetail">Create
+					ExpenseBill Detail</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/ExpenseBill/listdetail">List ExpenseBill Detail</a>
+			</div>
+		</div>
+		<div sec:authorize="hasRole('ADMIN')" class="btn-group dropright w-100">
+			<button type="button" class="btn  dropdown-toggle border border-light"
+				data-toggle="dropdown" aria-expanded="false">Manage
+				EvenBill</button>
+			<div class="dropdown-menu">
+				
+				<a class="dropdown-item" href="/ExpenseBill/createbillevent">Create
 					ExpenseBill</a>
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item" href="/ExpenseBill/show">List ExpenseBill</a>

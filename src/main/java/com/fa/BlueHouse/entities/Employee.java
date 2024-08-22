@@ -9,9 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -57,14 +55,9 @@ public class Employee {
 	@OneToMany(mappedBy = "receiverEmp")
 	private List<Receiver> receiverEmp;
 
-//	=========================One To One==========================
+	@OneToMany(mappedBy = "participantEmp")
+	private List<Participants> participantEmp;
 
-	@OneToOne
-	@JoinColumn(name = "MANAGER_ID")
-	private Employee manager;
-
-	@OneToMany(mappedBy = "manager")
-	private List<Employee> under;
 //	======================Many To Many==============================
 
 	@OneToMany(mappedBy = "employeeID")
@@ -151,22 +144,6 @@ public class Employee {
 		HistoryOffID = historyOffID;
 	}
 
-	public Employee getManager() {
-		return manager;
-	}
-
-	public void setManager(Employee manager) {
-		this.manager = manager;
-	}
-
-	public List<Employee> getUnder() {
-		return under;
-	}
-
-	public void setUnder(List<Employee> under) {
-		this.under = under;
-	}
-
 	public Set<EmployeeWork> getEmployeeWork() {
 		return employeeWork;
 	}
@@ -191,6 +168,14 @@ public class Employee {
 		this.receiverEmp = receiverEmp;
 	}
 
+	public List<Participants> getParticipantEmp() {
+		return participantEmp;
+	}
+
+	public void setParticipantEmp(List<Participants> participantEmp) {
+		this.participantEmp = participantEmp;
+	}
+
 	// ============================================================
 	public Employee() {
 		super();
@@ -210,8 +195,6 @@ public class Employee {
 		this.office = office;
 		this.duty = duty;
 		HistoryOffID = historyOffID;
-		this.manager = manager;
-		this.under = under;
 		this.employeeWork = employeeWork;
 	}
 
@@ -219,8 +202,8 @@ public class Employee {
 	public String toString() {
 		return "Employee [employeeID=" + employeeID + ", fullName=" + fullName + ", gender=" + gender + ", phoneNumber="
 				+ phoneNumber + ", dateOfBirth=" + dateOfBirth + ", nationalID=" + nationalID + ", country=" + country
-				+ ", office=" + office + ", duty=" + duty + ", HistoryOffID=" + HistoryOffID + ", manager=" + manager
-				+ ", under=" + under + ", employeeWork=" + employeeWork + "]";
+				+ ", office=" + office + ", duty=" + duty + ", HistoryOffID=" + HistoryOffID + ", manager=" + ", under="
+				+ ", employeeWork=" + employeeWork + "]";
 	}
 
 }

@@ -6,12 +6,13 @@
 
 <head>
 <meta charset="ISO-8859-1">
-<title>List Apartment Bill</title>
+<title>List Bill Detail</title>
 </head>
 
 <body layout:fragment="content" > 
 
 <div class="m-5">
+<h1>List Bill Detail</h1>
 	<div class="d-flex justify-content-between">
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
@@ -34,7 +35,7 @@
 	
 	
 	</div>
-	<h1>List Bill Detail</h1>
+	
 	<span>ID IncomeBill: <span th:if="${IncomeBill!=null}" th:text="${IncomeBill.idIncomeBill }"></span></span>
 	<span class="ml-5">ID Apartment: <span th:if="${apartment!=null}" th:text="${apartment.idApartment}"></span> </span>
 	<div class="table-responsive tableFixHead border-right border-left border-bottom">

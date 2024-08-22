@@ -34,6 +34,7 @@ public class ApplicationSecurityConfig {
 						.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
 						.requestMatchers("/login", "/forgot/**", "/common/**", "/lib/**").permitAll()
 						.requestMatchers("/employee/**").hasAnyRole(UserRole.EMPLOYEE.name(), UserRole.MANAGE.name(), UserRole.ADMIN.name())
+						.requestMatchers("/event/**").hasRole(UserRole.ADMIN.name())
 				        .requestMatchers("/Apartment/**").hasAnyRole(UserRole.ADMIN.name(), UserRole.RESIDENT.name(), UserRole.EMPLOYEE.name())
 						.anyRequest().authenticated())
 
