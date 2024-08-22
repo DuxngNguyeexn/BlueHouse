@@ -1,10 +1,19 @@
 package com.fa.BlueHouse.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,58 +22,251 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fa.BlueHouse.authen.model.AccountDTO;
+import com.fa.BlueHouse.entities.Assets;
+import com.fa.BlueHouse.entities.Employee;
+import com.fa.BlueHouse.entities.Repair;
 import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.entities.form.Request;
+import com.fa.BlueHouse.entities.img.ImgRequest;
+import com.fa.BlueHouse.services.AssetService;
+import com.fa.BlueHouse.services.EmployeeService;
+import com.fa.BlueHouse.services.RepairService;
 import com.fa.BlueHouse.services.RequestService;
 import com.fa.BlueHouse.services.ResidentService;
 
 @Controller
 @RequestMapping(path = "/Form/Request/")
 public class RequestController {
+	private final String uploadDirRequest = "E:\\TaiLieu\\Mock project\\request\\img";
+	private final String uploadDirRepair = "E:\\TaiLieu\\Mock project\\repair\\img";
 	@Autowired
 	RequestService requestService;
 	@Autowired
 	ResidentService residentService;
+	@Autowired
+	EmployeeService employeeService;
+	@Autowired
+	RepairService repairService;
+	@Autowired
+	AssetService assetService;
+
 	@GetMapping("list")
-	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		Page<Request> listAll = requestService.showAll(pageRequest);
+		Page<Request> listAll = null;
+		if ("ROLE_MANAGE".equalsIgnoreCase(userDetails.getRole())) {
+			listAll = requestService.showAll(pageRequest);
+		} else if ("ROLE_EMPLOYEE".equalsIgnoreCase(userDetails.getRole())) {
+			listAll = requestService.showAllForEmployee(userDetails.getId(), pageRequest);
+		} else {
+			listAll = requestService.showAllForResident(userDetails.getId(), pageRequest);
+		}
 		model.addAttribute("currentPage", page);
-		int totalPages ;
-		if(listAll.getTotalPages() < 1) {
-			totalPages = 1 ;
-		}else {
+		int totalPages;
+		if (listAll.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
 			totalPages = listAll.getTotalPages();
 		}
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("listAll", listAll.getContent());
 		return "Form/Request/list";
 	}
+
 	@GetMapping("showAdd")
-	public String showAdd(Model model) {
-		Resident resident = residentService.findById("R001");
-		Request form = new Request();	
+	public String showAdd(Principal principal, Model model) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = userDetails.getId();
+		Resident resident = residentService.findById(id);
+		Request form = new Request();
 		form.setResident(resident);
 		model.addAttribute("form", form);
 		return "Form/Request/add";
 	}
-	
+
 	@PostMapping("add")
-	public String save(
-			@ModelAttribute(name = "form") Request form,
-			BindingResult bindingResult) {
+	public String save(@ModelAttribute(name = "form") Request form, BindingResult bindingResult,
+			@RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes) {
+		List<ImgRequest> images = new ArrayList<>();
+		  for (MultipartFile file : files) {
+		        if (file != null && !file.isEmpty()) {
+		            try {
+		            	String fileName = file.getOriginalFilename();
+		                Path path = Paths.get(uploadDirRequest + File.separator + fileName);
+		                Files.write(path, file.getBytes());
+
+		                ImgRequest image = new ImgRequest();
+		                image.setImagePath(fileName);
+		                image.setRequest(form);
+		                images.add(image);
+		            } catch (IOException e) {
+		                e.printStackTrace();
+		            }
+		        }
+		    }
+          form.setImgRequests(images);
 		form.setIdForm(requestService.generateNewId());
 		form.setStatus("Send");
 		form.setDateSent(new Date());
 		requestService.save(form);
 		return "redirect:list";
-		
+
 	}
+
 	@GetMapping("showDetail")
-	public String showDetail(@RequestParam(name = "id")String id,Model model) {
+	public String showDetail(@RequestParam(name = "id") String id, Model model, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
 		Request form = requestService.findById(id);
+		List<Employee> employees = employeeService.allEmployee();
+		List<Assets> assets = assetService.findAll();
+		model.addAttribute("assets", assets);
+		model.addAttribute("employees", employees);
+		model.addAttribute("form", form);
+		model.addAttribute("role", role);
+		return "Form/detail";
+	}
+
+	@PostMapping("deny")
+	public String denyRequest(@RequestParam(name = "idForm") String idForm,
+			@RequestParam(name = "reasonDeny") String reason, Model model, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = userDetails.getId();
+		Employee employee = employeeService.findById(id);
+		Request form = requestService.findById(idForm);
+		form.setReason(reason);
+		form.setStatus("Denied");
+		form.setEmployee(employee);
+		form.setDateAccept(new Date());
+		requestService.save(form);
+		model.addAttribute("form", form);
+		return "Form/detail";
+	}
+
+	@GetMapping("accept")
+	public String accpetRequest(@RequestParam(name = "idForm") String idForm, Model model, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
+		String id = userDetails.getId();
+		Employee employee = employeeService.findById(id);
+		Request form = requestService.findById(idForm);
+		form.setStatus("Accept");
+		form.setDateAccept(new Date());
+		form.setEmployee(employee);
+		requestService.save(form);
+		List<Employee> employees = employeeService.allEmployee();
+		
+		model.addAttribute("employees", employees);
+		model.addAttribute("form", form);
+		model.addAttribute("role", role);
+		return "Form/detail";
+	}
+
+	@PostMapping("addEmployee")
+	public String addEmployee(@RequestParam(name = "idForm") String idForm,
+			@RequestParam(name = "selectedEmployee") String idEmployee, Model model) {
+		Employee employee = employeeService.findById(idEmployee);
+		System.out.println(idEmployee);
+		Request form = requestService.findById(idForm);
+		Repair repair = new Repair();
+		repair.setId(repairService.generateNewId());
+		repair.setEmployee(employee);
+		repair.setDateAssign(new Date());
+		repairService.save(repair);
+		form.setRepair(repair);
+		requestService.save(form);
+		model.addAttribute("form", form);
+		return "Form/detail";
+	}
+	@GetMapping("showListAsset")
+	public String showListAsset(Model model){
+		List<Assets> assets = assetService.findAll();
+		model.addAttribute("assets", assets);
+		return  "Form/Request/addAsset";
+	}
+	@PostMapping("accept")
+	public String employeeAccept(@RequestParam(name = "idAsset") String idAsset,
+			@RequestParam(name = "idForm") String idForm, Model model, Principal principal) {
+		Request form = requestService.findById(idForm);
+		Assets asset = assetService.findById(idAsset);
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
+		if (asset == null) {
+			model.addAttribute("messF", "Asset not found");
+		} else {
+			form.setStatus("Active");
+			Repair repair = repairService.findById(form.getRepair().getId());
+//			repair.setAsset(asset);
+			repair.setDateRepair(new Date());
+			repairService.save(repair);
+			requestService.save(form);
+			model.addAttribute("repair", repair);
+			model.addAttribute("messT", "Add asset success");
+		}
+		model.addAttribute("role", role);
+		model.addAttribute("form", form);
+		return "Form/detail";
+	}
+
+	@PostMapping("completed")
+	public String completed(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
+			@RequestParam(name = "idForm") String idForm, Model model, Principal principal) {
+		Request form = requestService.findById(idForm);
+		Repair repair = form.getRepair();
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
+		if (file != null) {
+			try {
+				String fileName = file.getOriginalFilename();
+				Path path = Paths.get(uploadDirRepair + File.separator + fileName);
+				Files.write(path, file.getBytes());
+				repair.setImagePath(fileName);
+				repair.setDateCompleted(new Date());
+				form.setStatus("Completed");
+				requestService.save(form);
+				repairService.save(repair);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		model.addAttribute("role", role);
+		model.addAttribute("form", form);
+		return "Form/detail";
+
+	}
+	@PostMapping("rate")
+	public String rate(@RequestParam(name = "idForm") String idForm,@RequestParam(name = "rating") String rate, Model model, Principal principal) {
+		Request form = requestService.findById(idForm);
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
+		model.addAttribute("role", role);
+		switch (rate) {
+		case "1": {
+			form.setRate("Very bad");
+			break;			
+		}
+		case "2": {
+			form.setRate("Bad");
+			break;			
+		}
+		case "3": {
+			form.setRate("Normal");
+			break;			
+		}
+		case "4": {
+			form.setRate("Good");
+			break;			
+		}
+		default:
+			form.setRate("Very good");
+		}
+		requestService.save(form);
 		model.addAttribute("form", form);
 		return "Form/detail";
 	}

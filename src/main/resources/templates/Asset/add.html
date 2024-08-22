@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="form-group col-4">
                             <label for="assetId" class="font-weight-bold ml-2">ID</label>
-                            <input type="text" class="form-control" id="assetId" th:field="*{id.IdAsset}" readonly>
+                            <input type="text" class="form-control" id="assetId" th:field="*{idAsset}" readonly>
                         </div>
                         <div class="form-group col-4">
                             <label class="font-weight-bold ml-2" for="assetQuantity">Number of assets</label>
@@ -38,16 +38,16 @@
                         <div class="form-group col-4">
                             <label class="font-weight-bold ml-2" for="assetLocation">Location</label>
                             <input type="text" class="form-control mb-2" id="location" placeholder="A1"
-                            th:field="*{id.location}" required>
-                            <span class="text-danger h6 ml-2" id="viTri-error" th:errors="*{id.location}"></span>
+                            th:field="*{location}" required>
+                            <span class="text-danger h6 ml-2" id="viTri-error" th:errors="*{location}"></span>
                         </div>
 
                         <div class="form-group col-4">
                             <label class="font-weight-bold ml-2" for="assetManager">Manager</label>
                             <input type="text" class="form-control" id="assetManager" readonly th:field="*{employ}"
                                 hidden>
-                            <input type="text" class="form-control" id="assetManager" readonly
-                                th:value="${form.employ.employeeID} + ' - ' + ${form.employ.name}">
+                            <input type="text" class="form-control" id="assetManager" readonly 
+                                th:value="${form.employ.employeeID} + ' - ' + ${form.employ.fullName}">
                         </div>
 
                     </div>

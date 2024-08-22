@@ -29,4 +29,10 @@ public class ReportService {
 		
 		return String.format("FR%03d", numberic);
 	}
+	public Page<Report> findRPByResidentId(String id, Pageable pageable){
+		return reportRepository.findReportByResidentId(id, pageable);
+	}
+	public Report findById(String id) {
+		return reportRepository.findById(id).orElse(null);
+	}
 }

@@ -75,9 +75,16 @@ section.navbody {
 }
 
 .Menu {
+<<<<<<< HEAD
 	background: rgb(207, 226, 255);
 	width: min-content !important;
 	padding-top: 30px;
+=======
+  background: rgb(207, 226, 255);
+  width: min-content !important;
+  padding-top: 30px;
+
+>>>>>>> 89eff01fa36e3956a5bbb61841122c021d3c1516
 }
 
 .Menu button {

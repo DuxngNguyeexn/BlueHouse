@@ -11,7 +11,7 @@
 
 <div class="container mt-4 ">
 		<div class="h1 text-center mb-4">
-			<a href="list" class="text-decoration-none">List Request, Report</a>
+			<a href="list" class="text-decoration-none">List Request</a>
 		</div>
 		<div class="text-center w-50 m-auto">
 			<form th:action="search">
@@ -41,6 +41,7 @@
 					<th scope="col">Date sent</th>
 					<th scope="col">Status</th>
 					<th scope="col">Manager</th>
+					<th scope="col">Picture</th>
 					<th scope="col">Details</th>
 				</tr>
 			</thead>
@@ -50,7 +51,16 @@
 					<td th:text="${l.resident.nameResident}"></td>
 					<td th:text="${l.dateSent}"></td>
 					<td th:text="${l.status}"></td>
-					<td th:text="${l.employee != null ? l.employee.name : '  '}"></td>
+					<td th:text="${l.employee != null ? l.employee.fullName : '  '}"></td>
+					<td th:if="${l.imgRequests != null and l.imgRequests.size() > 0}" class="d-flex justify-content-center">
+						<div th:each="i : ${l.imgRequests}">
+							<img th:src="@{'/imagesRequest/' + ${i.imagePath}}" alt="Picture" width="50px" height="50px"/>
+						</div>
+						
+					</td>
+					<td th:if="${l.imgRequests == null or l.imgRequests.size() == 0}">
+						No picture available.
+					</td>
 					<td><a th:href="@{showDetail(id=${l.idForm})}">Detail</a></td>
 
 				</tr>
