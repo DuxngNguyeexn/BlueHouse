@@ -12,9 +12,8 @@
             <h1>Pick asset</h1>
         </div>
         <div id="select-send" class="row form-group mt-3 justify-content-center">
-            <input type="text" name="idForm" hidden th:value="${idForm}" id="idForm"/>
             <div class="col-10">
-                <select data-placeholder="Choose a Country..." class="chosen-select" multiple tabindex="4">
+                <select data-placeholder="Choose asset..." class="chosen-select" multiple tabindex="4">
                     <option value=""></option>
                     <option th:each="a : ${assets}" th:value="${a.idAsset}" th:text="${a.idAsset+' - '+a.name + ' - ' + a.location}">
                 </select>
@@ -24,9 +23,7 @@
             <button onclick="sending()" class="btn btn-warning px-5">Send</button>
         </div>
     </div>
-	
-
-	<script th:src="@{/request/js/add.js}"></script>
+	<script th:src="@{/repair/js/add.js}"></script>
 
 	<script th:src="@{/lib/choosen/docsupport/prototype-1.7.0.0.js}"></script>
 	<script th:src="@{/lib/choosen/chosen.proto.js}"></script>

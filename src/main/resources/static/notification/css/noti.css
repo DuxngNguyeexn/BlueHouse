@@ -26,7 +26,7 @@ ul li {
 	position: absolute;
 	top: 100%;
 	z-index: 1010;
-	height: 300px; overflow : scroll;
+	height: 260px; overflow : scroll;
 	width: 100%;
 	border: 1px solid #aaa;
 	border-top: 0;

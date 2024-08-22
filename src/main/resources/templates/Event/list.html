@@ -3,14 +3,14 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>List Notification Send</title>
+	<title>List Notification</title>
 	<link rel="stylesheet" th:href="@{/account/css/list.css}" />
 </head>
 
 <body layout:fragment="content">
 	<div class="m-5 mt-4">
 		<div class="h1 text-center mb-4">
-			List Notification
+			List Event
 		</div>
 
 		<div class="text-center d-flex justify-content-between">
@@ -23,8 +23,8 @@
 				</div>
 			</form>
 
-			<a href="/notification/add">
-				<button type="button" class="btn btn-info">+ New Notification</button>
+			<a href="add">
+				<button type="button" class="btn btn-info">+ New Event</button>
 			</a>
 		</div>
 
@@ -32,21 +32,29 @@
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col">Title</th>
-						<th scope="col">Sent Date</th>
-						<th scope="col">Sent Time</th>
-
+						<th scope="col">Name</th>
+						<th scope="col">Start Day</th>
+						<th scope="col">Start Time</th>
+						<th scope="col">End Day</th>
+						<th scope="col">End Time</th>
+						<th scope="col">Location</th>
+						<th scope="col">Count Participant</th>
+						
 						<th scope="col">Action</th>
 					</tr>
 				</thead>
-				<tbody th:each="noti : ${listNoti}">
+				<tbody th:each="event : ${listEvent}">
 					<tr>
-						<td th:text="${noti.title}"></td>
-						<td th:text="${noti.date}"></td>
-						<td th:text="${noti.time}"></td>
+						<td th:text="${event.nameEvent}"></td>
+						<td th:text="${event.startDate}"></td>
+						<td th:text="${event.startTime}"></td>
+						<td th:text="${event.endDate}"></td>
+						<td th:text="${event.endTime}"></td>
+						<td th:text="${event.location}"></td>
+						<td th:text="${event.numberOfParticipants}"></td>
 						
 						<td>
-							<a th:data-value="${noti.notificationCode}" onclick="window.location.href='viewDetail?lastPath=listSend&idNoti='+this.dataset.value;" class="text-decoration-none mr-2">
+							<a th:data-value="${event.idEvent}" onclick="window.location.href='IDEvent='+this.dataset.value;" class="text-decoration-none mr-2">
 								<i class="fa-solid fa-eye pencil"></i>
 							</a>
 						</td>

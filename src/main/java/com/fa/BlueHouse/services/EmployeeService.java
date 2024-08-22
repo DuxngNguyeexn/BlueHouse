@@ -35,6 +35,16 @@ public class EmployeeService {
 		return eRepo.findByKeyword(keyword);
 	}
 	
+	/**
+	 * @param Services
+	 * @param Engineering
+	 * @param Environment
+	 * 
+	 * @return
+	 */
+	public List<Employee> getManagerByOffice(String office) {
+		return eRepo.getManagerByOffice(office);
+	}
 	
 	public void saveEmployee(Employee emp) {
 		eRepo.save(emp);

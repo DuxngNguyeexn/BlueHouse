@@ -50,13 +50,21 @@ public class NotiController {
 			@RequestParam(name = "lastPath") String lastPath,
 			@RequestParam(name = "idReceiver", defaultValue = "") Integer idReceiver) {
 
-		Notification listNoti = notiService.findNotiByID(idNoti);
 		Receiver recei = notiService.findReceiByID(idReceiver);
 		recei.setStatus(1);
 		notiService.saveRecei(recei);
 
+		Notification noti = notiService.findNotiByID(idNoti);
+		String eventID = null;
+		if (noti.getTypeNote() != null) {
+			eventID = noti.getTypeNote().replace("KeyEvent~", "");
+			System.err.println(eventID);
+		}
+
 		model.addAttribute("lastPath", lastPath);
-		model.addAttribute("post", listNoti);
+		model.addAttribute("post", noti);
+		model.addAttribute("eventID", eventID);
+		model.addAttribute("idNoti", idNoti);
 
 		return "Notifications/viewNoti";
 	}
@@ -68,7 +76,7 @@ public class NotiController {
 
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		
+
 		Page<Receiver> listNoti = notiService.findByIDSeen(pageRequest, auth.getId());
 
 		int totalPages;

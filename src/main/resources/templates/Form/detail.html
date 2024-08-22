@@ -11,7 +11,6 @@
 
 <body layout:fragment="content">
     <div class="text-center h1 mt-2 mb-2">Detail</div>
-    <div class="text-center h5 mt-3 mb-1 text-danger"><span th:text="${messF}"></span></div>
     <div class="text-center h5 mb-3 text-success"><span th:text="${messT}"></span></div>
     <div class="container mt-2">
         <div class="row">
@@ -64,16 +63,18 @@
                 <div class="ml-4 mb-4"><span class="h5">Date sent: </span> <span th:text="${form.dateSent}"></span>
                 </div>
                 <div class="ml-4 mb-4"><span class="h5">Note: </span> <span th:text="${form.note}"></span></div>
-                <div class="ml-4 mb-4"><span class="h5">Image: </span> <span th:if="${form.imgRequests == null or form.imgRequests.size() == 0}">
-                    No picture available.
-                </span>
+                <div class="ml-4 mb-4"><span class="h5">Image: </span> <span
+                        th:if="${form.imgRequests == null or form.imgRequests.size() == 0}">
+                        No picture available.
+                    </span>
                     <div th:if="${form.imgRequests != null and form.imgRequests.size() > 0}" class="d-flex">
-						<div th:each="i : ${form.imgRequests}">
-							<img th:src="@{'/imagesRequest/' + ${i.imagePath}}" alt="Picture" width="150px" height="150px" class="m-2"/>
-						</div>					
-					</div>
+                        <div th:each="i : ${form.imgRequests}">
+                            <img th:src="@{'/imagesRequest/' + ${i.imagePath}}" alt="Picture" width="150px"
+                                height="150px" class="m-2" />
+                        </div>
+                    </div>
                 </div>
-                
+
                 <div class="ml-4 mb-4 h5 ">
 
                     Status: <span th:switch="${form.status}">
@@ -103,8 +104,8 @@
                         th:if="${form.employee == null && role == 'ROLE_MANAGE'}">Accept</a>
                     <a href="#" class="btn btn-success w-auto mr-2" data-toggle="modal" data-target="#employeeModal"
                         th:if="${form.employee != null && role == 'ROLE_MANAGE' && form.repair == null && form.reason == null}">Assign</a>
-                    <a href="showListAsset" class="btn btn-success w-auto mr-2"
-                        th:if="${form.repair != null && role == 'ROLE_EMPLOYEE' }">Accept</a>
+                    <a th:href="@{showListAsset?id={id}(id=${form.idForm})}" class="btn btn-success w-auto mr-2"
+                        th:if="${form.repair != null && role == 'ROLE_EMPLOYEE' && form.repair.dateRepair == null}">Accept</a>
                     <a href="#" data-toggle="modal" data-target="#completedRepairModal"
                         class="btn btn-success w-auto mr-2"
                         th:if="${form.repair != null && role == 'ROLE_EMPLOYEE' && form.status == 'Active'}">Complete</a>
@@ -154,8 +155,8 @@
                         th:text="${form.employee.nationalID}"></span></div>
                 <div class="ml-4 mb-4"><span class="h5">Country Side: </span> <span
                         th:text="${form.employee.country}"></span></div>
-                        <div class="ml-4 mb-4"><span class="h5">Reception Date: </span> <span
-                            th:text="${form.dateAccept}"></span></div>
+                <div class="ml-4 mb-4"><span class="h5">Reception Date: </span> <span
+                        th:text="${form.dateAccept}"></span></div>
                 <div class="w-50 d-flex float-right justify-content-end ">
                     <button onclick="cancel()" class="btn btn-secondary ">Cancel</button>
                 </div>
@@ -179,19 +180,23 @@
                         th:text="${form.repair.employee.nationalID}"></span></div>
                 <div class="ml-4 mb-4"><span class="h5">Country Side: </span> <span
                         th:text="${form.repair.employee.country}"></span></div>
-                        <div class="ml-4 mb-4"><span class="h5">Date Assign: </span> <span
-                            th:text="${form.repair.dateAssign}"></span></div>
+                <div class="ml-4 mb-4"><span class="h5">Date Assign: </span> <span
+                        th:text="${form.repair.dateAssign}"></span></div>
                 <div class="w-50 d-flex float-right justify-content-end ">
                     <button onclick="cancel()" class="btn btn-secondary ">Cancel</button>
                 </div>
             </div>
-            <!-- <div class="detail col-8 d-none " id="infoRepair"
+            <div class="detail col-8 d-none " id="infoRepair"
                 th:if="${form.repair != null && form.repair.dateRepair != null}">
                 <div class="text-center h3 mb-4">Repair information</div>
-                <div class="ml-4 mb-4"><span class="h5">asset: </span> <span
-                        th:text=" ${form.repair.assets.name}"></span></div>
-                <div class="ml-4 mb-4"><span class="h5">Location: </span> <span
-                        th:text="${form.repair.assets.location}"></span>
+                <div class="ml-4 mb-4">
+                    <span class="h5">Assets:</span>
+                    <ul>
+                        <li th:each="asset : ${form.repair.assets}">
+                            <span th:text="${asset.name}"></span> -
+                            <span th:text="${asset.location}"></span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="ml-4 mb-4"><span class="h5">Date start: </span> <span
                         th:text="${form.repair.dateRepair}"></span>
@@ -200,15 +205,17 @@
                         th:text="${form.repair.dateCompleted}" th:if="${form.repair.dateCompleted != null}"></span>
                 </div>
                 <div class="ml-4 mb-4"><span class="h5">Image: </span>
-                    <div class="mt-2 mb-2" th:if="${form.repair.imagePath != null}">
-                        <img th:src="@{'/imagesRepair/' + ${form.repair.imagePath}}" alt="Picture" width="200px"
-                            height="200px" />
+                    <div th:if="${form.repair.imgRepairs != null and form.repair.imgRepairs.size() > 0}" class="d-flex">
+                        <div th:each="i : ${form.repair.imgRepairs}">
+                            <img th:src="@{'/imagesReport/' + ${i.imagePath}}" alt="Picture" width="250px" height="250px"
+                                class="m-2" />
+                        </div>
                     </div>
                 </div>
                 <div class="w-50 d-flex float-right justify-content-end ">
                     <button onclick="cancel()" class="btn btn-secondary ">Cancel</button>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
     <!-- Modal deny -->
@@ -324,7 +331,7 @@
                         <input type="text" name="idForm" hidden th:value="${form.idForm}">
                         <label for="file">Please add a picture to completed :</label>
                         <br />
-                        <input type="file" id="file" name="file" /><br />
+                        <input type="file" id="file"  name="files" multiple /><br />
                         <span id="error-message" class="text-danger"></span>
                     </form>
                 </div>
@@ -354,16 +361,16 @@
                         <div class="rating">
                             <input type="radio" id="star5" name="rating" value="5" />
                             <label for="star5" title="5 stars">&#9733;</label>
-                
+
                             <input type="radio" id="star4" name="rating" value="4" />
                             <label for="star4" title="4 stars">&#9733;</label>
-                
+
                             <input type="radio" id="star3" name="rating" value="3" />
                             <label for="star3" title="3 stars">&#9733;</label>
-                
+
                             <input type="radio" id="star2" name="rating" value="2" />
                             <label for="star2" title="2 stars">&#9733;</label>
-                
+
                             <input type="radio" id="star1" name="rating" value="1" />
                             <label for="star1" title="1 star">&#9733;</label>
                         </div>

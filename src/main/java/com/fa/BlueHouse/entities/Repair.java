@@ -1,7 +1,12 @@
 package com.fa.BlueHouse.entities;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.fa.BlueHouse.entities.form.Request;
+import com.fa.BlueHouse.entities.img.ImgRepair;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -11,7 +16,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Repair {
+public class Repair implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private String id;
 
@@ -20,20 +27,21 @@ public class Repair {
 
 	@OneToOne
 	private ExpenseBillDetail expenseBillDetail;
-
+	@OneToOne
+	Request request;
 	@ManyToOne
 	private Employee employee;
 	Date dateAssign;
 	Date dateRepair;
 	Date dateCompleted;
-	private String imagePath;
-
+	@OneToMany(mappedBy = "repair", cascade = CascadeType.ALL)
+    private List<ImgRepair> imgRepairs = new ArrayList<>();
 	public Repair() {
 		super();
 	}
 
 	public Repair(String id, List<Assets> assets, ExpenseBillDetail expenseBillDetail, Employee employee,
-			Date dateAssign, Date dateRepair, Date dateCompleted, String imagePath) {
+			Date dateAssign, Date dateRepair, Date dateCompleted) {
 		super();
 		this.id = id;
 		this.assets = assets;
@@ -42,7 +50,7 @@ public class Repair {
 		this.dateAssign = dateAssign;
 		this.dateRepair = dateRepair;
 		this.dateCompleted = dateCompleted;
-		this.imagePath = imagePath;
+		
 	}
 
 	public String getId() {
@@ -93,12 +101,14 @@ public class Repair {
 		this.dateCompleted = dateCompleted;
 	}
 
-	public String getImagePath() {
-		return imagePath;
+	
+
+	public List<ImgRepair> getImgRepairs() {
+		return imgRepairs;
 	}
 
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setImgRepairs(List<ImgRepair> imgRepairs) {
+		this.imgRepairs = imgRepairs;
 	}
 
 	public Date getDateAssign() {
@@ -107,6 +117,14 @@ public class Repair {
 
 	public void setDateAssign(Date dateAssign) {
 		this.dateAssign = dateAssign;
+	}
+
+	public Request getRequest() {
+		return request;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
 	}
 
 }

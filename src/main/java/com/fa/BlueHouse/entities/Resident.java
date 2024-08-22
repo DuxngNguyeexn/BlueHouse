@@ -49,11 +49,17 @@ public class Resident {
 	@OneToMany(mappedBy = "idResident")
 	private List<Administrators> listAdmin;
 
+	@OneToMany(mappedBy = "IDOganizer")
+	private List<Event> listEvent;
+
 	@OneToMany(mappedBy = "senderResi")
 	private List<Receiver> senderResi;
 
 	@OneToMany(mappedBy = "receiverResi")
 	private List<Receiver> receiverResi;
+
+	@OneToMany(mappedBy = "participantResi")
+	private List<Participants> participantResi;
 
 	public String getGender() {
 		return gender;
@@ -157,6 +163,22 @@ public class Resident {
 
 	public void setReceiverResi(List<Receiver> receiverResi) {
 		this.receiverResi = receiverResi;
+	}
+
+	public List<Event> getListEvent() {
+		return listEvent;
+	}
+
+	public void setListEvent(List<Event> listEvent) {
+		this.listEvent = listEvent;
+	}
+
+	public List<Participants> getParticipantResi() {
+		return participantResi;
+	}
+
+	public void setParticipantResi(List<Participants> participantResi) {
+		this.participantResi = participantResi;
 	}
 
 	public Resident(@NotBlank(message = "* ID Resident không được để trống") String idResident,

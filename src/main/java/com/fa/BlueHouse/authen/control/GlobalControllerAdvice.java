@@ -25,7 +25,7 @@ public class GlobalControllerAdvice {
 
             model.addAttribute("numberKey", notiService.findNotiUnSeen(thongTin.getId()).size());
 		} catch (Exception e) {
-			 model.addAttribute(0);
+			model.addAttribute(0);
 		}
     	
     }

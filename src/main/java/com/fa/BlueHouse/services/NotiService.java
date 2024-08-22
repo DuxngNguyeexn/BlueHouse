@@ -66,7 +66,7 @@ public class NotiService {
 	/**
 	 * 
 	 * @param choose       "All" || "AllEmployee" || "AllResident" || "Choosen"
-	 * @param Notification notification
+	 * @param Notification notification Không cần set Notification Code
 	 * @param String[]     list ID Receiver
 	 * @param Principal    principal
 	 * 
