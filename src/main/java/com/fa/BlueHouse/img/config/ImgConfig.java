@@ -19,6 +19,8 @@ public class ImgConfig  implements WebMvcConfigurer {
 			.addResourceLocations("file:///E:/imgNoti/");
 		  registry.addResourceHandler("/imgResident/**")
 			.addResourceLocations("file:///D:/Spring-Boot/imgdate/");
+		  registry.addResourceHandler("/imgEmployee/**")
+			.addResourceLocations("file:///D:/Spring-Boot/imgdate/");
 		  }
 	 
 }
