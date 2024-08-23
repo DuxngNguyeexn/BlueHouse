@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.RegisterForResidence;
+import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.services.RegisterForResidenceServices;
+import com.fa.BlueHouse.services.ResidentService;
 
 import jakarta.validation.Valid;
 
@@ -29,12 +31,24 @@ public class RegisterForResidenceController {
 	@Autowired
 	private RegisterForResidenceServices residenceServices;
 	
+	@Autowired
+	private ResidentService residentService;
+	
 	@GetMapping({"/", "/list"})
-	public String showRegisterForResidences(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
-		
+	public String showRegisterForResidences(Model model, @RequestParam(name = "page", defaultValue = "1") int page, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
+		String id = userDetails.getId();
+		Resident ri = residentService.findById(id);
+		Page<RegisterForResidence> listRegisterForResidence = null;
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		Page<RegisterForResidence> listRegisterForResidence = residenceServices.allRegisterForResidence(pageRequest);
+		
+		if("ROLE_RESIDENT".equalsIgnoreCase(role)) {
+			listRegisterForResidence = residenceServices.allRegisterForResidence(ri.getIdApartment().getIdApartment(), pageRequest);
+		}else {
+			listRegisterForResidence = residenceServices.allRegisterForResidence(pageRequest);
+		}
 		
 		int totalPages;
 		if (listRegisterForResidence.getTotalPages() < 1) {
@@ -77,10 +91,20 @@ public class RegisterForResidenceController {
 	}
 	
 	@GetMapping("/add")
-	public String addRegiForResi(Model model) {
-		model.addAttribute("registesresi", new RegisterForResidence());
-		model.addAttribute("listapa", residenceServices.findaApa());
-		model.addAttribute("listresi", residenceServices.findaResident());
+	public String addRegiForResi(Model model, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
+		String id = userDetails.getId();
+		Resident ri = residentService.findById(id);
+		if("ROLE_RESIDENT".equalsIgnoreCase(role)) {
+			model.addAttribute("registesresi", new RegisterForResidence());
+			model.addAttribute("listapa", residenceServices.allEmployee(ri.getIdApartment().getIdApartment()));
+		}else {
+			model.addAttribute("registesresi", new RegisterForResidence());
+			model.addAttribute("listapa", residenceServices.findaApa());
+		}
+		
+//		model.addAttribute("listresi", residenceServices.findaResident());
 		return "/RegisterForResidence/createRegisterForResidence";
 	}
 	
@@ -88,14 +112,20 @@ public class RegisterForResidenceController {
 	public String saveRegiForResi(Model model,@Valid @ModelAttribute("registesresi") RegisterForResidence registerForResidence, BindingResult bindingResult, Principal principal) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("listapa", residenceServices.findaApa());
-			model.addAttribute("listresi", residenceServices.findaResident());
+//			model.addAttribute("listresi", residenceServices.findaResident());
 			return "/RegisterForResidence/createRegisterForResidence";
 		}
 		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
 		String id = userDetails.getId();
-		Employee emp = residenceServices.findaByIdemp(id);
-		registerForResidence.setManagerCodeRegi(emp);
-		residenceServices.saveRegisterForResidence(registerForResidence);
+		
+		if("ROLE_RESIDENT".equalsIgnoreCase(role)) {
+			residenceServices.saveRegisterForResidence(registerForResidence);
+		}else {
+			Employee emp = residenceServices.findaByIdemp(id);
+			registerForResidence.setManagerCodeRegi(emp);
+			residenceServices.saveRegisterForResidence(registerForResidence);
+		}
 		return "redirect:/registerForResidence/list";
 	} 
 	
@@ -108,7 +138,7 @@ public class RegisterForResidenceController {
 	@GetMapping("/edit")
 	public String editRegiForResi(Model model, @RequestParam("idregiresi") String id) {
 		model.addAttribute("listapa", residenceServices.findaApa());
-		model.addAttribute("listresi", residenceServices.findaResident());
+//		model.addAttribute("listresi", residenceServices.findaResident());
 		model.addAttribute("registesresi", residenceServices.findaById(id));
 		return "/RegisterForResidence/createRegisterForResidence";
 	}

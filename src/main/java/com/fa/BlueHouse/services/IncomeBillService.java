@@ -1,6 +1,8 @@
 package com.fa.BlueHouse.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fa.BlueHouse.entities.IncomeBill;
+import com.fa.BlueHouse.repositories.IncomeBillDetailRepositories;
 import com.fa.BlueHouse.repositories.IncomeBillRepositories;
 
 import jakarta.transaction.Transactional;
@@ -51,5 +54,22 @@ public class IncomeBillService {
 		numberic++;
 		
 		return String.format("IB%03d", numberic);
+	}
+	
+
+	@Autowired
+	private IncomeBillDetailRepositories billDetailRepositories;
+	
+	public Map<String, Double> getTotalAmountByStatus() {
+        double totalPaid = billDetailRepositories.findTotalByStatus("Bill Paid");
+        double totalNotPaid = billDetailRepositories.findTotalByStatus("Bill Not Paid");
+        Map<String, Double> result = new HashMap<>();
+        result.put("Bill Paid", totalPaid);
+        result.put("Bill Not Paid", totalNotPaid);
+        return result;
+    }
+	
+	public Page<IncomeBill> AmountByStatus(String status, Pageable pageable){
+		return inbill.findByStatus(status, pageable);
 	}
 }

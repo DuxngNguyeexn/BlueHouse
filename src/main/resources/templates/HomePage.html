@@ -33,16 +33,43 @@
 		</button>
 	</div>
 
-	<div>
-	    <!-- <p>Username: <span th:text="${userDetails.username}"></span></p>
-	    <p>password: <span th:text="${userDetails.password}"></span></p>
-	    <p>name: <span th:text="${userDetails.name}"></span></p>
-	    <p>phoneNumber: <span th:text="${userDetails.phoneNumber}"></span></p>
-	    <p>gender: <span th:text="${userDetails.gender}"></span></p>
-	    <p>birthday: <span th:text="${userDetails.birthday}"></span></p>
-	    <p>nationalID: <span th:text="${userDetails.nationalID}"></span></p>
-	    <p>country: <span th:text="${userDetails.country}"></span></p>   -->
+	<div class="container mt-5 mb-5">
+		<div class="row justify-content-center align-items-stretch">
+			<!-- Image Section (30%) -->
+			<div class="col-md-4 d-flex">
+				<div class="card shadow-sm flex-fill">
+					<img src="https://i.pinimg.com/564x/5a/06/72/5a06722e06d1358b0a63b839ab19198b.jpg" class="card-img-top img-fluid img-fixed" alt="User Image">
+				</div>
+			</div>
+	
+			<!-- User Information Section (70%) -->
+			<div class="col-md-8 d-flex">
+				<div class="card shadow-sm p-4 flex-fill">
+					<h3 class="card-title text-center">User Profile</h3>
+					<hr>
+					<div class="card-body" th:if="${role == 'ROLE_RESIDENT' || role == 'ROLE_ADMIN'}">
+						<p><strong>Name:</strong> <span th:text="${userDetails.nameResident}"></span></p>
+						<p><strong>Phone Number:</strong> <span th:text="${userDetails.phonenumber}"></span></p>
+						<p><strong>Gender:</strong> <span th:text="${userDetails.gender}"></span></p>
+						<p><strong>Birthday:</strong> <span th:text="${userDetails.birthday}"></span></p>
+						<p><strong>National ID:</strong> <span th:text="${userDetails.identificationCard}"></span></p>
+						<p><strong>Country:</strong> <span th:text="${userDetails.countryside}"></span></p>
+					</div>
+					<div class="card-body" th:if="${role == 'ROLE_MANAGE' || role == 'ROLE_EMPLOYEE'}">
+						<p><strong>Name:</strong> <span th:text="${userDetails.fullName}"></span></p>
+						<p><strong>Phone Number:</strong> <span th:text="${userDetails.phoneNumber}"></span></p>
+						<p><strong>Gender:</strong> <span th:text="${userDetails.gender}"></span></p>
+						<p><strong>Birthday:</strong> <span th:text="${userDetails.dateOfBirth}"></span></p>
+						<p><strong>National ID:</strong> <span th:text="${userDetails.nationalID}"></span></p>
+						<p><strong>Country:</strong> <span th:text="${userDetails.country}"></span></p>
+						<p><strong>Office:</strong> <span th:text="${userDetails.office}"></span></p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+	
+	
 
 </body>
 

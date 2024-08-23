@@ -78,10 +78,10 @@ section.navbody {
 }
 
 .Menu {
-  background: rgb(207, 226, 255);
-  width: min-content !important;
-  min-height: 794px;
-  padding-top: 30px;
+	background: rgb(207, 226, 255);
+	width: min-content ! important;
+	min-height : 795px;
+	padding-top : 30px; 	
 }
 .Menu button {
   text-align: start;

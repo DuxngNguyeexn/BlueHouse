@@ -44,6 +44,8 @@
 				<a class="dropdown-item" href="/IncomeBillDetail/createBillDetail">Create Incobill Detail</a>
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item" href="/IncomeBillDetail/showlishtdetail">List Incobill Detail</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/IncomeBill/showbill">Pay</a>
 			</div>
 		</div>
 
@@ -112,20 +114,70 @@
 			</div>
 		</div>
 
-		<div class="btn-group dropright w-100">
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')or hasRole('RESIDENT')" class="btn-group dropright w-100">
 			<button type="button" class="btn dropdown-toggle border border-light" data-toggle="dropdown" aria-expanded="false">
 				Manage Vehicle
 			</button>
 			<div class="dropdown-menu">
 				<a class="dropdown-item" href="/vehicleRegistration/list">List Vehicle Registration</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="/registerForResidence/list">List Register For Residence</a>
+				<a class="dropdown-item" href="/vehicleRegistration/add">Create Vehicle Registration</a>
+			</div>
+		</div>
+
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')or hasRole('RESIDENT')" class="btn-group dropright w-100">
+			<button type="button" class="btn dropdown-toggle border border-light" data-toggle="dropdown" aria-expanded="false">
+				Manage Register
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/registerForResidence/list">List Register</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="/showrentalSpaContracs">List Rental Spa Contracs</a>
+				<a class="dropdown-item" href="/registerForResidence/add">Create Register
+				</a>
+			</div>
+		</div>
+
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn dropdown-toggle border border-light" data-toggle="dropdown" aria-expanded="false">
+				Manage Rental Contracs
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/rentalSpaceContract/list">List Rental Contracs</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="/showhiscusvehi">List History Customer Vehicle</a>
+				<a class="dropdown-item" href="/rentalSpaceContract/add">Create Rental Contracs</a>
+			</div>
+		</div>
+
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn dropdown-toggle border border-light" data-toggle="dropdown" aria-expanded="false">
+				Manage History Vehicle
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/historyCustomerVehicle/list">List History Vehicle</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="/advertisingContract/list">List Advertising Contract</a>
+				<a class="dropdown-item" href="/historyCustomerVehicle/add">Create History Vehicle</a>
+			</div>
+		</div>
+
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn dropdown-toggle border border-light" data-toggle="dropdown" aria-expanded="false">
+				Manage Advertising
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/advertisingContract/list">List Advertising</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/advertisingContract/add">Create Advertising</a>
+			</div>
+		</div>
+
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn dropdown-toggle border border-light" data-toggle="dropdown" aria-expanded="false">
+				Manage Financial
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/financialSupportfee/list">List Financial</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/financialSupportfee/add">Create Financial</a>
 			</div>
 		</div>
 
@@ -141,7 +193,6 @@
 				<a sec:authorize="hasAnyRole('ADMIN')" class="dropdown-item" href="/event/add">Create Event</a>
 			</div>
 		</div>
-
 	</div>
 </body>
 

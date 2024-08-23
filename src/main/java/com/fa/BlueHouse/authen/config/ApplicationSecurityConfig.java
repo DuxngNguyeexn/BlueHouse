@@ -52,24 +52,25 @@ public class ApplicationSecurityConfig {
 
 						.requestMatchers("/event/confirm", "/event/listJoin", "/event/detail").hasAnyRole(ADMIN, RESIDENT, MANAGE, EMPLOYEE)
 						.requestMatchers("/event/**").hasRole(ADMIN)
-						/*
-						 * =================task Huy==============
-						 */
-
-						/*
-						 * =================task Duong==============
-						 */
-						.requestMatchers("/employee/", "/IncomeBill/showinvoiceapratmentbill",
-								"/IncomeBill/searchapartmentbill", "/IncomeBillDetail/showlishtdetail",
-								"/IncomeBillDetail/searchIncobilldetail", "/Administrators/showlistadminis",
-								"/Administrators/searchadminis", "/ExpenseBill/show", "/ExpenseBill/listdetail",
-								"/ExpenseBill/searchexpensebill", "/ExpenseBill/searchexpensebilldetail",
-								"/vehicleRegistration/list")
-						.hasAnyRole(RESIDENT, ADMIN, MANAGE, EMPLOYEE).requestMatchers("/ExpenseBill/**")
-						.hasAnyRole(ADMIN, MANAGE, EMPLOYEE).requestMatchers("/IncomeBill/**", "/IncomeBillDetail/**")
-						.hasAnyRole(MANAGE, EMPLOYEE)
-						.requestMatchers("/Administrators/**", "/Position/**", "/Resident/**").hasRole(ADMIN)
-						.anyRequest().authenticated())
+								/*
+								 * =============================== task Duong
+								 * ==================================================
+								 * 
+								 */
+								.requestMatchers("/employee/", "/IncomeBill/showinvoiceapratmentbill",
+										"/IncomeBill/searchapartmentbill", "/IncomeBillDetail/showlishtdetail",
+										"/IncomeBillDetail/searchIncobilldetail", "/Administrators/showlistadminis",
+										"/Administrators/searchadminis", "/ExpenseBill/show", "/ExpenseBill/listdetail",
+										"/ExpenseBill/searchexpensebill", "/ExpenseBill/searchexpensebilldetail",
+										"/vehicleRegistration/list", "/vehicleRegistration/add", "/registerForResidence/list", "/registerForResidence/add")
+								.hasAnyRole(RESIDENT, ADMIN, MANAGE, EMPLOYEE).requestMatchers("/ExpenseBill/**")
+								.hasAnyRole(ADMIN, MANAGE, EMPLOYEE)
+								.requestMatchers("/IncomeBill/**", "/IncomeBillDetail/**",
+										"/vehicleRegistration/**", "/rentalSpaceContract/**",
+										"/registerForResidence/**", "/advertisingContract/**",
+										"/historyCustomerVehicle/**", "/financialSupportfee/**").hasAnyRole(MANAGE, EMPLOYEE)
+								.requestMatchers("/Administrators/**", "/Position/**", "/Resident/**").hasRole(ADMIN)
+								.anyRequest().authenticated())
 				/*
 				 * ===========================Task Duong===============================
 				 */

@@ -37,5 +37,14 @@ public class RequestService {
 	public Page<Request> showAllForResident(String id ,Pageable pageable){
 		return requestRepository.findRequestByResidentId(id, pageable);
 	}
+	public Page<Request> showAllByKeyword(Pageable pageable,String keyword){
+		return requestRepository.findAllByKeyword(keyword, pageable);
+	}
+	public Page<Request> showAllForEmployeeByKeyword(String id ,Pageable pageable,String keyword){
+		return requestRepository.findRequestByEmployeeIdAndKeyword(id, pageable , keyword);
+	}
+	public Page<Request> showAllForResidentByKeyWord(String id ,Pageable pageable,String keyword){
+		return requestRepository.findRequestByResidentIdAndKeyword(id, pageable, keyword);
+	}
 
 }

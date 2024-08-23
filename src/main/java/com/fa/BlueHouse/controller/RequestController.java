@@ -36,6 +36,7 @@ import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.Notification;
 import com.fa.BlueHouse.entities.Repair;
 import com.fa.BlueHouse.entities.Resident;
+import com.fa.BlueHouse.entities.form.Report;
 import com.fa.BlueHouse.entities.form.Request;
 import com.fa.BlueHouse.entities.img.ImgRepair;
 import com.fa.BlueHouse.entities.img.ImgRequest;
@@ -178,7 +179,7 @@ public class RequestController {
 		Notification noti = new Notification();
 		noti.setTitle("Your request is denied");
 		noti.setContentNoti( "Your request is denied by" + form.getEmployee().getFullName() + " because: "  + form.getReason() 
-	               + " <a href=\"/Form/Request/showDetail?id=" + form.getIdForm() + "\">More</a>");
+	               + " <a href=\"/Form/Request/showDetail?id=" + form.getIdForm() + "\">See more</a>");
 		noti.setDate(LocalDate.now());
 		noti.setTime(LocalTime.now());
 		String[] nguoiNhan = {form.getResident().getIdResident()};
@@ -254,6 +255,9 @@ public class RequestController {
 		String role = userDetails.getRole();
 		form.setStatus("Active");
 		Repair repair = form.getRepair();
+		for (Assets assets2 : assets) {
+			assets2.getRepair().add(repair);
+		}
 		repair.setAssets(assets);
 		repair.setDateRepair(new Date());
 		repairService.save(repair);
@@ -337,5 +341,29 @@ public class RequestController {
 		requestService.save(form);
 		model.addAttribute("form", form);
 		return "Form/detail";
+	}
+	@GetMapping("search")
+	public String search( @RequestParam(name = "searchKeyword", defaultValue = "") String keyword ,@RequestParam(name = "page", defaultValue = "1") int page, Model model, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<Request> listAll = null;
+		if ("ROLE_MANAGE".equalsIgnoreCase(userDetails.getRole())) {
+			listAll = requestService.showAllByKeyword(pageRequest, keyword);
+		} else if ("ROLE_EMPLOYEE".equalsIgnoreCase(userDetails.getRole())) {
+			listAll = requestService.showAllForEmployeeByKeyword(userDetails.getId(), pageRequest, keyword);
+		} else {
+			listAll = requestService.showAllForResidentByKeyWord(userDetails.getId(), pageRequest, keyword);
+		}
+		model.addAttribute("currentPage", page);
+		int totalPages ;
+		if(listAll.getTotalPages() < 1) {
+			totalPages = 1 ;
+		}else {
+			totalPages = listAll.getTotalPages();
+		}
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("listAll", listAll.getContent());
+		return "Form/Request/list";
 	}
 }

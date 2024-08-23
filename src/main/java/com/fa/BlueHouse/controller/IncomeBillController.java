@@ -2,10 +2,11 @@ package com.fa.BlueHouse.controller;
 
 import java.security.Principal;
 import java.time.LocalDate;
-
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.FeeType;
 import com.fa.BlueHouse.entities.IncomeBill;
@@ -25,7 +25,6 @@ import com.fa.BlueHouse.services.EmployeeService;
 import com.fa.BlueHouse.services.FeetypeService;
 import com.fa.BlueHouse.services.IncomeBillService;
 import com.fa.BlueHouse.services.ResidentService;
-
 import jakarta.validation.Valid;
 
 @Controller
@@ -173,4 +172,25 @@ public class IncomeBillController {
 		return "redirect:/IncomeBill/showlistapratmentbill?idApartment=" + incomebill.getIdApartment().getIdApartment();
 
 	}
+	
+	@GetMapping("/statistics")
+    public ResponseEntity<Map<String, Double>> getStatistics() {
+        Map<String, Double> stats = inbill.getTotalAmountByStatus();
+        return ResponseEntity.ok(stats);
+    }
+
+	@GetMapping("/showbill")
+	public String showlist(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+		
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<IncomeBill> listApartmentBill = inbill.AmountByStatus("Bill Not Paid", pageRequest);
+		Page<IncomeBill> listApartmentBillpaid = inbill.AmountByStatus("Bill Paid", pageRequest);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", listApartmentBill.getTotalPages());
+		model.addAttribute("listapartmentbill", listApartmentBill.getContent());
+		model.addAttribute("listApartmentBillpaid", listApartmentBillpaid.getContent());
+		return "PaymentStatistics/paymentstatistics";
+	}
+	
 }

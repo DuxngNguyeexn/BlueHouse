@@ -2,9 +2,12 @@ package com.fa.BlueHouse.entities;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Min;
@@ -26,11 +29,11 @@ public class Assets {
 
 	@ManyToOne
 	Employee employ;
-	
-	@ManyToOne
-	@JoinColumn(name = "repair_id")
-	Repair repair;
-	
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "Assets_Repair", joinColumns = @JoinColumn(name = "idAsset"), inverseJoinColumns = @JoinColumn(name = "id"))
+	private List<Repair> repair;
+
 	@OneToMany(mappedBy = "asset")
 	List<Schedules> schedules;
 
@@ -38,8 +41,8 @@ public class Assets {
 		super();
 	}
 
-	public Assets(String idAsset,String location, String name, int quantityOfAssets, long priceOfAssets, Employee employ,
-			List<Schedules> schedules) {
+	public Assets(String idAsset, String location, String name, int quantityOfAssets, long priceOfAssets,
+			Employee employ, List<Schedules> schedules) {
 		super();
 		this.idAsset = idAsset;
 		this.name = name;
@@ -48,7 +51,6 @@ public class Assets {
 		this.employ = employ;
 		this.schedules = schedules;
 	}
-
 
 	public String getIdAsset() {
 		return idAsset;
@@ -104,6 +106,14 @@ public class Assets {
 
 	public void setSchedules(List<Schedules> schedules) {
 		this.schedules = schedules;
+	}
+
+	public List<Repair> getRepair() {
+		return repair;
+	}
+
+	public void setRepair(List<Repair> repair) {
+		this.repair = repair;
 	}
 
 }

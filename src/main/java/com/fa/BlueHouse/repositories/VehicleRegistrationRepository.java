@@ -21,4 +21,7 @@ public interface VehicleRegistrationRepository extends JpaRepository<VehicleRegi
 	@Query("FROM VehicleRegistration where apartmentVE.idApartment = :idApartment and status is null")
 	public List<VehicleRegistration> findRegisApartment(String idApartment);
 
+	@Query("FROM VehicleRegistration ve WHERE ve.apartmentVE.idApartment = :apartmentVE")
+	Page<VehicleRegistration> findByapartmentVE(@Param("apartmentVE") String apartmentVE, Pageable pageable);
+	
 }
