@@ -8,14 +8,15 @@
 </head>
 
 <body layout:fragment="content">
-	<form id="form-data" class="mt-5" th:action="save" method="post" th:object="${event}" enctype="multipart/form-data">
+	<form id="form-data" class="mt-5" th:action="saveEdit" method="post" th:object="${event}" enctype="multipart/form-data">
 		<div class="container p-3 border">
 			<h1 class="text-center pb-3">Add New Event</h1>
 
 			<div class="row pb-2 d-flex justify-content-around">
 				<div class="col-11">
 					<label for="name" class="form-lable">Name Event</label>
-					<input type="text" th:field="*{nameEvent}" id="name" class="form-control" placeholder="Name Event" />
+					<input type="text" th:field="*{idEvent}" hidden="hidden"/>
+					<input type="text" th:field="*{nameEvent}" id="name" class="form-control" placeholder="Name Event" readonly="readonly"/>
 				</div>
 
 				<div class="col-11 mt-3">
@@ -49,45 +50,9 @@
 				</div>
 			</div>
 
-			<div class="row pb-2 d-flex justify-content-around">
-				<div class="col-10">
-					<div class="form-group d-flex justify-content-around">
-						<div class="form-check">
-							<input type="radio" class="form-check-input" id="All" name="sending" value="All" checked />
-							<label class="form-check-label" for="All">Gửi tất cả</label>
-						</div>
-						<div class="form-check">
-							<input type="radio" class="form-check-input" id="Emp" name="sending" value="Emp" />
-							<label class="form-check-label" for="Emp">Gửi tất cả nhân viên</label>
-						</div>
-						<div class="form-check">
-							<input type="radio" class="form-check-input" id="Resi" name="sending" value="Resi" />
-							<label class="form-check-label" for="Resi">Gửi tất cả cư dân</label>
-						</div>
-						<div class="form-check">
-							<input type="radio" class="form-check-input" id="pick" name="sending" value="pick" />
-							<label class="form-check-label" for="pick">Gửi nhiều người</label>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div id="select-send" class="form-group mb-5 mt-3 justify-content-center">
-				<div class="col-10">
-					<select id="ID-chosenValue" data-placeholder="Choose ..." class="chosen-select" multiple tabindex="4">
-						<option value=""></option>
-						<option th:each="emp : ${employee}" th:value="${emp.employeeID}" th:text="${emp.fullName+' - '+emp.employeeID}">
-						<option th:each="resi : ${resident}" th:value="${resi.idResident}" th:text="${resi.nameResident+' - '+resi.idResident}">
-					</select>
-				</div>
-			</div>
-			
-			<input type="hidden" id="Choose" name="Choose" value="none" />
-			<input type="hidden" id="valueSend" name="valueSend" value="none" />
-
 			<div class="d-flex justify-content-end mb-4">
-				<button class="btn btn-success col-2" type="submit">
-					Create
+				<button class="btn btn-primary col-2" type="submit">
+					Save Editor
 				</button>
 
 				<button id="cancel" class="btn btn-secondary col-2 ml-2" type="reset">

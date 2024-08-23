@@ -100,7 +100,7 @@
 			</div>
 
 			<div class="row pb-2 d-flex justify-content-around">
-				<select hidden="hidden" class="form-control" required>
+				<select hidden="hidden" class="form-control">
 					<option class="mService" th:each="mana : ${listMService}" th:value="${mana.employeeID}"></option>
 					<option class="mEngin" th:each="mana : ${listMEngineering}" th:value="${mana.employeeID}"></option>
 					<option class="mEnviront" th:each="mana : ${listMEnvironment}" th:value="${mana.employeeID}"></option>
@@ -125,10 +125,10 @@
 			</div>
 
 			<div class="d-flex justify-content-end">
-				<button onclick="validate(event)" id="update" class="btn btn-primary col-2" type="submit">
+				<button id="update" class="btn btn-primary col-2" type="submit">
 					Update
 				</button>
-				<button onclick="validate(event)" id="create" class="btn btn-success col-2" type="submit">
+				<button id="create" class="btn btn-success col-2" type="submit">
 					Create
 				</button>
 				<button id="cancel" class="btn btn-secondary col-2 ml-2" type="reset">

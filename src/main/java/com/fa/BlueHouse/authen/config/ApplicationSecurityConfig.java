@@ -26,12 +26,11 @@ public class ApplicationSecurityConfig {
 
 	@Autowired
 	private ApplicationUserService applicationUserService;
-	
+
 	private final String ADMIN = UserRole.ADMIN.name();
 	private final String MANAGE = UserRole.MANAGE.name();
 	private final String RESIDENT = UserRole.RESIDENT.name();
 	private final String EMPLOYEE = UserRole.EMPLOYEE.name();
-
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -39,25 +38,30 @@ public class ApplicationSecurityConfig {
 				.authorizeHttpRequests(
 						(auth) -> auth.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
 								.requestMatchers("/login", "/forgot/**", "/common/**", "/lib/**").permitAll()
-								
-/*								===============================  task Duong ==================================================
- * 
- */
-								.requestMatchers("/employee/" ,
-										"/IncomeBill/showinvoiceapratmentbill", "/IncomeBill/searchapartmentbill",
-										"/IncomeBillDetail/showlishtdetail", "/IncomeBillDetail/searchIncobilldetail",
-										"/Administrators/showlistadminis","/Administrators/searchadminis",
-										"/ExpenseBill/show", "/ExpenseBill/listdetail", "/ExpenseBill/searchexpensebill", "/ExpenseBill/searchexpensebilldetail",
+
+								.requestMatchers("/event/confirm").hasAnyRole(ADMIN, RESIDENT, MANAGE, EMPLOYEE)
+								.requestMatchers("/event/**").hasRole(ADMIN)
+
+								/*
+								 * =============================== task Duong
+								 * ==================================================
+								 * 
+								 */
+								.requestMatchers("/employee/", "/IncomeBill/showinvoiceapratmentbill",
+										"/IncomeBill/searchapartmentbill", "/IncomeBillDetail/showlishtdetail",
+										"/IncomeBillDetail/searchIncobilldetail", "/Administrators/showlistadminis",
+										"/Administrators/searchadminis", "/ExpenseBill/show", "/ExpenseBill/listdetail",
+										"/ExpenseBill/searchexpensebill", "/ExpenseBill/searchexpensebilldetail",
 										"/vehicleRegistration/list")
-								.hasAnyRole(RESIDENT ,ADMIN , MANAGE ,EMPLOYEE)
-								.requestMatchers("/ExpenseBill/**").hasAnyRole(ADMIN,MANAGE,EMPLOYEE)
-								.requestMatchers("/IncomeBill/**","/IncomeBillDetail/**").hasAnyRole(MANAGE,EMPLOYEE)
+								.hasAnyRole(RESIDENT, ADMIN, MANAGE, EMPLOYEE).requestMatchers("/ExpenseBill/**")
+								.hasAnyRole(ADMIN, MANAGE, EMPLOYEE)
+								.requestMatchers("/IncomeBill/**", "/IncomeBillDetail/**").hasAnyRole(MANAGE, EMPLOYEE)
 								.requestMatchers("/Administrators/**", "/Position/**", "/Resident/**").hasRole(ADMIN)
-								.anyRequest().authenticated()
-								)
-/*
- * ==========================================================    Task Duong      ==================================================================================
- */
+								.anyRequest().authenticated())
+				/*
+				 * ========================================================== Task Duong
+				 * =============================================================================
+				 */
 				.formLogin(form -> form.loginPage("/login").usernameParameter("username").passwordParameter("password")
 						.defaultSuccessUrl("/").permitAll())
 

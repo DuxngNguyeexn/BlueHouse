@@ -16,4 +16,7 @@ public interface RegisterForResidenceRepository extends JpaRepository<RegisterFo
 	
 	@Query("SELECT re FROM RegisterForResidence re where re.idResidence LIKE %:seacrch% or re.relationshipWithHomeowner LIKE %:seacrch%  or re.type LIKE %:seacrch%  or re.phone LIKE %:seacrch% ")
 	List<RegisterForResidence> searchRegisterForResidence(@Param("seacrch")String seacrch);
+	
+	@Query("FROM RegisterForResidence re WHERE re.idApartmentResi.idApartment = :idApartmentResi")
+	Page<RegisterForResidence> findByidApartmentResi(@Param("idApartmentResi") String idApartmentResi, Pageable pageable);
 }

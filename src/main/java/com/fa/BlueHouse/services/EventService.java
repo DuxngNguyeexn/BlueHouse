@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.Event;
 import com.fa.BlueHouse.repositories.EventRepositories;
 
@@ -25,5 +24,9 @@ public class EventService {
 	public Event findById(String id) {
     	return eventRepo.findById(id).orElse(null);
     }
+	
+	public void deleteById(String eventID) {
+		eventRepo.deleteById(eventID);
+	}
 
 }

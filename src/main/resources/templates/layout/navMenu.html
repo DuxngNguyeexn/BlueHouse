@@ -104,7 +104,8 @@
 				<a class="dropdown-item" href="/Administrators/showlistadminis">List Adminis</a>
 			</div>
 		</div>
-		<div class="btn-group dropright w-100">
+		
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')or hasRole('RESIDENT')" class="btn-group dropright w-100">
 			<button type="button" class="btn dropdown-toggle border border-light"
 				data-toggle="dropdown" aria-expanded="false">Manage Vehicle
 			</button>
@@ -112,19 +113,80 @@
 				<a class="dropdown-item" href="/vehicleRegistration/list">List
 					Vehicle Registration</a>
 				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/vehicleRegistration/add">Create
+					Vehicle Registration</a>
+				
+			</div>
+		</div>
+		
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')or hasRole('RESIDENT')" class="btn-group dropright w-100">
+			<button type="button" class="btn dropdown-toggle border border-light"
+				data-toggle="dropdown" aria-expanded="false">Manage Register For Residence
+			</button>
+			<div class="dropdown-menu">
 				<a class="dropdown-item" href="/registerForResidence/list">List
 					Register For Residence</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="/showrentalSpaContracs">List
-					Rental Spa Contracs</a>
-				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="/showhiscusvehi">List History
-					Customer Vehicle</a>
-				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="/advertisingContract/list">List
-					Advertising Contract</a>
+				<a class="dropdown-item" href="/registerForResidence/add">Create
+					Register For Residence</a>
+	
 			</div>
 		</div>
+		
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn dropdown-toggle border border-light"
+				data-toggle="dropdown" aria-expanded="false">Manage Rental Spa Contracs
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/rentalSpaceContract/list">List Rental Spa Contracs</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/rentalSpaceContract/add">Create Rental Spa Contracs</a>
+	
+			</div>
+		</div>
+		
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn dropdown-toggle border border-light"
+				data-toggle="dropdown" aria-expanded="false">Manage History
+					Customer Vehicle
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/historyCustomerVehicle/list">List History
+					Customer Vehicle</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/historyCustomerVehicle/add">Create History
+					Customer Vehicle</a>
+	
+			</div>
+		</div>
+		
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn dropdown-toggle border border-light"
+				data-toggle="dropdown" aria-expanded="false">Manage Advertising Contract
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/advertisingContract/list">List
+					Advertising Contract</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/advertisingContract/add">Create
+					Advertising Contract</a>
+	
+			</div>
+		</div>
+		
+		<div sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE')" class="btn-group dropright w-100">
+			<button type="button" class="btn dropdown-toggle border border-light"
+				data-toggle="dropdown" aria-expanded="false">Manage Financial Support Fee
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/financialSupportfee/list">List
+					Financial Support Fee</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/financialSupportfee/add">Create
+					Financial Support Fee</a>
+			</div>
+		</div>
+		
 	</div>
 </body>
 </html>

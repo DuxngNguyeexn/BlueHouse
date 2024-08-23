@@ -15,6 +15,7 @@ import com.fa.BlueHouse.authen.model.Account;
 import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.services.AccountService;
+import com.fa.BlueHouse.services.AdministratorsService;
 import com.fa.BlueHouse.services.EmployeeService;
 import com.fa.BlueHouse.services.ResidentService;
 
@@ -30,6 +31,9 @@ public class AccountController {
 
 	@Autowired
 	private ResidentService rService;
+	
+	@Autowired
+	private AdministratorsService adminService;
 
 	@GetMapping({ "/", "/list" })
 	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
@@ -114,6 +118,16 @@ public class AccountController {
 
 		account.setEmployee(emp);
 		account.setResident(resi);
+		
+		if (emp != null && emp.getDuty().equalsIgnoreCase("Manager")) {
+			account.setRole(2);
+		} else if(emp != null && emp.getDuty().equalsIgnoreCase("Employee")) {
+			account.setRole(4);
+		} else if(resi != null && adminService.isExits(resi.getIdResident())) {
+			account.setRole(1);
+		} else {
+			account.setRole(3);
+		}
 
 		aService.saveAccount(account);
 		return "redirect:/account/list";
@@ -138,6 +152,8 @@ public class AccountController {
 			@ModelAttribute("resident") Resident resi) {
 
 		account.setUsername(accountEdit.getUsername());
+		account.setRole(accountEdit.getRole());
+		
 		if (account.getPassword() == null) {
 			account.setPassword(accountEdit.getPassword());
 			account.setActive(accountEdit.getActive());
@@ -150,8 +166,6 @@ public class AccountController {
 			account.setEmployee(null);
 			account.setResident(rService.findById(resi.getIdResident()));
 		}
-
-		System.err.println(account.toString());
 
 		aService.saveAccount(account);
 		return "redirect:/account/list";
