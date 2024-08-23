@@ -1,13 +1,10 @@
 package com.fa.BlueHouse.repositories;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.fa.BlueHouse.entities.IncomeBill;
 
 public interface IncomeBillRepositories extends JpaRepository<IncomeBill, String> {
@@ -22,6 +19,6 @@ public interface IncomeBillRepositories extends JpaRepository<IncomeBill, String
     String findMaxId();
 	
 	@Query("FROM IncomeBill b WHERE b.status = :status")
-	List<IncomeBill> findByStatus(@Param("status") String status);
+	Page<IncomeBill> findByStatus(@Param("status") String status, Pageable page);
 
 }
