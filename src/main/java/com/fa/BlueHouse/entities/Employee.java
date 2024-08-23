@@ -46,6 +46,9 @@ public class Employee {
 
 	@Column(name = "Duty")
 	private String duty;
+	
+	private String profile;
+	
 //	======================One To Many=========================
 
 	@OneToMany(mappedBy = "employeeID")
@@ -71,8 +74,18 @@ public class Employee {
 	private Set<EmployeeWork> employeeWork;
 
 //	====================================================
+	
+	
 	public String getEmployeeID() {
 		return employeeID;
+	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
 	}
 
 	public void setEmployeeID(String employeeID) {

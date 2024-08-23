@@ -128,10 +128,20 @@
 							Female
 						</label>
 					</div>
-
 					<div class="error-message text-danger pt-3">
                      	<span id="gender-error"></span>
                     </div>
+                    
+                    <div class=" col-6 mb-3">
+					<label for="relationshipHousehold" class="form-lable">IMG Profile</label>
+					<div>
+						<span th:if="${#fields.hasErrors('profile')}"
+							th:errors="*{profile}" class="text-danger"></span>
+					</div>
+					<input type="file" id="file" name ="file"
+						placeholder="profile" aria-label="Username" 
+						aria-describedby="addon-wrapping">
+				</div>
 				</div>
 
 			</div>
