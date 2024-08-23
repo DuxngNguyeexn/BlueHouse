@@ -1,5 +1,10 @@
 package com.fa.BlueHouse.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.Resident;
@@ -23,6 +30,7 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/Resident")
 public class ResidentController {
+	private final String uploadResident = "D:/Spring-Boot/imgdate";
 	@Autowired
 	private ResidentService resident;
 
@@ -34,10 +42,24 @@ public class ResidentController {
 	}
 
 	@PostMapping("/saveresident")
-	public String saveResident(Model model,@Valid @ModelAttribute Resident resi, BindingResult result) {
+	public String saveResident(Model model,@Valid @ModelAttribute Resident resi, BindingResult result, @RequestParam("file")MultipartFile file,
+            RedirectAttributes redirectAttributes) {
 		if(result.hasErrors()) {
 			model.addAttribute("listapartment", resident.findallapart());
 			return "/Resident/createResident";
+		}
+		if(file != null) {
+			  try {
+		            // Lưu file xuống ổ D
+		            String fileName = file.getOriginalFilename();
+		            Path path = Paths.get(uploadResident + File.separator + fileName);
+		            Files.write(path, file.getBytes());
+
+		           resi.setProfile(fileName);
+
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
 		}
 		resident.saveResident(resi);
 		return "redirect:/Resident/showlistresident";
