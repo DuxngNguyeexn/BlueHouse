@@ -73,7 +73,7 @@ section.navbody {
 
 .Menu {
 	background: rgb(207, 226, 255);
-	width: 10%;
+	width: min-content ! important;
 	min-height : 795px;
 	padding-top : 30px; 	
 }

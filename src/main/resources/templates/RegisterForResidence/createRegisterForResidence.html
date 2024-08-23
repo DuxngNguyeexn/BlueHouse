@@ -78,8 +78,8 @@
 				</div>
 			</div>
 			
-			<div class="row pb-3">
-				<div class=" col-3">
+			<div class="row pb-4">
+				<div class=" col-4">
 					<label for="phone" class="form-lable">Phone</label>
 					<input type="text" th:field="*{phone}" id="phone" class="form-control" placeholder="Phone">
 					<div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger"></div>
@@ -89,7 +89,7 @@
                     </div>
 				</div>
 				
-				<div class=" col-3">
+				<div class=" col-4">
 					<label for="idNational" class="form-lable">Id National</label>
 					<input type="text" name="idNational" id="idNational" class="form-control" placeholder="Id National">
 					<div th:if="${#fields.hasErrors('idNational')}" th:errors="*{idNational}" class="text-danger"></div>
@@ -99,7 +99,7 @@
                     </div>
 				</div>
 				
-				<div class="col-3">
+				<div class="col-4">
 					<label for="idApartmentResi" class="form-lable">Apartment Number</label> 
 					<select th:field="*{idApartmentResi}" class="form-control" required>
 						<th:block th:each="apartment : ${listapa}">
@@ -112,7 +112,7 @@
                     </div>
 				</div>
 				
-				<div class="col-3">
+				<!-- <div class="col-3">
 					<label for="idResidentResi" class="form-lable">Name Resident</label> <select
 						th:field="*{idResidentResi}" class="form-control" required>
 						<th:block th:each="resident : ${listresi}">
@@ -124,7 +124,7 @@
 					<div class="error-message text-danger pt-3">
                      	<span id="idResi-error"></span>
                     </div>
-				</div>
+				</div> -->
 			</div>
 
 			<div class="d-flex justify-content-end">

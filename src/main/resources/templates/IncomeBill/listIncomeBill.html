@@ -22,7 +22,7 @@
 		</div>
 	</nav>
 	<div class="d-flex justify-content-end">
-	<a th:href="@{/IncomeBillDetail/createapartmentbill(idapartment=${apartment.idApartment})}"
+	<a th:href="@{/IncomeBill/createapartmentbill(idapartment=${apartment.idApartment})}"
 					target="blank">
    <button sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" class="btn btn-primary m-2" type="submit">Create IncomeBill</button></a>
 	</div>

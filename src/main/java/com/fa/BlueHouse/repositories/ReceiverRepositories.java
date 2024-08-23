@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.fa.BlueHouse.entities.Notification;
 import com.fa.BlueHouse.entities.Receiver;
 
-public interface ReceiverRepositories extends JpaRepository<Receiver, String> {
+public interface ReceiverRepositories extends JpaRepository<Receiver, Integer> {
 	@Query("SELECT DISTINCT recei.notification FROM Receiver recei WHERE recei.senderEmp.employeeID = :idEmp OR recei.senderResi.idResident = :idEmp")
 	List<Notification> findByIDSend(@Param("idEmp") String idEmp);
 	

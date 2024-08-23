@@ -47,7 +47,7 @@
 						<td th:text="${Regis.expirationDate}"></td>
 						<td th:text="${Regis.apartmentVE.idApartment}"></td>
 						<td><a
-							th:href="@{/saveregisdetail(idbill=${IncomeBill.idIncomeBill},idvehicle=${Regis.idVehicle})}"
+							th:href="@{/IncomeBillDetail/saveregisdetail(idbill=${IncomeBill.idIncomeBill},idvehicle=${Regis.idVehicle})}"
 							target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td>
 					</tr>
 				</tbody>
