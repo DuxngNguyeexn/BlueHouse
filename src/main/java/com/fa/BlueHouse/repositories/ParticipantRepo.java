@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.fa.BlueHouse.entities.Event;
 import com.fa.BlueHouse.entities.Participants;
 
 public interface ParticipantRepo extends JpaRepository<Participants, String> {
@@ -20,5 +21,8 @@ public interface ParticipantRepo extends JpaRepository<Participants, String> {
 	
 	@Query("SELECT p FROM Participants p WHERE p.IDEvent.idEvent = :eventID ")
 	List<Participants> findListPartiByEvent(@Param("eventID") String eventID);
+	
+	@Query("SELECT p.IDEvent FROM Participants p WHERE p.participantEmp.employeeID = :myID OR p.participantResi.idResident = :myID ")
+	Page<Event> findEventMyJoin(@Param("myID") String myID, Pageable pageable);
 	
 }

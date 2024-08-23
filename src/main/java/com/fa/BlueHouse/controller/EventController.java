@@ -62,7 +62,7 @@ public class EventController {
 
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		Page<Event> listEvent = eventService.getAllEvent(auth.getId(), pageRequest);
+		Page<Event> listEvent = eventService.getAllEventMyCreate(auth.getId(), pageRequest);
 
 		int totalPages;
 		if (listEvent.getTotalPages() < 1) {
@@ -71,11 +71,42 @@ public class EventController {
 			totalPages = listEvent.getTotalPages();
 		}
 
+		for (Event e : listEvent.getContent()) {
+			e.setNumberOfParticipants(partiService.findListPartiByEvent(e.getIdEvent()).size());
+		}
+
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("listEvent", listEvent.getContent());
 
 		return "Event/list";
+	}
+
+	@GetMapping("/listJoin")
+	public String eventListMyJoin(@RequestParam(name = "page", defaultValue = "1") int page, Model model,
+			Principal principal) {
+		AccountDTO auth = (AccountDTO) ((Authentication) principal).getPrincipal();
+
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<Event> listEvent = partiService.findEventMyJoin(auth.getId(), pageRequest);
+
+		int totalPages;
+		if (listEvent.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
+			totalPages = listEvent.getTotalPages();
+		}
+
+		for (Event e : listEvent.getContent()) {
+			e.setNumberOfParticipants(partiService.findListPartiByEvent(e.getIdEvent()).size());
+		}
+
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("listEvent", listEvent.getContent());
+
+		return "Event/listMyJoin";
 	}
 
 	@GetMapping("/add")

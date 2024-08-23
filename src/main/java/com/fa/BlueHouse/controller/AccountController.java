@@ -31,7 +31,7 @@ public class AccountController {
 
 	@Autowired
 	private ResidentService rService;
-	
+
 	@Autowired
 	private AdministratorsService adminService;
 
@@ -118,12 +118,12 @@ public class AccountController {
 
 		account.setEmployee(emp);
 		account.setResident(resi);
-		
+
 		if (emp != null && emp.getDuty().equalsIgnoreCase("Manager")) {
 			account.setRole(2);
-		} else if(emp != null && emp.getDuty().equalsIgnoreCase("Employee")) {
+		} else if (emp != null && emp.getDuty().equalsIgnoreCase("Employee")) {
 			account.setRole(4);
-		} else if(resi != null && adminService.isExits(resi.getIdResident())) {
+		} else if (resi != null && adminService.isExits(resi.getIdResident())) {
 			account.setRole(1);
 		} else {
 			account.setRole(3);
@@ -136,7 +136,7 @@ public class AccountController {
 	private Account accountEdit;
 
 	@GetMapping("/edit")
-	public String editEmp(Model model, @RequestParam(name = "userName") String userName) {
+	public String editAcc(Model model, @RequestParam(name = "userName") String userName) {
 		Account acc = aService.findByUserName(userName);
 
 		model.addAttribute("account", acc);
@@ -148,12 +148,12 @@ public class AccountController {
 	}
 
 	@PostMapping("/update")
-	public String updateEmp(@ModelAttribute("account") Account account, @ModelAttribute("employee") Employee emp,
+	public String updateAcc(@ModelAttribute("account") Account account, @ModelAttribute("employee") Employee emp,
 			@ModelAttribute("resident") Resident resi) {
 
 		account.setUsername(accountEdit.getUsername());
 		account.setRole(accountEdit.getRole());
-		
+
 		if (account.getPassword() == null) {
 			account.setPassword(accountEdit.getPassword());
 			account.setActive(accountEdit.getActive());
@@ -169,6 +169,26 @@ public class AccountController {
 
 		aService.saveAccount(account);
 		return "redirect:/account/list";
+	}
+
+	private Account changePassAccount = new Account();
+
+	@GetMapping("/changePass")
+	public String changePass(Model model, @RequestParam(name = "userName") String userName) {
+		Account acc = aService.findByUserName(userName);
+		changePassAccount = acc;
+		model.addAttribute("account", acc);
+		model.addAttribute("resident", acc.getResident());
+		model.addAttribute("employee", acc.getEmployee());
+
+		return "Account/changePass";
+	}
+
+	@PostMapping("/updatePass")
+	public String updatePass(@ModelAttribute("account") Account account) {
+		changePassAccount.setPassword(account.getPassword());
+		aService.saveAccount(changePassAccount);
+		return "redirect:/";
 	}
 
 }

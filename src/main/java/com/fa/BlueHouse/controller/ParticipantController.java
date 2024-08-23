@@ -59,7 +59,8 @@ public class ParticipantController {
 
 	@GetMapping("/detail")
 	public String detail(Model model, @RequestParam("eventID") String eventID,
-			@RequestParam(name = "page", defaultValue = "1") int page) {
+			@RequestParam(name = "page", defaultValue = "1") int page, Principal principal) {
+		AccountDTO auth = (AccountDTO) ((Authentication) principal).getPrincipal();
 
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
@@ -72,9 +73,18 @@ public class ParticipantController {
 			totalPages = listParticipants.getTotalPages();
 		}
 
+		int author = 0;
+		for (Event e : eventService.getAllEventMyCreate(auth.getId())) {
+			if (e.getIdEvent().equals(eventID)) {
+				author = 1;
+				break;
+			}
+		}
+
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("listParticipants", listParticipants.getContent());
+		model.addAttribute("author", author);
 
 		return "Event/viewDetailEvent";
 	}

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.fa.BlueHouse.entities.Event;
 import com.fa.BlueHouse.entities.Participants;
 import com.fa.BlueHouse.repositories.ParticipantRepo;
 
@@ -43,4 +44,8 @@ public class ParticipantService {
 		return partiRepo.findById(id).orElse(null);
 	}
 
+	public Page<Event> findEventMyJoin(String myId, Pageable pageable) {
+		return partiRepo.findEventMyJoin(myId, pageable);
+	}
+	
 }

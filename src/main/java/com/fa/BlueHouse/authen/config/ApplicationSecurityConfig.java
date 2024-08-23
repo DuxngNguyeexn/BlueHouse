@@ -35,33 +35,45 @@ public class ApplicationSecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(
-						(auth) -> auth.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-								.requestMatchers("/login", "/forgot/**", "/common/**", "/lib/**").permitAll()
+				.authorizeHttpRequests((auth) -> auth
+						.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
+						.requestMatchers("/login", "/forgot/**", "/common/**", "/lib/**").permitAll()
 
-								.requestMatchers("/event/confirm").hasAnyRole(ADMIN, RESIDENT, MANAGE, EMPLOYEE)
-								.requestMatchers("/event/**").hasRole(ADMIN)
+						/*
+						 * =================task Huy==============
+						 */
+						.requestMatchers("/account/changePass","/account/updatePass").hasAnyRole(ADMIN, RESIDENT, MANAGE, EMPLOYEE)
+						.requestMatchers("/account/**").hasAnyRole(ADMIN, MANAGE)
+						
+						.requestMatchers("/notification/viewDetail", "/notification/listSeen").hasAnyRole(ADMIN, RESIDENT, MANAGE, EMPLOYEE)
+						.requestMatchers("/notification/**").hasAnyRole(ADMIN, MANAGE)
+						
+						.requestMatchers("/employee/add", "/employee/save", "/employee/delete", "/employee/edit", "/employee/update").hasAnyRole(ADMIN, MANAGE)
 
-								/*
-								 * =============================== task Duong
-								 * ==================================================
-								 * 
-								 */
-								.requestMatchers("/employee/", "/IncomeBill/showinvoiceapratmentbill",
-										"/IncomeBill/searchapartmentbill", "/IncomeBillDetail/showlishtdetail",
-										"/IncomeBillDetail/searchIncobilldetail", "/Administrators/showlistadminis",
-										"/Administrators/searchadminis", "/ExpenseBill/show", "/ExpenseBill/listdetail",
-										"/ExpenseBill/searchexpensebill", "/ExpenseBill/searchexpensebilldetail",
-										"/vehicleRegistration/list")
-								.hasAnyRole(RESIDENT, ADMIN, MANAGE, EMPLOYEE).requestMatchers("/ExpenseBill/**")
-								.hasAnyRole(ADMIN, MANAGE, EMPLOYEE)
-								.requestMatchers("/IncomeBill/**", "/IncomeBillDetail/**").hasAnyRole(MANAGE, EMPLOYEE)
-								.requestMatchers("/Administrators/**", "/Position/**", "/Resident/**").hasRole(ADMIN)
-								.anyRequest().authenticated())
+						.requestMatchers("/event/confirm", "/event/listJoin", "/event/detail").hasAnyRole(ADMIN, RESIDENT, MANAGE, EMPLOYEE)
+						.requestMatchers("/event/**").hasRole(ADMIN)
+						/*
+						 * =================task Huy==============
+						 */
+
+						/*
+						 * =================task Duong==============
+						 */
+						.requestMatchers("/employee/", "/IncomeBill/showinvoiceapratmentbill",
+								"/IncomeBill/searchapartmentbill", "/IncomeBillDetail/showlishtdetail",
+								"/IncomeBillDetail/searchIncobilldetail", "/Administrators/showlistadminis",
+								"/Administrators/searchadminis", "/ExpenseBill/show", "/ExpenseBill/listdetail",
+								"/ExpenseBill/searchexpensebill", "/ExpenseBill/searchexpensebilldetail",
+								"/vehicleRegistration/list")
+						.hasAnyRole(RESIDENT, ADMIN, MANAGE, EMPLOYEE).requestMatchers("/ExpenseBill/**")
+						.hasAnyRole(ADMIN, MANAGE, EMPLOYEE).requestMatchers("/IncomeBill/**", "/IncomeBillDetail/**")
+						.hasAnyRole(MANAGE, EMPLOYEE)
+						.requestMatchers("/Administrators/**", "/Position/**", "/Resident/**").hasRole(ADMIN)
+						.anyRequest().authenticated())
 				/*
-				 * ========================================================== Task Duong
-				 * =============================================================================
+				 * ===========================Task Duong===============================
 				 */
+
 				.formLogin(form -> form.loginPage("/login").usernameParameter("username").passwordParameter("password")
 						.defaultSuccessUrl("/").permitAll())
 

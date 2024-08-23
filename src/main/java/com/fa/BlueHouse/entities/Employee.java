@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -49,13 +50,13 @@ public class Employee {
 	@OneToMany(mappedBy = "employeeID")
 	private List<HistoryOff> HistoryOffID;
 
-	@OneToMany(mappedBy = "senderEmp")
+	@OneToMany(mappedBy = "senderEmp", cascade = CascadeType.REMOVE)
 	private List<Receiver> senderEmp;
 
-	@OneToMany(mappedBy = "receiverEmp")
+	@OneToMany(mappedBy = "receiverEmp", cascade = CascadeType.REMOVE)
 	private List<Receiver> receiverEmp;
 
-	@OneToMany(mappedBy = "participantEmp")
+	@OneToMany(mappedBy = "participantEmp", cascade = CascadeType.REMOVE)
 	private List<Participants> participantEmp;
 
 //	======================Many To Many==============================
