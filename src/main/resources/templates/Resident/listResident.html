@@ -57,7 +57,7 @@
 				<td th:text="${resident.birthday}"></td>
 				<td th:text="${resident.workplace}"></td>
 				<td th:text="${resident.relationshipHousehold}"></td>
-				<td th:text="${resident.idApartment.idApartment}"></td>
+				<td th:text="${resident.idApartment != null ? resident.idApartment.idApartment : ' '}"></td>
 				<td th:text="${resident.phonenumber}"></td>
 				<td th:text="${resident.countryside}"></td>
 				<td > <img th:src="@{'/imgResident/' + ${resident.profile}}" alt="Picture" width="50px"
