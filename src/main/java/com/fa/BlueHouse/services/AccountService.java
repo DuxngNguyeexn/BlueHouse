@@ -52,5 +52,7 @@ public class AccountService {
 	public List<Resident> getReciNotInAccount() {
 		return aRepo.getReciNotInAccount();
 	}
-
+	public List<Account> findByRole2(){
+		return aRepo.findRole2();
+	}
 }

@@ -35,4 +35,10 @@ public class ReportService {
 	public Report findById(String id) {
 		return reportRepository.findById(id).orElse(null);
 	}
+	public Page<Report> findByKeyword(Pageable pageable , String keyword){
+		return reportRepository.findReportByKeyword( keyword ,pageable );
+	}
+	public Page<Report> findRPByResidentIdAndKeyword(String id, Pageable pageable, String keyword){
+		return reportRepository.findReportByResidentIdAndKeyword(id, pageable, keyword);
+	}
 }

@@ -1,35 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="~{layout/layout}">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
 </head>
+
 <body layout:fragment="content">
 
-<div class="container mt-4 ">
+	<div class="container mt-4 ">
 		<div class="h1 text-center mb-4">
 			<a href="list" class="text-decoration-none">List Request</a>
 		</div>
-		<div class="text-center w-50 m-auto">
-			<form th:action="search">
-				<div class="input-group ">
-					<input type="text" class="form-control border-right-0" id="search"
-						placeholder="Search" name="searchKeyword">
-					<button class="input-group-text border-left-0 bg-white" id="search"
-						type="submit" style="border-radius: 0 .25rem .25rem 0;">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-							fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path
-								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                          </svg>
-					</button>
-				</div>
-			</form>
-		</div>
+		<div class="d-flex justify-content-between">
+			<div class="text-center w-50 m-auto">
+				<form th:action="search">
+					<div class="input-group ">
+						<input type="text" class="form-control border-right-0" id="search" placeholder="Search"
+							name="searchKeyword">
+						<button class="input-group-text border-left-0 bg-white" id="search" type="submit"
+							style="border-radius: 0 .25rem .25rem 0;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+								class="bi bi-search" viewBox="0 0 16 16">
+								<path
+									d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+							</svg>
+						</button>
+					</div>
+				</form>
 
+			</div>
+			<div class="text-center" sec:authorize="hasAnyRole('RESIDENT', 'ADMIN')">
+				<a class="btn btn-success " href="showAdd"> + Thêm mới </a>
+			</div>
+		</div>
 
 	</div>
 	<div class="container mt-4">
@@ -52,11 +59,13 @@
 					<td th:text="${l.dateSent}"></td>
 					<td th:text="${l.status}"></td>
 					<td th:text="${l.employee != null ? l.employee.fullName : '  '}"></td>
-					<td th:if="${l.imgRequests != null and l.imgRequests.size() > 0}" class="d-flex justify-content-center">
+					<td th:if="${l.imgRequests != null and l.imgRequests.size() > 0}"
+						class="d-flex justify-content-center">
 						<div th:each="i : ${l.imgRequests}">
-							<img th:src="@{'/imagesRequest/' + ${i.imagePath}}" alt="Picture" width="50px" height="50px"/>
+							<img th:src="@{'/imagesRequest/' + ${i.imagePath}}" alt="Picture" width="50px"
+								height="50px" />
 						</div>
-						
+
 					</td>
 					<td th:if="${l.imgRequests == null or l.imgRequests.size() == 0}">
 						No picture available.
@@ -64,12 +73,13 @@
 					<td><a th:href="@{showDetail(id=${l.idForm})}">Detail</a></td>
 
 				</tr>
-			</tbody> 
+			</tbody>
 		</table>
 		<div th:replace="@{layout/page} :: pageAble"></div>
 	</div>
-	
+
 
 
 </body>
+
 </html>
