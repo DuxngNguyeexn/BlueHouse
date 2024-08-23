@@ -75,5 +75,10 @@ public class RegisterForResidenceServices {
 	public Page<RegisterForResidence> seachRegisterForResidence(Pageable pageable, String search){
 		return regiresirepository.searchRegisterForResidence(search, pageable);
 	}
-	
+	public Page<RegisterForResidence> allRegisterForResidence(String idApartmentResi ,Pageable pageable){
+		return regiresirepository.findByidApartmentResi(idApartmentResi, pageable);
+	}
+	public List<Apartment> allEmployee(String idApartment){
+		return apartmentRepository.findByapartment(idApartment);
+	}
 }

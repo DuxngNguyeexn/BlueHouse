@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fa.BlueHouse.authen.model.Account;
 import com.fa.BlueHouse.entities.Administrators;
+import com.fa.BlueHouse.services.AccountService;
 import com.fa.BlueHouse.services.AdministratorsService;
 import com.fa.BlueHouse.services.PositionService;
 import com.fa.BlueHouse.services.ResidentService;
@@ -29,28 +31,38 @@ public class AdministratorsController {
 	private ResidentService resident;
 	@Autowired
 	private PositionService posi;
-	
+
+	@Autowired
+	private AccountService accService;
+
 	@GetMapping("/createadminis")
 	public String createAdministrators(Model model) {
-	    model.addAttribute("Adminis", new Administrators());
+		model.addAttribute("Adminis", new Administrators());
 		model.addAttribute("resident", resident.findallResident());
 		model.addAttribute("position", posi.findall());
 		return "/Administrators/createAdminis";
 	}
-	
+
 	@PostMapping("/saveadminis")
-	public String saveAdminis(Model model,@Valid @ModelAttribute("Adminis") Administrators admin, BindingResult result) {
-		if(result.hasErrors()) {
+	public String saveAdminis(Model model, @Valid @ModelAttribute("Adminis") Administrators admin,
+			BindingResult result) {
+		if (result.hasErrors()) {
 			model.addAttribute("resident", resident.findallResident());
 			model.addAttribute("position", posi.findall());
 			return "/Administrators/createAdminis";
-		}else {
+		} else {
 			adminis.saveAdminis(admin);
+
+			for (Account acc : accService.getAccByResi(admin.getIdResident().getIdResident())) {
+				acc.setRole(1);
+				accService.saveAccount(acc);
+			}
+
 			return "redirect:/Administrators/showlistadminis";
 		}
-		
+
 	}
-	
+
 	@GetMapping("/showlistadminis")
 	public String showlistAdminis(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
 		int pageSize = 6;
@@ -61,6 +73,7 @@ public class AdministratorsController {
 		model.addAttribute("listAdminis", listadmin.getContent());
 		return "/Administrators/listAdminis";
 	}
+
 	@GetMapping("/searchadminis")
 	public String searchResident(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,
 			@RequestParam(name = "page", defaultValue = "1") int page) {
@@ -68,17 +81,18 @@ public class AdministratorsController {
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 		Page<Administrators> listadmin = adminis.findsearchAdmin(keyword, pageRequest);
 		model.addAttribute("currentPage", page);
-		int totalPages ;
-		if(listadmin.getTotalPages() < 1) {
-			totalPages = 1 ;
-		}else {
+		int totalPages;
+		if (listadmin.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
 			totalPages = listadmin.getTotalPages();
 		}
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("searchKeyword", keyword);
 		model.addAttribute("listAdminis", listadmin.getContent());
 		return "/Administrators/listAdminis";
-		}
+	}
+
 	@GetMapping("/editAdminis")
 	public String editAdminis(Model model, @RequestParam("idBQT") String id) {
 		model.addAttribute("resident", resident.findallResident());
@@ -86,8 +100,15 @@ public class AdministratorsController {
 		model.addAttribute("Adminis", adminis.findById(id));
 		return "/AdminisTrators/updateAdminis";
 	}
+
 	@GetMapping("/deleteAdminis")
 	public String deleteAdminis(@RequestParam("idBQT") String id) {
+		Administrators admin = adminis.findById(id);
+		for (Account acc : accService.getAccByResi(admin.getIdResident().getIdResident())) {
+			acc.setRole(3);
+			accService.saveAccount(acc);
+		}
+		
 		adminis.deleteAdminis(id);
 		return "redirect:/Administrators/showlistadminis";
 	}

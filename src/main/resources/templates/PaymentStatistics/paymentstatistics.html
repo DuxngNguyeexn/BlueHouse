@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="ISO-8859-1">
+<title>Create IncomeBill</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- <style type="text/css">
+.chart {
+	height: 300px;
+	width: 400px;
+} 
+
+</style>-->
+</head>
+<body layout:fragment="content">
+	<div class="container text-center">
+		<h1 class="text-primary">PAYMENT STATISTICS</h1>
+		<div class="chart d-flex ">
+			<div>
+				<!-- <div class="total-amount" id="totalAmount"></div>
+				<canvas id="donutChart"></canvas> -->
+				<div class="total-amount" id="totalAmount"></div>
+				<div id="donutchart" style="width: 400px; height: 250px;"></div>
+			</div>
+		</div>
+	</div> 
+    
+    <div id = "notbill" class="container">
+    <h1>Bill Not Paid</h1>
+    	<table class="table" >
+    		
+		<thead class="table-dark">
+			<tr>
+				<th scope="col">ID IncomeBill</th>
+				<th scope="col">Bill Date</th>
+				<th scope="col">Paymen Date</th>
+				<th scope="col">Employee</th>
+				<th scope="col">Status</th>
+				<th scope="col">Total</th>
+				<th scope="col">Detail</th>
+				<th sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" scope="col">Pay Bill</th>
+			</tr>
+		</thead>
+		<tbody th:each="bill : ${listapartmentbill}">
+			<tr>
+				<td th:text="${bill.idIncomeBill}"></td>
+				<td th:text="${bill.billDate}"></td>
+				<td th:text="${bill.paymentDate}"></td>
+				<td th:text="${bill.idEmployee != null ? bill.idEmployee.fullName : ' '}"></td>
+				<td th:text="${bill.status}"></td>
+				<td th:text="${bill.getTotalbill}"></td>
+				<td> <a th:href="@{/IncomeBillDetail/showlishtdetail(idbill=${bill.idIncomeBill})}"
+					target="blank"><i class="fa-solid fa-calendar-week"></i></a></td>
+				<td sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" > <a th:href="@{/IncomeBill/paybill(idbill=${bill.idIncomeBill})}" th:if="${bill.paymentDate == null}"
+					target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:replace="@{layout/page} :: pageAble"></div>
+    </div>
+	
+	<div id = "billpaid" class="container">
+		<h1>Bill Paid</h1>
+		<table class="table" >
+		<thead class="table-dark">
+			<tr>
+				<th scope="col">ID IncomeBill</th>
+				<th scope="col">Bill Date</th>
+				<th scope="col">Paymen Date</th>
+				<th scope="col">Employee</th>
+				<th scope="col">Status</th>
+				<th scope="col">Total</th>
+				<th scope="col">Detail</th>
+				<th sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" scope="col">Pay Bill</th>
+			</tr>
+		</thead>
+		<tbody th:each="bill : ${listApartmentBillpaid}">
+			<tr>
+				<td th:text="${bill.idIncomeBill}"></td>
+				<td th:text="${bill.billDate}"></td>
+				<td th:text="${bill.paymentDate}"></td>
+				<td th:text="${bill.idEmployee != null ? bill.idEmployee.fullName : ' '}"></td>
+				<td th:text="${bill.status}"></td>
+				<td th:text="${bill.getTotalbill}"></td>
+				<td> <a th:href="@{/IncomeBillDetail/showlishtdetail(idbill=${bill.idIncomeBill})}"
+					target="blank"><i class="fa-solid fa-calendar-week"></i></a></td>
+				<td sec:authorize="hasRole('MANAGE') or hasRole('EMPLOYEE')" > <a th:href="@{/IncomeBill/paybill(idbill=${bill.idIncomeBill})}" th:if="${bill.paymentDate == null}"
+					target="blank"><i class="fa-solid fa-file-invoice-dollar"></i></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:replace="@{layout/page} :: pageAble"></div>
+	</div>
+    <script th:src="@{/PaymentStatistics/js/pay.js}"></script>
+</body>
+</html>

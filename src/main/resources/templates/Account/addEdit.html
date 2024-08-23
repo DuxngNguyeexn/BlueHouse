@@ -33,33 +33,17 @@
 
 			<div class="row pb-2 d-flex justify-content-around">
 				<div class="col-5">
-					<label for="role" class="form-lable">Role</label>
+					<label for="role" class="form-lable">Create Account For</label>
 					<select id="role" th:field="*{role}" class="form-control" required>
-						<option value="1">ADMIN</option>
-						<option value="2">MANAGE</option>
-						<option value="3">RESIDENT</option>
-						<option value="4">EMPLOYEE</option>
+						<option value="1">FOR RESIDENT</option>
+						<option value="2">FOR EMPLOYEE </option>
 					</select>
 
 					<div class="error-message text-danger pt-3">
 						<span id="office-error"></span>
 					</div>
 				</div>
-
-				<div class="col-5">
-					<label for="active" class="form-lable">Active</label>
-					<select id="active" th:field="*{active}" class="form-control" required>
-						<option value="0">Non-Active</option>
-						<option value="1">Active</option>
-					</select>
-
-					<div class="error-message text-danger pt-3">
-						<span id="active-error"></span>
-					</div>
-				</div>
-			</div>
-
-			<div class="row pb-2 d-flex justify-content-around">
+				
 				<div id="div-resident" class="col-5" th:object="${resident}">
 					<label for="idResi" class="form-lable">ID Resident</label>
 
@@ -74,6 +58,22 @@
 					<select id="idEmp" th:field="*{employeeID}" class="form-control">
 						<option th:each="emp : ${listEmp}" th:value="${emp.employeeID}" th:text="${emp.employeeID}"></option>
 					</select>
+				</div>
+
+				
+			</div>
+
+			<div class="row pb-2 d-flex justify-content-around">
+				<div class="col-5">
+					<label for="active" class="form-lable">Active</label>
+					<select id="active" th:field="*{active}" class="form-control" required>
+						<option value="0">Non-Active</option>
+						<option value="1">Active</option>
+					</select>
+
+					<div class="error-message text-danger pt-3">
+						<span id="active-error"></span>
+					</div>
 				</div>
 			</div>
 

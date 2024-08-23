@@ -32,25 +32,17 @@
 			</div>
 
 			<div class="row pb-2 d-flex justify-content-around">
+				
+			
 				<div class="col-5">
 					<label for="role" class="form-lable">Role</label>
-					<div th:if="${resident != null}">
-						<select id="role" th:field="*{role}" class="form-control" required>
+					
+						<select id="role" th:field="*{role}" class="form-control" disabled="disabled">
 							<option value="1">ADMIN</option>
 							<option value="3">RESIDENT</option>
-						</select>
-					</div>
-
-					<div th:if="${employee != null}">
-						<select id="role" th:field="*{role}" class="form-control" required>
 							<option value="2">MANAGE</option>
 							<option value="4">EMPLOYEE</option>
 						</select>
-					</div>
-
-					<div class="error-message text-danger pt-3">
-						<span id="office-error"></span>
-					</div>
 				</div>
 
 				<div class="col-5">

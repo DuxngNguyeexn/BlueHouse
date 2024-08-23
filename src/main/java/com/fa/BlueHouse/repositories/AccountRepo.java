@@ -22,6 +22,12 @@ public interface AccountRepo extends JpaRepository<Account, String> {
 	
 	@Query("SELECT r FROM Resident r LEFT JOIN Account a ON r.idResident = a.resident.idResident WHERE a.resident.idResident IS NULL")
 	List<Resident> getReciNotInAccount();
+	
+	@Query("SELECT a FROM Account a WHERE a.employee.employeeID = :idEmp ")
+	List<Account> getAccByEmp(@Param("idEmp") String idEmp);
+
+	@Query("SELECT a FROM Account a WHERE a.resident.idResident = :idResi ")
+	List<Account> getAccByResi(@Param("idResi") String idResi);
 
 	@Query("SELECT a FROM Account a WHERE a.role = 2 ")
 	List<Account> findRole2();

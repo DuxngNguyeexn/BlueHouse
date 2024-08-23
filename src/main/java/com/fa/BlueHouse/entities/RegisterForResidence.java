@@ -21,9 +21,9 @@ public class RegisterForResidence {
 //	@Pattern(regexp = "^(DV)\\d{5}$", message = "Ma dich vu không hợp lệ")
 	private String idResidence;
 
-	@ManyToOne
-	@JoinColumn(name = "idResidentResi")
-	private Resident idResidentResi;
+//	@ManyToOne
+//	@JoinColumn(name = "idResidentResi")
+//	private Resident idResidentResi;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_ApartmentResi")
@@ -61,12 +61,11 @@ public class RegisterForResidence {
 		super();
 	}
 
-	public RegisterForResidence(String idResidence, Resident idResidentResi, Apartment idApartmentResi,
+	public RegisterForResidence(String idResidence, Apartment idApartmentResi,
 			String relationshipWithHomeowner, String type, LocalDate dateOfBirth, String phone, LocalDate moveInDate,
 			LocalDate moveOutDate, String idNational, Employee managerCodeRegi) {
 		super();
 		this.idResidence = idResidence;
-		this.idResidentResi = idResidentResi;
 		this.idApartmentResi = idApartmentResi;
 		this.relationshipWithHomeowner = relationshipWithHomeowner;
 		this.type = type;
@@ -84,14 +83,6 @@ public class RegisterForResidence {
 
 	public void setIdResidence(String idResidence) {
 		this.idResidence = idResidence;
-	}
-
-	public Resident getIdResidentResi() {
-		return idResidentResi;
-	}
-
-	public void setIdResidentResi(Resident idResidentResi) {
-		this.idResidentResi = idResidentResi;
 	}
 
 	public Apartment getIdApartmentResi() {

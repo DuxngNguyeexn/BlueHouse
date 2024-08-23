@@ -2,8 +2,6 @@ package com.fa.BlueHouse.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -12,9 +10,8 @@ import jakarta.persistence.ManyToOne;
 public class Participants {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_Participants")
-	private int idParticipants;
+	private String idParticipants;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_event")
@@ -34,11 +31,11 @@ public class Participants {
 	@Column(name = "Note")
 	private String note;
 
-	public int getIdParticipants() {
+	public String getIdParticipants() {
 		return idParticipants;
 	}
 
-	public void setIdParticipants(int idParticipants) {
+	public void setIdParticipants(String idParticipants) {
 		this.idParticipants = idParticipants;
 	}
 
@@ -66,14 +63,6 @@ public class Participants {
 		this.participantResi = participantResi;
 	}
 
-	public String getMission() {
-		return mission;
-	}
-
-	public void setMission(String mission) {
-		this.mission = mission;
-	}
-
 	public String getNote() {
 		return note;
 	}
@@ -82,13 +71,22 @@ public class Participants {
 		this.note = note;
 	}
 
+	public String getMission() {
+		return mission;
+	}
+
+	public void setMission(String mission) {
+		this.mission = mission;
+	}
+
 	public Participants() {
 		super();
 	}
 
-	public Participants(Event iDEvent, Employee participantEmp, Resident participantResi,
+	public Participants(String idParticipants, Event iDEvent, Employee participantEmp, Resident participantResi,
 			String mission, String note) {
 		super();
+		this.idParticipants = idParticipants;
 		IDEvent = iDEvent;
 		this.participantEmp = participantEmp;
 		this.participantResi = participantResi;
@@ -98,9 +96,7 @@ public class Participants {
 
 	@Override
 	public String toString() {
-		return "Participants [idParticipants=" + idParticipants + ", IDEvent=" + IDEvent + ", participantEmp="
-				+ participantEmp + ", participantResi=" + participantResi + ", mission=" + mission + ", note=" + note
-				+ "]";
+		return "Participants [idParticipants=" + idParticipants + ", mission=" + mission + ", note=" + note + "]";
 	}
 
 }

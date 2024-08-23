@@ -1,8 +1,11 @@
 package com.fa.BlueHouse.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,10 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import com.fa.BlueHouse.authen.model.AccountDTO;
+import com.fa.BlueHouse.entities.Resident;
 import com.fa.BlueHouse.entities.VehicleRegistration;
+import com.fa.BlueHouse.services.ResidentService;
 import com.fa.BlueHouse.services.VehicleRegistrationService;
-
 import jakarta.validation.Valid;
 
 @Controller
@@ -24,12 +28,25 @@ public class VehicleRegistrationController {
 	@Autowired
 	private VehicleRegistrationService vehicleRegistrationService;
 	
+	@Autowired
+	private ResidentService residentService;
+	
 	@GetMapping({"/", "/list"})
-	public String showVehicleRegistration(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+	public String showVehicleRegistration(Model model, @RequestParam(name = "page", defaultValue = "1") int page, Principal principal) {
 		
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
+		String id = userDetails.getId();
+		Resident ri = residentService.findById(id);
+		Page<VehicleRegistration> listVehicleRegistration = null;
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		Page<VehicleRegistration> listVehicleRegistration = vehicleRegistrationService.allVehicleRegistration(pageRequest);
+		if("ROLE_RESIDENT".equalsIgnoreCase(role)) {
+			listVehicleRegistration = vehicleRegistrationService.allVehicleRegistration(ri.getIdApartment().getIdApartment(), pageRequest);
+		}else {
+		 listVehicleRegistration = vehicleRegistrationService.allVehicleRegistration(pageRequest);
+		}
+	
 		
 		int totalPages;
 		if (listVehicleRegistration.getTotalPages() < 1) {
@@ -73,10 +90,21 @@ public class VehicleRegistrationController {
 	
 	
 	@GetMapping("/add")
-	public String createVehicleRegistration(Model model) {
-		model.addAttribute("vehicleregi", new VehicleRegistration());
-		model.addAttribute("listapa", vehicleRegistrationService.findaApartment());
-		model.addAttribute("listfee", vehicleRegistrationService.findaFeeType());
+	public String createVehicleRegistration(Model model, Principal principal) {
+		
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String role = userDetails.getRole();
+		String id = userDetails.getId();
+		Resident ri = residentService.findById(id);
+		if("ROLE_RESIDENT".equalsIgnoreCase(role)) {
+			model.addAttribute("vehicleregi", new VehicleRegistration());
+			model.addAttribute("listapa", vehicleRegistrationService.allEmployee(ri.getIdApartment().getIdApartment()));
+			model.addAttribute("listfee", vehicleRegistrationService.findaFeeType());
+		}else {
+			model.addAttribute("vehicleregi", new VehicleRegistration());
+			model.addAttribute("listapa", vehicleRegistrationService.findaApartment());
+			model.addAttribute("listfee", vehicleRegistrationService.findaFeeType());
+		}
 		return "/VehicleRegistration/CreateVehicleRegistration";
 	}
 	

@@ -6,14 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.FeeType;
 import com.fa.BlueHouse.entities.VehicleRegistration;
 import com.fa.BlueHouse.repositories.ApartmentRepository;
 import com.fa.BlueHouse.repositories.FeetypeRepositories;
 import com.fa.BlueHouse.repositories.VehicleRegistrationRepository;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -71,5 +69,11 @@ public class VehicleRegistrationService {
 	
 	public List<VehicleRegistration> findRegisApartment(String idApartment){
 		return vehiRegiRepository.findRegisApartment(idApartment);
+	}
+	public Page<VehicleRegistration> allVehicleRegistration(String apartmentVE ,Pageable pageable){
+		return vehiRegiRepository.findByapartmentVE(apartmentVE, pageable);
+	}
+	public List<Apartment> allEmployee(String idApartment){
+		return apartmentRepository.findByapartment(idApartment);
 	}
 }
