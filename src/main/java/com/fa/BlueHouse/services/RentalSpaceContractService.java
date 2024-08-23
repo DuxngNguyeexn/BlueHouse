@@ -42,7 +42,7 @@ public class RentalSpaceContractService {
 	}
 	
 	public List<Apartment> findalApa(){
-		return apartment.findAll();
+		return apartment.searchapa();
 	}
 	
 	public RentalSpaceContract findByID(String id) {
