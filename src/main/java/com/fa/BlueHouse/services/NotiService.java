@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -41,24 +43,32 @@ public class NotiService {
 		receiRepo.save(recei);
 	}
 
-	public List<Notification> findByIDSend(String id) {
-		return receiRepo.findByIDSend(id);
+	public Page<Notification> findByIDSend(Pageable pageable, String id) {
+		return receiRepo.findByIDSend(id, pageable);
 	}
 
-	public List<Notification> findByIDSeen(String id) {
-		return receiRepo.findByIDSeen(id);
+	public Page<Receiver> findByIDSeen(Pageable pageable, String id) {
+		return receiRepo.findByIDSeen(id, pageable);
+	}
+
+	public List<Receiver> findNotiUnSeen(String id) {
+		return receiRepo.findNotiUnSeen(id);
 	}
 
 	public Notification findNotiByID(String id) {
 		return notiRepo.findById(id).orElse(null);
 	}
 
+	public Receiver findReceiByID(Integer id) {
+		return receiRepo.findById(id).orElse(null);
+	}
+
 	/**
 	 * 
 	 * @param choose       "All" || "AllEmployee" || "AllResident" || "Choosen"
-	 * @param Notification notification
-	 * @param Principal    principal
+	 * @param Notification notification Không cần set Notification Code
 	 * @param String[]     list ID Receiver
+	 * @param Principal    principal
 	 * 
 	 * @return tùy vào choose lưu dữ liệu xuống database nếu "Choosen" cần truyền
 	 *         vào list id của đối tượng nhận thông báo
@@ -98,22 +108,22 @@ public class NotiService {
 	private void saveAll(Notification noti, Employee senderEmp, Resident senderResi, List<Employee> listEmp,
 			List<Resident> listResi) {
 		for (Employee e : listEmp) {
-			saveRecei(new Receiver(noti, senderEmp, senderResi, e, null));
+			saveRecei(new Receiver(noti, senderEmp, senderResi, e, null, 0));
 		}
 		for (Resident e : listResi) {
-			saveRecei(new Receiver(noti, senderEmp, senderResi, null, e));
+			saveRecei(new Receiver(noti, senderEmp, senderResi, null, e, 0));
 		}
 	}
 
 	private void saveAllEmp(Notification noti, Employee senderEmp, Resident senderResi, List<Employee> listEmp) {
 		for (Employee e : listEmp) {
-			saveRecei(new Receiver(noti, senderEmp, senderResi, e, null));
+			saveRecei(new Receiver(noti, senderEmp, senderResi, e, null, 0));
 		}
 	}
 
 	private void saveAllResi(Notification noti, Employee senderEmp, Resident senderResi, List<Resident> listResi) {
 		for (Resident e : listResi) {
-			saveRecei(new Receiver(noti, senderEmp, senderResi, null, e));
+			saveRecei(new Receiver(noti, senderEmp, senderResi, null, e, 0));
 		}
 	}
 
@@ -121,7 +131,7 @@ public class NotiService {
 		for (String e : listID) {
 			Employee emp = eService.findById(e);
 			Resident resi = rService.findById(e);
-			saveRecei(new Receiver(noti, senderEmp, senderResi, emp, resi));
+			saveRecei(new Receiver(noti, senderEmp, senderResi, emp, resi, 0));
 		}
 	}
 

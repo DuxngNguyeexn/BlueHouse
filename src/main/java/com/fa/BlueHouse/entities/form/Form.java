@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class form {
+public abstract class Form {
 	@Id
 	private String idForm;
 	
@@ -21,11 +21,12 @@ public abstract class form {
 	Date dateSent;
 	String note;
 	String status;
-	public form() {
+	String reason;
+	public Form() {
 		super();
 	}
 
-	public form( Resident resident, Date dateSent, String note) {
+	public Form( Resident resident, Date dateSent, String note) {
 		super();
 		this.resident = resident;
 		this.dateSent = dateSent;
@@ -33,6 +34,14 @@ public abstract class form {
 	}
 
 	
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	public void setIdForm(String idForm) {
 		this.idForm = idForm;
 	}

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fa.BlueHouse.entities.form.Request;
 import com.fa.BlueHouse.repositories.RequestRepository;
-@Service
+@Service				
 public class RequestService {
 	@Autowired
 	RequestRepository requestRepository;
@@ -31,4 +31,11 @@ public class RequestService {
 	public Request findById(String id) {
 		return requestRepository.findById(id).orElse(null);
 	}
+	public Page<Request> showAllForEmployee(String id ,Pageable pageable){
+		return requestRepository.findRequestByEmployeeId(id, pageable);
+	}
+	public Page<Request> showAllForResident(String id ,Pageable pageable){
+		return requestRepository.findRequestByResidentId(id, pageable);
+	}
+
 }

@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
@@ -51,7 +53,6 @@ public class AccountDTO implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.authorities;
 	}
-
 	/**
 	 * Get list Role
 	 * 
@@ -64,7 +65,6 @@ public class AccountDTO implements UserDetails {
 		}
 		return listRole;
 	}
-
 	/**
 	 * Get Role of account 
 	 * ADMIN || MANAGE || RESIDENT || EMPLOYEE.

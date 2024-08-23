@@ -43,17 +43,36 @@ public class Resident {
 	@Column(name = "Identifi_Card")
 	@NotBlank(message = "* IdentificationCard không được để trống")
 	private String identificationCard;
+	
+	private String profile;
 
 	private String countryside;
 
 	@OneToMany(mappedBy = "idResident")
 	private List<Administrators> listAdmin;
 
+	@OneToMany(mappedBy = "IDOganizer")
+	private List<Event> listEvent;
+
 	@OneToMany(mappedBy = "senderResi")
 	private List<Receiver> senderResi;
 
 	@OneToMany(mappedBy = "receiverResi")
 	private List<Receiver> receiverResi;
+	
+	
+
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
+	@OneToMany(mappedBy = "participantResi")
+	private List<Participants> participantResi;
 
 	public String getGender() {
 		return gender;
@@ -159,6 +178,22 @@ public class Resident {
 		this.receiverResi = receiverResi;
 	}
 
+	public List<Event> getListEvent() {
+		return listEvent;
+	}
+
+	public void setListEvent(List<Event> listEvent) {
+		this.listEvent = listEvent;
+	}
+
+	public List<Participants> getParticipantResi() {
+		return participantResi;
+	}
+
+	public void setParticipantResi(List<Participants> participantResi) {
+		this.participantResi = participantResi;
+	}
+
 	public Resident(@NotBlank(message = "* ID Resident không được để trống") String idResident,
 			@NotBlank(message = "* Name Resident không được để trống") String nameResident,
 			@NotNull(message = "* Gender không được để trống") String gender, Apartment idApartment,
@@ -179,6 +214,7 @@ public class Resident {
 		this.identificationCard = identificationCard;
 		this.countryside = countryside;
 		this.listAdmin = listAdmin;
+	
 	}
 
 	public Resident() {

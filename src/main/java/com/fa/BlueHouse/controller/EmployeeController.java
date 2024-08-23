@@ -1,5 +1,7 @@
 package com.fa.BlueHouse.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fa.BlueHouse.authen.model.Account;
 import com.fa.BlueHouse.entities.Employee;
+import com.fa.BlueHouse.services.AccountService;
 import com.fa.BlueHouse.services.EmployeeService;
 
 @Controller
@@ -19,6 +23,9 @@ import com.fa.BlueHouse.services.EmployeeService;
 public class EmployeeController {
 	@Autowired
 	private EmployeeService eService;
+
+	@Autowired
+	private AccountService accService;
 
 	@GetMapping({ "/", "/list" })
 	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
@@ -72,6 +79,15 @@ public class EmployeeController {
 
 	@GetMapping("/add")
 	public String addEmp(Model model) {
+
+		List<Employee> listMService = eService.getManagerByOffice("Services");
+		List<Employee> listMEngineering = eService.getManagerByOffice("Engineering ");
+		List<Employee> listMEnvironment = eService.getManagerByOffice("Environment");
+
+		model.addAttribute("listMService", listMService);
+		model.addAttribute("listMEngineering", listMEngineering);
+		model.addAttribute("listMEnvironment", listMEnvironment);
+
 		model.addAttribute("employee", new Employee());
 		return "Employee/addEditEmployee";
 	}
@@ -84,6 +100,11 @@ public class EmployeeController {
 
 	@GetMapping("/delete")
 	public String deleteEmp(@RequestParam(name = "employeeID") String id) {
+		
+		for (Account acc : accService.getAccByEmp(id)) {
+			accService.deleteByUserName(acc.getUsername());
+		}
+		
 		eService.deleteByID(id);
 		return "redirect:/employee/list";
 	}
@@ -97,6 +118,16 @@ public class EmployeeController {
 	@PostMapping("/update")
 	public String updateEmp(@ModelAttribute("employee") Employee employee) {
 		eService.saveEmployee(employee);
+
+		for (Account acc : accService.getAccByEmp(employee.getEmployeeID())) {
+			if (employee.getDuty().equals("Manager")) {
+				acc.setRole(2);
+			} else {
+				acc.setRole(4);
+			}
+			accService.saveAccount(acc);
+		}
+
 		return "redirect:/employee/list";
 	}
 

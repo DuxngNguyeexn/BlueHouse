@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Thiết lập biểu đồ
                 var options = {
-                    title: 'Cu Dan'+"/b"+totalText,
+                    title: 'Cu Dan'+totalText,
                     pieHole: 0.4,
                     colors: ['#FF6384', '#36A2EB'], // Màu sắc tương ứng
                     legend: {

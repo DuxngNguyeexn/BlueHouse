@@ -21,6 +21,9 @@ public class ExpenseBill {
 	@Column(name = "Expense_Date")
 	private LocalDate expenseDate;
 	@ManyToOne
+	@JoinColumn(name = "idResident")
+	private Resident idResident;
+	@ManyToOne
 	@JoinColumn(name = "employeeID")
 	private Employee idEmployee;
 	@OneToMany(mappedBy = "idExpenseBill")
@@ -58,7 +61,20 @@ public class ExpenseBill {
 		this.listExpenDetail = listExpenDetail;
 	}
 
-	
+	public Resident getIdResident() {
+		return idResident;
+	}
+
+	public void setIdResident(Resident idResident) {
+		this.idResident = idResident;
+	}
+
+	public ExpenseBill(String idExpenseBill, LocalDate expenseDate, Resident idResident) {
+		super();
+		this.idExpenseBill = idExpenseBill;
+		this.expenseDate = expenseDate;
+		this.idResident = idResident;
+	}
 
 	public ExpenseBill(String idExpenseBill, LocalDate expenseDate, Employee idEmployee) {
 		super();
