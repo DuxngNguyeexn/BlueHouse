@@ -43,6 +43,8 @@ public class Resident {
 	@Column(name = "Identifi_Card")
 	@NotBlank(message = "* IdentificationCard không được để trống")
 	private String identificationCard;
+	
+	private String profile;
 
 	private String countryside;
 
@@ -57,6 +59,17 @@ public class Resident {
 
 	@OneToMany(mappedBy = "receiverResi")
 	private List<Receiver> receiverResi;
+	
+	
+
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 
 	@OneToMany(mappedBy = "participantResi")
 	private List<Participants> participantResi;
@@ -201,6 +214,7 @@ public class Resident {
 		this.identificationCard = identificationCard;
 		this.countryside = countryside;
 		this.listAdmin = listAdmin;
+	
 	}
 
 	public Resident() {

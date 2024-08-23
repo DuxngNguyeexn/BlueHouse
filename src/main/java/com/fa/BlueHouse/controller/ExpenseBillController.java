@@ -115,8 +115,9 @@ public class ExpenseBillController {
 		}
 		@GetMapping("deletedetail")
 		public String deleteDetail(@RequestParam("iddetail") String id) {
+		    String idbill = expendetail.findByIDDetail(id).getIdExpenseBill().getIdExpenseBill();
 			expendetail.deleteExpenseBillDetail(id);
-			return "redirect:/ExpenseBill/listdetail";
+			return "redirect:/ExpenseBill/listdetail?idbill=" + idbill;
 		}
 		@GetMapping("editdetail")
 		public String editDetail(Model model, @RequestParam("iddetail") String id) {
@@ -158,6 +159,25 @@ public class ExpenseBillController {
 			model.addAttribute("searchKeyword", keyword);
 			model.addAttribute("listexpendetail", listExpenseDetail.getContent());
 			return "/ExpenseBillDetail/listAllDetail";
+		}
+		@GetMapping("searchexpensebilldetail")
+		public String searchExpenseBilldetail(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword, Model model,
+			@RequestParam("idbill")String idbill, @RequestParam(name = "page", defaultValue = "1") int page) {
+			int pageSize = 6;
+			PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+			Page<ExpenseBillDetail> listExpenseDetail = expendetail.searchExpenseBillDetail(keyword,idbill, pageRequest);
+			model.addAttribute("currentPage", page);
+			int totalPages ;
+			if(listExpenseDetail.getTotalPages() < 1) {
+				totalPages = 1 ;
+			}else {
+				totalPages = listExpenseDetail.getTotalPages();
+			}
+			model.addAttribute("expensebill", expenbill.findExpenBillById(idbill));
+			model.addAttribute("totalPages", totalPages);
+			model.addAttribute("searchKeyword", keyword);
+			model.addAttribute("listexpendetail", listExpenseDetail.getContent());
+			return "/ExpenseBillDetail/listExpenseBillDetail";
 		}
 		
 		

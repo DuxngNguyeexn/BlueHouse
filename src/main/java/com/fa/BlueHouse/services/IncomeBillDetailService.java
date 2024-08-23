@@ -45,6 +45,9 @@ public class IncomeBillDetailService {
 	public Page<IncomeBillDetail> searchDetail(String search, Pageable page){
 		return incodetail.searchDetail(search, page);
 	}
+	public Page<IncomeBillDetail> searchDetail(String search,String idbill, Pageable page){
+		return incodetail.searchDetail(search,idbill, page);
+	}
 	public String generateNewId() {
 		String maxId = incodetail.findMaxId();
 		

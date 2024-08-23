@@ -61,4 +61,7 @@ public class AccountService {
 		return aRepo.getAccByResi(resiID);
 	}
 
+	public List<Account> findByRole2(){
+		return aRepo.findRole2();
+	}
 }

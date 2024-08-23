@@ -28,5 +28,8 @@ public interface AccountRepo extends JpaRepository<Account, String> {
 
 	@Query("SELECT a FROM Account a WHERE a.resident.idResident = :idResi ")
 	List<Account> getAccByResi(@Param("idResi") String idResi);
-	
+
+	@Query("SELECT a FROM Account a WHERE a.role = 2 ")
+	List<Account> findRole2();
+
 }

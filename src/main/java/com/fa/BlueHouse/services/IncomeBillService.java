@@ -32,6 +32,9 @@ public class IncomeBillService {
 	public Page<IncomeBill> searchIncomeBill(String search, Pageable page){
 		return inbill.searchInBill(search, page);
 	}
+	public Page<IncomeBill> searchApartmentBill(String search, String idapart, Pageable page){
+		return inbill.searchApartBill(search, idapart, page);
+	}
 	public IncomeBill findById(String id) {
 		return inbill.findById(id).orElse(null);
 	}
