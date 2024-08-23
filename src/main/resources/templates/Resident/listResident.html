@@ -60,6 +60,8 @@
 				<td th:text="${resident.idApartment.idApartment}"></td>
 				<td th:text="${resident.phonenumber}"></td>
 				<td th:text="${resident.countryside}"></td>
+				<td > <img th:src="@{'/imgResident/' + ${resident.profile}}" alt="Picture" width="50px"
+								height="50px" /> </td>
 				<td><a href="@{/Resident/editresident(idresident=${resident.idResident})}">
 					<i class="fa-solid fa-pen-to-square"></i></a> 
 					<a href="#"
