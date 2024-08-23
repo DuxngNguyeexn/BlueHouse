@@ -1,6 +1,11 @@
 package com.fa.BlueHouse.controller;
 
 import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fa.BlueHouse.authen.model.Account;
 import com.fa.BlueHouse.entities.Employee;
@@ -21,6 +28,8 @@ import com.fa.BlueHouse.services.EmployeeService;
 @Controller
 @RequestMapping(path = "/employee")
 public class EmployeeController {
+	
+	private final String uploadEmployee = "D:/Spring-Boot/imgdate";
 	@Autowired
 	private EmployeeService eService;
 
@@ -93,7 +102,21 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/save")
-	public String saveEmp(@ModelAttribute("employee") Employee employee, Model model) {
+	public String saveEmp(@ModelAttribute("employee") Employee employee, Model model,@RequestParam("file")MultipartFile file,
+            RedirectAttributes redirectAttributes) {
+		if(file != null) {
+			  try {
+		            // Lưu file xuống ổ D
+		            String fileName = file.getOriginalFilename();
+		            Path path = Paths.get(uploadEmployee + File.separator + fileName);
+		            Files.write(path, file.getBytes());
+
+		            employee.setProfile(fileName);
+
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+		}
 		eService.saveEmployee(employee);
 		return "redirect:/employee/list";
 	}

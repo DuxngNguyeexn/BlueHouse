@@ -58,7 +58,7 @@
 		<tbody th:each="bill : ${listapartmentbill}">
 			<tr>
 				<td th:text="${bill.idIncomeBill}"></td>
-				<td th:text="${bill.idApartment.idApartment}"></td>
+				<td th:text="${bill.idApartment != null ? bill.idApartment.idApartment : ' '}"></td>
 				<td th:text="${bill.billDate}"></td>
 				<td th:text="${bill.paymentDate}"></td>
 				<td th:text="${bill.idEmployee != null ? bill.idEmployee.fullName : ' '}" ></td>
