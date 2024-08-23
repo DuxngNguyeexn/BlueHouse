@@ -27,7 +27,9 @@ import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.Notification;
 import com.fa.BlueHouse.entities.Receiver;
 import com.fa.BlueHouse.services.EmployeeService;
+import com.fa.BlueHouse.services.EventService;
 import com.fa.BlueHouse.services.NotiService;
+import com.fa.BlueHouse.services.ParticipantService;
 import com.fa.BlueHouse.services.ResidentService;
 
 @Controller
@@ -45,26 +47,39 @@ public class NotiController {
 	@Autowired
 	private ResidentService rService;
 
+	@Autowired
+	private ParticipantService partiService;
+
+	@Autowired
+	private EventService eventService;
+
 	@GetMapping("viewDetail")
 	public String viewDetail(@RequestParam(name = "idNoti", defaultValue = "") String idNoti, Model model,
 			@RequestParam(name = "lastPath") String lastPath,
-			@RequestParam(name = "idReceiver", defaultValue = "") Integer idReceiver) {
-
+			@RequestParam(name = "idReceiver", defaultValue = "") Integer idReceiver, Principal principal) {
+		AccountDTO auth = (AccountDTO) ((Authentication) principal).getPrincipal();
 		Receiver recei = notiService.findReceiByID(idReceiver);
 		recei.setStatus(1);
 		notiService.saveRecei(recei);
 
 		Notification noti = notiService.findNotiByID(idNoti);
+
 		String eventID = null;
-		if (noti.getTypeNote() != null) {
+		try {
 			eventID = noti.getTypeNote().replace("KeyEvent~", "");
-			System.err.println(eventID);
+		} catch (Exception e) {
+			eventID = "";
+		}
+		
+		boolean isExist = false;
+		if (noti.getTypeNote() != null && eventService.findById(eventID) != null) {
+			isExist = partiService.isExist(eventID, auth.getId());
 		}
 
 		model.addAttribute("lastPath", lastPath);
 		model.addAttribute("post", noti);
 		model.addAttribute("eventID", eventID);
-		model.addAttribute("idNoti", idNoti);
+		model.addAttribute("isExist", isExist);
 
 		return "Notifications/viewNoti";
 	}

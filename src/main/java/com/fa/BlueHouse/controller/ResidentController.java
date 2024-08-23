@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fa.BlueHouse.authen.model.Account;
 import com.fa.BlueHouse.entities.Apartment;
 import com.fa.BlueHouse.entities.Resident;
+import com.fa.BlueHouse.services.AccountService;
 import com.fa.BlueHouse.services.ResidentService;
 
 import jakarta.validation.Valid;
@@ -26,6 +28,9 @@ public class ResidentController {
 	@Autowired
 	private ResidentService resident;
 
+	@Autowired
+	private AccountService accService;
+
 	@GetMapping("/createresident")
 	public String createResident(Model model) {
 		model.addAttribute("resident", new Resident());
@@ -34,8 +39,8 @@ public class ResidentController {
 	}
 
 	@PostMapping("/saveresident")
-	public String saveResident(Model model,@Valid @ModelAttribute Resident resi, BindingResult result) {
-		if(result.hasErrors()) {
+	public String saveResident(Model model, @Valid @ModelAttribute Resident resi, BindingResult result) {
+		if (result.hasErrors()) {
 			model.addAttribute("listapartment", resident.findallapart());
 			return "/Resident/createResident";
 		}
@@ -59,12 +64,12 @@ public class ResidentController {
 			@RequestParam(name = "page", defaultValue = "1") int page) {
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		Page<Resident> listresi = resident.searchResident( keyword, pageRequest);
+		Page<Resident> listresi = resident.searchResident(keyword, pageRequest);
 		model.addAttribute("currentPage", page);
-		int totalPages ;
-		if(listresi.getTotalPages() < 1) {
-			totalPages = 1 ;
-		}else {
+		int totalPages;
+		if (listresi.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
 			totalPages = listresi.getTotalPages();
 		}
 		model.addAttribute("totalPages", totalPages);
@@ -75,6 +80,11 @@ public class ResidentController {
 
 	@GetMapping("/deleterisedent")
 	public String deleteResident(@RequestParam("idresident") String id) {
+
+		for (Account acc : accService.getAccByResi(id)) {
+			accService.deleteByUserName(acc.getUsername());
+		}
+
 		resident.deleteResident(id);
 		return "redirect:/Resident/showlistresident";
 	}
@@ -86,6 +96,7 @@ public class ResidentController {
 		model.addAttribute("resident", resident.findById(id));
 		return "/Resident/updateResident";
 	}
+
 	@PostMapping("/saveupdateresident")
 	public String saveupdateresident(@ModelAttribute("resident") Resident resi) {
 		resident.updateResident(resi);

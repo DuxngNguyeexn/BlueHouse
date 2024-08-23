@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,13 +24,24 @@ public class Event {
 	String nameEvent;
 
 	@Column(name = "start_Date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	LocalDate startDate;
+	
+	
 	@Column(name = "end_Date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	LocalDate endDate;
 
+	@Column(name = "Attachment")
+	private String attachment;
+
 	@Column(name = "start_Time")
+	@DateTimeFormat(pattern = "HH:mm:ss")
 	LocalTime startTime;
+	
+	
 	@Column(name = "end_Time")
+	@DateTimeFormat(pattern = "HH:mm:ss")
 	LocalTime endTime;
 
 	@Column(name = "location")
@@ -136,6 +149,14 @@ public class Event {
 		this.listParticipants = listParticipants;
 	}
 
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
+	}
+
 	public Event() {
 		super();
 	}
@@ -151,6 +172,23 @@ public class Event {
 		this.endTime = endTime;
 		this.location = location;
 		this.numberOfParticipants = numberOfParticipants;
+	}
+
+	public Event(String idEvent, String nameEvent, LocalDate startDate, LocalDate endDate, String attachment,
+			LocalTime startTime, LocalTime endTime, String location, int numberOfParticipants, ExpenseBill bill,
+			Resident iDOganizer) {
+		super();
+		this.idEvent = idEvent;
+		this.nameEvent = nameEvent;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.attachment = attachment;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.location = location;
+		this.numberOfParticipants = numberOfParticipants;
+		this.bill = bill;
+		IDOganizer = iDOganizer;
 	}
 
 	@Override

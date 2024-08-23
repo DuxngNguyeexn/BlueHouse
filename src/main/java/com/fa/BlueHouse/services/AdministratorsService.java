@@ -16,26 +16,39 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class AdministratorsService {
 
-	
 	@Autowired
 	private AdministratorsRepositories adminis;
-	
+
 	public void saveAdminis(Administrators admin) {
 		adminis.save(admin);
 	}
+
 	public void deleteAdminis(String id) {
 		adminis.deleteById(id);
 	}
-	public List<Administrators> findall(){
+
+	public List<Administrators> findall() {
 		return adminis.findAll();
 	}
+
 	public Administrators findById(String id) {
 		return adminis.findById(id).orElse(null);
 	}
-	public Page<Administrators> findpageAdmin(Pageable page){
+
+	public Page<Administrators> findpageAdmin(Pageable page) {
 		return adminis.findAll(page);
 	}
-	public Page<Administrators> findsearchAdmin(String search, Pageable page){
+
+	public Page<Administrators> findsearchAdmin(String search, Pageable page) {
 		return adminis.searchAdminis(search, page);
+	}
+
+	public boolean isExits(String id) {
+		for (Administrators e : findall()) {
+			if (e.getIdResident().getIdResident().equalsIgnoreCase(id)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -26,6 +26,11 @@ public class ApplicationSecurityConfig {
 
 	@Autowired
 	private ApplicationUserService applicationUserService;
+	
+	private final String ADMIN = UserRole.ADMIN.name();
+	private final String MANAGE = UserRole.MANAGE.name();
+	private final String RESIDENT = UserRole.RESIDENT.name();
+	private final String EMPLOYEE = UserRole.EMPLOYEE.name();
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,9 +38,8 @@ public class ApplicationSecurityConfig {
 				.authorizeHttpRequests((auth) -> auth
 						.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
 						.requestMatchers("/login", "/forgot/**", "/common/**", "/lib/**").permitAll()
-						.requestMatchers("/employee/**").hasAnyRole(UserRole.EMPLOYEE.name(), UserRole.MANAGE.name(), UserRole.ADMIN.name())
-						.requestMatchers("/event/**").hasRole(UserRole.ADMIN.name())
-				        .requestMatchers("/Apartment/**").hasAnyRole(UserRole.ADMIN.name(), UserRole.RESIDENT.name(), UserRole.EMPLOYEE.name())
+						.requestMatchers("/event/confirm").hasAnyRole(ADMIN, RESIDENT, MANAGE, EMPLOYEE)
+						.requestMatchers("/event/**").hasRole(ADMIN)
 						.anyRequest().authenticated())
 
 				.formLogin(form -> form

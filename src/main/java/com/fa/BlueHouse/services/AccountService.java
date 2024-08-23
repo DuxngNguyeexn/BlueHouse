@@ -20,7 +20,7 @@ public class AccountService {
 
 	@Autowired
 	private AccountRepo aRepo;
-
+	
 	public List<Account> allAccount() {
 		return aRepo.findAll();
 	}
@@ -51,6 +51,14 @@ public class AccountService {
 	
 	public List<Resident> getReciNotInAccount() {
 		return aRepo.getReciNotInAccount();
+	}
+	
+	public List<Account> getAccByEmp(String empID) {
+		return aRepo.getAccByEmp(empID);
+	}
+	
+	public List<Account> getAccByResi(String resiID) {
+		return aRepo.getAccByResi(resiID);
 	}
 
 }
