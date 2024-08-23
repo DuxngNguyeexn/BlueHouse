@@ -48,8 +48,8 @@
 					</a>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="/Form/Request/list">Request</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="/Form/Report/list">Report</a>
+						<div class="dropdown-divider" sec:authorize="hasRole('RESIDENT') or hasRole('ADMIN') or hasRole('MANAGE') "></div>
+						<a class="dropdown-item" sec:authorize="hasRole('RESIDENT') or hasRole('ADMIN') or hasRole('MANAGE') " href="/Form/Report/list">Report</a>
 					</div>
 				</li>
 			</ul>

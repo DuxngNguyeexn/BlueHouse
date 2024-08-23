@@ -33,16 +33,34 @@
 		</button>
 	</div>
 
-	<div>
-	    <!-- <p>Username: <span th:text="${userDetails.username}"></span></p>
-	    <p>password: <span th:text="${userDetails.password}"></span></p>
-	    <p>name: <span th:text="${userDetails.name}"></span></p>
-	    <p>phoneNumber: <span th:text="${userDetails.phoneNumber}"></span></p>
-	    <p>gender: <span th:text="${userDetails.gender}"></span></p>
-	    <p>birthday: <span th:text="${userDetails.birthday}"></span></p>
-	    <p>nationalID: <span th:text="${userDetails.nationalID}"></span></p>
-	    <p>country: <span th:text="${userDetails.country}"></span></p>   -->
+	<div class="container mt-5 mb-5">
+		<div class="row justify-content-center">
+			<!-- Image Section (30%) -->
+			<div class="col-md-4">
+				<div class="card shadow-sm">
+					<img src="your-image-url.jpg" class="card-img-top img-fluid" alt="User Image">
+				</div>
+			</div>
+	
+			<!-- User Information Section (70%) -->
+			<div class="col-md-8">
+				<div class="card shadow-sm p-4">
+					<h3 class="card-title text-center">User Profile</h3>
+					<hr>
+					<div class="card-body">
+						<p><strong>Name:</strong> <span th:text="${userDetails.nameResident}"></span></p>
+						<p><strong>Phone Number:</strong> <span th:text="${userDetails.phonenumber}"></span></p>
+						<p><strong>Gender:</strong> <span th:text="${userDetails.gender}"></span></p>
+						<p><strong>Birthday:</strong> <span th:text="${userDetails.birthday}"></span></p>
+						<p><strong>National ID:</strong> <span th:text="${userDetails.identificationCard}"></span></p>
+						<p><strong>Country:</strong> <span th:text="${userDetails.countryside}"></span></p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+	
+	
 
 </body>
 
