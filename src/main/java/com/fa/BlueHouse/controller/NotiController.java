@@ -53,6 +53,17 @@ public class NotiController {
 	@Autowired
 	private EventService eventService;
 
+	@GetMapping("viewSendDetail")
+	public String viewSendDetail(@RequestParam(name = "idNoti", defaultValue = "") String idNoti, Model model,
+			@RequestParam(name = "lastPath") String lastPath) {
+		Notification noti = notiService.findNotiByID(idNoti);
+
+		model.addAttribute("lastPath", lastPath);
+		model.addAttribute("post", noti);
+
+		return "Notifications/viewSendingNoti";
+	}
+
 	@GetMapping("viewDetail")
 	public String viewDetail(@RequestParam(name = "idNoti", defaultValue = "") String idNoti, Model model,
 			@RequestParam(name = "lastPath") String lastPath,
@@ -70,7 +81,7 @@ public class NotiController {
 		} catch (Exception e) {
 			eventID = "";
 		}
-		
+
 		boolean isExist = false;
 		if (noti.getTypeNote() != null && eventService.findById(eventID) != null) {
 			isExist = partiService.isExist(eventID, auth.getId());

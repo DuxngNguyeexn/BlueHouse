@@ -53,6 +53,12 @@ public class Administrators {
 		this.idResident = idResident;
 		this.idPosition = idPosition;
 	}
+	
+
+	public Administrators(@NotBlank(message = "* ID Admin không được để trống") String idBQT) {
+		super();
+		this.idBQT = idBQT;
+	}
 
 	public Administrators() {
 		super();

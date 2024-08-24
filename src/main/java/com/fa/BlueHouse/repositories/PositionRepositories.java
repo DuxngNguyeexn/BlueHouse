@@ -15,4 +15,7 @@ public interface PositionRepositories extends JpaRepository<Position, String> {
 	
 	@Query("FROM Position where idPosition Like %:seacrch% or namePosition Like %:seacrch% or prorogue LIKE %:seacrch% ")
 	public Page<Position> searchPosition(String seacrch, Pageable pageable);
+   
+	@Query("SELECT MAX(i.idIncomeBill) FROM IncomeBill i")
+    String findMaxId();
 }

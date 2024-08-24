@@ -43,4 +43,15 @@ public class PositionService {
 		return position.findAll(page);
 	}
 	
+	public String generateNewId() {
+		String maxId = position.findMaxId();
+		
+		if(maxId == null) return "PS001";
+		
+		int numberic = Integer.parseInt(maxId.substring(2));
+		
+		numberic++;
+		
+		return String.format("PS%03d", numberic);
+	}
 }

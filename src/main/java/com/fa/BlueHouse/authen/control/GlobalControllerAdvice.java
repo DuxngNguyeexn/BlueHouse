@@ -17,16 +17,18 @@ public class GlobalControllerAdvice {
 
 	@Autowired
 	private NotiService notiService;
-	
-    @ModelAttribute
-    public void addAttributes(Principal principal, Model model) {
-    	try {
-    		AccountDTO thongTin = (AccountDTO) ((Authentication) principal).getPrincipal();
 
-            model.addAttribute("numberKey", notiService.findNotiUnSeen(thongTin.getId()).size());
+	@ModelAttribute
+	public void addAttributes(Principal principal, Model model) {
+		try {
+			AccountDTO auth = (AccountDTO) ((Authentication) principal).getPrincipal();
+
+			model.addAttribute("numberKey", notiService.findNotiUnSeen(auth.getId()).size());
+			model.addAttribute("userName", auth.getUsername());
 		} catch (Exception e) {
-			model.addAttribute(0);
+			model.addAttribute("numberKey", 0);
+			model.addAttribute("userName", "");
 		}
-    	
-    }
+
+	}
 }

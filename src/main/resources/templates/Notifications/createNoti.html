@@ -14,14 +14,14 @@
 	<form method="post" action="save" class="container" th:object="${Notification}" enctype="multipart/form-data">
 		<div class="form-group mt-3 d-flex justify-content-center">
 			<div class="col-10">
-				<label for="username" class="h5">Tiêu Đề</label>
-				<input th:field="*{title}" class="form-control" id="username" placeholder="Input Tiêu Đề" />
+				<label for="username" class="h5">Title</label>
+				<input th:field="*{title}" class="form-control" id="username" placeholder="Input Title" />
 			</div>
 		</div>
 
 		<div class="form-group mt-3 d-flex justify-content-center">
 			<div class="col-10">
-				<label for="content" class="h5">Nội Dung</label>
+				<label for="content" class="h5">Content</label>
 				<textarea id="contentNoti" placeholder="Content" class="form-control" th:field="*{contentNoti}" autocomplete="off"></textarea>
 			</div>
 		</div>

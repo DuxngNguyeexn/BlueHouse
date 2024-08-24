@@ -18,10 +18,12 @@ public interface ReceiverRepositories extends JpaRepository<Receiver, Integer> {
 	
 	@Query("SELECT DISTINCT recei FROM Receiver recei WHERE (recei.receiverEmp.employeeID = :idEmp OR recei.receiverResi.idResident = :idEmp) AND recei.status = 0 ")
 	List<Receiver> findNotiUnSeen(@Param("idEmp") String idEmp);
-	
-	@Query("SELECT DISTINCT recei.notification, recei.status FROM Receiver recei WHERE recei.senderEmp.employeeID = :idEmp OR recei.senderResi.idResident = :idEmp")
+
+	@Query("SELECT n FROM Notification n WHERE n.id IN (" +
+		       "SELECT DISTINCT recei.notification.id FROM Receiver recei " +
+		       "WHERE recei.senderEmp.employeeID = :idEmp OR recei.senderResi.idResident = :idEmp)")
 	Page<Notification> findByIDSend(@Param("idEmp") String idEmp, Pageable pageable);
-	
+
 	@Query("SELECT DISTINCT recei FROM Receiver recei WHERE recei.receiverEmp.employeeID = :idEmp OR recei.receiverResi.idResident = :idEmp ORDER BY recei.status ASC")
 	Page<Receiver> findByIDSeen(@Param("idEmp") String idEmp, Pageable pageable);
 }

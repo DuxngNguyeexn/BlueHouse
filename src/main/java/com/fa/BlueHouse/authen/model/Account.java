@@ -8,14 +8,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "ACCOUNT")
 public class Account {
 
 	@Id
+	@Pattern(regexp = "^[a-zA-Z0-9_][a-zA-Z0-9_]{3,18}[a-zA-Z0-9_]$", message = "5 and 20 characters, digits and underscores. It cannot start or end with an underscore.")
 	private String username;
+
+	@Pattern(regexp = "^[a-zA-Z0-9_]{3,20}$", message = "3 and 20 characters, digits.")
 	private String password;
+
 	private int role;
 	private int active;
 

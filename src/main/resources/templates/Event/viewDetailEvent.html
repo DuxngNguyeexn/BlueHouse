@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="UTF-8" />
@@ -32,7 +32,7 @@
 						<th scope="col">Mission</th>
 						<th scope="col">Note</th>
 						
-						<th scope="col">Action</th>
+						<th th:if="${author == 1}" sec:authorize="hasRole('ADMIN')" scope="col">Action</th>
 					</tr>
 				</thead>
 				<tbody th:each="parti : ${listParticipants}">
@@ -43,7 +43,7 @@
 						<td th:text="${parti.mission}"></td>
 						<td th:text="${parti.note}"></td>
 						
-						<td>
+						<td th:if="${author == 1}" sec:authorize="hasRole('ADMIN')">
 							<a th:data-value="${parti.idParticipants}" onclick="window.location.href='Participants/edit?id='+this.dataset.value;" class="text-decoration-none mr-2" style="cursor: pointer;">
 								<i class="fa-solid fa-pen-to-square pencil"></i>
 							</a>

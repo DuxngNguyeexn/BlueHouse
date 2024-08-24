@@ -54,5 +54,16 @@ public class ResidentService {
     public Page<Resident> findpageResident(Pageable page){
     	return repositori.findAll(page);
     }
+    public String generateNewId() {
+		String maxId = repositori.findMaxId();
+		
+		if(maxId == null) return "RS001";
+		
+		int numberic = Integer.parseInt(maxId.substring(2));
+		
+		numberic++;
+		
+		return String.format("RS%03d", numberic);
+	}
     
 }

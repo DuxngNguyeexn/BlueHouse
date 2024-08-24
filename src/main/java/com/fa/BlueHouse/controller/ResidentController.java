@@ -41,7 +41,8 @@ public class ResidentController {
 
 	@GetMapping("/createresident")
 	public String createResident(Model model) {
-		model.addAttribute("resident", new Resident());
+		String id = resident.generateNewId();
+		model.addAttribute("resident", new Resident(id));
 		model.addAttribute("listapartment", resident.findallapart());
 		return "/Resident/createResident";
 	}

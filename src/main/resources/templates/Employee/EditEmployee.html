@@ -7,18 +7,14 @@
 </head>
 
 <body layout:fragment="content">
-	<form id="form-data" class="mt-5" th:action="save" method="post" th:object="${employee}" enctype="multipart/form-data">
+	<form id="form-data" class="mt-5" th:action="update" method="post" th:object="${employee}" enctype="multipart/form-data">
 		<div class="container p-3 border">
-			<h1 class="text-center pb-3">Add New Employee</h1>
+			<h1 class="text-center pb-3">Update Employee</h1>
 
 			<div class="row pb-2 d-flex justify-content-around">
 				<div class="col-3">
 					<label for="id-employee" class="form-lable">ID Employee</label>
-					<input type="text" th:field="*{employeeID}" id="id-employee" class="form-control" placeholder="ID Employee" />
-
-					<div>
-						<span th:if="${#fields.hasErrors('employeeID')}" th:errors="*{employeeID}" class="text-danger"></span>
-					</div>
+					<input type="text" th:field="*{employeeID}" id="id-employee" class="form-control" placeholder="ID Employee" readonly="readonly" />
 				</div>
 
 				<div class="col-3">
@@ -121,18 +117,15 @@
 						<span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="text-danger"></span>
 					</div>
 				</div>
+
 				<div class="d-flex align-content-end col-7">
 					<input type="file" id="file" name="file" placeholder="profile" aria-label="Username" aria-describedby="addon-wrapping" />
 				</div>
 			</div>
 
 			<div class="d-flex justify-content-end">
-				<button id="create" class="btn btn-success col-2" type="submit">
-					Create
-				</button>
-
-				<button id="cancel" class="btn btn-secondary col-2 ml-2" type="reset">
-					Cancel
+				<button id="update" class="btn btn-primary col-2" type="submit">
+					Update
 				</button>
 
 				<button id="back-list" class="btn btn-secondary col-2 ml-2" type="reset">

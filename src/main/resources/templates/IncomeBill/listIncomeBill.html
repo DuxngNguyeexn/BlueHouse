@@ -73,7 +73,79 @@
 		</tbody>
 	</table>
 	</div>
-	<div th:replace="@{layout/page} :: pageAble" ></div>
+	<div class="float-right mr-3">
+
+		<ul class="pagination">
+			<li class="page-item disabled" th:if="${currentPage == 1}">
+				<a class="page-link " href="#">First</a>
+			</li>
+			<li class="page-item " th:if="${currentPage > 1}">
+				<a class="page-link" th:href="@{${path}(page=${1}, searchKeyword=${searchKeyword}, idApartment=${apartment.idApartment})}">First</a>
+			</li>
+			<li class="page-item disabled" th:if="${currentPage == 1}">
+				<a class="page-link " href="#">Previous</a>
+			</li>
+			<li class="page-item " th:if="${currentPage > 1}">
+				<a class="page-link"
+					th:href="@{${path}(page=${currentPage - 1}, searchKeyword=${searchKeyword}, idApartment=${apartment.idApartment})}">Previous</a>
+			</li>
+			<!-- Left -->
+			<li class="page-item " th:if="${currentPage >= 3}">
+				<a class="page-link"
+					th:href="@{${path}(page=${1}, searchKeyword=${searchKeyword}, idApartment=${apartment.idApartment})}"> 1</a>
+			</li>
+			<li class="page-item  " th:if="${currentPage > 3}">
+				<a class="page-link"
+					th:href="@{${path}(page=${2}, searchKeyword=${searchKeyword}, idApartment=${apartment.idApartment})}"> 2</a>
+			</li>
+			<li class="page-item  disabled" th:if="${currentPage > 4}">
+				<a class="page-link"
+					href="#">. . .</a>
+			</li>
+
+			<!-- Middle -->
+			<span th:each="i : ${#numbers.sequence(1, totalPages)}">
+				<li class="" th:if="${currentPage == i-1}"><a class="page-link"
+						th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword}, idApartment=${apartment.idApartment})}" th:text="${i}"></a></li>
+				<li class=" " th:if="${currentPage == i}" style="border-radius: 0;"><a
+						class="page-link bg-primary text-white" href="#" th:text="${i}"></a></li>
+				<li class="" th:if="${currentPage == i+1}"><a class="page-link"
+						th:href="@{${path}(page=${i}, searchKeyword=${searchKeyword}, idApartment=${apartment.idApartment})}" th:text="${i}"></a></li>
+			</span>
+
+			<!-- Right -->
+			<li class="page-item disabled" th:if="${currentPage < totalPages - 3}">
+				<a class="page-link"
+					href="#">. . .</a>
+			</li>
+			<li class="page-item" th:if="${currentPage < totalPages - 2}">
+				<a class="page-link"
+					th:href="@{${path}(page=${totalPages-1}, searchKeyword=${searchKeyword}, idApartment=${apartment.idApartment})}" th:text="${totalPages-1}"></a>
+			</li>
+			<li class="page-item" th:if="${currentPage <= totalPages - 2}">
+				<a class="page-link"
+					th:href="@{${path}(page=${totalPages}, searchKeyword=${searchKeyword}, idApartment=${apartment.idApartment})}" th:text="${totalPages}"></a>
+			</li>
+
+
+			<li class="page-item" th:if="${currentPage < totalPages}">
+				<a class="page-link"
+					th:href="@{${path}(page=${currentPage + 1}, searchKeyword=${searchKeyword}, idApartment=${apartment.idApartment})}">Next</a>
+			</li>
+			<li class="page-item disabled" th:if="${currentPage == totalPages}">
+				<a class="page-link" href="#">Next</a>
+			</li>
+			<li class="page-item" th:if="${currentPage < totalPages}">
+				<a class="page-link"
+					th:href="@{${path}(page=${totalPages}, searchKeyword=${searchKeyword}, idApartment=${apartment.idApartment})}">Last</a>
+			</li>
+			<li class="page-item disabled" th:if="${currentPage == totalPages}">
+				<a class="page-link" href="#">Last</a>
+			</li>
+
+		</ul>
+
+	</div>
 	</div>
 	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
