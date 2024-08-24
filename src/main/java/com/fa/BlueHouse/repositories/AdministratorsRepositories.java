@@ -11,4 +11,7 @@ public interface AdministratorsRepositories extends JpaRepository<Administrators
 
 	@Query("FROM Administrators ad where ad.idBQT Like %:search% or ad.idPosition.namePosition Like %:search% or ad.idResident.nameResident LIKE %:search%")
 	public Page<Administrators> searchAdminis(String search, Pageable pageable);
+
+	@Query("SELECT MAX(i.idIncomeBill) FROM IncomeBill i")
+    String findMaxId();
 }

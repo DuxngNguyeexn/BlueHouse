@@ -53,6 +53,12 @@ public class Position {
 		super();
 	}
 
+	
+	public Position(@NotBlank(message = "* ID Position không được để trống") String idPosition) {
+		super();
+		this.idPosition = idPosition;
+	}
+
 	@Override
 	public String toString() {
 		return "Position [getIdPosition()=" + getIdPosition() + ", getNamePosition()=" + getNamePosition()

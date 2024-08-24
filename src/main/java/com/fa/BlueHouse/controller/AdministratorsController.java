@@ -37,7 +37,8 @@ public class AdministratorsController {
 
 	@GetMapping("/createadminis")
 	public String createAdministrators(Model model) {
-		model.addAttribute("Adminis", new Administrators());
+		String id = adminis.generateNewId();
+		model.addAttribute("Adminis", new Administrators(id));
 		model.addAttribute("resident", resident.findallResident());
 		model.addAttribute("position", posi.findall());
 		return "/Administrators/createAdminis";
