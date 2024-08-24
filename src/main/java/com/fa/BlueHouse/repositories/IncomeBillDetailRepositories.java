@@ -22,4 +22,10 @@ public interface IncomeBillDetailRepositories extends JpaRepository<IncomeBillDe
 	
 	@Query("SELECT COALESCE(SUM(bd.price * bd.quantity), 0.0) FROM IncomeBillDetail bd JOIN IncomeBill b ON bd.idIncomeBill.idIncomeBill = b.idIncomeBill WHERE b.status = :status")
 	double findTotalByStatus(@Param("status") String status);
+	
+	@Query("SELECT COALESCE(SUM(bd.price * bd.quantity), 0.0) FROM IncomeBillDetail bd")
+    double findTotalAmount();
+	
+	@Query("SELECT COALESCE(SUM(bd.price * bd.quantity), 0.0) FROM IncomeBillDetail bd JOIN FeeType fe ON bd.idfeetype.idFeetype = fe.idFeetype WHERE fe.idFeetype = :feeTypes")
+    double findTotalAmountByFeeTypes(@Param("feeTypes") String feeTypes);
 }
