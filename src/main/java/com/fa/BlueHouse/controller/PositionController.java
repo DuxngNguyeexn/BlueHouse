@@ -26,7 +26,8 @@ public class PositionController {
 	
 	@RequestMapping("/createposition")
 	public String createPosition(Model model) {
-		model.addAttribute("position", new Position());
+		String id = position.generateNewId();
+		model.addAttribute("position", new Position(id));
 		return "Position/createPosition";
 	}
 	@PostMapping("/saveposition")

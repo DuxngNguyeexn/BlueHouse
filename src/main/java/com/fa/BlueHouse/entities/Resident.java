@@ -216,6 +216,12 @@ public class Resident {
 		this.listAdmin = listAdmin;
 	
 	}
+	
+
+	public Resident(@NotBlank(message = "* ID Resident không được để trống") String idResident) {
+		super();
+		this.idResident = idResident;
+	}
 
 	public Resident() {
 		super();

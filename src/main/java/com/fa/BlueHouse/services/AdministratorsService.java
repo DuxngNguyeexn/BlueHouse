@@ -51,4 +51,15 @@ public class AdministratorsService {
 		}
 		return false;
 	}
+	public String generateNewId() {
+		String maxId = adminis.findMaxId();
+		
+		if(maxId == null) return "AD001";
+		
+		int numberic = Integer.parseInt(maxId.substring(2));
+		
+		numberic++;
+		
+		return String.format("AD%03d", numberic);
+	}
 }
