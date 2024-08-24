@@ -11,6 +11,7 @@ import com.fa.BlueHouse.entities.img.ImgRepair;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -22,7 +23,7 @@ public class Repair implements Serializable {
 	@Id
 	private String id;
 
-	@OneToMany(mappedBy = "repair", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "repair",cascade = CascadeType.ALL)
 	private List<Assets> assets;
 
 	@OneToOne
@@ -35,7 +36,8 @@ public class Repair implements Serializable {
 	Date dateRepair;
 	Date dateCompleted;
 	@OneToMany(mappedBy = "repair", cascade = CascadeType.ALL)
-    private List<ImgRepair> imgRepairs = new ArrayList<>();
+	private List<ImgRepair> imgRepairs = new ArrayList<>();
+
 	public Repair() {
 		super();
 	}
@@ -50,7 +52,7 @@ public class Repair implements Serializable {
 		this.dateAssign = dateAssign;
 		this.dateRepair = dateRepair;
 		this.dateCompleted = dateCompleted;
-		
+
 	}
 
 	public String getId() {
@@ -100,8 +102,6 @@ public class Repair implements Serializable {
 	public void setDateCompleted(Date dateCompleted) {
 		this.dateCompleted = dateCompleted;
 	}
-
-	
 
 	public List<ImgRepair> getImgRepairs() {
 		return imgRepairs;

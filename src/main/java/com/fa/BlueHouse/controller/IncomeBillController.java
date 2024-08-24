@@ -2,7 +2,6 @@ package com.fa.BlueHouse.controller;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +25,6 @@ import com.fa.BlueHouse.services.EmployeeService;
 import com.fa.BlueHouse.services.FeetypeService;
 import com.fa.BlueHouse.services.IncomeBillService;
 import com.fa.BlueHouse.services.ResidentService;
-
 import jakarta.validation.Valid;
 
 @Controller
@@ -182,11 +180,16 @@ public class IncomeBillController {
     }
 
 	@GetMapping("/showbill")
-	public String showlist(Model model) {
-		List<IncomeBill> listApartmentBill = inbill.AmountByStatus("Bill Not Paid");
-		List<IncomeBill> listApartmentBillpaid = inbill.AmountByStatus("Bill Paid");
-		model.addAttribute("listApartmentBillpaid", listApartmentBillpaid);
-		model.addAttribute("listapartmentbill", listApartmentBill);
+	public String showlist(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+		
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<IncomeBill> listApartmentBill = inbill.AmountByStatus("Bill Not Paid", pageRequest);
+		Page<IncomeBill> listApartmentBillpaid = inbill.AmountByStatus("Bill Paid", pageRequest);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", listApartmentBill.getTotalPages());
+		model.addAttribute("listapartmentbill", listApartmentBill.getContent());
+		model.addAttribute("listApartmentBillpaid", listApartmentBillpaid.getContent());
 		return "PaymentStatistics/paymentstatistics";
 	}
 	

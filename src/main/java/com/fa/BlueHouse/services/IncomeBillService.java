@@ -69,7 +69,7 @@ public class IncomeBillService {
         return result;
     }
 	
-	public List<IncomeBill> AmountByStatus(String status){
-		return inbill.findByStatus(status);
+	public Page<IncomeBill> AmountByStatus(String status, Pageable pageable){
+		return inbill.findByStatus(status, pageable);
 	}
 }
