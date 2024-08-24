@@ -22,7 +22,7 @@ public interface ParticipantRepo extends JpaRepository<Participants, String> {
 	@Query("SELECT p FROM Participants p WHERE p.IDEvent.idEvent = :eventID ")
 	List<Participants> findListPartiByEvent(@Param("eventID") String eventID);
 	
-	@Query("SELECT p.IDEvent FROM Participants p WHERE p.participantEmp.employeeID = :myID OR p.participantResi.idResident = :myID ")
+	@Query("SELECT p.IDEvent FROM Participants p WHERE p.participantEmp.employeeID = :myID OR p.participantResi.idResident = :myID ORDER BY p.IDEvent.startTime DESC ")
 	Page<Event> findEventMyJoin(@Param("myID") String myID, Pageable pageable);
 	
 }
