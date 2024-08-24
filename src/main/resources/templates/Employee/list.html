@@ -44,7 +44,7 @@
 		</ul>
 
 		<div id="All" class="tabcontent">
-			<div class="tableFixHead border-right border-left border-bottom ">
+			<div class="tableFixHead border-right border-left border-bottom">
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
@@ -57,7 +57,9 @@
 							<th scope="col">Duty</th>
 							<th scope="col">Office</th>
 							<th scope="col">Phone Number</th>
-							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">Action</th>
+							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
+								Action
+							</th>
 						</tr>
 					</thead>
 					<tbody th:each="emp : ${listEmpPaggin}">
@@ -89,7 +91,7 @@
 		</div>
 
 		<div id="Services" class="tabcontent" style="display: none;">
-			<div class="  tableFixHead border-right border-left border-bottom">
+			<div class="tableFixHead border-right border-left border-bottom">
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
@@ -101,7 +103,9 @@
 							<th scope="col">Country</th>
 							<th scope="col">Duty</th>
 							<th scope="col">Phone Number</th>
-							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">Action</th>
+							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
+								Action
+							</th>
 						</tr>
 					</thead>
 					<tbody th:each="emp : ${listEmp}">
@@ -129,7 +133,7 @@
 		</div>
 
 		<div id="Engineering" class="tabcontent" style="display: none;">
-			<div class="  tableFixHead border-right border-left border-bottom">
+			<div class="tableFixHead border-right border-left border-bottom">
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
@@ -141,7 +145,9 @@
 							<th scope="col">Country</th>
 							<th scope="col">Duty</th>
 							<th scope="col">Phone Number</th>
-							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">Action</th>
+							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
+								Action
+							</th>
 						</tr>
 					</thead>
 					<tbody th:each="emp : ${listEmp}">
@@ -169,7 +175,7 @@
 		</div>
 
 		<div id="Environment" class="tabcontent" style="display: none;">
-			<div class="  tableFixHead border-right border-left border-bottom">
+			<div class="tableFixHead border-right border-left border-bottom">
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
@@ -181,7 +187,9 @@
 							<th scope="col">Country</th>
 							<th scope="col">Duty</th>
 							<th scope="col">Phone Number</th>
-							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">Action</th>
+							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
+								Action
+							</th>
 						</tr>
 					</thead>
 					<tbody th:each="emp : ${listEmp}">

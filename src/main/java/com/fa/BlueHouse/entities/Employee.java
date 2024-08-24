@@ -12,6 +12,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "EMPLOYEE")
@@ -19,31 +23,40 @@ public class Employee {
 
 	@Id
 	@Column(name = "ID_EMPLOYEE")
+	@Pattern(regexp = "^EMP\\d{3}$", message = "Must start with 'EMP' and be followed by 3 digits.")
 	private String employeeID;
 
 	@Column(name = "Name")
+	@Pattern(regexp = "^[a-zA-Z\\s]{3,30}$", message = "Must be between 3 and 30 characters.")
 	private String fullName;
 
 	@Column(name = "Gender")
+	@NotBlank(message = "* Empty values ​​are not allowed")
 	private String gender;
 
 	@Column(name = "PhoneNumber")
+	@Pattern(regexp = "^09\\d{8,9}$", message = "The input must be a string of 10 to 11 digits and start with '09'.")
 	private String phoneNumber;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "DateOfBirth", columnDefinition = "DATE")
+	@NotNull(message = "* Null is not allowed")
 	private LocalDate dateOfBirth;
 
 	@Column(name = "National_ID")
+	@Pattern(regexp = "^\\d{12}$", message = "The input must be a string of 12 digits.")
 	private String nationalID;
 
 	@Column(name = "Country")
+	@Size(max = 50, min = 5, message = "Size should be between 5 to 50 Digits.")
 	private String country;
 
 	@Column(name = "Office")
+	@NotBlank(message = "* Empty values ​​are not allowed")
 	private String office;
 
 	@Column(name = "Duty")
+	@NotBlank(message = "* Empty values ​​are not allowed")
 	private String duty;
 	
 	private String profile;

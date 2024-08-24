@@ -105,6 +105,8 @@ public class ParticipantController {
 
 		if (partiNew.getMission() != "") {
 			partiOld.setMission(partiNew.getMission());
+		}else {
+			partiOld.setMission("participant");
 		}
 
 		partiOld.setNote(partiNew.getNote());
