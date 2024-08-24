@@ -61,10 +61,10 @@ public class ApplicationSecurityConfig {
 										"/IncomeBill/searchapartmentbill", "/IncomeBillDetail/showlishtdetail",
 										"/IncomeBillDetail/searchIncobilldetail", "/Administrators/showlistadminis",
 										"/Administrators/searchadminis", "/ExpenseBill/show", "/ExpenseBill/listdetail",
-										"/ExpenseBill/searchexpensebill", "/ExpenseBill/searchexpensebilldetail",
-										"/vehicleRegistration/list", "/vehicleRegistration/add", "/registerForResidence/list", "/registerForResidence/add")
-								.hasAnyRole(RESIDENT, ADMIN, MANAGE, EMPLOYEE).requestMatchers("/ExpenseBill/**")
-								.hasAnyRole(ADMIN, MANAGE, EMPLOYEE)
+										"/ExpenseBill/searchexpensebill", "/ExpenseBill/searchexpensebilldetail","/vehicleRegistration/**","/registerForResidence/**")
+								.hasAnyRole(RESIDENT, ADMIN, MANAGE, EMPLOYEE)
+								
+								.requestMatchers("/ExpenseBill/**").hasAnyRole(ADMIN, MANAGE, EMPLOYEE)
 								.requestMatchers("/IncomeBill/**", "/IncomeBillDetail/**",
 										"/vehicleRegistration/**", "/rentalSpaceContract/**",
 										"/registerForResidence/**", "/advertisingContract/**",
