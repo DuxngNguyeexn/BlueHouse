@@ -36,6 +36,7 @@
 						<th scope="col">Role</th>
 						<th scope="col">Active</th>
 						<th scope="col">ID user</th>
+						<th scope="col">Name</th>
 
 						<th scope="col">Action</th>
 					</tr>
@@ -59,6 +60,7 @@
 							</span>
 						</td>
 						<td th:text="${acc.employee != null ? acc.employee.employeeID : acc.resident.idResident}"></td>
+						<td th:text="${acc.employee != null ? acc.employee.fullName : acc.resident.nameResident}"></td>
 
 						<td>
 							<a th:data-value="${acc.username}" onclick="window.location.href='edit?userName='+this.dataset.value;" class="text-decoration-none mr-2">

@@ -59,7 +59,7 @@
 					<label for="idResi" class="form-lable">ID Resident</label>
 
 					<select id="idResi" th:field="*{idResident}" class="form-control">
-						<option th:each="resi : ${listReci}" th:value="${resi.idResident}" th:text="${resi.idResident}"></option>
+						<option th:each="resi : ${listReci}" th:value="${resi.idResident}" th:text="${resi.idResident+' - '+resi.nameResident}"></option>
 					</select>
 				</div>
 
@@ -67,7 +67,7 @@
 					<label for="idEmp" class="form-lable">ID Employee</label>
 
 					<select id="idEmp" th:field="*{employeeID}" class="form-control">
-						<option th:each="emp : ${listEmp}" th:value="${emp.employeeID}" th:text="${emp.employeeID}"></option>
+						<option th:each="emp : ${listEmp}" th:value="${emp.employeeID}" th:text="${emp.employeeID+' - '+emp.fullName}"></option>
 					</select>
 				</div>
 			</div>
