@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fa.BlueHouse.entities.IncomeBill;
+import com.fa.BlueHouse.repositories.FinancialSupportfeeRepositories;
 import com.fa.BlueHouse.repositories.IncomeBillDetailRepositories;
 import com.fa.BlueHouse.repositories.IncomeBillRepositories;
 
@@ -59,13 +60,25 @@ public class IncomeBillService {
 
 	@Autowired
 	private IncomeBillDetailRepositories billDetailRepositories;
+	@Autowired
+	private FinancialSupportfeeRepositories supportfeeRepositories;
 	
 	public Map<String, Double> getTotalAmountByStatus() {
         double totalPaid = billDetailRepositories.findTotalByStatus("Bill Paid");
         double totalNotPaid = billDetailRepositories.findTotalByStatus("Bill Not Paid");
+        double totalbill = billDetailRepositories.findTotalAmount();
+        double totalfin = supportfeeRepositories.findTotalAmount();
+        double totalfeeoto = billDetailRepositories.findTotalAmountByFeeTypes("LP001");
+        double totalfeemay = billDetailRepositories.findTotalAmountByFeeTypes("LP002");
+        double totalspa = billDetailRepositories.findTotalAmountByFeeTypes("LP005");
+        double totalfee = totalfeeoto + totalfeemay;
         Map<String, Double> result = new HashMap<>();
         result.put("Bill Paid", totalPaid);
         result.put("Bill Not Paid", totalNotPaid);
+        result.put("Bill", totalbill);
+        result.put("fine", totalfin);
+        result.put("totalfee", totalfee);
+        result.put("totalspa", totalspa);
         return result;
     }
 	

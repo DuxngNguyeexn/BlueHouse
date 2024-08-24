@@ -18,13 +18,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.fa.BlueHouse.authen.model.AccountDTO;
 import com.fa.BlueHouse.entities.FeeType;
+import com.fa.BlueHouse.entities.FinancialSupportfee;
 import com.fa.BlueHouse.entities.IncomeBill;
+import com.fa.BlueHouse.entities.RentalSpaceContract;
 import com.fa.BlueHouse.entities.Resident;
+import com.fa.BlueHouse.entities.VehicleRegistration;
 import com.fa.BlueHouse.services.ApartmentService;
 import com.fa.BlueHouse.services.EmployeeService;
 import com.fa.BlueHouse.services.FeetypeService;
+import com.fa.BlueHouse.services.FinancialSupportfeeServices;
 import com.fa.BlueHouse.services.IncomeBillService;
+import com.fa.BlueHouse.services.RentalSpaceContractService;
 import com.fa.BlueHouse.services.ResidentService;
+import com.fa.BlueHouse.services.VehicleRegistrationService;
+
 import jakarta.validation.Valid;
 
 @Controller
@@ -40,6 +47,12 @@ public class IncomeBillController {
 	private ApartmentService apart;
 	@Autowired
 	private EmployeeService emp;
+	@Autowired
+	private FinancialSupportfeeServices fin;
+	@Autowired 
+	private VehicleRegistrationService vehic;
+	@Autowired 
+	private RentalSpaceContractService spa;
 	@RequestMapping("/showfeetype")
 	public String showlistFeetype(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
 		int pageSize = 6;
@@ -186,10 +199,18 @@ public class IncomeBillController {
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 		Page<IncomeBill> listApartmentBill = inbill.AmountByStatus("Bill Not Paid", pageRequest);
 		Page<IncomeBill> listApartmentBillpaid = inbill.AmountByStatus("Bill Paid", pageRequest);
+		Page<IncomeBill> listApartment = inbill.findAllbill(pageRequest);
+		Page<FinancialSupportfee> listFinan = fin.allFinsupfee(pageRequest);
+		Page<VehicleRegistration> listVehi = vehic.allVehicleRegistration(pageRequest);
+		Page<RentalSpaceContract> listspa = spa.allRentalSpaceContract(pageRequest);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", listApartmentBill.getTotalPages());
 		model.addAttribute("listapartmentbill", listApartmentBill.getContent());
 		model.addAttribute("listApartmentBillpaid", listApartmentBillpaid.getContent());
+		model.addAttribute("listApartment", listApartment.getContent());
+		model.addAttribute("listFinan", listFinan.getContent());
+		model.addAttribute("listVehi", listVehi.getContent());
+		model.addAttribute("listspa", listspa.getContent());
 		return "PaymentStatistics/paymentstatistics";
 	}
 	
