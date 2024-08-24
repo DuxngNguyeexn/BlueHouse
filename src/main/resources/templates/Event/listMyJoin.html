@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>List Event</title>
+	<title>Event Management</title>
 	<link rel="stylesheet" th:href="@{/account/css/list.css}" />
 </head>
 
@@ -24,7 +24,7 @@
 						<th scope="col">End Time</th>
 						<th scope="col">Location</th>
 						<th scope="col">Count Participant</th>
-						
+
 						<th scope="col">Detail</th>
 					</tr>
 				</thead>
@@ -37,7 +37,7 @@
 						<td th:text="${event.endTime}"></td>
 						<td th:text="${event.location}"></td>
 						<td th:text="${event.numberOfParticipants}"></td>
-						
+
 						<td>
 							<a th:data-value="${event.idEvent}" onclick="window.location.href='detail?eventID='+this.dataset.value;" class="text-decoration-none mr-2" style="cursor: pointer;">
 								<i class="fa-solid fa-list"></i>
