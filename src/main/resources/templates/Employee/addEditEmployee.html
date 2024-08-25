@@ -14,7 +14,7 @@
 			<div class="row pb-2 d-flex justify-content-around">
 				<div class="col-3">
 					<label for="id-employee" class="form-lable">ID Employee</label>
-					<input type="text" th:field="*{employeeID}" id="id-employee" class="form-control" placeholder="ID Employee" />
+					<input type="text" th:field="*{employeeID}" id="id-employee" class="form-control" placeholder="ID Employee" readonly="readonly"/>
 
 					<div>
 						<span th:if="${#fields.hasErrors('employeeID')}" th:errors="*{employeeID}" class="text-danger"></span>
