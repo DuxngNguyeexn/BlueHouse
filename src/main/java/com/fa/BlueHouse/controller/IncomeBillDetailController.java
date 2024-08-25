@@ -41,10 +41,9 @@ public class IncomeBillDetailController {
 
 	@GetMapping("/showlishtdetail")
 	public String findallDetail(Model model, @RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "idbill", defaultValue = "#{null}") String idbill) {
+			@RequestParam(name = "idbill") String idbill) {
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-		if (idbill != null) {
 			IncomeBill bill = inbill.findById(idbill);
 			Page<IncomeBillDetail> listdetail = indetail.findAllbill(idbill, pageRequest);
 			model.addAttribute("IncomeBill", bill);
@@ -52,14 +51,7 @@ public class IncomeBillDetailController {
 			model.addAttribute("apartment", apart.findById(bill.getIdApartment().getIdApartment()));
 			model.addAttribute("totalPages", listdetail.getTotalPages());
 			model.addAttribute("listDetail", listdetail.getContent());
-			return "/IncomeBillDetail/listInDetail";
-		} else {
-			Page<IncomeBillDetail> listdetail = indetail.findAll(pageRequest);
-			model.addAttribute("currentPage", page);
-			model.addAttribute("totalPages", listdetail.getTotalPages());
-			model.addAttribute("listDetail", listdetail.getContent());
-			return "/IncomeBillDetail/listInDetail";
-		}
+		return "/IncomeBillDetail/listInDetail";
 	}
 
 	@GetMapping("/createBillDetail")

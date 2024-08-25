@@ -11,7 +11,7 @@ import com.fa.BlueHouse.entities.Resident;
 
 public interface ResidentRepositories extends JpaRepository<Resident, String> {
 	
-	@Query("FROM Resident where nameResident LIKE %:seacrch% or gender LIKE %:seacrch% or relationshipHousehold LIKE %:seacrch% or phonenumber LIKE %:seacrch% or workplace LIKE %:seacrch% or identificationCard LIKE %:seacrch%")
+	@Query("FROM Resident where idResident LIKE %:seacrch% or nameResident LIKE %:seacrch% or gender LIKE %:seacrch% or relationshipHousehold LIKE %:seacrch% or phonenumber LIKE %:seacrch% or workplace LIKE %:seacrch% or identificationCard LIKE %:seacrch%")
 	public Page<Resident> searchResident(String seacrch , Pageable pageable);
 
 	public List<Resident> findByIdApartment_idApartment(String idApartment) ;

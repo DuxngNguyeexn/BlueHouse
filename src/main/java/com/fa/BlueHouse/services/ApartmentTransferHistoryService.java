@@ -21,4 +21,15 @@ public class ApartmentTransferHistoryService {
 	public Page<ApartmentTransferHistory> findByKeyword(Pageable pageable , String keyword){
 		return apartmentTransferHistoryRepository.findApartmentTransferHistoryByKeyword( keyword ,pageable );
 	}
+	public String generateNewId() {
+		String maxId = apartmentTransferHistoryRepository.findMaxId();
+		
+		if(maxId == null) return "C001";
+		
+		int numberic = Integer.parseInt(maxId.substring(1));
+		
+		numberic++;
+		
+		return String.format("C%03d", numberic);
+	}
 }

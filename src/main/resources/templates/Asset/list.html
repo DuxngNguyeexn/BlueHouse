@@ -45,7 +45,7 @@
 					<th scope="col">Number Of Assets</th>
 					<th scope="col">Price Of Assets</th>
 					<th scope="col">Manager</th>
-					<th scope="col">Schedule</th>
+					<th scope="col" th:if="${role == 'ROLE_MANAGE'}">Schedule</th>
 				</tr>
 			</thead>
 			<tbody th:each="l : ${listAll}" class="text-center">
@@ -56,7 +56,7 @@
 					<td th:text="${l.quantityOfAssets}"></td>
 					<td th:text="${l.priceOfAssets}"></td>
 					<td th:if="l.employ != null" th:text="${l.employ.employeeID + ' - ' + l.employ.fullName}"></td>
-					<td>
+					<td th:if="${role == 'ROLE_MANAGE'}">
 						<a th:href="@{showUpdate(id=${l.idAsset})}"
 							th:if="${role == 'ROLE_MANAGE'}"><i class="fa-regular fa-pen-to-square text-warning"
 								title="Update"></i></a>
@@ -66,9 +66,7 @@
 							onclick="deleteAsset(this.dataset.value, this.dataset.location)" data-toggle="modal"
 							data-target="#exampleModal"><i class="fa-solid fa-trash-can text-danger" title="Delete"></i>
 						</a>
-						<span th:if="${role == 'ROLE_MANAGE'}">|</span>
-						<a th:href="@{showUpdate(id=${l})}"><i class="fa-regular fa-calendar-days text-primary"
-								title="Maintenance scheduling"></i></a>
+						
 					</td>
 
 				</tr>

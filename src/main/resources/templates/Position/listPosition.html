@@ -26,7 +26,7 @@
 			</form>
 		</div>
 		<div class="d-flex justify-content-end">
-		<a href="/Position/createposition"><button class="btn btn-primary" >Create Position</button></a>
+		<a href="/Position/createposition"><button class="btn btn-info" >+ ADD Position</button></a>
 		</div>
 	</nav>
 	<h1>List Position</h1>
@@ -44,10 +44,10 @@
 				<td th:text="${position.idPosition}"></td>
 				<td th:text="${position.namePosition}"></td>
 				<td th:text="${position.prorogue}"></td>
-				<td><a th:href="@{/Position/editposition(idPosition=${position.idPosition})}" ><i class="fa-solid fa-pen-to-square"></i></a>
+				<td><a th:href="@{/Position/editposition(idPosition=${position.idPosition})}" ><i class="fa-solid fa-pen-to-square pencil"></i></a>
 					<a href="#" 
 					th:attr="data-href=@{/Position/deleteposition(idPosition=${position.idPosition})}" 
-					onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal"><i class="fa-solid fa-trash"></i></a>
+					onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal"><i class="fa-solid fa-trash trash"></i></a>
 				</td>
 			</tr>
 		</tbody>

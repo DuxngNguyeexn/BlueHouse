@@ -35,7 +35,7 @@
 	<div class="d-flex justify-content-end">
 	<a th:href="@{/ExpenseBill/createdetail(idbill=${expensebill.idExpenseBill})}"
 					target="blank">
-   <button sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE') or hasRole('ADMIN')" class="btn btn-primary m-2" type="submit">Create BillDetail</button></a>
+   <button sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE') or hasRole('ADMIN')" class="btn btn-info m-2" type="submit">+ ADD BillDetail</button></a>
 	</div>
 	</div>
 	
@@ -61,11 +61,11 @@
 				<td th:text="${bill.price}"></td>
 				<td>
 				<a th:href="@{/ExpenseBill/editdetail(iddetail=${bill.idexpenDetail})}"
-					target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
+					target="blank"><i class="fa-solid fa-pen-to-square pencil"></i></a>
 					
 				 <a href="#"
 					th:attr="data-href=@{/ExpenseBill/deletedetail(iddetail=${bill.idexpenDetail})}" 
-					onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal"><i class="fa-solid fa-trash"></i></a></td>
+					onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal"><i class="fa-solid fa-trash trash"></i></a></td>
 					
 			</tr>
 		</tbody>
