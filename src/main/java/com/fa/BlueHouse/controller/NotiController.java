@@ -53,6 +53,17 @@ public class NotiController {
 	@Autowired
 	private EventService eventService;
 
+	@GetMapping("viewSendDetail")
+	public String viewSendDetail(@RequestParam(name = "idNoti", defaultValue = "") String idNoti, Model model,
+			@RequestParam(name = "lastPath") String lastPath) {
+		Notification noti = notiService.findNotiByID(idNoti);
+
+		model.addAttribute("lastPath", lastPath);
+		model.addAttribute("post", noti);
+
+		return "Notifications/viewSendingNoti";
+	}
+
 	@GetMapping("viewDetail")
 	public String viewDetail(@RequestParam(name = "idNoti", defaultValue = "") String idNoti, Model model,
 			@RequestParam(name = "lastPath") String lastPath,
@@ -70,7 +81,7 @@ public class NotiController {
 		} catch (Exception e) {
 			eventID = "";
 		}
-		
+
 		boolean isExist = false;
 		if (noti.getTypeNote() != null && eventService.findById(eventID) != null) {
 			isExist = partiService.isExist(eventID, auth.getId());
@@ -83,6 +94,8 @@ public class NotiController {
 
 		return "Notifications/viewNoti";
 	}
+
+//	==================================================
 
 	@GetMapping("listSeen")
 	public String listSeen(Principal principal, Model model,
@@ -107,6 +120,39 @@ public class NotiController {
 		return "Notifications/listSeenNoti";
 	}
 
+	@GetMapping("/searchSeen")
+	public String searchAll(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword,
+			@RequestParam(name = "page", defaultValue = "1") int page, Model model, Principal principal) {
+		AccountDTO auth = (AccountDTO) ((Authentication) principal).getPrincipal();
+
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<Receiver> listNoti = notiService.findByIDSeenKey(pageRequest, auth.getId(), keyword);
+
+		int totalPages;
+		if (listNoti.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
+			totalPages = listNoti.getTotalPages();
+		}
+
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("searchKeyword", keyword);
+		model.addAttribute("listReceiver", listNoti.getContent());
+
+		if (keyword.equalsIgnoreCase("")) {
+			model.addAttribute("listReceiver", notiService.findByIDSeen(pageRequest, auth.getId()));
+		} else {
+			model.addAttribute("listReceiver", notiService.findByIDSeenKey(pageRequest, auth.getId(), keyword));
+		}
+
+		return "Notifications/listSeenNoti";
+
+	}
+
+//	==================================================================
+
 	@GetMapping("listSend")
 	public String listSend(Principal principal, Model model,
 			@RequestParam(name = "page", defaultValue = "1") int page) {
@@ -129,6 +175,39 @@ public class NotiController {
 
 		return "Notifications/listSendNoti";
 	}
+
+	@GetMapping("/searchSend")
+	public String searchSend(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword,
+			@RequestParam(name = "page", defaultValue = "1") int page, Model model, Principal principal) {
+		AccountDTO auth = (AccountDTO) ((Authentication) principal).getPrincipal();
+
+		int pageSize = 6;
+		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+		Page<Notification> listNoti = notiService.findByIDSendKey(pageRequest, auth.getId(), keyword);
+
+		int totalPages;
+		if (listNoti.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
+			totalPages = listNoti.getTotalPages();
+		}
+
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("searchKeyword", keyword);
+		model.addAttribute("listNoti", listNoti);
+
+		if (keyword.equalsIgnoreCase("")) {
+			model.addAttribute("listNoti", notiService.findByIDSend(pageRequest, auth.getId()));
+		} else {
+			model.addAttribute("listNoti", notiService.findByIDSendKey(pageRequest, auth.getId(), keyword));
+		}
+
+		return "Notifications/listSendNoti";
+
+	}
+
+//	=======================================================================
 
 	/**
 	 * Điều hướng tới trang tạo noti

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,10 +26,12 @@ import com.fa.BlueHouse.entities.Employee;
 import com.fa.BlueHouse.services.AccountService;
 import com.fa.BlueHouse.services.EmployeeService;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping(path = "/employee")
 public class EmployeeController {
-	
+
 	private final String uploadEmployee = "D:/Spring-Boot/imgdate";
 	@Autowired
 	private EmployeeService eService;
@@ -102,32 +105,45 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/save")
-	public String saveEmp(@ModelAttribute("employee") Employee employee, Model model,@RequestParam("file")MultipartFile file,
-            RedirectAttributes redirectAttributes) {
-		if(file != null) {
-			  try {
-		            // Lưu file xuống ổ D
-		            String fileName = file.getOriginalFilename();
-		            Path path = Paths.get(uploadEmployee + File.separator + fileName);
-		            Files.write(path, file.getBytes());
+	public String saveEmp(@Valid @ModelAttribute("employee") Employee employee, BindingResult result, Model model,
+			@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 
-		            employee.setProfile(fileName);
+		if (result.hasErrors()) {
+			List<Employee> listMService = eService.getManagerByOffice("Services");
+			List<Employee> listMEngineering = eService.getManagerByOffice("Engineering ");
+			List<Employee> listMEnvironment = eService.getManagerByOffice("Environment");
 
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
+			model.addAttribute("listMService", listMService);
+			model.addAttribute("listMEngineering", listMEngineering);
+			model.addAttribute("listMEnvironment", listMEnvironment);
+			return "Employee/addEditEmployee";
 		}
+
+		if (file != null) {
+			try {
+				// Lưu file xuống ổ D
+				String fileName = file.getOriginalFilename();
+				Path path = Paths.get(uploadEmployee + File.separator + fileName);
+				Files.write(path, file.getBytes());
+
+				employee.setProfile(fileName);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		eService.saveEmployee(employee);
 		return "redirect:/employee/list";
 	}
 
 	@GetMapping("/delete")
 	public String deleteEmp(@RequestParam(name = "employeeID") String id) {
-		
+
 		for (Account acc : accService.getAccByEmp(id)) {
 			accService.deleteByUserName(acc.getUsername());
 		}
-		
+
 		eService.deleteByID(id);
 		return "redirect:/employee/list";
 	}
@@ -135,11 +151,16 @@ public class EmployeeController {
 	@GetMapping("/edit")
 	public String editEmp(Model model, @RequestParam(name = "employeeID") String id) {
 		model.addAttribute("employee", eService.findById(id));
-		return "Employee/addEditEmployee";
+		return "Employee/EditEmployee";
 	}
 
 	@PostMapping("/update")
-	public String updateEmp(@ModelAttribute("employee") Employee employee) {
+	public String updateEmp(@Valid @ModelAttribute("employee") Employee employee, BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			return "Employee/EditEmployee";
+		}
+
 		eService.saveEmployee(employee);
 
 		for (Account acc : accService.getAccByEmp(employee.getEmployeeID())) {

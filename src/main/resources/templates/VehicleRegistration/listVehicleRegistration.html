@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="~{layout/layout}">
 <head>
 <meta charset="ISO-8859-1">
@@ -54,9 +55,9 @@
 					<td th:text="${vehicleregi.apartmentVE.apartmentNumber}"></td>
 					<td><a
 						th:href="@{edit(idvehicle=${vehicleregi.idVehicle})}"
-						target="blank"><i class="fa-solid fa-pen-to-square"></i></a> <a
-						href="#" th:attr="data-href=@{delete(idvehicle=${vehicleregi.idVehicle})}"onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal"
-						target="blank"><i class="fa-solid fa-trash"></i></a></td>
+						target="blank"><i class="fa-solid fa-pen-to-square pencil"></i></a> <a
+						href="#"  sec:authorize="hasAnyRole('ADMIN','MANAGE','EMPLOYEE')" th:attr="data-href=@{delete(idvehicle=${vehicleregi.idVehicle})}"onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal"
+						target="blank"><i class="fa-solid fa-trash trash"></i></a></td>
 				</tr>
 			</tbody>
 		</table>

@@ -126,7 +126,7 @@ public class VehicleRegistrationController {
 	}
 
 	@GetMapping("/edit")
-	public String editVehicleRegistration(Model model, @RequestParam("idvehicle") String id) {
+	public String editVehicleRegistration(Model model, @RequestParam("idvehicle") String id, Principal principal) {
 		model.addAttribute("listapa", vehicleRegistrationService.findaApartment());
 		model.addAttribute("listfee", vehicleRegistrationService.findaFeeType());
 		model.addAttribute("vehicleregi", vehicleRegistrationService.findaById(id));

@@ -16,31 +16,37 @@
 				<div class="col-11">
 					<label for="name" class="form-lable">Name Event</label>
 					<input type="text" th:field="*{nameEvent}" id="name" class="form-control" placeholder="Name Event" />
+					<div id="error-name" class="text-danger"></div>
 				</div>
 
 				<div class="col-11 mt-3">
 					<label for="location" class="form-lable">Location</label>
 					<input type="text" th:field="*{location}" id="location" class="form-control" placeholder="Location" />
+					<div id="error-location" class="text-danger"></div>
 				</div>
 
 				<div class="col-5 mt-3">
 					<label for="startDate" class="form-lable">Day Start</label>
 					<input type="date" th:field="*{startDate}" id="startDate" class="form-control" placeholder="Date Start" />
+					<div id="error-startDate" class="text-danger"></div>
 				</div>
 
 				<div class="col-5 mt-3">
 					<label for="endDate" class="form-lable">Day End</label>
 					<input type="date" th:field="*{endDate}" id="endDate" class="form-control" placeholder="Date End" />
+					<div id="error-endDate" class="text-danger"></div>
 				</div>
 
 				<div class="col-5 mt-3">
 					<label for="startTime" class="form-lable">Time Start</label>
 					<input type="time" th:field="*{startTime}" id="startTime" class="form-control" placeholder="Time Start" />
+					<div id="error-startTime" class="text-danger"></div>
 				</div>
 
 				<div class="col-5 mt-3">
 					<label for="endTime" class="form-lable">Time End</label>
 					<input type="time" th:field="*{endTime}" id="endTime" class="form-control" placeholder="Time End" />
+					<div id="error-endTime" class="text-danger"></div>
 				</div>
 
 				<div class="col-11 mt-3">
@@ -81,7 +87,7 @@
 					</select>
 				</div>
 			</div>
-			
+
 			<input type="hidden" id="Choose" name="Choose" value="none" />
 			<input type="hidden" id="valueSend" name="valueSend" value="none" />
 
@@ -100,14 +106,14 @@
 			</div>
 		</div>
 	</form>
-	
+
 	<script th:src="@{/event/js/addEvent.js}"></script>
 
 	<script th:src="@{/lib/choosen/docsupport/prototype-1.7.0.0.js}"></script>
 	<script th:src="@{/lib/choosen/chosen.proto.js}"></script>
 	<script th:src="@{/lib/choosen/docsupport/prism.js}"></script>
 	<script th:src="@{/lib/choosen/docsupport/init.proto.js}"></script>
-	
+
 </body>
 
 </html>

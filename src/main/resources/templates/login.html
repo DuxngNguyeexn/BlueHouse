@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
 
-    <link rel="icon" th:href="@{/common/img/logoBlueHouse.png}" type="image/x-icon">
+    <link rel="icon" th:href="@{/common/img/logoBlueHouse.png}" type="image/x-icon" />
     <title>Document</title>
 
     <link rel="stylesheet" th:href="@{/common/css/login.css}" />
@@ -22,7 +22,8 @@
             <form method="post" action="/login">
                 <div class="text-center">
                     <h1>LOGIN BLUE HOUSE</h1>
-                    <span>Welcome back. Please enter the information below to log in your account.</span>
+                    <span>Welcome back. Please enter the information below to log in your
+                        account.</span>
                 </div>
 
                 <div class="form-group mt-3">
@@ -38,14 +39,14 @@
                     <div class="w-100 d-flex justify-content-between">
                         <label for="password" class="h5 font-weight-bold">Password</label>
                         <a href="forgot" class="text-primary">
-                        	<span>Forgot password</span>
+                            <span>Forgot password</span>
                         </a>
                     </div>
 
                     <div class="input-group">
-                        <input type="password" class="form-control border-right-0" id="password" name="password" placeholder="Please enter your password">
+                        <input type="password" class="form-control border-right-0" id="password" name="password" placeholder="Please enter your password" />
 
-                        <span class="input-group-text border-left-0 bg-white" style="border-radius: 0 0.25rem 0.25rem 0">
+                        <span class="input-group-text border-left-0 bg-white" style="border-radius: 0 0.25rem 0.25rem 0;">
                             <svg id="show-pass" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                 <path
                                     d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
@@ -74,7 +75,6 @@
                         <span class="h5">Login</span>
                     </button>
                 </div>
-
             </form>
         </div>
     </div>

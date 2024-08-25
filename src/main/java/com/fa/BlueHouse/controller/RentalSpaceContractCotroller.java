@@ -111,11 +111,15 @@ public class RentalSpaceContractCotroller {
 		model.addAttribute("listapartment", listresi);
 		model.addAttribute("apartments", rentalSpaContrac.findalApa());
 //		model.addAttribute("employees", rentalSpaContrac.findalEmploy());
-		model.addAttribute("renspacont", rentalSpaContrac.findByID(id));
+		model.addAttribute("RentalSpa", rentalSpaContrac.findByID(id));
 		return "/RentalSpaceContract/AddRentalSpaceContract";
 	}
 	@PostMapping("/update")
-	public String saveupdateRenSpaCon(@ModelAttribute("idrenspacon") RentalSpaceContract renspa) {
+	public String saveupdateRenSpaCon(@ModelAttribute("idrenspacon") RentalSpaceContract renspa, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = userDetails.getId();
+		Employee emp = rentalSpaContrac.findByempID(id);
+		renspa.setManagerCodeContract(emp);
 		rentalSpaContrac.updateRenSpaCon(renspa);
 		return "redirect:/rentalSpaceContract/list";
 	}

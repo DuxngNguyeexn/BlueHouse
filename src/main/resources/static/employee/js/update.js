@@ -1,22 +1,4 @@
 $(function () {
-  if (window.location.pathname === "/employee/add") {
-    $("#title-Text").text("Add New Employee");
-
-    $("#form-data").attr("action", "save");
-
-    $("#update").hide();
-    $("#create").show();
-  } else {
-    $("#title-Text").text("Update Employee");
-
-    $("#form-data").attr("action", "update");
-    $("#id-employee").attr("readonly", "readonly");
-
-    $("#create").hide();
-    $("#update").show();
-    $("#cancel").hide();
-  }
-
   $("#back-list").click(function () {
     window.location.href = "list";
   });
