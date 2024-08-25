@@ -100,7 +100,11 @@ public class EmployeeController {
 		model.addAttribute("listMEngineering", listMEngineering);
 		model.addAttribute("listMEnvironment", listMEnvironment);
 
-		model.addAttribute("employee", new Employee());
+		String id = eService.generateNewId();
+		Employee emp = new Employee();
+		emp.setEmployeeID(id);
+
+		model.addAttribute("employee", emp);
 		return "Employee/addEditEmployee";
 	}
 

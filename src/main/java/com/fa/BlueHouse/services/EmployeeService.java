@@ -14,7 +14,7 @@ import com.fa.BlueHouse.repositories.EmployeeRepo;
 public class EmployeeService {
 	@Autowired
 	private EmployeeRepo eRepo;
-	  
+
 	public List<Employee> listAdministrator() {
 		return eRepo.findAdministrator();
 	}
@@ -30,11 +30,11 @@ public class EmployeeService {
 	public Page<Employee> findByKeyword(Pageable pageable, String keyword) {
 		return eRepo.findByKeyword(keyword, pageable);
 	}
-	
+
 	public List<Employee> findByKeyword(String keyword) {
 		return eRepo.findByKeyword(keyword);
 	}
-	
+
 	/**
 	 * @param Services
 	 * @param Engineering
@@ -45,17 +45,30 @@ public class EmployeeService {
 	public List<Employee> getManagerByOffice(String office) {
 		return eRepo.getManagerByOffice(office);
 	}
-	
+
 	public void saveEmployee(Employee emp) {
 		eRepo.save(emp);
 	}
-	
+
 	public void deleteByID(String id) {
 		eRepo.deleteById(id);
 	}
-	
+
 	public Employee findById(String id) {
-    	return eRepo.findById(id).orElse(null);
-    }
+		return eRepo.findById(id).orElse(null);
+	}
+
+	public String generateNewId() {
+		String maxId = eRepo.findMaxId();
+
+		if (maxId == null)
+			return "EMP001";
+
+		int numberic = Integer.parseInt(maxId.substring(3));
+
+		numberic++;
+
+		return String.format("EMP%03d", numberic);
+	}
 
 }
