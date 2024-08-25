@@ -60,7 +60,7 @@
 				<td th:text="${resident.idApartment != null ? resident.idApartment.idApartment : ' '}"></td>
 				<td th:text="${resident.phonenumber}"></td>
 				<td th:text="${resident.countryside}"></td>
-				<td><a href="@{/Resident/editresident(idresident=${resident.idResident})}">
+				<td><a th:href="@{/Resident/editresident(idresident=${resident.idResident})}">
 					<i class="fa-solid fa-pen-to-square"></i></a> 
 					<a href="#"
 					th:attr="data-href=@{/Resident/deleterisedent(idresident=${resident.idResident})}" onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal">

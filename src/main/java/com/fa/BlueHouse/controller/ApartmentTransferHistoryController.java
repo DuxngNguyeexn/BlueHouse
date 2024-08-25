@@ -75,6 +75,7 @@ public class ApartmentTransferHistoryController {
 			resident.setIdApartment(null);
 			residentService.saveResident(resident);
 		}
+		apartmentTransferHistory.setIdContract(apartmentTransferHistoryService.generateNewId());
 		apartment.setIdHomeowner(idHomeowner);
 		apartmentService.save(apartment);
 		apartmentTransferHistoryService.save(apartmentTransferHistory);

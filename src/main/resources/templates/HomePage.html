@@ -38,7 +38,8 @@
 			<!-- Image Section (30%) -->
 			<div class="col-md-4 d-flex">
 				<div class="card shadow-sm flex-fill">
-					<img src="https://i.pinimg.com/564x/5a/06/72/5a06722e06d1358b0a63b839ab19198b.jpg" class="card-img-top img-fluid img-fixed" alt="User Image">
+					<img th:if="${role == 'ROLE_RESIDENT' || role == 'ROLE_ADMIN'}" th:src="@{'/imgResident/' + ${userDetails.profile}}" class="card-img-top img-fluid img-fixed" alt="User Image">
+					<img th:if="${role == 'ROLE_MANAGE' || role == 'ROLE_EMPLOYEE'}" th:src="@{'/imgEmployee/' + ${userDetails.profile}}" class="card-img-top img-fluid img-fixed" alt="User Image">
 				</div>
 			</div>
 	
