@@ -44,7 +44,7 @@
 				<td th:text="${position.idPosition}"></td>
 				<td th:text="${position.namePosition}"></td>
 				<td th:text="${position.prorogue}"></td>
-				<td><a th:href="@{/Position/editposition(idPosition=${position.idPosition})}" ><i class="fa-solid fa-pen-to-square"></i></a>
+				<td><a th:href="@{/Position/editposition(idPosition=${position.idPosition})}" ><i class="fa-solid fa-pen-to-square pencil"></i></a>
 					<a href="#" 
 					th:attr="data-href=@{/Position/deleteposition(idPosition=${position.idPosition})}" 
 					onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal"><i class="fa-solid fa-trash trash"></i></a>

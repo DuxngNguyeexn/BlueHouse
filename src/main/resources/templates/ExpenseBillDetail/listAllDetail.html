@@ -59,10 +59,10 @@
 				<td th:text="${bill.price}"></td>
 				<td> 
 				<a th:href="@{/ExpenseBill/editdetail(iddetail=${bill.idexpenDetail})}"
-					target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
+					target="blank"><i class="fa-solid fa-pen-to-square pencil"></i></a>
 			<a href="#"
 					th:attr="data-href=@{/ExpenseBill/deletedetail(iddetail=${bill.idexpenDetail})}" 
-					onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal"><i class="fa-solid fa-trash"></i></a></td>
+					onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal"><i class="fa-solid fa-trash trash"></i></a></td>
 			</tr>
 		</tbody>
 	</table>

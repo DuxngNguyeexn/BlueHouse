@@ -65,8 +65,7 @@ public class ApplicationSecurityConfig {
 										"/Feetype/listFeetype",
 										"/vehicleRegistration/list", "/vehicleRegistration/add", "/registerForResidence/list", "/registerForResidence/add")
 								.hasAnyRole(RESIDENT, ADMIN, MANAGE, EMPLOYEE)
-								.requestMatchers("/ExpenseBill/**")
-								.hasAnyRole(ADMIN, MANAGE, EMPLOYEE)
+								.requestMatchers("/ExpenseBill/**").hasAnyRole(ADMIN, MANAGE, EMPLOYEE)
 								.requestMatchers("/IncomeBill/**", "/IncomeBillDetail/**",
 										"/vehicleRegistration/**", "/rentalSpaceContract/**",
 										"/registerForResidence/**", "/advertisingContract/**",

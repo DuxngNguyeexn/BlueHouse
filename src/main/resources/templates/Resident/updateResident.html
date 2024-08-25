@@ -3,94 +3,143 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Create Resident</title>
+
+</head>
 <body layout:fragment="content">
-	<form action="/Resident/saveupdateresident" class="mt-5" method="post" th:object="${resident}">
+	<form action="/Resident/saveresident" class="mt-5" method="post" th:object="${resident}" enctype="multipart/form-data">
 		<div class="container p-3 border">
 			<h1 class="text-center pb-5">Create Resident</h1>
 			<div class="row">
-				<div class="col-3 ">
+				<div class="col-3 mb-3">
 					<label for="idresident" class="form-lable">ID Resident</label>
-					<p id="erroid"></p>
-					<input type="hidden" th:field="*{idResident}" id="idResident"
+					<div>
+						<span th:if="${#fields.hasErrors('idResident')}"
+							th:errors="*{idResident}" class="text-danger"></span>
+					</div>
+					<input type="text" th:field="*{idResident}" id="idResident"
 						class="form-control" placeholder="ID Resident"
-						aria-label="Username" aria-describedby="addon-wrapping">
+						aria-label="Username" aria-describedby="addon-wrapping" readonly="readonly">
 				</div>
-				<div class="col-3 ">
+				<div class="col-3 mb-3">
 					<label class="form-check">Gender</label>
-					<p id="erro"></p>
+					<div>
+						<span th:if="${#fields.hasErrors('gender')}"
+							th:errors="*{gender}" class="text-danger"></span>
+					</div>
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" th:field="*{gender}" type="radio"
-							id="gender" value="Male" checked> <label
+							id="gender" value="Male" ><label
 							class="form-check-label" for="gender">Male</label>
 					</div>
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" th:field="*{gender}" type="radio"
-							id="gender" value="Female"> <label
+							id="gender" value="Female" > <label
 							class="form-check-label" for="gender">Female </label>
 					</div>
 				</div>
 
-				<div class=" col-6">
+				<div class=" col-6 mb-3">
 					<label for="nameresident" class="form-lable">Name Resident</label>
-					<p id="erroname"></p>
+					<div>
+						<span th:if="${#fields.hasErrors('nameResident')}"
+							th:errors="*{nameResident}" class="text-danger"></span>
+					</div>
 					<input type="text" th:field="*{nameResident}" id="nameResident"
 						class="form-control" placeholder="Name Resident"
 						aria-label="Username" aria-describedby="addon-wrapping">
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-6">
+				<div class="col-6 mb-3">
 					<label for="idresident" class="form-lable ">Birth Day</label>
-					<p id="errobirthday"></p>
-					<input type="date" th:field="*{birthday}"  id="birthday"
+					<div>
+						<span th:if="${#fields.hasErrors('birthday')}"
+							th:errors="*{birthday}" class="text-danger"></span>
+					</div>
+					<input type="date" th:field="*{birthday}" id="birthday"
 						class="form-control" placeholder="Birth Day" aria-label="Username"
 						aria-describedby="addon-wrapping">
 				</div>
 
-				<div class=" col-6">
-					<label for="nameresident" class="form-lable">Identifi Card</label>
-					<p id="erroidentificard"></p>
-					<input type="text" th:field="*{identificationCard}" 
+				<div class=" col-6 mb-3">
+					<label for="identificationCard" class="form-lable">Identifi Card</label>
+					<div>
+						<span th:if="${#fields.hasErrors('identificationCard')}"
+							th:errors="*{identificationCard}" class="text-danger"></span>
+					</div>
+					<input type="text" th:field="*{identificationCard}"
 						id="identificationCard" class="form-control"
 						placeholder="Identifi Card" aria-label="Username"
 						aria-describedby="addon-wrapping">
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-6">
-					<label for="idresident" class="form-lable ">Phone Number</label>
-					<p id="errophone"></p>
+				<div class="col-6 mb-3">
+					<label for="phonenumber" class="form-lable ">Phone Number</label>
+					<div>
+						<span th:if="${#fields.hasErrors('phonenumber')}"
+							th:errors="*{phonenumber}" class="text-danger"></span>
+					</div>
 					<input type="text" th:field="*{phonenumber}" id="phonenumber"
 						class="form-control" placeholder="Phone Number"
 						aria-label="Username" aria-describedby="addon-wrapping">
 				</div>
 
-				<div class=" col-6">
-					<label for="nameresident" class="form-lable">Work Pleace</label>
-					<p id="erroworkpleace"></p>
-					<input type="text" name="workplace" th:field="*{workplace}" id="workplace"
+				<div class=" col-6 mb-3">
+					<label for="workplace" class="form-lable">Work Pleace</label>
+					<div>
+						<span th:if="${#fields.hasErrors('workplace')}"
+							th:errors="*{workplace}" class="text-danger"></span>
+					</div>
+					<input type="text" th:field="*{workplace}" id="workplace"
 						class="form-control" placeholder="Work Pleace"
 						aria-label="Username" aria-describedby="addon-wrapping">
 				</div>
 			</div>
+			
 			<div class="row pb-3">
-				<div class="col-6">
+			<div class=" col-6 mb-3">
+					<label for="workplace" class="form-lable">Contryside</label>
+					<div>
+						<span th:if="${#fields.hasErrors('countryside')}"
+							th:errors="*{countryside}" class="text-danger"></span>
+					</div>
+					<input type="text" th:field="*{countryside}" id="countryside"
+						class="form-control" placeholder="Contryside"
+						aria-label="Username" aria-describedby="addon-wrapping">
+				</div>
+				<div class="col-6 mb-3">
 					<label for="idApartment" class="form-lable ">ID Apartment</label>
-					<p id="erroidapart"></p>
-					<select id="idApartment" name="idApartment"  th:field="*{idApartment}">
+					<div>
+						<span th:if="${#fields.hasErrors('idApartment')}"
+							th:errors="*{idApartment}" class="text-danger"></span>
+					</div>
+					<select id="idApartment" th:field="*{idApartment}" class="form-control">
 						<option th:each="apartment : ${listapartment}" th:value="${apartment.idApartment}"
 							th:text="${apartment.idApartment}"></option>
 					</select>
-				
 				</div>
 
-				<div class=" col-6">
-					<label for="nameresident" class="form-lable">Relationship
+				<div class=" col-6 mb-3">
+					<label for="relationshipHousehold" class="form-lable">Relationship
 						House</label>
-					<p id="errorelation"></p>
-					<input type="text" name="relationshipHousehold" th:field="*{relationshipHousehold}" 
+					<div>
+						<span th:if="${#fields.hasErrors('relationshipHousehold')}"
+							th:errors="*{relationshipHousehold}" class="text-danger"></span>
+					</div>
+					<input type="text" th:field="*{relationshipHousehold}" 
 						id="relationshipHousehold" class="form-control"
 						placeholder="Relationship House" aria-label="Username"
+						aria-describedby="addon-wrapping">
+				</div>
+				<div class=" col-6 mb-3">
+					<label for="relationshipHousehold" class="form-lable">IMG Profile</label>
+					<div>
+						<span th:if="${#fields.hasErrors('profile')}"
+							th:errors="*{profile}" class="text-danger"></span>
+					</div>
+					<input type="file" id="file" name ="file"
+						placeholder="profile" aria-label="Username" 
 						aria-describedby="addon-wrapping">
 				</div>
 			</div>
