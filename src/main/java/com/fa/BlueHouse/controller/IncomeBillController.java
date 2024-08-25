@@ -65,7 +65,16 @@ public class IncomeBillController {
         feetype.saveFeetype(fee);
 			return "redirect:/IncomeBill/showfeetype";
 		}
+		
 	}
+	
+	@GetMapping("/editfetype")
+	public String editFeetype(Model model, @RequestParam("idFeetype")String idfee) {
+	         model.addAttribute("feetype", feetype.findById(idfee));
+			return "Feetype/updateFeetype";
+		}
+	
+	
 
 	@GetMapping("/showinvoiceapratmentbill")
 	public String showInvoiceApartmentBill(Model model, @RequestParam(name = "page", defaultValue = "1") int page, Principal principal) {

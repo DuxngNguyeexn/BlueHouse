@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 <meta charset="ISO-8859-1">
@@ -20,7 +21,9 @@
 
 <body layout:fragment="content" > 
 <div class="p-3 m-5">
-		<h1>List Resident</h1>
+	<h1>List Resident</h1>
+<div class="d-flex justify-content-between">
+	
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid">
 			<form class="d-flex" action="/Resident/searchrisedent" method="GET">
@@ -30,7 +33,10 @@
 			</form>
 		</div>
 	</nav>
-
+	<a th:href="@{/ExpenseBill/create}"
+					target="blank">
+   <button sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE') or hasRole('ADMIN')" class="btn btn-info m-2" type="submit">+ ADD ExpenseBill</button></a>
+</div>
 	<div class="table-responsive tableFixHead border-right border-left border-bottom">
 	<table class="table ">
 		<thead class="table-dark">
@@ -63,7 +69,7 @@
 				<td><a href="@{/Resident/editresident(idresident=${resident.idResident})}">
 					<i class="fa-solid fa-pen-to-square"></i></a> 
 					<a href="#"
-					th:attr="data-href=@{/Resident/deleterisedent(idresident=${resident.idResident})}" onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal" target="blank">
+					th:attr="data-href=@{/Resident/deleterisedent(idresident=${resident.idResident})}" onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal">
 					<i class="fa-solid fa-trash"></i></a>
 				</td>
 			</tr>

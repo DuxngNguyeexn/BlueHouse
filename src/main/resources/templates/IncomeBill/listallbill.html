@@ -33,10 +33,10 @@
 	<div class="d-flex justify-content-end">
 	<a th:href="@{/IncomeBillDetail/createBillDetail}"
 					target="blank">
-   <button class="btn btn-primary m-2" type="submit">Create BillDetail</button></a>
+   <button class="btn btn-info m-2" type="submit">+ ADD BillDetail</button></a>
    <a th:href="@{/IncomeBill/createapartmentbill}"
 					target="blank">
-   <button class="btn btn-primary m-2" type="submit">Create IncomeBill</button></a>
+   <button class="btn btn-info m-2" type="submit">+ ADD IncomeBill</button></a>
 	</div>
 	</div>
 	
@@ -65,7 +65,7 @@
 				<td th:text="${bill.status}"></td>
 				<td th:text="${bill.getTotalbill}"></td>
 				<td> <a th:href="@{/IncomeBillDetail/showlishtdetail(idbill=${bill.idIncomeBill})}"
-					target="blank"><i class="fa-solid fa-calendar-week"></i></a></td>
+					><i class="fa-solid fa-calendar-week"></i></a></td>
 				<td> <a href="#" th:if="${bill.paymentDate == null && bill.getTotalbill != 0}"
 					th:attr="data-href=@{/IncomeBill/paybill(idbill=${bill.idIncomeBill})}" 
 					onclick="setDeleteUrl(this)" data-toggle="modal" data-target="#deleteModal" ><i class="fa-solid fa-file-invoice-dollar" ></i></a></td>

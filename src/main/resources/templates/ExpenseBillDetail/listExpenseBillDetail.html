@@ -35,7 +35,7 @@
 	<div class="d-flex justify-content-end">
 	<a th:href="@{/ExpenseBill/createdetail(idbill=${expensebill.idExpenseBill})}"
 					target="blank">
-   <button sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE') or hasRole('ADMIN')" class="btn btn-primary m-2" type="submit">Create BillDetail</button></a>
+   <button sec:authorize="hasRole('EMPLOYEE')or hasRole('MANAGE') or hasRole('ADMIN')" class="btn btn-info m-2" type="submit">+ ADD BillDetail</button></a>
 	</div>
 	</div>
 	
