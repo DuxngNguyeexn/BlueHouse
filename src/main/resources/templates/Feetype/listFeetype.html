@@ -37,8 +37,8 @@
 				<td th:text="${fee.idFeetype}"></td>
 				<td th:text="${fee.nameFeetype}"></td>
 				<td th:text="${fee.price}"></td>
-				<td><a th:href="@{/IncomeBill/editfetype(idFeetype=${fee.idFeetype})}" target="blank"><i class="fa-solid fa-pen-to-square"></i></a>
-					<a th:href="@{/IncomeBill/deletefeetype(idFeetype=${fee.idFeetype})}" target="blank"><i class="fa-solid fa-trash"></i></a>
+				<td><a th:href="@{/IncomeBill/editfetype(idFeetype=${fee.idFeetype})}" ><i class="fa-solid fa-pen-to-square pencil"></i></a>
+					<a th:href="@{/IncomeBill/deletefeetype(idFeetype=${fee.idFeetype})}" ><i class="fa-solid fa-trash trash"></i></a>
 				</td>
 			</tr>
 		</tbody>

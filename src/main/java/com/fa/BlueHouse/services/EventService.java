@@ -1,5 +1,7 @@
 package com.fa.BlueHouse.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,14 +19,18 @@ public class EventService {
 		eventRepo.save(event);
 	}
 
-	public Page<Event> getAllEvent(String idResi, Pageable pageable) {
-		return eventRepo.getAllEvent(idResi, pageable);
+	public Page<Event> getAllEventMyCreate(String idResi, Pageable pageable) {
+		return eventRepo.getAllEventMyCreate(idResi, pageable);
 	}
-	
+
+	public List<Event> getAllEventMyCreate(String idResi) {
+		return eventRepo.getAllEventMyCreate(idResi);
+	}
+
 	public Event findById(String id) {
-    	return eventRepo.findById(id).orElse(null);
-    }
-	
+		return eventRepo.findById(id).orElse(null);
+	}
+
 	public void deleteById(String eventID) {
 		eventRepo.deleteById(eventID);
 	}

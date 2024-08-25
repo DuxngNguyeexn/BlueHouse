@@ -12,7 +12,7 @@ import com.fa.BlueHouse.entities.Employee;
 
 public interface EmployeeRepo extends JpaRepository<Employee, String> {
 
-	@Query("SELECT emp FROM Employee emp WHERE emp.employeeID LIKE %:keyword% ")
+	@Query("SELECT emp FROM Employee emp WHERE emp.fullName LIKE %:keyword% ")
 	Page<Employee> findByKeyword(@Param("keyword") String keyword, Pageable pageable);
 	
 	@Query("SELECT emp FROM Employee emp WHERE emp.employeeID LIKE %:keyword% ")
@@ -21,7 +21,7 @@ public interface EmployeeRepo extends JpaRepository<Employee, String> {
 	@Query("SELECT emp FROM Employee emp WHERE emp.office = :office AND emp.duty = 'Manager'")
 	List<Employee> getManagerByOffice(@Param("office") String office);
 
-	@Query("SELECT e FROM Employee e WHERE e.duty = 'Administrator'")
+	@Query("SELECT e FROM Employee e WHERE e.duty = 'Manager'")
 	List<Employee> findAdministrator();
 
 }

@@ -16,7 +16,7 @@ public interface ResidentRepositories extends JpaRepository<Resident, String> {
 
 	public List<Resident> findByIdApartment_idApartment(String idApartment) ;
 	
-	@Query("SELECT MAX(i.idIncomeBill) FROM IncomeBill i")
+	@Query("SELECT MAX(i.idResident) FROM Resident i")
     String findMaxId();
 
 }

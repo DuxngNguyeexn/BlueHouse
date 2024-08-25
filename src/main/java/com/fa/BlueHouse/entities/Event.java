@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
@@ -26,8 +28,7 @@ public class Event {
 	@Column(name = "start_Date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	LocalDate startDate;
-	
-	
+
 	@Column(name = "end_Date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	LocalDate endDate;
@@ -38,8 +39,7 @@ public class Event {
 	@Column(name = "start_Time")
 	@DateTimeFormat(pattern = "HH:mm:ss")
 	LocalTime startTime;
-	
-	
+
 	@Column(name = "end_Time")
 	@DateTimeFormat(pattern = "HH:mm:ss")
 	LocalTime endTime;
@@ -52,6 +52,7 @@ public class Event {
 
 	@OneToOne
 	@JoinColumn(name = "Bill")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private ExpenseBill bill;
 
 	@ManyToOne

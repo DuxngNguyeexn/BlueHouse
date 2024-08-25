@@ -14,7 +14,7 @@
 		</div>
 
 		<div class="text-center d-flex justify-content-between">
-			<form class="col-3">
+			<form th:action="searchSend"  class="col-3">
 				<div class="input-group">
 					<input class="form-control search" placeholder="Search" name="searchKeyword" />
 					<button class="input-group-text search-icon" type="submit">
@@ -46,7 +46,7 @@
 						<td th:text="${noti.time}"></td>
 						
 						<td>
-							<a th:data-value="${noti.notificationCode}" onclick="window.location.href='viewDetail?lastPath=listSend&idNoti='+this.dataset.value;" class="text-decoration-none mr-2">
+							<a th:data-value="${noti.notificationCode}" onclick="window.location.href='viewSendDetail?lastPath=listSend&idNoti='+this.dataset.value;" class="text-decoration-none mr-2">
 								<i class="fa-solid fa-eye pencil"></i>
 							</a>
 						</td>

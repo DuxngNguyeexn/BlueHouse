@@ -7,19 +7,21 @@
 </head>
 
 <body layout:fragment="content">
-	<form id="form-data" class="mt-5" th:action="update" method="post" th:object="${account}">
+	<form id="form-data" class="mt-5" th:action="updatePass" method="post" th:object="${account}">
 		<div class="container p-3 border">
-			<h1 class="text-center pb-3">Update Account</h1>
+			<h1 class="text-center pb-3">Change Password</h1>
 
-			<div class="row pb-2 d-flex justify-content-around">
+			<div class="pb-2 d-flex justify-content-around">
 				<div class="col-5">
 					<label for="username" class="form-lable">User Name</label>
-					<input type="text" th:field="*{username}" id="username" class="form-control" placeholder="User Name" readonly="readonly" />
+					<input type="text" th:field="*{username}" id="username" class="form-control" placeholder="User Name" disabled="disabled" />
 				</div>
+			</div>
 
+			<div class="pb-2 d-flex justify-content-around">
 				<div class="col-5">
 					<label for="password" class="form-lable">Pass World</label>
-					<div th:if="${account.active == 0}" class="input-group">
+					<div class="input-group">
 						<input type="password" th:field="*{password}" class="form-control border-right-0" id="password" name="password" placeholder="Please enter your password" />
 						<span class="input-group-text border-left-0 bg-white" style="border-radius: 0 0.25rem 0.25rem 0;">
 							<svg id="show-pass" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
@@ -35,57 +37,23 @@
 						</span>
 					</div>
 
-					<div th:if="${account.active == 1}">
-						<input disabled="disabled" type="password" value="xxxxxxxx" id="password" class="form-control" placeholder="Pass World" />
-					</div>
-
 					<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
 				</div>
 			</div>
 
-			<div class="row pb-2 d-flex justify-content-around">
-				<div class="col-5">
-					<label for="role" class="form-lable">Role</label>
-					<input type="hidden" th:field="*{role}" readonly="readonly" />
-					<select id="role" th:field="*{role}" class="form-control" disabled="disabled">
-						<option value="1">ADMIN</option>
-						<option value="3">RESIDENT</option>
-						<option value="2">MANAGE</option>
-						<option value="4">EMPLOYEE</option>
-					</select>
-				</div>
-
-				<div class="col-5">
-					<label for="active" class="form-lable">Active</label>
-					<div th:if="${account.active == 0}">
-						<select id="active" th:field="*{active}" class="form-control" required>
-							<option value="0">Non-Active</option>
-							<option value="1">Active</option>
-						</select>
-					</div>
-					<div th:if="${account.active == 1}">
-						<input type="hidden" th:field="*{active}" readonly="readonly" />
-						<select id="active" class="form-control" disabled="disabled">
-							<option>Active</option>
-						</select>
-					</div>
-				</div>
-			</div>
-
 			<div class="d-flex justify-content-end">
-				<button class="btn btn-primary col-2" type="submit">
+				<button onclick="validate(event)" class="btn btn-primary col-2" type="submit">
 					Update
 				</button>
 
-				<button onclick="window.location.href='list';" class="btn btn-secondary col-2 ml-2" type="reset">
-					Back
+				<button onclick="window.location.href='/'" class="btn btn-secondary col-2 ml-2" type="reset">
+					Back Home
 				</button>
 			</div>
 		</div>
 	</form>
 
 	<script th:src="@{/common/js/login.js}"></script>
-	<script th:src="@{/Account/js/update.js}"></script>
 </body>
 
 </html>

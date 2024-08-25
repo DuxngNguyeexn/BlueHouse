@@ -46,9 +46,17 @@ public class NotiService {
 	public Page<Notification> findByIDSend(Pageable pageable, String id) {
 		return receiRepo.findByIDSend(id, pageable);
 	}
+	
+	public Page<Notification> findByIDSendKey(Pageable pageable, String id, String keyword) {
+		return receiRepo.findByIDSendKey(keyword, id, pageable);
+	}
 
 	public Page<Receiver> findByIDSeen(Pageable pageable, String id) {
 		return receiRepo.findByIDSeen(id, pageable);
+	}
+	
+	public Page<Receiver> findByIDSeenKey(Pageable pageable, String id, String keyword) {
+		return receiRepo.findByIDSeenKey(keyword, id, pageable);
 	}
 
 	public List<Receiver> findNotiUnSeen(String id) {
