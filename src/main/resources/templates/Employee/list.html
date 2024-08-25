@@ -5,6 +5,38 @@
 	<meta charset="UTF-8" />
 	<title>Employee</title>
 	<link rel="stylesheet" th:href="@{/employee/css/list.css}" />
+
+	<style type="text/css">
+		.table-container {
+			overflow-x: auto;
+			position: relative;
+		}
+
+		th.sticky-left,
+		td.sticky-left {
+			position: sticky;
+			left: 0;
+			background: white;
+			z-index: 1;
+		}
+
+		th.sticky-right,
+		td.sticky-right {
+			position: sticky;
+			right: 0;
+			background: white;
+			z-index: 1;
+		}
+
+		th.sticky-left {
+			z-index: 2;
+		}
+
+		th.sticky-right {
+			z-index: 2;
+		}
+	</style>
+
 </head>
 
 <body layout:fragment="content">
@@ -44,11 +76,11 @@
 		</ul>
 
 		<div id="All" class="tabcontent">
-			<div class="tableFixHead border-right border-left border-bottom">
+			<div class="tableFixHead border-right border-left border-bottom table-container">
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">Employee ID</th>
+							<th class="sticky-left" scope="col">Employee ID</th>
 							<th scope="col">Employee Name</th>
 							<th scope="col">National ID</th>
 							<th scope="col">Date Of Birth</th>
@@ -57,14 +89,14 @@
 							<th scope="col">Duty</th>
 							<th scope="col">Office</th>
 							<th scope="col">Phone Number</th>
-							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
+							<th class="sticky-right" sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
 								Action
 							</th>
 						</tr>
 					</thead>
 					<tbody th:each="emp : ${listEmpPaggin}">
 						<tr>
-							<td th:text="${emp.employeeID}"></td>
+							<td class="sticky-left" th:text="${emp.employeeID}"></td>
 							<td th:text="${emp.fullName}"></td>
 							<td th:text="${emp.nationalID}"></td>
 							<td th:text="${emp.dateOfBirth}"></td>
@@ -73,7 +105,7 @@
 							<td th:text="${emp.duty}"></td>
 							<td th:text="${emp.office}"></td>
 							<td th:text="${emp.phoneNumber}"></td>
-							<td sec:authorize="hasAnyRole('ADMIN', 'MANAGE')">
+							<td class="sticky-right" sec:authorize="hasAnyRole('ADMIN', 'MANAGE')">
 								<a class="text-decoration-none mr-2" th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
@@ -91,11 +123,11 @@
 		</div>
 
 		<div id="Services" class="tabcontent" style="display: none;">
-			<div class="tableFixHead border-right border-left border-bottom">
+			<div class="tableFixHead border-right border-left border-bottom table-container">
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">Employee ID</th>
+							<th class="sticky-left" scope="col">Employee ID</th>
 							<th scope="col">Employee Name</th>
 							<th scope="col">National ID</th>
 							<th scope="col">Date Of Birth</th>
@@ -103,14 +135,14 @@
 							<th scope="col">Country</th>
 							<th scope="col">Duty</th>
 							<th scope="col">Phone Number</th>
-							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
+							<th class="sticky-right" sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
 								Action
 							</th>
 						</tr>
 					</thead>
 					<tbody th:each="emp : ${listEmp}">
 						<tr th:if="${emp.office == 'Services'}">
-							<td th:text="${emp.employeeID}"></td>
+							<td class="sticky-left" th:text="${emp.employeeID}"></td>
 							<td th:text="${emp.fullName}"></td>
 							<td th:text="${emp.nationalID}"></td>
 							<td th:text="${emp.dateOfBirth}"></td>
@@ -118,7 +150,7 @@
 							<td th:text="${emp.country}"></td>
 							<td th:text="${emp.duty}"></td>
 							<td th:text="${emp.phoneNumber}"></td>
-							<td sec:authorize="hasAnyRole('ADMIN', 'MANAGE')">
+							<td class="sticky-right" sec:authorize="hasAnyRole('ADMIN', 'MANAGE')">
 								<a class="text-decoration-none mr-2" th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
@@ -133,11 +165,11 @@
 		</div>
 
 		<div id="Engineering" class="tabcontent" style="display: none;">
-			<div class="tableFixHead border-right border-left border-bottom">
+			<div class="tableFixHead border-right border-left border-bottom table-container">
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">Employee ID</th>
+							<th class="sticky-left" scope="col">Employee ID</th>
 							<th scope="col">Employee Name</th>
 							<th scope="col">National ID</th>
 							<th scope="col">Date Of Birth</th>
@@ -145,14 +177,14 @@
 							<th scope="col">Country</th>
 							<th scope="col">Duty</th>
 							<th scope="col">Phone Number</th>
-							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
+							<th class="sticky-right" sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
 								Action
 							</th>
 						</tr>
 					</thead>
 					<tbody th:each="emp : ${listEmp}">
 						<tr th:if="${emp.office == 'Engineering'}">
-							<td th:text="${emp.employeeID}"></td>
+							<td class="sticky-left" th:text="${emp.employeeID}"></td>
 							<td th:text="${emp.fullName}"></td>
 							<td th:text="${emp.nationalID}"></td>
 							<td th:text="${emp.dateOfBirth}"></td>
@@ -160,7 +192,7 @@
 							<td th:text="${emp.country}"></td>
 							<td th:text="${emp.duty}"></td>
 							<td th:text="${emp.phoneNumber}"></td>
-							<td sec:authorize="hasAnyRole('ADMIN', 'MANAGE')">
+							<td class="sticky-right" sec:authorize="hasAnyRole('ADMIN', 'MANAGE')">
 								<a class="text-decoration-none mr-2" th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
@@ -175,11 +207,11 @@
 		</div>
 
 		<div id="Environment" class="tabcontent" style="display: none;">
-			<div class="tableFixHead border-right border-left border-bottom">
+			<div class="tableFixHead border-right border-left border-bottom table-container">
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">Employee ID</th>
+							<th class="sticky-left" scope="col">Employee ID</th>
 							<th scope="col">Employee Name</th>
 							<th scope="col">National ID</th>
 							<th scope="col">Date Of Birth</th>
@@ -187,14 +219,14 @@
 							<th scope="col">Country</th>
 							<th scope="col">Duty</th>
 							<th scope="col">Phone Number</th>
-							<th sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
+							<th class="sticky-right" sec:authorize="hasAnyRole('ADMIN', 'MANAGE')" scope="col">
 								Action
 							</th>
 						</tr>
 					</thead>
 					<tbody th:each="emp : ${listEmp}">
 						<tr th:if="${emp.office == 'Environment'}">
-							<td th:text="${emp.employeeID}"></td>
+							<td class="sticky-left" th:text="${emp.employeeID}"></td>
 							<td th:text="${emp.fullName}"></td>
 							<td th:text="${emp.nationalID}"></td>
 							<td th:text="${emp.dateOfBirth}"></td>
@@ -202,7 +234,7 @@
 							<td th:text="${emp.country}"></td>
 							<td th:text="${emp.duty}"></td>
 							<td th:text="${emp.phoneNumber}"></td>
-							<td sec:authorize="hasAnyRole('ADMIN', 'MANAGE')">
+							<td class="sticky-right" sec:authorize="hasAnyRole('ADMIN', 'MANAGE')">
 								<a class="text-decoration-none mr-2" th:href="@{edit(employeeID=${emp.employeeID})}">
 									<i class="fa-solid fa-pen-to-square pencil"></i>
 								</a>
