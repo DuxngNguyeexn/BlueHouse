@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/Resident")
 public class ResidentController {
-	private final String uploadResident = "D:/Spring-Boot/imgdate";
+	private final String uploadResident = "E:\\Eclip\\img\\resident";
 	@Autowired
 	private ResidentService resident;
 
@@ -56,11 +56,9 @@ public class ResidentController {
 		}
 		if(file != null) {
 			  try {
-		            // Lưu file xuống ổ D
 		            String fileName = file.getOriginalFilename();
 		            Path path = Paths.get(uploadResident + File.separator + fileName);
 		            Files.write(path, file.getBytes());
-
 		           resi.setProfile(fileName);
 
 		        } catch (IOException e) {

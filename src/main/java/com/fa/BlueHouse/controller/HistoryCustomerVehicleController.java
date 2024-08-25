@@ -64,9 +64,9 @@ public class HistoryCustomerVehicleController {
 		model.addAttribute("listhiscusvehiPA", allHisCusVehi.getContent());
 		
 		if (search.equalsIgnoreCase("")) {
-			model.addAttribute("listFinancialSupportfee", hisCusVehiServices.findaHisCusVehi());
+			model.addAttribute("listhiscusvehi", hisCusVehiServices.findaHisCusVehi());
 		} else {
-			model.addAttribute("listFinancialSupportfee", hisCusVehiServices.findByKeyword(search));
+			model.addAttribute("listhiscusvehi", hisCusVehiServices.findByKeyword(search));
 		}
 		return "/HistoryCustomerVehicle/listHistoryCustomerVehicle";
 	}

@@ -8,19 +8,21 @@ public class ImgConfig  implements WebMvcConfigurer {
 	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	        // Cấu hình để truy cập vào ảnh trong thư mục 
 		  registry.addResourceHandler("/imagesRequest/**")
-          .addResourceLocations("file:///E:/TaiLieu/Mock%20project/request/img/");
+          .addResourceLocations("file:///E:/Eclip/img/request/");
+		  
 		  registry.addResourceHandler("/imagesRepair/**")
-          .addResourceLocations("file:///E:/TaiLieu/Mock%20project/repair/img/");
+          .addResourceLocations("file:///E:/Eclip/img/repair/");
+		  
 		  registry.addResourceHandler("/imagesReport/**")
-          .addResourceLocations("file:///E:/TaiLieu/Mock%20project/report/img/");
-		  registry.addResourceHandler("/imagesRepair/**")
-          .addResourceLocations("file:///E:/TaiLieu/Mock%20project/repair/img/");
+          .addResourceLocations("file:///E:/Eclip/img/report/");
+		  
 		  registry.addResourceHandler("/imgNotification/**")
 			.addResourceLocations("file:///E:/imgNoti/");
+		  
 		  registry.addResourceHandler("/imgResident/**")
-			.addResourceLocations("file:///D:/Spring-Boot/imgdate/");
+			.addResourceLocations("file:///E:/Eclip/img/resident/");
 		  registry.addResourceHandler("/imgEmployee/**")
-			.addResourceLocations("file:///D:/Spring-Boot/imgdate/");
+			.addResourceLocations("file:///E:/Eclip/img/employee/");
 		  }
 	 
 }
