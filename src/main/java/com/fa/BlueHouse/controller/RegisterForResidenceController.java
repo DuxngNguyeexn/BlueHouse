@@ -144,7 +144,11 @@ public class RegisterForResidenceController {
 	}
 	
 	@PostMapping("/update")
-	public String updateRegiForResi(@ModelAttribute("registesresi") RegisterForResidence registerForResidence) {
+	public String updateRegiForResi(@ModelAttribute("registesresi") RegisterForResidence registerForResidence, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = userDetails.getId();
+		Employee emp = residenceServices.findaByIdemp(id);
+		registerForResidence.setManagerCodeRegi(emp);
 		residenceServices.updateRegisterResi(registerForResidence);
 		return "redirect:/registerForResidence/list";
 	}

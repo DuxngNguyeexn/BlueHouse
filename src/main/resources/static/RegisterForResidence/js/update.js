@@ -51,10 +51,11 @@ document.getElementById('moveOutDate').addEventListener('change', validateMoveOu
 	function validateMoveOutDate() {
 		const moveOutDateInput = document.getElementById('moveOutDate');
 		const moveOutDate = new Date(moveOutDateInput.value);
-		const currentDate = new Date();
+		const moveInDateInput = document.getElementById('moveInDate');
+		const moveInDate = new Date(moveInDateInput.value);
 		const errorMessage = document.getElementById('moveOutDate-error');
 
-		if (moveOutDate <= currentDate) {
+		if (moveOutDate <= moveInDate) {
 			errorMessage.textContent = 'Move Out Date phải lớn hơn ngày hiện tại.';
 			moveOutDateInput.value = ''; // Xóa giá trị Move Out Date nếu không hợp lệ
 		} else {
