@@ -35,7 +35,7 @@ import com.fa.BlueHouse.services.ResidentService;
 @Controller
 @RequestMapping(path = "notification")
 public class NotiController {
-	private final String uploadDirRequest = "E:\\imgNoti";
+	private final String uploadDirRequest = "E:\\Eclip\\img\\event";
 	private Notification notificationSend;
 
 	@Autowired

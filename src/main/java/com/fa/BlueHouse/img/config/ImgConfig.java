@@ -17,7 +17,7 @@ public class ImgConfig  implements WebMvcConfigurer {
           .addResourceLocations("file:///E:/Eclip/img/report/");
 		  
 		  registry.addResourceHandler("/imgNotification/**")
-			.addResourceLocations("file:///E:/imgNoti/");
+			.addResourceLocations("file:///E:/Eclip/img/event/");
 		  
 		  registry.addResourceHandler("/imgResident/**")
 			.addResourceLocations("file:///E:/Eclip/img/resident/");

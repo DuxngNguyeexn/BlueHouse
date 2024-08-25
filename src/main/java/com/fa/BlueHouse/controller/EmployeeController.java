@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
 @RequestMapping(path = "/employee")
 public class EmployeeController {
 
-	private final String uploadEmployee = "D:/Spring-Boot/imgdate";
+	private final String uploadEmployee = "E:\\Eclip\\img\\employee";
 	@Autowired
 	private EmployeeService eService;
 
@@ -159,10 +159,24 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/update")
-	public String updateEmp(@Valid @ModelAttribute("employee") Employee employee, BindingResult result, Model model) {
+	public String updateEmp(@Valid @ModelAttribute("employee") Employee employee, BindingResult result, Model model,@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors()) {
 			return "Employee/EditEmployee";
+		}
+		
+		if (file != null) {
+			try {
+				// Lưu file xuống ổ D
+				String fileName = file.getOriginalFilename();
+				Path path = Paths.get(uploadEmployee + File.separator + fileName);
+				Files.write(path, file.getBytes());
+
+				employee.setProfile(fileName);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		eService.saveEmployee(employee);

@@ -38,7 +38,7 @@ import com.fa.BlueHouse.services.ResidentService;
 @Controller
 @RequestMapping(path = "/event")
 public class EventController {
-	private final String uploadDirRequest = "E:\\imgEvent";
+	private final String uploadDirRequest = "E:\\Eclip\\img\\event";
 
 	@Autowired
 	private EventService eventService;
