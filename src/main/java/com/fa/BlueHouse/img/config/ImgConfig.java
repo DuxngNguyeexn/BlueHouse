@@ -8,16 +8,14 @@ public class ImgConfig  implements WebMvcConfigurer {
 	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	        // Cấu hình để truy cập vào ảnh trong thư mục 
 		  registry.addResourceHandler("/imagesRequest/**")
-          .addResourceLocations("file:///C:/img/request")
+          .addResourceLocations("file:///E:/TaiLieu/Mock%20project/request/img/")
           ;
 		  registry.addResourceHandler("/imagesRepair/**")
-          .addResourceLocations("file:///C:/img/repair");
+          .addResourceLocations("file:///E:/TaiLieu/Mock%20project/repair/img/");
 		  
 		  registry.addResourceHandler("/imagesReport/**")
-          .addResourceLocations("file:///C:\\img\\report");
+          .addResourceLocations("file:///E:/TaiLieu/Mock%20project/report/img/");
 		  
-		  registry.addResourceHandler("/imagesRepair/**")
-          .addResourceLocations("file:///E:/TaiLieu/Mock%20project/repair/img/");
 		  registry.addResourceHandler("/imgNotification/**")
 			.addResourceLocations("file:///E:/imgNoti/");
 		  

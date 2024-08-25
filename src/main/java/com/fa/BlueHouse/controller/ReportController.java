@@ -78,7 +78,7 @@ public class ReportController {
 	@PostMapping("add")
 	public String save(
 			@ModelAttribute(name = "form") Report form,
-			BindingResult bindingResult,
+			BindingResult bindingResult,Principal principal,
 			 @RequestParam("files") MultipartFile[] files,
 			 RedirectAttributes redirectAttributes) {
 		List<ImgReport> images = new ArrayList<>();
@@ -98,6 +98,11 @@ public class ReportController {
 	            }
 	        }
 	    }
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = userDetails.getId();
+		Resident resident = residentService.findById(id);
+		form.setResident(resident);
+		System.out.println(form.getResident().getNameResident());
 		form.setImgReports(images);
 		form.setIdForm(reportService.generateNewId());
 		form.setStatus("Send");

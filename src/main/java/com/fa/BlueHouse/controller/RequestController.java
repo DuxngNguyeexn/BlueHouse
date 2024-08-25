@@ -123,7 +123,10 @@ public class RequestController {
 					e.printStackTrace();
 				}
 			}
-		}
+		}AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = userDetails.getId();
+		Resident resident = residentService.findById(id);
+		form.setResident(resident);
 		form.setImgRequests(images);
 		form.setIdForm(requestService.generateNewId());
 		form.setStatus("Send");
