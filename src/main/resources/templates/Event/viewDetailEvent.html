@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>List Notification</title>
+	<title>Event Management</title>
 	<link rel="stylesheet" th:href="@{/account/css/list.css}" />
 </head>
 
@@ -31,7 +31,7 @@
 						<th scope="col">Name Participant</th>
 						<th scope="col">Mission</th>
 						<th scope="col">Note</th>
-						
+
 						<th th:if="${author == 1}" sec:authorize="hasRole('ADMIN')" scope="col">Action</th>
 					</tr>
 				</thead>
@@ -39,15 +39,15 @@
 					<tr>
 						<td th:if="${parti.participantEmp != null}" th:text="${parti.participantEmp.fullName}"></td>
 						<td th:if="${parti.participantResi != null}" th:text="${parti.participantResi.nameResident}"></td>
-						
+
 						<td th:text="${parti.mission}"></td>
 						<td th:text="${parti.note}"></td>
-						
+
 						<td th:if="${author == 1}" sec:authorize="hasRole('ADMIN')">
 							<a th:data-value="${parti.idParticipants}" onclick="window.location.href='Participants/edit?id='+this.dataset.value;" class="text-decoration-none mr-2" style="cursor: pointer;">
 								<i class="fa-solid fa-pen-to-square pencil"></i>
 							</a>
-							
+
 							<a th:data-value="${parti.idParticipants}" onclick="window.location.href='Participants/delete?id='+this.dataset.value;" class="text-decoration-none mr-2" style="cursor: pointer;">
 								<i class="fa-solid fa-trash trash"></i>
 							</a>
