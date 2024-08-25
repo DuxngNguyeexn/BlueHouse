@@ -114,7 +114,11 @@ public class AdvertisingContractController {
 	}
 	
 	@PostMapping("/update")
-	public String updateAdConservices(@ModelAttribute("advcontract") AdvertisingContract advertisingContract) {
+	public String updateAdConservices(@ModelAttribute("advcontract") AdvertisingContract advertisingContract, Principal principal) {
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = userDetails.getId();
+		Employee emp = adConservices.findaByIdemp(id);
+		advertisingContract.setEmpadv(emp);
 		adConservices.updateadv(advertisingContract);
 		return "redirect:/advertisingContract/list";
 	}
