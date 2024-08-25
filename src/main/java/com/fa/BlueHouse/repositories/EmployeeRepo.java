@@ -23,5 +23,8 @@ public interface EmployeeRepo extends JpaRepository<Employee, String> {
 
 	@Query("SELECT e FROM Employee e WHERE e.duty = 'Administrator'")
 	List<Employee> findAdministrator();
+	
+	@Query("SELECT MAX(e.employeeID) FROM Employee e")
+    String findMaxId();
 
 }
