@@ -57,13 +57,13 @@ public class ResidentService {
     public String generateNewId() {
 		String maxId = repositori.findMaxId();
 		
-		if(maxId == null) return "RS001";
+		if(maxId == null) return "R001";
 		
 		int numberic = Integer.parseInt(maxId.substring(2));
 		
 		numberic++;
 		
-		return String.format("RS%03d", numberic);
+		return String.format("R%03d", numberic);
 	}
     
 }

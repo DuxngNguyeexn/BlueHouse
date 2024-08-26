@@ -36,10 +36,13 @@
 		<div class="row justify-content-center align-items-stretch">
 			<!-- Image Section (30%) -->
 			<div class="col-md-4 d-flex">
-				<div class="card shadow-sm flex-fill">
-					<img th:if="${role == 'ROLE_RESIDENT' || role == 'ROLE_ADMIN'}" th:src="@{'/imgResident/' + ${userDetails.profile}}" class="card-img-top img-fluid img-fixed" alt="User Image">
-					<img th:if="${role == 'ROLE_MANAGE' || role == 'ROLE_EMPLOYEE'}" th:src="@{'/imgEmployee/' + ${userDetails.profile}}" class="card-img-top img-fluid img-fixed" alt="User Image">
-				</div>
+				
+					<div class="card shadow-sm flex-fill">
+						<img th:if="${role == 'ROLE_RESIDENT' || role == 'ROLE_ADMIN'}" th:src="@{'/imgResident/' + ${userDetails.profile}}" class="card-img-top img-fluid img-fixed" alt="User Image">
+						<img th:if="${role == 'ROLE_MANAGE' || role == 'ROLE_EMPLOYEE'}" th:src="@{'/imgEmployee/' + ${userDetails.profile}}" class="card-img-top img-fluid img-fixed" alt="User Image">
+					</div>
+				
+			
 			</div>
 
 			<!-- User Information Section (70%) -->
@@ -47,7 +50,7 @@
 				<div class="card shadow-sm p-4 flex-fill">
 					<h3 class="card-title text-center">User Profile</h3>
 					<hr />
-					<div class="card-body" th:if="${role == 'ROLE_RESIDENT' || role == 'ROLE_ADMIN'}">
+					<div class="card-body" th:if="${(role == 'ROLE_RESIDENT' || role == 'ROLE_ADMIN') && userDetails != null}">
 						<p>
 							<strong>Name:</strong>
 							<span th:text="${userDetails.nameResident}"></span>

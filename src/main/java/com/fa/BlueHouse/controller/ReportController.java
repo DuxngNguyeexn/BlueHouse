@@ -39,75 +39,80 @@ public class ReportController {
 	ReportService reportService;
 	@Autowired
 	ResidentService residentService;
-	private final String uploadDirReport = "E:\\TaiLieu\\Mock project\\report\\img";
+	private final String uploadDirReport = "E:\\Eclip\\img\\report";
+
 	@GetMapping("list")
 	public String showAll(@RequestParam(name = "page", defaultValue = "1") int page, Model model, Principal principal) {
 		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 		Page<Report> listAll = null;
-		if("ROLE_ADMIN".equalsIgnoreCase(userDetails.getRole()) || "ROLE_MANAGE".equalsIgnoreCase(userDetails.getRole())) {
+		if ("ROLE_ADMIN".equalsIgnoreCase(userDetails.getRole())
+				|| "ROLE_MANAGE".equalsIgnoreCase(userDetails.getRole())) {
 			listAll = reportService.showAll(pageRequest);
-		}else if("ROLE_RESIDENT".equalsIgnoreCase(userDetails.getRole())) {
+		} else if ("ROLE_RESIDENT".equalsIgnoreCase(userDetails.getRole())) {
 			listAll = reportService.findRPByResidentId(userDetails.getId(), pageRequest);
-		}else {
+		} else {
 			return "redirect:/";
 		}
 		model.addAttribute("currentPage", page);
-		int totalPages ;
-		if(listAll.getTotalPages() < 1) {
-			totalPages = 1 ;
-		}else {
+		int totalPages;
+		if (listAll.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
 			totalPages = listAll.getTotalPages();
 		}
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("listAll", listAll.getContent());
 		return "Form/Report/list";
 	}
+
 	@GetMapping("showAdd")
 	public String showAdd(Principal principal, Model model) {
 		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
 		String id = userDetails.getId();
 		Resident resident = residentService.findById(id);
-		Report form = new Report();	
+		Report form = new Report();
 		form.setResident(resident);
 		model.addAttribute("form", form);
 		return "Form/Report/add";
 	}
-	
+
 	@PostMapping("add")
-	public String save(
-			@ModelAttribute(name = "form") Report form,
-			BindingResult bindingResult,
-			 @RequestParam("files") MultipartFile[] files,
-			 RedirectAttributes redirectAttributes) {
+	public String save(@ModelAttribute(name = "form") Report form, BindingResult bindingResult, Principal principal,
+			@RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes) {
 		List<ImgReport> images = new ArrayList<>();
 		for (MultipartFile file : files) {
-	        if (file != null && !file.isEmpty()) {
-	            try {
-	            	String fileName = file.getOriginalFilename();
-	                Path path = Paths.get(uploadDirReport + File.separator + fileName);
-	                Files.write(path, file.getBytes());
+			if (file != null && !file.isEmpty()) {
+				try {
+					String fileName = file.getOriginalFilename();
+					Path path = Paths.get(uploadDirReport + File.separator + fileName);
+					Files.write(path, file.getBytes());
 
-	                ImgReport image = new ImgReport();
-	                image.setImagePath(fileName);
-	                image.setReport(form);
-	                images.add(image);
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }
+					ImgReport image = new ImgReport();
+					image.setImagePath(fileName);
+					image.setReport(form);
+					images.add(image);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
+		String id = userDetails.getId();
+		Resident resident = residentService.findById(id);
+		form.setResident(resident);
 		form.setImgReports(images);
 		form.setIdForm(reportService.generateNewId());
 		form.setStatus("Send");
 		form.setDateSent(new Date());
 		reportService.save(form);
 		return "redirect:list";
-		
+
 	}
+
 	@GetMapping("showDetail")
-	public String detail(Model model, Principal principal,@RequestParam(name ="id") String id) {
+	public String detail(Model model, Principal principal, @RequestParam(name = "id") String id) {
 		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
 		String role = userDetails.getRole();
 		Report form = reportService.findById(id);
@@ -115,8 +120,10 @@ public class ReportController {
 		model.addAttribute("role", role);
 		return "Form/Report/detail";
 	}
+
 	@PostMapping("opinion")
-	public String opinion(Model model, Principal principal,@RequestParam(name ="idForm") String id,@RequestParam(name ="opinion") String opinion) {
+	public String opinion(Model model, Principal principal, @RequestParam(name = "idForm") String id,
+			@RequestParam(name = "opinion") String opinion) {
 		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
 		String role = userDetails.getRole();
 		Report form = reportService.findById(id);
@@ -130,29 +137,32 @@ public class ReportController {
 		model.addAttribute("role", role);
 		return "Form/Report/detail";
 	}
+
 	@GetMapping("search")
-	public String search( @RequestParam(name = "searchKeyword", defaultValue = "") String keyword ,@RequestParam(name = "page", defaultValue = "1") int page, Model model, Principal principal) {
+	public String search(@RequestParam(name = "searchKeyword", defaultValue = "") String keyword,
+			@RequestParam(name = "page", defaultValue = "1") int page, Model model, Principal principal) {
 		AccountDTO userDetails = (AccountDTO) ((Authentication) principal).getPrincipal();
 		int pageSize = 6;
 		PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 		Page<Report> listAll = null;
-		if("ROLE_ADMIN".equalsIgnoreCase(userDetails.getRole()) || "ROLE_MANAGE".equalsIgnoreCase(userDetails.getRole())) {
-			listAll = reportService.findByKeyword(pageRequest,keyword);
-		}else if("ROLE_RESIDENT".equalsIgnoreCase(userDetails.getRole())) {
-			listAll = reportService.findRPByResidentIdAndKeyword(userDetails.getId(), pageRequest,keyword);
-		}else {
+		if ("ROLE_ADMIN".equalsIgnoreCase(userDetails.getRole())
+				|| "ROLE_MANAGE".equalsIgnoreCase(userDetails.getRole())) {
+			listAll = reportService.findByKeyword(pageRequest, keyword);
+		} else if ("ROLE_RESIDENT".equalsIgnoreCase(userDetails.getRole())) {
+			listAll = reportService.findRPByResidentIdAndKeyword(userDetails.getId(), pageRequest, keyword);
+		} else {
 			return "redirect:/";
 		}
 		model.addAttribute("currentPage", page);
-		int totalPages ;
-		if(listAll.getTotalPages() < 1) {
-			totalPages = 1 ;
-		}else {
+		int totalPages;
+		if (listAll.getTotalPages() < 1) {
+			totalPages = 1;
+		} else {
 			totalPages = listAll.getTotalPages();
 		}
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("listAll", listAll.getContent());
 		return "Form/Report/list";
 	}
-	
+
 }

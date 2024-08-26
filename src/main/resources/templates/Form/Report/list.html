@@ -54,7 +54,7 @@
 			<tbody th:each="l : ${listAll}" class="text-center">
 				<tr>
 					<td th:text="${l.idForm}"></td>
-					<td th:text="${l.resident.nameResident}"></td>
+					 <td th:text="${l.resident != null ? l.resident.nameResident : ' '}"></td>
 					<td th:text="${l.dateSent}"></td>
 					<td th:text="${l.status}"></td>
 					<td th:text="${l.admin != null ? l.admin.nameResident : '  '}"></td>

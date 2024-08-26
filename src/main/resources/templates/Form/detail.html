@@ -265,7 +265,7 @@
                             <input type="text" name="idForm" hidden th:value="${form.idForm}">
                             <select class="form-control" id="optionSelect" name="selectedEmployee">
                                 <option hidden value="">Select an employee...</option>
-                                <option th:each="e : ${employees}" th:value="${e.employeeID}" th:text="${e.fullName}">
+                                <option th:each="e : ${employees}" th:value="${e.employeeID}" th:text="${e.fullName + ' - ' + e.employeeID}">
                                 </option>
                             </select>
                             <span id="select-error" class="text-danger h5 ml-2 mt-2">Please choose employee...</span>
